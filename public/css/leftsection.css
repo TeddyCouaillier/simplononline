@@ -1,0 +1,42 @@
+.nav-left{
+    position: fixed;
+    height: 100vh;
+    width: 225px;
+    background: #333;
+}
+.nav-left *{
+    color: white !important;
+}
+.nav-left img{
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    background: white;
+    margin:10px auto;
+
+}
+.nav-left a{
+    font-size: .80em;
+}
+.nav-left a:hover{
+    color: rgba(242,72,71,1) !important;
+    font-weight: 500 !important;
+}
+.nav-left hr{
+    border-color: white;
+    width: 200px;
+}
+.nav-left div:last-child{
+    margin: 0;
+}
+.nav-left .status{
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.nav-left .status::-webkit-scrollbar{
+    display: none;
+}
+.nav-left button{
+    width: 200px !important;
+    font-size: .8em;
+}
