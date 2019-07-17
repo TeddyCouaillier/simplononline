@@ -29,11 +29,11 @@
 .nav-left div:last-child{
     margin: 0;
 }
-.nav-left .status{
+.nav-left .project-status{
     max-height: 100%;
     overflow-y: scroll;
 }
-.nav-left .status::-webkit-scrollbar{
+.nav-left .project-status::-webkit-scrollbar{
     display: none;
 }
 .nav-left button{
