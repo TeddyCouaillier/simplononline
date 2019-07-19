@@ -1,0 +1,88 @@
+/* LEFT SECTION */
+.nav-left{
+    position: fixed;
+    height: 100vh;
+    width: 225px;
+    background: #373c42;
+}
+.nav-left *{
+    color: white !important;
+}
+.nav-left img{
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    background: white;
+    margin:10px auto;
+
+}
+.nav-left a{
+    font-size: .80em;
+}
+.nav-left a:hover{
+    color: rgba(242,72,71,1) !important;
+    font-weight: 500 !important;
+}
+.nav-left hr{
+    border-color: white;
+    width: 200px;
+}
+.nav-left div:last-child{
+    margin: 0;
+}
+.nav-left .project-status{
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.nav-left .project-status::-webkit-scrollbar{
+    display: none;
+}
+.nav-left button{
+    width: 200px !important;
+    font-size: .8em;
+}
+.nav-left ul li{
+    font-size: 1.15em;
+}
+
+/* HEADER NAV */
+.nav-top{
+    position: fixed;
+    top: 0;
+    background-color: white;
+    height: 40px;
+    width: calc(100% - 225px);
+    transform: translateX(225px);
+    z-index: 1;
+    font-size: .84em;
+    text-transform: uppercase;
+}
+.nav-top ul li:hover{
+    border-bottom: 2px solid rgba(242,72,71,1);
+}
+.nav-top .logout i{
+    font-size: 1.3em;
+    transition: all .2s linear;
+}
+.nav-top .logout:hover i{
+    color: rgba(242,72,71,1);
+}
+
+/* MAIN SECTION */
+.main-content{
+    width: calc(100% - 225px);
+    transform: translate(225px,40px);
+    background: #f6f8f9;
+}
+
+.main{
+    min-height: calc(100vh - 65px);
+    padding: 30px 100px;
+}
+
+footer{
+    height: 20px;
+    text-align: center;
+    font-size: .7em;
+    color: #555;
+}

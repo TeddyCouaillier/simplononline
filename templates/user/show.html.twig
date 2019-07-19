@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1>{{ user.fullname }}</h1>
+            {# <span class="badge badge-pill badge-danger">Promo 1.2</span> #}
+        </div>
+        <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm">
+    </div>
+    <hr>
+    <div class="bg-grey user-info">
+        <div class="user-primary-info">
+            <b>Info personnelles</b>
+            {% if app.user.id == user.id %}
+            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            {% endif %}
+            <ul class="mt-2">
+                <li><i class="fas fa-envelope"></i> {{user.email }}</li>
+                <li>
+                    <i class="fas fa-mobile-alt"></i>
+                    {% if user.tel != null %}
+                    {{ user.tel }}
+                    {% else %}
+                    <em>Pas de numéro de téléphone</em>
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {% if user.zipcode != null or user.city != null %}
+                    {{ user.zipcode }} {{ user.city }}
+                    {% else %}
+                    <em>Pas d'adresse</em>
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-globe"></i>
+                    {% if user.website != null %}
+                    <a href="{{ user.website }}" target="_blank">Site internet</a>
+                    {% else %}
+                    <em>Pas de site internet</em>
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fab fa-github"></i>
+                    {% if user.github != null %}
+                    <a href="{{ user.github }}" target="_blank">GitHub</a>
+                    {% else %}
+                    <em>Pas de lien github</em>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <div class="user-skills">
+            <b>Compétences</b>
+            {% if app.user.id == user.id %}
+            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            {% endif %}
+        </div>
+        <div class="user-stage">
+            <b>Stages</b>
+            {% if app.user.id == user.id %}
+            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            {% endif %}
+        </div>
+        <div class="user-project">
+            <b>Liste des projets</b>
+            {% if app.user.id == user.id %}
+            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            {% endif %}
+        </div>
+        <div class="user-portfolio">
+            <b>Portfolio</b>
+            {% if app.user.id == user.id %}
+            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
