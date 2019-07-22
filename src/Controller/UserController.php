@@ -5,17 +5,21 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/user", name="user_")
+ */
 class UserController extends AbstractController
 {
     /**
      * Create an user
-     * @Route("/user/create", name="create_user")
+     * @Route("/create", name="create")
      * @param Request $request
      * @param ObjectManager $manager
      * @param UserPasswordEncoderInterface $encoder
@@ -37,7 +41,7 @@ class UserController extends AbstractController
                 'success',
                 'L\'utilisateur a bien été créé.'
             );
-            return $this->redirectToRoute("show_user",['id' => $user->getId()]);
+            return $this->redirectToRoute("user_show",['id' => $user->getId()]);
         }
 
         return $this->render('user/create.html.twig', [
@@ -47,14 +51,13 @@ class UserController extends AbstractController
 
     /**
      * Edit the current user
-     * @Route("/user/edit", name="edit_user")
+     * @Route("/edit/{id}", name="edit")
      * @param User $user
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
      */
-    public function editUser(Request $request, ObjectManager $manager){
-        $user = $this->getUser();
+    public function editUserAccount(User $user, Request $request, ObjectManager $manager){
         $imageName = "";
 
         $currentAvatar = $user->getAvatar();
@@ -88,7 +91,7 @@ class UserController extends AbstractController
                     'success',
                     'L\'utilisateur a bien été mis à jour.'
                 );
-                return $this->redirectToRoute('show_user', ['id'=> $user->getId()]);
+                return $this->redirectToRoute('user_show', ['id'=> $user->getId()]);
             }
         }
 
@@ -99,8 +102,21 @@ class UserController extends AbstractController
     }
 
     /**
+     * Show all users
+     * @Route("/all", name="all")
+     * @param UserRepository $rep
+     * @return Response
+     */
+    public function allUsers(UserRepository $rep)
+    {
+        return $this->render('user/all.html.twig', [
+            'users' => $rep->findAll()
+        ]);
+    }
+
+    /**
      * Show a specific user
-     * @Route("/user/{id}", name="show_user")
+     * @Route("/{id}", name="show")
      * @param User $user
      * @return Response
      */
@@ -109,5 +125,19 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user' => $user
         ]);
+    }
+
+    /**
+     * Delete a specific user
+     * @Route("/{id}/delete", name="delete")
+     * @param User $user
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function deleteUser(User $user, ObjectManager $manager)
+    {
+        $manager->remove($user);
+        $manager->flush();
+        return $this->redirectToRoute('user_all');
     }
 }

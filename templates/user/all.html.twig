@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+{% block title %}Liste des simploniens{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des simploniens</h1>
+    <hr>
+    <div class="bg-grey rounded p-1">
+        {% for user in users %}
+        {{ template.delete(user.id, 'user_delete') }}
+        <div class="d-flex justify-content-between bg-white rounded all-users">
+            {% if user.promotion != null %}
+            <div>
+                <img src="/img/icon.png" class="icon mr-2">
+                <span>{{ user.fullname }}</span>
+            </div>
+            <div>
+                <em class="mr-3">{{ user.promotion.nickname }}</em> 
+                <span class="mr-3">{{ user.promotion.label }}</span>
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ user.id }}" data-content='
+                <a href="{{ path('user_edit') }}" class="subnav-link">Modifier</a><br>
+                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                </i>
+            </div>
+            {% else %}
+            <div>
+                <img src="/img/icon_dark.png" class="icon mr-2">
+                <span>{{ user.fullname }}</span>
+            </div>
+            <div>
+                <em class="mr-3">Pas de promo</em>
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ user.id }}" data-content='
+                <a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
+                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                </i>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="bg-white rounded p-2 m-1">
+            Liste vide - <a href="{{ path('user_create') }}" class="bold">Créer un simplonien</a>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{# Message template #}
+{% macro message(class, message) %}
+<div class="message {{ class }}">
+    {{ message | raw }}
+    <button type="button" class="close close-message">
+        <span>&times;</span>
+    </button>
+</div>
+{% endmacro %}
+
+{# Error message for a form #}
+{% macro checkMessage(form) %}
+    {% if not form.vars.valid %}
+    <div class="message warning">
+        Il y a un ou plusieurs erreurs de saisie.
+        <button type="button" class="close close-message">
+            <span>&times;</span>
+        </button>
+    </div>
+    {% endif %}
+{% endmacro %}
+
+{# Link to the modal #}
+{% macro linkModal(id, class, icon) %}
+    <a data-modalid="{{ id }}" class="{{class}}">{{ icon | raw }}</a>
+{% endmacro %}
+
+{# Delete confirm modal #}
+{% macro delete(id, route) %}
+    <div id="myModal" class="modal" data-modalid="{{ id }}">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-75 mx-auto">
+                <h2>Confirmation de suppression</h2>
+                <hr>
+                <div class="text-center mb-4">
+                    <b>Êtes-vous sur de vouloir supprimer cet élément ? </b><br>
+                    <a href="{{ path(route,{'id': id}) }}">
+                        <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{# Button confirm #}
+{% macro btnConfirm(right) %}
+    {% if right == false %}
+    <div class="text-center">
+        <button type="submit" class="bg-red text-white button-circle mt-3 mb-1">&#10004;</button>
+    </div>
+    {% else %}
+    <div class="text-right">
+        <button type="submit" class="bg-red text-white button-circle mt-3 mb-1 confirm-right">&#10004;</button>
+    </div>
+    {% endif %}
+{% endmacro %}
+

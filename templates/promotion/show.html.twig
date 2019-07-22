@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ promo.label }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/promo.css">
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between">
+        <h1>{{ promo.label }}<em class="h4 ml-5">{{ promo.nickname }}</em></h1>
+        <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="bg-grey button-circle text-grey">+</a>
+    </div>
+
+    <hr>
+    <div class="d-flex flex-wrap justify-content-around promo">
+        {% for user in promo.users %}
+        <div class="bg-white mb-3 shadow py-3">
+            <a href="{{ path('user_show',{'id': user.id}) }}">
+            <div class="d-flex flex-column justify-content-around h-100 text-center">
+                <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto">
+                <span class="bold">{{ user.fullname }}</span>
+                <span>{{ user.email }}</span>
+            </div>
+            </a>
+        </div>
+        {% else %}
+        <div class="promo-empty text-center">
+            <div>Il n'y a personne pour le moment ...</div>
+            <img src="/img/landscape.jpg">
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

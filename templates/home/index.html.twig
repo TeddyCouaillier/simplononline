@@ -1,20 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/home.css">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/simplononline/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/simplononline/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+<div class="home bg-grey rounded">
+    <div class="user-last-project">
+        <span class="bold">Dernier projet</span>
+    </div>
+    <div class="user-weather">
+        <span class="bold">Météo du jour</span>
+        <div class="text-center">
+        <i class="fas fa-cloud-showers-heavy"></i>
+        </div>
+    </div>
+    <div class="user-skill">
+        <span class="bold">Mes compétences</span>
+    </div>
+    <div class="user-notif">
+        <span class="bold">Mes notifications</span>
+        <div class="text-center">
+        <i class="fas fa-bell text-red"></i>
+        </div>
+    </div>
+    <div class="home-date">
+        <span class="bold">Date du jour</span>
+        <div class="text-center date">
+        {{ date | date("d/m/Y") }}
+        </div>
+    </div>
+    <div class="user-files">
+        <span class="bold">Informations administratives</span>
+    </div>
+    <div class="user-stage">
+        <span class="bold">Etat des stages</span>
+    </div>
+    <div class="home-weather">
+        <span class="bold">Météo du jour de la promo</span>
+    </div>
+    <div class="home-projects">
+        <span class="bold">Derniers projets de la promo</span>
+    </div>
+    <div class="home-empty">
+    </div>
 </div>
 {% endblock %}

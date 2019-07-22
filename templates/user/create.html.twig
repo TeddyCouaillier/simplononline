@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
+{% block title %}Ajouter un utilisateur{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/user.css">
 {% endblock %}
 
 {% block body %}
-    {% if not form.vars.valid %}
-        <div class="message warning">
-            Il y a une ou plusieurs erreur(s) de saisie.
-        </div>
-    {% endif %}
-    <h1>Ajouter un compte</h1>
+    {{ template.checkMessage(form) }}
+    <h1>Ajouter un utilisateur</h1>
     <hr>
     {{ form_start(form) }}
 
@@ -36,18 +34,19 @@
         <div class="grid-user-promo bg-grey rounded">
             <span class="bold mt-2">Information de connexion</span>
             <div class="mt-2">
-                {{ form_label(form.password) }}<br>
                 {{ form_widget(form.password) }}
             </div>
         </div>
 
         <div class="grid-user-supp bg-grey rounded">
             <span class="bold">Promotion</span>
+            <div class="mt-2">
+                {{ form_widget(form.promotion) }}
+            </div>
         </div>
     </div>
 
-    <div class="text-center">
-        <button type="submit" class="btn btn-danger mt-3 mb-1 px-4">Ajouter</button>
-    </div>
+    {{ template.btnConfirm }}
+
     {{ form_end(form) }}
 {% endblock %}

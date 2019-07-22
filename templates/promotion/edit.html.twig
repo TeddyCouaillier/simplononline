@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Gestion des simploniens{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/promo.css">
+{% endblock %}
+
+{% form_theme form 'promotion/_collection.html.twig' %}
+
+{% block body %}
+    <h1>{{ promo.label }}<em class="h4 ml-5">Gestion des simploniens</em></h1>
+    <hr>
+    <div class="bg-grey rounded promo-add">
+        <span class="bold">Liste des simploniens</span>
+
+        {{ form_start(form) }}
+        {{ form_row(form.users) }}
+        {{ template.btnConfirm(true) }}
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+

@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
+{% block title %}{{ user.fullname }}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/user.css">
@@ -8,17 +10,19 @@
     <div class="d-flex justify-content-between">
         <div>
             <h1>{{ user.fullname }}</h1>
-            {# <span class="badge badge-pill badge-danger">Promo 1.2</span> #}
+            {% if user.promotion is defined %}
+            <span class="badge badge-pill badge-danger">{{ user.promotion.label }}</span>
+            {% endif %}
         </div>
-        <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm">
+        <img src="/img/avatar/{{ user.avatar }}" class="avatar-xs">
     </div>
     <hr>
     <div class="bg-grey user-info">
         <div class="user-primary-info">
             <b>Info personnelles</b>
             {% if app.user.id == user.id %}
-            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+                data-content='<a href="{{ path('user_edit',{'id': app.user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
             <ul class="mt-2">
                 <li><i class="fas fa-envelope"></i> {{user.email }}</li>
@@ -60,28 +64,28 @@
             <b>Compétences</b>
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
         </div>
         <div class="user-stage">
             <b>Stages</b>
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
         </div>
         <div class="user-project">
             <b>Liste des projets</b>
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
         </div>
         <div class="user-portfolio">
             <b>Portfolio</b>
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('edit_user') }}" class="subnav-link">Modifier</a>'></i>
+            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
         </div>
     </div>

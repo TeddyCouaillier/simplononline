@@ -14,9 +14,9 @@ class UserType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class,$this->getConfiguration("Prénom"))
-            ->add('lastname' , TextType::class,$this->getConfiguration("Nom"))
-            ->add('email'    , EmailType::class,$this->getConfiguration("Adresse mail"))
+            ->add('firstname', TextType::class,$this->getConfiguration("Prénom","Prénom"))
+            ->add('lastname' , TextType::class,$this->getConfiguration("Nom","Nom"))
+            ->add('email'    , EmailType::class,$this->getConfiguration("Adresse mail","Adresse mail"))
         ;
     }
 

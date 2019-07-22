@@ -86,6 +86,11 @@ class User implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="users")
+     */
+    private $promotion;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -245,5 +250,17 @@ class User implements UserInterface
     public function getAvatarName(): ?string
     {
         return $this->lastname.''.$this->firstname.''.$this->id;
+    }
+
+    public function getPromotion(): ?Promotion
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?Promotion $promotion): self
+    {
+        $this->promotion = $promotion;
+
+        return $this;
     }
 }

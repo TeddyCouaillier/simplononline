@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Toutes les promotions{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/promo.css">
+{% endblock %}
+
+{% block body %}
+    {{ template.checkMessage(form) }}
+    <div class="d-flex justify-content-between">
+        <h1>Liste des promotions</h1>
+        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
+    </div>
+    <hr>
+    <div class="d-flex flex-wrap justify-content-around">
+        {% for promo in promos | reverse %}
+            {{ template.delete(promo.id,"promo_delete") }}
+            <div class="bg-white shadow text-center mb-3 p-2 all-promo">
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ promo.id }}" data-content='
+                <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
+                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                </i>
+            <div>
+                <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                    <h2>{{ promo.label }}</h2>
+                    <ul>
+                        <li>Formateur : <em>PETIT Romain</em></li>
+                        <li>Médiateur : <em>CARON Benoit</em></li>
+                    </ul>
+                    <hr>
+                    <span class="text-grey">{{ promo.nickname | capitalize }}</span>
+                </a>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="myModal" class="modal" data-modalid="modal">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-50 mx-auto">
+                <h2>Ajouter une promotion</h2>
+                <hr>
+                {{ form_start(form) }}
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+                {{ form_label(form.nickname) }}
+                {{ form_widget(form.nickname) }}
+                {{ template.btnConfirm }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% block _edit_promotion_users_widget %}
+{{ form_widget(form) }}
+<div class="text-center">
+    <input type="hidden" id="widgets-counter" value="0">
+    <button type="button" id="add-user" class="bg-white button-circle text-grey my-2 mx-auto"> + </button>
+</div>
+{% endblock %}
+
+{% block _edit_promotion_users_entry_row %}
+{{ form_widget(form) }}
+{% endblock %}
+
+{% block _edit_promotion_users_entry_widget %}
+<div class="d-flex justify-content-around py-1 my-2 rounded promo-add-users" id="block_{{id}}">
+        <div>{{ form_widget(form.lastname) }}</div>
+        <div>{{ form_widget(form.firstname) }}</div>
+        <div>{{ form_widget(form.email) }}</div>
+        <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn">&times;</button></div>
+</div>
+{% endblock %}

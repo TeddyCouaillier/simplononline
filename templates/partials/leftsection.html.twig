@@ -1,6 +1,6 @@
 <div class="nav-left d-flex flex-column text-center">
     <div class="d-flex flex-column">
-        <a href="{{ path('show_user',{'id': app.user.id}) }}">
+        <a href="{{ path('user_show',{'id': app.user.id}) }}">
             <img class="shadow-lg" src="/img/avatar/{{ app.user.avatar }}"></img>
         </a>
         <span>{{ app.user.fullname }}</span>
@@ -13,7 +13,7 @@
             <li><a href="#">Administratif</a></li>
             <li><a href="#">Portfolio</a></li>
             <hr>
-            <li><a href="{{ path('show_user',{'id': app.user.id}) }}">Mes info</a></li>
+            <li><a href="{{ path('user_show',{'id': app.user.id}) }}">Mes info</a></li>
             <li><a href="#">Stages</a></li>
             <li><a href="#">Données</a></li>
             <hr class="mb-1">
