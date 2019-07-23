@@ -9,6 +9,7 @@ use App\Form\Promotion\EditPromotionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -50,6 +51,7 @@ class PromotionController extends AbstractController
     /**
      * Add/Remove users from a promotion
      * @Route("/{slug}/edit-users", name="edit_users")
+     * @IsGranted("ROLE_ADMIN")
      * @param Promotion                     $promo    promotion to edit
      * @param Request                       $request
      * @param ObjectManager                 $manager

@@ -12,18 +12,22 @@
     {{ template.checkMessage(form) }}
     <div class="d-flex justify-content-between">
         <h1>Liste des promotions</h1>
+        {% if is_granted('ROLE_ADMIN') %}
         {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
+        {% endif %}
     </div>
     <hr>
     <div class="d-flex flex-wrap justify-content-around">
         {% for promo in promos | reverse %}
             {{ template.delete(promo.id,"promo_delete") }}
             <div class="bg-white shadow text-center mb-3 p-2 all-promo">
+                {% if is_granted('ROLE_ADMIN') %}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ promo.id }}" data-content='
                 <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
                 <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
                 </i>
+                {% endif %}
             <div>
                 <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
                     <h2>{{ promo.label }}</h2>

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Promotion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,6 +23,10 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('FR-fr');
 
+        $adminRole = new Role();
+        $adminRole->setTitle("ROLE_ADMIN");
+        $manager->persist($adminRole);
+        
         $promos = [];
         for($i = 0 ; $i < mt_rand(4,6) ; $i++){
             $promo = new Promotion();
@@ -43,7 +48,8 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('CouaillierTeddy17.jpeg')
-                 ->setPromotion($promos[1]);
+                 ->setPromotion($promos[1])
+                 ->addUserRole($adminRole);
 
         $manager->persist($admin);
 
