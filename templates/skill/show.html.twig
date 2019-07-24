@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
+{% block title %}Compétences{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/skill.css">
+{% endblock %}
+
+{% block body %}
+    {{ template.checkMessage(form) }}
+    <div class="d-flex justify-content-between">
+        <h1>Liste des compétences</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
+        {% endif %}
+    </div>
+    <hr>
+    <div class="bg-grey rounded p-2">
+    {% for skill in skills %}
+        <div class="bg-white rounded p-2 mt-1 mb-2">
+            {% if is_granted('ROLE_ADMIN') %}
+            {{ template.delete(skill.id,"skill_delete") }}
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ skill.id }}" data-content='
+                <a class="modal-button delete subnav-link text-red">Supprimer</a>'></i>
+            {% endif %}
+            <span class="bold">{{ skill.label }}</span>
+            <p class="text-justify">
+                {{ skill.description | raw }}
+            </p>
+        </div>
+    {% endfor %}
+    </div>
+
+        <div id="myModal" class="modal" data-modalid="modal">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-50 mx-auto">
+                <h2>Ajouter une compétence</h2>
+                <hr>
+                {{ form_start(form) }}
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+                {{ template.btnConfirm }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

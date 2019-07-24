@@ -6,12 +6,19 @@ $('.popover-dismiss').popover({
     trigger: 'focus'
 })
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 /* ---------------- MODAL -------------------- */
 // When the user clicks the button, open the modal
 if($(".modal-button") != null){
     $(".modal-button").on('click', function() {
+        var docHeight = 100+$(window).scrollTop();
+        docHeight += "px";
         var modalid = $(this).data('modalid');
         $(`.modal[data-modalid='${modalid}'`).fadeIn();
+        $(`.modal[data-modalid='${modalid}'`).css("padding-top",docHeight);
     });
 }
 
@@ -29,8 +36,12 @@ $(window).click(function(event) {
     }
 
     $('.popover-body .modal-button').on('click', function() {
+        var docHeight = 150+$(window).scrollTop();
+        docHeight += "px";
+        $('.modal').css("padding-top", docHeight);
         var id = $(this).parent().parent().attr('id');
-        var popoverParent = $(`i[aria-describedby='${id}']`)
+        var tag = event.target.tagName.toLowerCase();
+        var popoverParent = $(`${tag}[aria-describedby='${id}']`)
         var modalid = $(popoverParent).data('modalid');
         $(`.modal[data-modalid='${modalid}'`).fadeIn();
     });

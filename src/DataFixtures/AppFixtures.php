@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\Skills;
 use App\Entity\Promotion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -23,10 +24,31 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('FR-fr');
 
+        $skills = [
+            "Maquetter une application" => "test",
+            "Réaliser une interface utilisateur web statique et adaptable" => "test",
+            "Développer une interface utilisateur web dynamique" => "test",
+            "Réaliser une interface utilisateur avec une solution de gestion de contenu ou e-commerce" => "test",
+            "Créer une base de données" => "test",
+            "Développer les composants d'accès aux données" => "test",
+            "Développer la partie back-end d'une application web ou web mobile" => "test",
+            "Mettre en oeuvre des composants dans une application de gestion de contenu ou e-commerce" => "test"
+        ];
+        $tabSkills = [];
+        $index = 0;
+        foreach($skills as $label => $description){
+            $skill = new Skills();
+            $skill->setLabel($label)
+                  ->setDescription($description);
+            $tabSkills[$index++] = $skill;
+            $manager->persist($skill);
+        }
+
+
         $adminRole = new Role();
         $adminRole->setTitle("ROLE_ADMIN");
         $manager->persist($adminRole);
-        
+
         $promos = [];
         for($i = 0 ; $i < mt_rand(4,6) ; $i++){
             $promo = new Promotion();
@@ -49,7 +71,8 @@ class AppFixtures extends Fixture
                  ->setGithub($faker->url)
                  ->setAvatar('CouaillierTeddy17.jpeg')
                  ->setPromotion($promos[1])
-                 ->addUserRole($adminRole);
+                 ->addUserRole($adminRole)
+                 ->initializeSkills($tabSkills);
 
         $manager->persist($admin);
 
@@ -66,7 +89,8 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('avatar.png')
-                 ->setPromotion($promos[mt_rand(0,sizeof($promos)-1)]);
+                 ->setPromotion($promos[mt_rand(0,sizeof($promos)-1)])
+                 ->initializeSkills($tabSkills);
 
             $manager->persist($user);
         }

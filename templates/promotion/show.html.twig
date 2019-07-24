@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/promo.css">
+<link rel="stylesheet" href="/css/skill.css">
 {% endblock %}
 
 {% block body %}
@@ -23,6 +24,14 @@
                 <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto">
                 <span class="bold">{{ user.fullname }}</span>
                 <span>{{ user.email }}</span>
+                <div class="d-flex justify-content-center">
+                {% for uskill in user.userSkills %}
+                    <div
+                     class="level-xs level-{{ uskill.level }} m-1" data-toggle="tooltip"
+                     data-placement="top" title="{{ uskill.skill.label }}">
+                    </div>
+                {% endfor %}
+                </div>
             </div>
             </a>
         </div>

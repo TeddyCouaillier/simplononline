@@ -1,7 +1,7 @@
 <div class="nav-left d-flex flex-column text-center">
     <div class="d-flex flex-column">
         <a href="{{ path('user_show',{'id': app.user.id}) }}">
-            <img class="shadow-lg" src="/img/avatar/{{ app.user.avatar }}"></img>
+            <img class="" src="/img/avatar/{{ app.user.avatar }}"></img>
         </a>
         <span>{{ app.user.fullname }}</span>
     </div>
@@ -19,9 +19,9 @@
             <hr class="mb-1">
         </ul>
     </div>
-    <span><b>Etat des projets</b></span>
+    <span>Etat des projets</span>
     <div class="project-status">
         <p></p>
-        <button class="btn btn-danger mb-3">NOUVEAU</button>
+        <button class="btn btn-outline-danger mb-3">NOUVEAU</button>
     </div>
 </div>

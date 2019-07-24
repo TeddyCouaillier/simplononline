@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Skills;
+use App\Entity\UserSkills;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -84,7 +86,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\File(mimeTypes={ "image/*" }, mimeTypesMessage ="Format invalide")
      */
     private $avatar;
 
@@ -98,9 +99,30 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSkills", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $userSkills;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+        $this->userSkills = new ArrayCollection();
+    }
+
+    /**
+     * Add all skills to the user
+     * @param Skills[] $skills
+     */
+    public function initializeSkills($skills)
+    {
+        foreach($skills as $skill){
+            $userSkill = new UserSkills();
+            $userSkill->setUser($this)
+                      ->setSkill($skill);
+
+            $this->addUserSkill($userSkill);
+        }
     }
 
     public function getId(): ?int
@@ -301,6 +323,37 @@ class User implements UserInterface
     {
         if ($this->userRoles->contains($userRole)) {
             $this->userRoles->removeElement($userRole);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSkills[]
+     */
+    public function getUserSkills(): Collection
+    {
+        return $this->userSkills;
+    }
+
+    public function addUserSkill(UserSkills $userSkill): self
+    {
+        if (!$this->userSkills->contains($userSkill)) {
+            $this->userSkills[] = $userSkill;
+            $userSkill->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSkill(UserSkills $userSkill): self
+    {
+        if ($this->userSkills->contains($userSkill)) {
+            $this->userSkills->removeElement($userSkill);
+            // set the owning side to null (unless already changed)
+            if ($userSkill->getUser() === $this) {
+                $userSkill->setUser(null);
+            }
         }
 
         return $this;

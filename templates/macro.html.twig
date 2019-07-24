@@ -57,3 +57,32 @@
     {% endif %}
 {% endmacro %}
 
+{# Skill modal #}
+{% macro skillModal(skillUser) %}
+    {% set skill = skillUser.skill %}
+    <div id="myModal" class="modal" data-modalid="{{ skill.id }}">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-75 mx-auto">
+                <h2>{{ skill.label }}</h2>
+                <hr>
+                <div class="text-justify mb-4">
+                    {{ skill.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{# Skill level + modal on click popover #}
+{% macro level(skillUser) %}
+    {% import _self as template %}
+    {% set skill = skillUser.skill %}
+    {{ template.skillModal(skillUser) }}
+    <div
+    data-modalid="{{ skill.id }}" class="d-flex align-items-center skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+    data-content="{{ skill.label }}<hr><div class='modal-button skill-info'>Détails</div>">
+        <div class="skill-label">{{ skill.label }}</div>
+        <div class="level level-{{ skillUser.level }} ml-auto">{{ skillUser.level }}</div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,72 @@
+/* Skill user */
+.skill-user {
+    margin: 5px 0;
+    padding: 2px 18px;
+}
+.skill-user hr { border-color: rgba(0,0,0,.3); }
+.skill-user > div { line-height: 30px; }
+.skill-user > div:first-child{ width: 80%; }
+.skill-user > div:last-child{ color: white; }
+.skill-user:hover{
+    background: rgba(244,244,244);
+    cursor: pointer;
+}
+.skill-info {
+    text-align: center;
+    font-weight: bold;
+    padding: 0 0 10px 0;
+    transition: all .2s linear;
+}
+.skill-info:hover{
+    color: rgba(242,72,71,1);
+}
+.skill-label {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Levels */
+.level,
+.level-xs{
+    border-radius: 50% !important;
+    font-weight: bold;
+    text-align: center;
+}
+.level-xs{
+    width: 15px;
+    height: 15px;
+}
+.level{
+    width: 30px;
+    height: 30px;
+}
+.level-0{ background-color: #FF3C38 !important; }
+.level-1{ background-color: #FF8C42 !important; }
+.level-2{ background-color: #FFFC4F !important; color: black !important;}
+.level-3{ background-color: #0E9E53 !important; }
+
+/* Edit user skills */
+.edit-skill-users input{
+    padding: 0;
+    border-radius: 50% !important;
+    color: white;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.3);
+}
+.edit-skill-users input:focus{
+    color: white;
+}
+.edit-skill-users input:hover{
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;
+}
+
+.circle-level{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.2);
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Skills;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Form\User\EditUserSkillsType;
 
 /**
  * @Route("/user", name="user_")
@@ -36,6 +38,11 @@ class UserController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, 'test'));
             $user->setAvatar('avatar.png');
 
+            // All user's skills
+            $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+
+            // $userSkill = new UserSkills($skills);
+            $user->initializeSkills($skills);
             $manager->persist($user);
             $manager->flush();
 
@@ -141,5 +148,30 @@ class UserController extends AbstractController
         $manager->remove($user);
         $manager->flush();
         return $this->redirectToRoute('user_all');
+    }
+
+    /**
+     * Edit user's skill
+     * @Route("/{id}/edit_skills", name="edit_skills")
+     * @IsGranted("ROLE_ADMIN")
+     * @param User $user
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function editSkillsUser(User $user, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(EditUserSkillsType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute("user_show",['id' => $user->getId()]);
+        }
+        return $this->render('user/edit_skills.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
     }
 }

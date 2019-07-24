@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
 
 {% block title %}Accueil{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/skill.css">
 {% endblock %}
 
 {% block body %}
@@ -19,6 +21,11 @@
     </div>
     <div class="user-skill">
         <span class="bold">Mes compétences</span>
+        <div class="mt-2 rounded">
+            {% for skill in app.user.userSkills %}
+                {{ template.level(skill) }}
+            {% endfor %}
+        </div>
     </div>
     <div class="user-notif">
         <span class="bold">Mes notifications</span>

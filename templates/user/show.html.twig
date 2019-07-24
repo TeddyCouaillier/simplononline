@@ -4,13 +4,14 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/skill.css">
 {% endblock %}
 
 {% block body %}
     <div class="d-flex justify-content-between">
         <div>
             <h1>{{ user.fullname }}</h1>
-            {% if user.promotion is defined %}
+            {% if user.promotion != null %}
             <span class="badge badge-pill badge-danger">{{ user.promotion.label }}</span>
             {% endif %}
         </div>
@@ -25,8 +26,8 @@
                 data-content='<a href="{{ path('user_edit',{'id': app.user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
             <ul class="mt-2">
-                <li><i class="fas fa-envelope"></i> {{user.email }}</li>
-                <li>
+                <li class="mb-1"><i class="fas fa-envelope"></i> {{user.email }}</li>
+                <li class="mb-1">
                     <i class="fas fa-mobile-alt"></i>
                     {% if user.tel != null %}
                     {{ user.tel }}
@@ -34,7 +35,7 @@
                     <em>Pas de numéro de téléphone</em>
                     {% endif %}
                 </li>
-                <li>
+                <li class="mb-1">
                     <i class="fas fa-map-marker-alt"></i>
                     {% if user.zipcode != null or user.city != null %}
                     {{ user.zipcode }} {{ user.city }}
@@ -42,7 +43,7 @@
                     <em>Pas d'adresse</em>
                     {% endif %}
                 </li>
-                <li>
+                <li class="mb-1">
                     <i class="fas fa-globe"></i>
                     {% if user.website != null %}
                     <a href="{{ user.website }}" target="_blank">Site internet</a>
@@ -50,7 +51,7 @@
                     <em>Pas de site internet</em>
                     {% endif %}
                 </li>
-                <li>
+                <li class="mb-1">
                     <i class="fab fa-github"></i>
                     {% if user.github != null %}
                     <a href="{{ user.github }}" target="_blank">GitHub</a>
@@ -64,8 +65,13 @@
             <b>Compétences</b>
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
+            data-content='<a href="{{ path('user_edit_skills',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
             {% endif %}
+            <div class="mt-2 rounded">
+            {% for skill in user.userSkills %}
+                {{ template.level(skill) }}
+            {% endfor %}
+            </div>
         </div>
         <div class="user-stage">
             <b>Stages</b>
