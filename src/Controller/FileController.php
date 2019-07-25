@@ -22,10 +22,16 @@ class FileController extends AbstractController
 {
 
     /**
-     * Undocumented function
+     * File section
+     *  - Show the files received
+     *  - Show the files sent
+     *  - Form to send a file to the mediators by the current user
+     *  - Form to send a file to an user by the mediators
      * @Route("user/fichiers", name="user_show_file")
-     *
-     * @return void
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @param UserRepository $rep
+     * @return Response
      */
     public function showFileUser(Request $request, ObjectManager $manager, UserRepository $rep)
     {
@@ -86,9 +92,26 @@ class FileController extends AbstractController
     }
 
     /**
+     * Change status to a specific file (not "important")
+     * @Route("user/fichiers/{id}/editStatus", name="edit_status_file")
+     * @param FileUser      $file
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editStatusFileUser(UserFiles $ufile, ObjectManager $manager)
+    {
+        $ufile->setImportant(false);
+        $manager->persist($ufile);
+        $manager->flush();
+        return $this->redirectToRoute('user_show_file');
+    }
+
+    /**
+     * Delete a file by a sender only
      * @Route("user/fichiers/{id}/delete", name="delete_file")
-     *
-     * @return void
+     * @param Files         $file
+     * @param ObjectManager $manager
+     * @return Response
      */
     public function deleteFileUser(Files $file, ObjectManager $manager)
     {
@@ -116,10 +139,10 @@ class FileController extends AbstractController
     }
 
     /**
+     * Download a specific file
      * @Route("user/fichiers/{id}", name="download_file")
-     *
      * @param Files $file
-     * @return void
+     * @return JsonResponse
      */
     public function downloadFile(Files $file)
     {
@@ -130,14 +153,14 @@ class FileController extends AbstractController
                     'message' => 'File does not exist' 
                 );
                 $response = new JsonResponse ( $array, 200 );
+
                 return $response;
             }
-            $displayName = $file->getTitle();
-            $fileName = $file->getName();
-            $file_with_path = $this->getParameter('file_directory') . "/" . $fileName;
+            $file_with_path = $this->getParameter('file_directory') . "/" . $file->getName();
             $response = new BinaryFileResponse ( $file_with_path );
             $response->headers->set ( 'Content-Type', 'text/plain' );
-            $response->setContentDisposition ( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $displayName );
+            $response->setContentDisposition ( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $file->getTitle() );
+
             return $response;
         } catch ( Exception $e ) {
             $array = array (
@@ -145,6 +168,7 @@ class FileController extends AbstractController
                 'message' => 'Download error'
             );
             $response = new JsonResponse ( $array, 400 );
+
             return $response;
         }
     }

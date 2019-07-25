@@ -16,7 +16,7 @@
             {% for ufiles in user.userFiles | reverse %}
                 {% set file = ufiles.file %}
                 <div class="bg-white p-3 mb-2 rounded d-flex justify-content-between align-items-center">
-                    {% if file.urgent == null %}
+                    {% if ufiles.important == null %}
                     <div class="file-state"></div>
                     {% else %}
                     <div class="file-state bg-red"></div>
@@ -32,8 +32,15 @@
                         </p>
                     </div>
                     <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-                    data-modalid="{{ ufiles.id }}" data-content='
+                    data-modalid="{{ ufiles.id }}"
+                    {% if ufiles.important %}
+                    data-content='
                     <a href="{{ path('download_file',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                    <a href="{{ path('edit_status_file',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a>'
+                    {% else %}
+                    data-content='
+                    <a href="{{ path('download_file',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                    {% endif %}
                     '></i>
                 </div>
             {% else %}
@@ -60,7 +67,7 @@
                     <hr>
                     {% endif %}
                     {{ form_widget(file.name) }}
-                    {{ form_widget(file.urgent) }}
+                    {{ form_widget(form.important) }}
                     {{ template.btnConfirm()}}
                 {{ form_end(form) }}
             </div>
@@ -73,11 +80,7 @@
             {% set file = usend.file %}
             {{ template.delete(file.id, "delete_file", "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
             <div class="bg-white p-3 my-2 rounded d-flex justify-content-between align-items-center">
-                {% if file.urgent == null %}
                 <div class="file-state"></div>
-                {% else %}
-                <div class="file-state bg-red"></div>
-                {% endif %}
                 <div class="file-info">
                     <p class="bold">{{ file.title }}</p>
                     <p class="file-user">
@@ -108,7 +111,7 @@
 {% spaceless %}
     <div class="custom-control custom-switch text-center mt-4">
     <input type="checkbox" class="custom-control-input" id="customSwitch" {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} 
-    name="user_files_admin[file][urgent]"/>
+    name="user_files_admin[important]"/>
     <label class="custom-control-label" for="customSwitch">Important</label>
     </div>
 {% endspaceless %}

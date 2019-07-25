@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class FilesType extends ApplicationType
 {
@@ -17,7 +16,6 @@ class FilesType extends ApplicationType
         $builder
             ->add('name',FileType::class,['data_class' => null])
             ->add('title',TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
-            ->add('urgent', CheckboxType::class, $this->getConfiguration('Important'))
         ;
     }
 

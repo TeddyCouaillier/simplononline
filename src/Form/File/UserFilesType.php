@@ -8,6 +8,7 @@ use App\Form\File\FilesType;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class UserFilesType extends ApplicationType
 {
@@ -17,6 +18,7 @@ class UserFilesType extends ApplicationType
             ->add('file', FilesType::class, [
                 'data_class' => Files::class
             ])
+            ->add('important', CheckboxType::class, $this->getConfiguration('Important'))
         ;
     }
 

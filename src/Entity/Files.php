@@ -27,11 +27,6 @@ class Files
     private $title;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $urgent;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\UserFiles", mappedBy="file", cascade={"persist", "remove"})
      */
     private $userFiles;
@@ -61,18 +56,6 @@ class Files
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getUrgent(): ?bool
-    {
-        return $this->urgent;
-    }
-
-    public function setUrgent(bool $urgent): self
-    {
-        $this->urgent = $urgent;
 
         return $this;
     }

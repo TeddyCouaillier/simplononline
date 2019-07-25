@@ -38,6 +38,11 @@ class UserFiles
      */
     private $date_send;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $important;
+
     public function __construct()
     {
         $this->date_send = new \DateTime();
@@ -92,6 +97,18 @@ class UserFiles
     public function setDateSend(\DateTimeInterface $date_send): self
     {
         $this->date_send = $date_send;
+
+        return $this;
+    }
+
+    public function getImportant(): ?bool
+    {
+        return $this->important;
+    }
+
+    public function setImportant(bool $important): self
+    {
+        $this->important = $important;
 
         return $this;
     }
