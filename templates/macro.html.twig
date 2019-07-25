@@ -45,7 +45,7 @@
 {% endmacro %}
 
 {# Button confirm #}
-{% macro btnConfirm(right) %}
+{% macro btnConfirm(right = false) %}
     {% if right == false %}
     <div class="text-center">
         <button type="submit" class="bg-red text-white button-circle mt-3 mb-1">&#10004;</button>

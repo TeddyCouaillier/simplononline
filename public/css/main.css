@@ -3,6 +3,7 @@
     position: fixed;
     height: 100vh;
     width: 200px;
+    /* background: #E3E7ED; */
     background: white;
     z-index: 999;
     -webkit-box-shadow: 3px 40px 6px 0px rgba(0,0,0,0.75);
@@ -60,7 +61,8 @@
 .nav-top{
     position: fixed;
     top: 0;
-    background-color: white;
+    /* background: #E3E7ED; */
+    background: white;
     width: calc(100% - 200px);
     transform: translateX(200px);
     z-index: 1;

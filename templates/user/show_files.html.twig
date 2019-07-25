@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
+{% block title %}Les fichiers de {{ user.fullname }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/file.css">
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <h1>{{ user.fullname }}</h1>
+    <hr>
+    <div class="bg-grey rounded mt-2 p-2 d-flex show-files">
+        <div>
+            {% for ufiles in user.userFiles %}
+                {% set file = ufiles.file %}
+                {{ template.delete(ufiles.id, "promo_delete") }}
+                <div class="bg-white p-3 mb-2 rounded d-flex justify-content-between align-items-center">
+                    {% if file.urgent == null %}
+                    <div class="file-state"></div>
+                    {% else %}
+                    <div class="file-state bg-red"></div>
+                    {% endif %}
+                    <div style="width: 95%;">
+                        <p class="bold">{{ file.title }}</p>
+                        <p style="font-size: .89em;">
+                            <em>Envoyé
+                            {% if ufiles.sender != null %}
+                            par {{ ufiles.sender.fullname }}
+                            {% endif %}
+                            le 12/07/2019</em>
+                        </p>
+                    </div>
+                    <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+                    data-modalid="{{ ufiles.id }}" data-content='
+                    <a href="{{ path('user_edit',{'id': app.user.id}) }}" class="subnav-link">Modifier</a><br>
+                    <a class="modal-button delete subnav-link text-red">Supprimer</a>'></i>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="bg-white p-3 mb-3 rounded">
+            <p class="bold">Envoyer un fichier</p>
+            <div class="my-0">
+                {{ form_start(form) }}
+                    {% set file = form.file %}
+                    {{ form_label(file.title) }}
+                    {{ form_widget(file.title, { 'attr': { 'maxlength' : 60 } }) }}
+                    <hr>
+                    {% if access %}
+                    {{ form_label(form.user) }}
+                    {{ form_widget(form.user)}}
+                    <hr>
+                    {% endif %}
+                    {{ form_widget(file.name) }}
+                    {{ form_widget(file.urgent) }}
+                    {{ template.btnConfirm()}}
+                {{ form_end(form) }}
+                {# sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss #}
+            </div>
+        </div>
+</div>
+{% endblock %}
+
+{% block checkbox_widget %}
+{% spaceless %}
+    <div class="custom-control custom-switch text-center mt-4">
+    <input type="checkbox" class="custom-control-input" id="customSwitch" {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <label class="custom-control-label" for="customSwitch">Urgent</label>
+    </div>
+{% endspaceless %}
+{% endblock checkbox_widget %}

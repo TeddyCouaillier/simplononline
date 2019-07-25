@@ -17,6 +17,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
+    const USER      = 'ROLE_USER';
+    const ADMIN     = 'ROLE_ADMIN';
+    const MEDIATEUR = 'ROLE_MEDIATEUR';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -47,21 +51,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=4, minMessage="Votre mot de passe doit faire au moins 4 caractères")
+     * @Assert\Length(min=4, minMessage="Votre mot de passe doit faire au moins {{ limit }} caractères")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Regex(pattern="/^[0-9]+$/", message="Chiffre seulement")
-     * @Assert\Length(max=10, maxMessage="Format invalide (10 chiffres maximum)")
+     * @Assert\Length(max=10, maxMessage="Format invalide ({{ limit }} chiffres maximum)")
      */
     private $tel;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
      * @Assert\Regex(pattern="/^[0-9]+$/", message="Chiffre seulement")
-     * @Assert\Length(max=5, maxMessage="Format invalide (5 chiffres maximum)")
+     * @Assert\Length(max=5, maxMessage="Format invalide ({{ limit }} chiffres maximum)")
      */
     private $zipcode;
 
@@ -104,10 +108,22 @@ class User implements UserInterface
      */
     private $userSkills;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $userFiles;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="sender")
+     */
+    private $senderFiles;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
         $this->userSkills = new ArrayCollection();
+        $this->userFiles = new ArrayCollection();
+        $this->senderFiles = new ArrayCollection();
     }
 
     /**
@@ -302,6 +318,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function hasRole($roleChecked)
+    {
+        foreach($this->getRoles() as $role){
+            if($role === $roleChecked){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @return Collection|Role[]
      */
@@ -353,6 +379,78 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userSkill->getUser() === $this) {
                 $userSkill->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFiles[]
+     */
+    public function getUserFiles(): Collection
+    {
+        return $this->userFiles;
+    }
+
+    public function getFiles()
+    {
+        $files = [];
+        $i = 0;
+        foreach($this->userFiles as $ufiles){
+            $files[$i++] = $ufiles->getFile();
+        }
+        return $files;
+    }
+
+    public function addUserFile(UserFiles $userFile): self
+    {
+        if (!$this->userFiles->contains($userFile)) {
+            $this->userFiles[] = $userFile;
+            $userFile->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFile(UserFiles $userFile): self
+    {
+        if ($this->userFiles->contains($userFile)) {
+            $this->userFiles->removeElement($userFile);
+            // set the owning side to null (unless already changed)
+            if ($userFile->getUser() === $this) {
+                $userFile->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFiles[]
+     */
+    public function getSenderFiles(): Collection
+    {
+        return $this->senderFiles;
+    }
+
+    public function addSenderFile(UserFiles $senderFile): self
+    {
+        if (!$this->senderFiles->contains($senderFile)) {
+            $this->senderFiles[] = $senderFile;
+            $senderFile->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSenderFile(UserFiles $senderFile): self
+    {
+        if ($this->senderFiles->contains($senderFile)) {
+            $this->senderFiles->removeElement($senderFile);
+            // set the owning side to null (unless already changed)
+            if ($senderFile->getSender() === $this) {
+                $senderFile->setSender(null);
             }
         }
 
