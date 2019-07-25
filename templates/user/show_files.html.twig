@@ -1,73 +1,115 @@
 {% extends 'base.html.twig' %}
 {% import 'macro.html.twig' as template %}
-{% block title %}Les fichiers de {{ user.fullname }}{% endblock %}
+{% block title %}Gestion des fichiers{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/css/user.css">
 <link rel="stylesheet" href="/css/file.css">
 {% endblock %}
 
 {% form_theme form _self %}
 
 {% block body %}
-    <h1>{{ user.fullname }}</h1>
+    <h1>Gestion des fichiers</h1>
     <hr>
     <div class="bg-grey rounded mt-2 p-2 d-flex show-files">
         <div>
-            {% for ufiles in user.userFiles %}
+            {% for ufiles in user.userFiles | reverse %}
                 {% set file = ufiles.file %}
-                {{ template.delete(ufiles.id, "promo_delete") }}
                 <div class="bg-white p-3 mb-2 rounded d-flex justify-content-between align-items-center">
                     {% if file.urgent == null %}
                     <div class="file-state"></div>
                     {% else %}
                     <div class="file-state bg-red"></div>
                     {% endif %}
-                    <div style="width: 95%;">
+                    <div class="file-info">
                         <p class="bold">{{ file.title }}</p>
                         <p style="font-size: .89em;">
                             <em>Envoyé
                             {% if ufiles.sender != null %}
-                            par {{ ufiles.sender.fullname }}
+                            par {{ ufiles.sender.firstname }} {{ ufiles.sender.lastname | upper }}
                             {% endif %}
-                            le 12/07/2019</em>
+                            le {{ ufiles.dateSend | date('d/m/Y à H:i') }}</em>
                         </p>
                     </div>
                     <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
                     data-modalid="{{ ufiles.id }}" data-content='
-                    <a href="{{ path('user_edit',{'id': app.user.id}) }}" class="subnav-link">Modifier</a><br>
-                    <a class="modal-button delete subnav-link text-red">Supprimer</a>'></i>
+                    <a href="{{ path('download_file',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                    '></i>
                 </div>
+            {% else %}
+            <span class="bold">Mes fichiers reçu</span>
+            <div class="text-grey d-flex justify-content-center align-items-center text-center h-100 no-file">
+                <p>
+                    <i class="far fa-times-circle"></i><br>
+                    Aucun fichier reçu
+                </p>
+            </div>
             {% endfor %}
         </div>
         <div class="bg-white p-3 mb-3 rounded">
             <p class="bold">Envoyer un fichier</p>
-            <div class="my-0">
+            <div>
                 {{ form_start(form) }}
                     {% set file = form.file %}
                     {{ form_label(file.title) }}
                     {{ form_widget(file.title, { 'attr': { 'maxlength' : 60 } }) }}
                     <hr>
                     {% if access %}
-                    {{ form_label(form.user) }}
-                    {{ form_widget(form.user)}}
+                    {{ form_label(form.receiver) }}
+                    {{ form_widget(form.receiver)}}
                     <hr>
                     {% endif %}
                     {{ form_widget(file.name) }}
                     {{ form_widget(file.urgent) }}
                     {{ template.btnConfirm()}}
                 {{ form_end(form) }}
-                {# sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss #}
             </div>
         </div>
-</div>
+    </div>
+    <hr>
+    <div class="bg-grey rounded mt-2 p-2">
+        <span class="bold">Mes fichiers envoyés</span>
+        {% for usend in sending | reverse%}
+            {% set file = usend.file %}
+            {{ template.delete(file.id, "delete_file", "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
+            <div class="bg-white p-3 my-2 rounded d-flex justify-content-between align-items-center">
+                {% if file.urgent == null %}
+                <div class="file-state"></div>
+                {% else %}
+                <div class="file-state bg-red"></div>
+                {% endif %}
+                <div class="file-info">
+                    <p class="bold">{{ file.title }}</p>
+                    <p class="file-user">
+                        <em>Envoyé
+                        {% if usend.sender != null %}
+                        à {{ usend.receiver.firstname }} {{ usend.receiver.lastname | upper }}
+                        {% endif %}
+                        le {{ usend.dateSend | date('d/m/Y à H:i') }}</em>
+                    </p>
+                </div>
+                <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+                data-modalid="{{ usend.id }}" data-content='
+                <a href="{{ path('download_file',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                <a class="modal-button delete subnav-link text-red">Supprimer</a>'></i>
+            </div>
+        {% else %}
+            <div class="text-grey d-flex justify-content-center align-items-center text-center no-file">
+                <p class="my-5">
+                    <i class="far fa-times-circle"></i><br>
+                    Aucun fichier envoyé
+                </p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block checkbox_widget %}
 {% spaceless %}
     <div class="custom-control custom-switch text-center mt-4">
-    <input type="checkbox" class="custom-control-input" id="customSwitch" {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-    <label class="custom-control-label" for="customSwitch">Urgent</label>
+    <input type="checkbox" class="custom-control-input" id="customSwitch" {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} 
+    name="user_files_admin[file][urgent]"/>
+    <label class="custom-control-label" for="customSwitch">Important</label>
     </div>
 {% endspaceless %}
 {% endblock checkbox_widget %}

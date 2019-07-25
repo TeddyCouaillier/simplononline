@@ -20,7 +20,7 @@ class UserFiles
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userFiles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $receiver;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Files", inversedBy="userFiles", cascade={"persist", "remove"})
@@ -33,19 +33,29 @@ class UserFiles
      */
     private $sender;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_send;
+
+    public function __construct()
+    {
+        $this->date_send = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getReceiver(): ?User
     {
-        return $this->user;
+        return $this->receiver;
     }
 
-    public function setUser(?User $user): self
+    public function setReceiver(?User $receiver): self
     {
-        $this->user = $user;
+        $this->receiver = $receiver;
 
         return $this;
     }
@@ -70,6 +80,18 @@ class UserFiles
     public function setSender(?User $sender): self
     {
         $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getDateSend(): ?\DateTimeInterface
+    {
+        return $this->date_send;
+    }
+
+    public function setDateSend(\DateTimeInterface $date_send): self
+    {
+        $this->date_send = $date_send;
 
         return $this;
     }

@@ -109,7 +109,7 @@ class User implements UserInterface
     private $userSkills;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="receiver", cascade={"persist"}, orphanRemoval=true)
      */
     private $userFiles;
 
@@ -407,7 +407,7 @@ class User implements UserInterface
     {
         if (!$this->userFiles->contains($userFile)) {
             $this->userFiles[] = $userFile;
-            $userFile->setUser($this);
+            $userFile->setReceiver($this);
         }
 
         return $this;
@@ -418,8 +418,8 @@ class User implements UserInterface
         if ($this->userFiles->contains($userFile)) {
             $this->userFiles->removeElement($userFile);
             // set the owning side to null (unless already changed)
-            if ($userFile->getUser() === $this) {
-                $userFile->setUser(null);
+            if ($userFile->getReceiver() === $this) {
+                $userFile->setReceiver(null);
             }
         }
 

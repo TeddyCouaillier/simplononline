@@ -26,7 +26,7 @@
 {% endmacro %}
 
 {# Delete confirm modal #}
-{% macro delete(id, route) %}
+{% macro delete(id, route, text = "") %}
     <div id="myModal" class="modal" data-modalid="{{ id }}">
         <div class="modal-content">
             <div class="close-modal text-right">&times;</div>
@@ -34,6 +34,7 @@
                 <h2>Confirmation de suppression</h2>
                 <hr>
                 <div class="text-center mb-4">
+                    <p>{{ text }}</p>
                     <b>Êtes-vous sur de vouloir supprimer cet élément ? </b><br>
                     <a href="{{ path(route,{'id': id}) }}">
                         <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>

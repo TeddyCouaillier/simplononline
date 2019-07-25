@@ -2,18 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Role;
 use App\Entity\User;
-use App\Entity\Files;
 use App\Entity\Skills;
-use App\Entity\UserFiles;
-use App\Form\File\FilesType;
 use App\Form\User\EditUserType;
-use App\Form\File\UserFilesType;
 use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
-use App\Form\File\EditUserFilesType;
-use App\Form\File\UserFilesAdminType;
 use App\Form\User\EditUserSkillsType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -166,45 +159,6 @@ class UserController extends AbstractController
         return $this->render('user/edit_skills.html.twig', [
             'user' => $user,
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * Undocumented function
-     * @Route("/fichiers", name="show_file")
-     *
-     * @return void
-     */
-    public function showFileUser(Request $request, ObjectManager $manager, UserRepository $rep)
-    {
-        $user = $this->getUser();
-        $access = $user->hasRole(User::MEDIATEUR);
-        $ufile = new UserFiles();
-        if($access){
-            $form = $this->createForm(UserFilesAdminType::class, $ufile);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                $ufile->getUser()->addUserFile($ufile);
-            }
-        } else {
-            $form = $this->createForm(UserFilesType::class, $ufile);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                foreach($rep->findAllByUserRole(User::MEDIATEUR) as $mediateur){
-                    $mediateur->addUserFile($ufile);
-                }
-            }
-        }
-        if($form != NULL && $form->isSubmitted() && $form->isValid()){
-            $user->addSenderFile($ufile);
-            $manager->persist($user);
-            $manager->flush();
-        }
-
-        return $this->render('user/show_files.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'access' => $access
         ]);
     }
 

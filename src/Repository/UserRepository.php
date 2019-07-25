@@ -34,6 +34,7 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+
 //SELECT u.* FROM user as u LEFT JOIN role_user as ru ON u.id = ru.user_id LEFT JOIN role as r ON r.id = ru.role_id WHERE r.title = "ROLE_MEDIATEUR"
 //SELECT u.* FROM user as u,role as r,role_user as ru WHERE u.id = ru.user_id AND r.id = ru.role_id AND r.title = "ROLE_MEDIATEUR"
 

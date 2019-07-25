@@ -35,3 +35,8 @@
     border: none !important;
     box-shadow: none !important;
 }
+
+.file-info{ width: 95%; }
+.file-user{ font-size: .89em; }
+.no-file{ font-size: 1.5em;}
+.no-file i{ font-size: 6em; }
