@@ -318,7 +318,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function hasRole($roleChecked)
+    public function checkRole($roleChecked)
     {
         foreach($this->getRoles() as $role){
             if($role === $roleChecked){
@@ -455,5 +455,16 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+
+    public function createUserFile($sender, $file, $important)
+    {
+        $ufile = new UserFiles();
+        $ufile->setImportant($important)
+                ->setReceiver($this)
+                ->setSender($sender)
+                ->setFiles($file);
+        $this->addUserFile($ufile);
     }
 }

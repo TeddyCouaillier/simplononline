@@ -7,7 +7,7 @@ use App\Entity\Skills;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
-use App\Form\User\EditUserSkillsType;
+use App\Form\Skill\EditUserSkillsType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -140,7 +140,7 @@ class UserController extends AbstractController
     /**
      * Edit user's skill
      * @Route("/{id}/edit_skills", name="edit_skills")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      * @param User $user
      * @param Request $request
      * @param ObjectManager $manager
@@ -156,7 +156,7 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute("user_show",['id' => $user->getId()]);
         }
-        return $this->render('user/edit_skills.html.twig', [
+        return $this->render('skill/edit_skills.html.twig', [
             'user' => $user,
             'form' => $form->createView()
         ]);

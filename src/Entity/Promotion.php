@@ -44,6 +44,11 @@ class Promotion
     private $users;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $current;
+
+    /**
      * @ORM\PreRemove
      */
     public function removeUsers()
@@ -126,6 +131,18 @@ class Promotion
                 $user->setPromotion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurrent(): ?bool
+    {
+        return $this->current;
+    }
+
+    public function setCurrent(bool $current): self
+    {
+        $this->current = $current;
 
         return $this;
     }

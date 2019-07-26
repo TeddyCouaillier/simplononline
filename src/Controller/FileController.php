@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Files;
 use App\Entity\UserFiles;
-use App\Form\File\UserFilesType;
+use App\Form\File\FilesType;
+use App\Form\File\FilesAdminType;
 use App\Repository\UserRepository;
-use App\Form\File\UserFilesAdminType;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,16 +18,18 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("user/fichiers", name="file_")
+ */
 class FileController extends AbstractController
 {
-
     /**
      * File section
      *  - Show the files received
      *  - Show the files sent
      *  - Form to send a file to the mediators by the current user
      *  - Form to send a file to an user by the mediators
-     * @Route("user/fichiers", name="user_show_file")
+     * @Route("", name="user_show")
      * @param Request        $request
      * @param ObjectManager  $manager
      * @param UserRepository $rep
@@ -39,42 +41,31 @@ class FileController extends AbstractController
         $sending = $this->getDoctrine()->getRepository(UserFiles::class)->findBy([
             'sender' => $user
         ]);
-        $access = $user->hasRole(User::MEDIATEUR);
-        $ufile = new UserFiles();
+        $access = $this->container->get('security.authorization_checker')->isGranted(User::MEDIATEUR);
+        $file = new Files();
 
-        if($access){
-            $form = $this->createForm(UserFilesAdminType::class, $ufile);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                $ufile->getReceiver()->addUserFile($ufile);
-            }
-        } else {
-            $form = $this->createForm(UserFilesType::class, $ufile);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
+        $form = $access ? $this->createForm(FilesAdminType::class, $file) : $this->createForm(FilesType::class, $file);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData());
+            $file->setName($filename);
+
+            if($access){
+                $data = $request->request->get('files_admin');
+                foreach($data['receiver'] as $receiver_id){
+                    $receiver = $rep->find($receiver_id);
+                    $important = isset($data['important']) ? true : false;
+                    $receiver->createUserFile($this->getUser(), $file, $important);
+                    $manager->persist($receiver);
+                }
+            } else {
+                $data = $request->request->get('files');
                 foreach($rep->findAllByUserRole(User::MEDIATEUR) as $mediateur){
-                    $mediateur->addUserFile($ufile);
+                    $important = isset($data['important']) ? true : false;
+                    $mediateur->createUserFile($this->getUser(), $file, $important);
+                    $manager->persist($mediateur);
                 }
             }
-        }
-        if($form != NULL && $form->isSubmitted() && $form->isValid()){
-            $file = $form->get('file')->get('name')->getData();
-
-            if($file != NULL)
-            {
-                $id = sizeof($this->getDoctrine()->getRepository(UserFiles::class)->findAll())+1;
-                $fileName = str_replace(" ","-",$form->get('file')->getData()->getTitle());
-                $fileName .= $id.'.'.$file->guessExtension();
-
-                $file->move(
-                    $this->getParameter('file_directory'),
-                    $fileName
-                );
-                $ufile->getFile()->setName($fileName);
-            }
-
-            $user->addSenderFile($ufile);
-            $manager->persist($user);
             $manager->flush();
 
             $this->addFlash(
@@ -93,7 +84,7 @@ class FileController extends AbstractController
 
     /**
      * Change status to a specific file (not "important")
-     * @Route("user/fichiers/{id}/editStatus", name="edit_status_file")
+     * @Route("/{id}/editStatus", name="edit_status")
      * @param FileUser      $file
      * @param ObjectManager $manager
      * @return Response
@@ -103,12 +94,38 @@ class FileController extends AbstractController
         $ufile->setImportant(false);
         $manager->persist($ufile);
         $manager->flush();
-        return $this->redirectToRoute('user_show_file');
+        return $this->redirectToRoute('file_user_show');
+    }
+
+    /**
+     * Delete all current user's files (sent)
+     * @Route("/delete_all", name="delete_all")
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteAllFilesUser(ObjectManager $manager)
+    {
+        $user = $this->getUser();
+        foreach($user->getSenderFiles() as $ufile){
+            $file = $ufile->getFiles();
+            if($file != null){
+                $this->removeFile($file->getName());
+            }
+            $manager->remove($ufile);
+        }
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Les fichier ont bien été supprimés.'
+        );
+
+        return $this->redirectToRoute('file_user_show');
     }
 
     /**
      * Delete a file by a sender only
-     * @Route("user/fichiers/{id}/delete", name="delete_file")
+     * @Route("/{id}/delete", name="delete")
      * @param Files         $file
      * @param ObjectManager $manager
      * @return Response
@@ -116,13 +133,11 @@ class FileController extends AbstractController
     public function deleteFileUser(Files $file, ObjectManager $manager)
     {
         $rep = $this->getDoctrine()->getRepository(UserFiles::class);
-        $filename = $this->getParameter('file_directory') . "/" . $file->getName();
-        $filesystem = new Filesystem();
-        $filesystem->remove($filename);
+        $this->removeFile($file->getName());
 
         $ufiles = $rep->findBy([
             'sender' => $this->getUser(),
-            'file' => $file
+            'files' => $file
         ]);
         foreach($ufiles as $ufile){
             $manager->remove($ufile);
@@ -135,12 +150,12 @@ class FileController extends AbstractController
             'Le fichier a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('user_show_file');
+        return $this->redirectToRoute('file_user_show');
     }
 
     /**
      * Download a specific file
-     * @Route("user/fichiers/{id}", name="download_file")
+     * @Route("/{id}", name="download")
      * @param Files $file
      * @return JsonResponse
      */
@@ -150,7 +165,7 @@ class FileController extends AbstractController
             if (!$file) {
                 $array = array (
                     'status' => 0,
-                    'message' => 'File does not exist' 
+                    'message' => 'File does not exist'
                 );
                 $response = new JsonResponse ( $array, 200 );
 
@@ -172,4 +187,42 @@ class FileController extends AbstractController
             return $response;
         }
     }
+
+    /**
+     * Move the file upload to the file directory
+     * @param string $name  the upload file name
+     * @param string $title the title given by the user
+     * @return string
+     */
+    public function moveFile($name, $title)
+    {
+        $file = $name;
+        $fileName = "";
+        if($file != NULL)
+        {
+            $lastUserFile = $this->getDoctrine()->getRepository(UserFiles::class)->findOneBy([], ['id' => 'desc']);
+            $id = $lastUserFile !== null ? $lastUserFile->getId()+1 : 1;
+            $fileName = str_replace(" ","-",$title);
+            $fileName .= $id.'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('file_directory'),
+                $fileName
+            );
+        }
+        return $fileName;
+    }
+
+    /**
+     * Remove the file from the directory
+     * @param string $filename the file name
+     * @return void
+     */
+    public function removeFile($filename)
+    {
+        $file = $this->getParameter('file_directory') . "/" . $filename;
+        $filesystem = new Filesystem();
+        $filesystem->remove($file);
+    }
 }
+

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,9 +29,14 @@ class Files
     private $title;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UserFiles", mappedBy="file", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="files", cascade={"persist","remove"})
      */
     private $userFiles;
+
+    public function __construct()
+    {
+        $this->userFiles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,20 +67,36 @@ class Files
         return $this;
     }
 
-    public function getUserFiles(): ?UserFiles
+    /**
+     * @return Collection|UserFiles[]
+     */
+    public function getUserFiles(): Collection
     {
         return $this->userFiles;
     }
 
-    public function setUserFiles(UserFiles $userFiles): self
+    public function addUserFile(UserFiles $userFile): self
     {
-        $this->userFiles = $userFiles;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $userFiles->getFile()) {
-            $userFiles->setFile($this);
+        if (!$this->userFiles->contains($userFile)) {
+            $this->userFiles[] = $userFile;
+            $userFile->setFiles($this);
         }
 
         return $this;
     }
+
+    public function removeUserFile(UserFiles $userFile): self
+    {
+        if ($this->userFiles->contains($userFile)) {
+            $this->userFiles->removeElement($userFile);
+            // set the owning side to null (unless already changed)
+            if ($userFile->getFiles() === $this) {
+                $userFile->setFiles(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

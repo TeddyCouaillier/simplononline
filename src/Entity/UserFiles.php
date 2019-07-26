@@ -23,13 +23,14 @@ class UserFiles
     private $receiver;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Files", inversedBy="userFiles", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Files", inversedBy="userFiles", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $file;
+    private $files;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="senderFiles")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $sender;
 
@@ -42,6 +43,7 @@ class UserFiles
      * @ORM\Column(type="boolean")
      */
     private $important;
+
 
     public function __construct()
     {
@@ -61,18 +63,6 @@ class UserFiles
     public function setReceiver(?User $receiver): self
     {
         $this->receiver = $receiver;
-
-        return $this;
-    }
-
-    public function getFile(): ?Files
-    {
-        return $this->file;
-    }
-
-    public function setFile(Files $file): self
-    {
-        $this->file = $file;
 
         return $this;
     }
@@ -109,6 +99,18 @@ class UserFiles
     public function setImportant(bool $important): self
     {
         $this->important = $important;
+
+        return $this;
+    }
+
+    public function getFiles(): ?Files
+    {
+        return $this->files;
+    }
+
+    public function setFiles(?Files $files): self
+    {
+        $this->files = $files;
 
         return $this;
     }

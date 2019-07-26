@@ -40,3 +40,14 @@
 .file-user{ font-size: .89em; }
 .no-file{ font-size: 1.5em;}
 .no-file i{ font-size: 6em; }
+
+.files-delete i,
+.files-delete:hover{ color: rgba(242,72,71,1) !important; }
+
+/* Select users */
+.ms-parent{
+    width: 100% !important;
+    padding: 0 !important;
+    height: 100% !important;
+}
+.ms-no-results{ padding: 8px !important; }

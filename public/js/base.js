@@ -84,3 +84,22 @@ function updateCounter() {
 }
 updateCounter();
 handleDeleteButtons();
+
+/* ------------- FILE USERS SELECTED ------------ */
+$(function() {
+    $('select').multipleSelect({
+        filter: true,
+        formatSelectAll () {
+        return 'Tout sélectionner'
+        },
+        formatAllSelected () {
+        return 'Tout les utilisateurs'
+        },
+        formatCountSelected (count, total) {
+        return count + ' sur ' + total + ' utilisateurs'
+        },
+        formatNoMatchesFound () {
+        return 'Aucun utilisateur'
+        }
+    })
+})

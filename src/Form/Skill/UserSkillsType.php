@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Form\File;
+namespace App\Form\Skill;
 
-use App\Entity\User;
-use App\Entity\UserFiles;
+use App\Entity\UserSkills;
 use App\Form\ApplicationType;
-use App\Form\File\UserFilesType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class EditUserFilesType extends ApplicationType
+class UserSkillsType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userFiles', UserFilesType::class, [
-                'data_class' => UserFiles::class
-            ])
+            ->add('level', TextType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => UserSkills::class,
         ]);
     }
 }

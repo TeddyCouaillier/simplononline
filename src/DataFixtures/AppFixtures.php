@@ -48,6 +48,9 @@ class AppFixtures extends Fixture
         $adminRole = new Role();
         $adminRole->setTitle("ROLE_ADMIN");
         $manager->persist($adminRole);
+        $adminMediateur = new Role();
+        $adminMediateur->setTitle("ROLE_MEDIATEUR");
+        $manager->persist($adminMediateur);
 
         $promos = [];
         for($i = 0 ; $i < mt_rand(4,6) ; $i++){
@@ -55,6 +58,7 @@ class AppFixtures extends Fixture
 
             $promo->setLabel('Promo 1.'.$i);
             $promo->setNickname($faker->word.' '.$faker->word);
+            $promo->setCurrent(false);
             $promos[$i] = $promo;
             $manager->persist($promo);
         }
