@@ -23,11 +23,11 @@
 }
 
 .user-last-project { grid-area: 1 / 1 / 2 / 3; }
-.user-weather { grid-area: 1 / 3 / 2 / 4; }
+.user-weather { grid-area: 1 / 3 / 2 / 4; max-height: 175px; }
 .user-skill { grid-area: 2 / 1 / 5 / 2; }
-.home-notif { grid-area: 2 / 2 / 3 / 3; }
+.home-files { grid-area: 2 / 2 / 3 / 3; }
 .user-date { grid-area: 2 / 3 / 3 / 4; }
-.user-files { grid-area: 3 / 2 / 4 / 4; }
+.user-notif { grid-area: 3 / 2 / 4 / 4; }
 .user-stage { grid-area: 4 / 2 / 5 / 4; }
 .home-weather { grid-area: 5 / 1 / 6 / 2; }
 .home-projects { grid-area: 5 / 2 / 7 / 4; }

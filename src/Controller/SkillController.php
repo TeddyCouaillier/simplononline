@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Entity\Skills;
 use App\Entity\UserSkills;
 use App\Form\Skill\SkillType;
-use App\Repository\SkillsRepository;
+use App\Repository\UserSkillsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +24,7 @@ class SkillController extends AbstractController
      * @param UserSkills $uskill
      * @return Response
      */
-    public function showSkills(SkillsRepository $rep, Request $request, ObjectManager $manager)
+    public function showSkills(UserSkillsRepository $rep, Request $request, ObjectManager $manager)
     {
         $skill = new Skills();
         $form = $this->createForm(SkillType::class, $skill);
@@ -37,7 +37,6 @@ class SkillController extends AbstractController
             $manager->flush();
         }
         return $this->render('skill/show.html.twig',[
-            'skills' => $rep->findAll(),
             'form' => $form->createView()
         ]);
     }

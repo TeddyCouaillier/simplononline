@@ -13,10 +13,10 @@
     <div class="user-last-project reveal">
         <span class="bold">Dernier projet</span>
     </div>
-    <div class="user-weather reveal">
+    <div class="user-weather flexc reveal">
         <span class="bold">Météo du jour</span>
-        <div class="text-center">
-            <i class="fal fa-cloud-showers"></i>
+        <div class="h-100 flex just-center align-center">
+            <i class="fal fa-cloud-showers icon-lg"></i>
         </div>
     </div>
     <div class="user-skill reveal">
@@ -29,10 +29,25 @@
             {% endfor %}
         </div>
     </div>
-    <div class="user-notif reveal">
-        <span class="bold">Mes notifications</span>
-        <div class="text-center">
-            <i class="fal fa-bell text-red"></i>
+    <div class="user-files flexc reveal">
+        <span class="bold">Informations administratives</span>
+        <div class="h-100 flex just-center align-center">
+            <div class="flex align-center text-center">
+                {% set filecount = app.user.importantFiles|length %}
+                <p class="bold">
+                {% if filecount == 0 %}
+                Vous avez {{ filecount }} fichier important.<br>
+                <i class="fal fa-folder-times icon-sm"></i>
+                {% elseif filecount == 1 %}
+                Vous avez <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                <a href="#">Accéder à mes fichiers</a><br>
+                <a href="#"><i class="fas fa-folder icon-sm text-red"></i></a>
+                {% else %}
+                Vous avez <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                <i class="fas fa-folders icon-sm text-red"></i>
+                {% endif %}
+                </p>
+            </div>
         </div>
     </div>
     <div class="home-date reveal">
@@ -41,12 +56,10 @@
         {{ date | date("d/m/Y") }}
         </div>
     </div>
-    <div class="user-files reveal">
-        <span class="bold">Informations administratives</span>
-        <div class="mt-2 rounded">
-            <div class="flex just-between align-center wrap">
-                <span class="bold">Vous avez 2 nouveaux fichiers cette semaine</span>
-            </div>
+    <div class="user-notif flexc reveal">
+        <span class="bold">Mes notifications</span>
+        <div class="h-100 flex just-center align-center">
+            <i class="fal fa-bell home-icon text-red"></i>
         </div>
     </div>
     <div class="user-stage reveal">

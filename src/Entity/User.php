@@ -393,6 +393,16 @@ class User implements UserInterface
         return $this->userFiles;
     }
 
+    public function addUserFile(UserFiles $userFile): self
+    {
+        if (!$this->userFiles->contains($userFile)) {
+            $this->userFiles[] = $userFile;
+            $userFile->setReceiver($this);
+        }
+
+        return $this;
+    }
+
     public function getFiles()
     {
         $files = [];
@@ -403,14 +413,16 @@ class User implements UserInterface
         return $files;
     }
 
-    public function addUserFile(UserFiles $userFile): self
+    public function getImportantFiles()
     {
-        if (!$this->userFiles->contains($userFile)) {
-            $this->userFiles[] = $userFile;
-            $userFile->setReceiver($this);
+        $ufiles = [];
+        $i = 0;
+        foreach($this->userFiles as $ufile){
+            if($ufile->getImportant()){
+                $ufiles[$i++] = $ufile;
+            }
         }
-
-        return $this;
+        return $ufiles;
     }
 
     public function removeUserFile(UserFiles $userFile): self

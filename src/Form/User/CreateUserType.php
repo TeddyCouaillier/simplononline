@@ -14,12 +14,12 @@ class CreateUserType extends UserType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('password', PasswordType::class, $this->getConfiguration("Mot de passe"))
+            ->add('password',  PasswordType::class, $this->getConfiguration("Mot de passe"))
             ->add('promotion', EntityType::class, [
-                'class' => Promotion::class,
+                'class'        => Promotion::class,
                 'choice_label' => 'label',
-                'required' => false,
-                'placeholder' => 'Aucune'
+                'required'     => false,
+                'placeholder'  => 'Aucune'
             ])
         ;
     }

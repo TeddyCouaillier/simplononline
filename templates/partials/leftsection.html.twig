@@ -1,18 +1,18 @@
-<div class="nav-left flexc text-center">
-    <div class="flex flexc">
-        <a href="{{ path('user_show',{'id': app.user.id}) }}">
-            <img class="" src="/img/avatar/{{ app.user.avatar }}"></img>
-        </a>
-        <span>{{ app.user.fullname }}</span>
-    </div>
-    <hr>
+<div class="nav-left flexc">
+    <a href="{{ path('user_show',{'id': app.user.id}) }}">
+        <img class="avatar-xs mb-3" src="/img/avatar/{{ app.user.avatar }}"></img>
+    </a>
     <div>
         <ul>
             <li><a href="#">Projets</a></li>
             <li><a href="{{ path('skill_show') }}">Compétences</a></li>
             <li><a href="{{ path('file_user_show') }}">Administratif</a></li>
             <li><a href="#">Portfolio</a></li>
-            <hr>
+            <li><a href="{{ path('promo_show', {'slug': app.user.promotion.slug}) }}">Promo</a></li>
+        </ul>
+        <hr>
+        <ul>
+            <li class="title">Simplonien</li>
             <li><a href="{{ path('user_show',{'id': app.user.id}) }}">Mes info</a></li>
             <li><a href="#">Stages</a></li>
             <li><a href="#">Données</a></li>
@@ -22,6 +22,6 @@
     <span>Etat des projets</span>
     <div class="project-status">
         <p></p>
-        <button class="btn btn-outline-danger mb-3">NOUVEAU</button>
+        <button class="btn bg-red text-white mb-3">NOUVEAU PROJET</button>
     </div>
 </div>

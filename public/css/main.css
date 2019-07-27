@@ -2,39 +2,40 @@
 .nav-left{
     position: fixed;
     height: 100vh;
-    width: 200px;
-    /* background: #E3E7ED; */
-    background: white;
-    /* background: #e8ecf1; */
+    width: 175px;
+    padding: 20px 15px;
+    background: #363b42;
     z-index: 999;
     -webkit-box-shadow: 3px 40px 6px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 3px 40px 6px 0px rgba(0,0,0,0.75);
     box-shadow: 3px 40px 6px 0px rgba(0,0,0,0.1);
 }
 .nav-left *{
-    color: #41474e !important;
+    color: #FFFFFF;
+    font-size: .95em!important;
 }
-.nav-left img{
-    height: 75px;
-    width: 75px;
-    border-radius: 50%;
-    background: white;
-    margin:10px auto;
-
+.nav-left ul:first-of-type li{
+    margin: 10px 0;
+    font-weight: 600;
 }
-.nav-left a{
-    font-size: .80em;
+.nav-left ul:first-of-type li:hover{
+    font-weight: 600;
+}
+.nav-left ul:last-of-type li{
+    margin: 4px 0;
 }
 .nav-left a:hover{
     color: rgba(242,72,71,1) !important;
-    font-weight: 500 !important;
 }
 .nav-left hr{
-    border-color: rgba(0,0,0,.2);
-    width: 175px;
+    border-color: rgba(200,200,200,.1);
+    width: 100%;
 }
 .nav-left div:last-child{
     margin: 0;
+}
+.nav-left .title{
+    color: rgba(200,200,200,.75);
 }
 .nav-left .project-status{
     max-height: 100%;
@@ -45,15 +46,14 @@
 }
 .nav-left .project-status button{
     margin-top: 10px;
-    color: rgba(242,72,71,1)!important;
+    font-size: .82em !important;
+    width: 100%;
+
 }
 .nav-left .project-status button:hover{
-    color: white !important;
+    color: #FFFFFF !important;
 }
-.nav-left button{
-    width: 175px !important;
-    font-size: .8em;
-}
+
 .nav-left ul li{
     font-size: 1.15em;
 }
@@ -62,11 +62,9 @@
 .nav-top{
     position: fixed;
     top: 0;
-    /* background: #E3E7ED; */
-    background: white;
-    /* background: #e8ecf1; */
-    width: calc(100% - 200px);
-    transform: translateX(200px);
+    background: #FFFFFF;
+    width: calc(100% - 175px);
+    transform: translateX(175px);
     z-index: 1;
     font-size: .84em;
     text-transform: uppercase;
@@ -77,7 +75,7 @@
 .nav-top ul li{
     display: inline-block;
     padding: 6px 10px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #FFFFFF;
 }
 .nav-top ul li:hover:not(.logout){
     border-bottom: 2px solid rgba(242,72,71,1);
@@ -96,9 +94,9 @@
 
 /* MAIN SECTION */
 .main-content{
-    width: calc(100% - 200px);
-    transform: translate(200px,40px);
-    background: #f6f8f9;
+    width: calc(100% - 175px);
+    transform: translate(175px,40px);
+    display: none;
 }
 
 .main{

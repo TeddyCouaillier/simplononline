@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    <div class="px-1 px-2 px-3 px-4 px-5">test</div>
-
     {{ template.checkMessage(form) }}
     <div class="flex just-between">
         <h1>Liste des promotions</h1>
@@ -26,7 +24,7 @@
                 <div class="flex just-between align-baseline promo-nav">
                     {% if promo.current %}
                     <div class="current">
-                        Actuelle
+                        En cours
                     </div>
                     {% else %}
                     <div></div>

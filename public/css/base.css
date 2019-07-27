@@ -2,6 +2,7 @@ body{
     font-family: 'Abel';
     font-weight: 400;
     color: #2a2d31 !important;
+    background: #f6f8f9;
 }
 /*****************************************************
  ** HTML
@@ -94,6 +95,27 @@ hr{
  ** BASE
  ****************************************************/
 .rounded{ border-radius: 7px !important;}
+.icon-sm{ font-size: 2em; }
+.icon-md{ font-size: 3em; }
+.icon-lg{ font-size: 4em; }
+.icon-xl{ font-size: 5em; }
+[class*="avatar-"]{ border-radius: 50%; }
+.avatar-xs{
+    width: 30px;
+    height: 30px;
+}
+.avatar-sm{
+    width: 50px;
+    height: 50px;
+}
+.avatar-md{
+    width: 75px;
+    height: 75px;
+}
+.avatar-lg{
+    width: 175px;
+    height: 175px;
+}
 
 /*****************************************************
 ** FORM
@@ -155,23 +177,6 @@ input:focus,select:focus{
 }
 .message-warning{ background-color: #F7BB33; }
 .message-danger{ background-color: rgba(242,72,71,1); }
-
-/*****************************************************
- ** AVATAR
- ****************************************************/
-[class*="avatar-"]{ border-radius: 50%; }
- .avatar-xs{
-    width: 50px;
-    height: 50px;
-}
-.avatar-sm{
-    width: 75px;
-    height: 75px;
-}
-.avatar-md{
-    width: 175px;
-    height: 175px;
-}
 
 /*****************************************************
  ** SUB-NAVIGATION (Link & button)

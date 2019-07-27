@@ -18,25 +18,25 @@ class FilesAdminType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',FileType::class,['data_class' => null])
-            ->add('title',TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
+            ->add('name',     FileType::class,['data_class' => null])
+            ->add('title',    TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
             ->add('receiver', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'fullname',
-                'label' => 'Destinataire',
-                'multiple' => true,
-                'mapped' => false,
+                'class'         => User::class,
+                'choice_label'  => 'fullname',
+                'label'         => 'Destinataire',
+                'multiple'      => true,
+                'mapped'        => false,
                 'query_builder' => function(UserRepository $rep) {
                     return $rep->findAllByCurrentPromo();
                 }
 
             ])
             ->add('important', CheckboxType::class, [
-                'mapped' => false,
-                'attr' => array('class' => "test"),
-                'attr' => array('class' => "custom-control-input"),
-                'label_attr' => array('class' => 'custom-control-label'),
-                'required' => false
+                'mapped'        => false,
+                'attr'          => array('class' => "test"),
+                'attr'          => array('class' => "custom-control-input"),
+                'label_attr'    => array('class' => 'custom-control-label'),
+                'required'      => false
             ])
         ;
     }

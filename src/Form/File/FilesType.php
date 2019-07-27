@@ -15,13 +15,13 @@ class FilesType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',FileType::class,['data_class' => null])
-            ->add('title',TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
+            ->add('name',      FileType::class,['data_class' => null])
+            ->add('title',     TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
             ->add('important', CheckboxType::class, [
-                'mapped' => false,
-                'attr' => array('class' => "custom-control-input"),
+                'mapped'     => false,
+                'attr'       => array('class' => "custom-control-input"),
                 'label_attr' => array('class' => 'custom-control-label'),
-                'required' => false
+                'required'   => false
             ])
         ;
     }

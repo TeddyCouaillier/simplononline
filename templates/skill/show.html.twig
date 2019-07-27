@@ -16,8 +16,9 @@
     </div>
     <hr>
     <div class="bg-grey rounded p-2">
-    {% for skill in skills %}
-        <div class="bg-white rounded p-2 mt-1 mb-2">
+    {% for uskill in app.user.userskills %}
+        {% set skill = uskill.skill %}
+        <div class="bg-white rounded p-2 mt-1 mb-2 border-level-{{uskill.level}}">
             {% if is_granted('ROLE_ADMIN') %}
             {{ template.delete(skill.id,"skill_delete") }}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
