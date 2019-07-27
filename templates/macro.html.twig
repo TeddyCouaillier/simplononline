@@ -1,8 +1,8 @@
 {# Message template #}
 {% macro message(class, message) %}
-<div class="message {{ class }}">
+<div class="message-{{ class }}">
     {{ message | raw }}
-    <button type="button" class="close-message">
+    <button type="button" class="close close-message">
         <span>&times;</span>
     </button>
 </div>
@@ -11,9 +11,9 @@
 {# Error message for a form #}
 {% macro checkMessage(form) %}
     {% if not form.vars.valid %}
-    <div class="message warning">
+    <div class="message-warning">
         Il y a un ou plusieurs erreurs de saisie.
-        <button type="button" class="close-message">
+        <button type="button" class="close close-message">
             <span>&times;</span>
         </button>
     </div>

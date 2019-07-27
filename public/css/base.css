@@ -141,38 +141,36 @@ input:focus,select:focus{
 ** MESSAGE
 ****************************************************/
 .close-message{ color: #FFFFFF !important; }
-.message{
+[class*="message-"]{
     padding: 20px 30px;
     margin: 10px 0;
 }
-.success{
+.message-success{
     background-color: #369592;
     color: #FFFFFF;
 }
-.info{
+.message-info{
     background: #373c42;
     color: #FFFFFF;
 }
-.warning{ background-color: #F7BB33; }
-.danger{ background-color: rgba(242,72,71,1); }
+.message-warning{ background-color: #F7BB33; }
+.message-danger{ background-color: rgba(242,72,71,1); }
 
 /*****************************************************
  ** AVATAR
  ****************************************************/
-.avatar-xs{
+[class*="avatar-"]{ border-radius: 50%; }
+ .avatar-xs{
     width: 50px;
     height: 50px;
-    border-radius: 50%;
 }
 .avatar-sm{
     width: 75px;
     height: 75px;
-    border-radius: 50%;
 }
 .avatar-md{
     width: 175px;
     height: 175px;
-    border-radius: 50%;
 }
 
 /*****************************************************
@@ -237,4 +235,17 @@ input:focus,select:focus{
     color: #000000;
     text-decoration: none;
     cursor: pointer;
+}
+
+/*****************************************************
+ ** REVEAL CONTENT
+ ****************************************************/
+.reveal{
+    opacity: 0;
+    transform: translateY(-30px);
+}
+.reveal-visible{
+    opacity: 1;
+    transform: translateY(0);
+    transition: 1s cubic-bezier(.6,0,0,1);
 }

@@ -117,7 +117,7 @@ class FileController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Les fichier ont bien été supprimés.'
+            'Les fichiers ont bien été supprimés.'
         );
 
         return $this->redirectToRoute('file_user_show');

@@ -10,16 +10,16 @@
 
 {% block body %}
 <div class="home bg-grey rounded">
-    <div class="user-last-project">
+    <div class="user-last-project reveal">
         <span class="bold">Dernier projet</span>
     </div>
-    <div class="user-weather">
+    <div class="user-weather reveal">
         <span class="bold">Météo du jour</span>
         <div class="text-center">
             <i class="fal fa-cloud-showers"></i>
         </div>
     </div>
-    <div class="user-skill">
+    <div class="user-skill reveal">
         <span class="bold">Mes compétences</span>
         <div class="mt-2 rounded">
             {% for skill in app.user.userSkills %}
@@ -29,19 +29,19 @@
             {% endfor %}
         </div>
     </div>
-    <div class="user-notif">
+    <div class="user-notif reveal">
         <span class="bold">Mes notifications</span>
         <div class="text-center">
             <i class="fal fa-bell text-red"></i>
         </div>
     </div>
-    <div class="home-date">
+    <div class="home-date reveal">
         <span class="bold">Date du jour</span>
         <div class="date text-center">
         {{ date | date("d/m/Y") }}
         </div>
     </div>
-    <div class="user-files">
+    <div class="user-files reveal">
         <span class="bold">Informations administratives</span>
         <div class="mt-2 rounded">
             <div class="flex just-between align-center wrap">
@@ -49,13 +49,13 @@
             </div>
         </div>
     </div>
-    <div class="user-stage">
+    <div class="user-stage reveal">
         <span class="bold">Etat des stages</span>
     </div>
-    <div class="home-weather">
+    <div class="home-weather reveal">
         <span class="bold">Météo du jour de la promo</span>
     </div>
-    <div class="home-projects">
+    <div class="home-projects reveal">
         <span class="bold">Derniers projets de la promo</span>
     </div>
     <div class="home-empty">
