@@ -1,13 +1,24 @@
+{% set active_home = "" %} {% set active_projet = "" %} {% set active_promo = "" %} {% set active_aide = "" %}
+{% if app.request.get('_route') == "home" %}
+{% set active_home = "active" %}
+{% elseif app.request.get('_route') == "" %}
+{% set active_projet = "active" %}
+{% elseif app.request.get('_route') == "promo_all" %}
+{% set active_promo = "active" %}
+{% else %}
+{% set active_aide = "active" %}
+{% endif %}
+
 <div class="nav-top">
     <div class="d-flex justify-content-between align-items-baseline">
         <ul>
-            <li><a href="#">Projets</a></li>
-            <li><a href="{{ path('promo_all') }}">Promotions</a></li>
-            <li><a href="#">Aide</a></li>
+            <li class="{{ active_home }}"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
+            <li class="{{ active_projet }}"><a href="#">Projets</a></li>
+            <li class="{{ active_promo }}"><a href="{{ path('promo_all') }}">Promotions</a></li>
+            <li class="{{ active_aide }}"><a href="#">Aide</a></li>
         </ul>
         <ul>
-            <li><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
-            <li class="logout"><a href="{{ path('account_logout') }}"><i class="far fa-sign-out"></i></a></li>
+            <li class="logout"><a href="#"><i class="fas fa-power-off"></i></a></li>
         </ul>
     </div>
 </div>

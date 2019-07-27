@@ -21,24 +21,33 @@
         {% for promo in promos | reverse %}
             {{ template.delete(promo.id,"promo_delete") }}
             <div class="bg-white shadow text-center mb-3 p-2 all-promo">
+                <div class="d-flex justify-content-between align-items-baseline promo-nav">
+                    {% if promo.current %}
+                    <div class="current">
+                        Actuelle
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ promo.id }}" data-content='
                 <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
                 <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
                 </i>
+                </div>
                 {% endif %}
-            <div>
-                <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
-                    <h2>{{ promo.label }}</h2>
-                    <ul>
-                        <li>Formateur : <em>PETIT Romain</em></li>
-                        <li>Médiateur : <em>CARON Benoit</em></li>
-                    </ul>
-                    <hr>
-                    <span class="text-grey">{{ promo.nickname | capitalize }}</span>
-                </a>
-            </div>
+                <div class="promo-content">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                        <h2>{{ promo.label }}</h2>
+                        <ul>
+                            <li>Formateur : <em>PETIT Romain</em></li>
+                            <li>Médiateur : <em>CARON Benoit</em></li>
+                        </ul>
+                        <hr>
+                        <span class="text-grey">{{ promo.nickname | capitalize }}</span>
+                    </a>
+                </div>
             </div>
         {% endfor %}
     </div>
@@ -54,6 +63,9 @@
                 {{ form_widget(form.label) }}
                 {{ form_label(form.nickname) }}
                 {{ form_widget(form.nickname) }}
+                <div class="custom-control custom-switch text-center mt-4">
+                {{ form_widget(form.current) }}
+                </div>
                 {{ template.btnConfirm }}
                 {{ form_end(form) }}
             </div>

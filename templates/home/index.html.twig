@@ -16,31 +16,38 @@
     <div class="user-weather">
         <span class="bold">Météo du jour</span>
         <div class="text-center">
-        <i class="fal fa-cloud-showers"></i>
+            <i class="fal fa-cloud-showers"></i>
         </div>
     </div>
     <div class="user-skill">
         <span class="bold">Mes compétences</span>
         <div class="mt-2 rounded">
             {% for skill in app.user.userSkills %}
-                {{ template.level(skill) }}
+            {{ template.level(skill) }}
+            {% else %}
+            Pas de compétences
             {% endfor %}
         </div>
     </div>
     <div class="user-notif">
         <span class="bold">Mes notifications</span>
         <div class="text-center">
-        <i class="fal fa-bell text-red"></i>
+            <i class="fal fa-bell text-red"></i>
         </div>
     </div>
     <div class="home-date">
         <span class="bold">Date du jour</span>
-        <div class="text-center date">
+        <div class="date text-center">
         {{ date | date("d/m/Y") }}
         </div>
     </div>
     <div class="user-files">
         <span class="bold">Informations administratives</span>
+        <div class="mt-2 rounded">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="bold">Vous avez 2 nouveaux fichiers cette semaine</span>
+            </div>
+        </div>
     </div>
     <div class="user-stage">
         <span class="bold">Etat des stages</span>

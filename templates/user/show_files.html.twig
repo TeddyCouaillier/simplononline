@@ -79,7 +79,9 @@
     <div class="bg-grey rounded mt-2 p-2">
         <div class="d-flex justify-content-between">
             <span class="bold">Mes fichiers envoyés</span>
+            {% if sending is not empty %}
             {{ template.linkModal('deletefiles','modal-button files-delete','Tout supprimer <i class="fal fa-times-circle"></i>') }}
+            {% endif %}
         </div>
         {% for usend in sending | reverse%}
             {% set file = usend.files %}

@@ -26,16 +26,6 @@
     background: white;
 }
 
-.custom-control-input:checked~.custom-control-label::before{
-    background: rgba(242,72,71,1) !important;
-    border-color: rgba(242,72,71,1) !important;
-}
-.custom-control-input:focus.custom-control-label::before{
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
 .file-info{ width: 95%; }
 .file-user{ font-size: .89em; }
 .no-file{ font-size: 1.5em;}

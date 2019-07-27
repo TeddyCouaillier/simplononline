@@ -61,6 +61,7 @@ class Promotion
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->current = false;
     }
 
     public function getId(): ?int

@@ -89,8 +89,17 @@ p{ margin: 0!important; }
  ****************************************************/
 .custom-file-label { opacity: 0; }
 .custom-file-input { opacity: 1; }
-.confirm-right{ transform: translate(-30px,30px); }
+.confirm-right{ transform: translate(-30px,30px); margin-top: -40px !important;}
 .close-message{ color: white !important; }
+.custom-control-input:checked~.custom-control-label::before{
+    background: rgba(242,72,71,1) !important;
+    border-color: rgba(242,72,71,1) !important;
+}
+.custom-control-input:focus.custom-control-label::before{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
 
 /*****************************************************
  ** MESSAGE

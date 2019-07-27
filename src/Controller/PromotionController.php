@@ -33,6 +33,12 @@ class PromotionController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            if($promo->getCurrent() == true){
+                foreach($rep->findBy(['current' => true]) as $currentPromo){
+                    $currentPromo->setCurrent(false);
+                }
+            }
+
             $manager->persist($promo);
             $manager->flush();
 
@@ -65,8 +71,8 @@ class PromotionController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             foreach($promo->getUsers() as $user){
                 $user->setPromotion($promo)
-                     ->setPassword($encoder->encodePassword($user, 'test'))
-                     ->setAvatar('avatar.png');
+                     ->setPassword($encoder->encodePassword($user, 'test'));
+                    //  ->setAvatar('avatar.png');
 
                 $manager->persist($user);
             }
