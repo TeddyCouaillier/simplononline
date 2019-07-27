@@ -10,15 +10,24 @@
 {% endif %}
 
 <div class="nav-top">
-    <div class="flex just-between align-baseline">
+    <div class="flex just-between align-baseline navlist">
         <ul>
-            <li class="{{ active_home }}"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
+            <li class="{{ active_home }} text-uppercase"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
             <li class="{{ active_projet }}"><a href="#">Projets</a></li>
             <li class="{{ active_promo }}"><a href="{{ path('promo_all') }}">Promotions</a></li>
             <li class="{{ active_aide }}"><a href="#">Aide</a></li>
         </ul>
         <ul>
-            <li class="logout"><a href="{{ path('account_logout') }}"><i class="fas fa-power-off"></i></a></li>
+            <li class="logout"><p><i class="fas fa-cog"></i></p></li>
+        </ul>
+    </div>
+    <div class="nav-dropdown rounded">
+        <ul>
+            <li><a href="#">Rejoindre un projet</a></li>
+            <li><a href="#">Modifier mon compte</a></li>
+            <li><a href="#">Modifier le mot de passe</a></li>
+            <hr>
+            <li class="bold"><a href="{{ path('account_logout') }}">Se déconnecter</a></li>
         </ul>
     </div>
 </div>

@@ -1,3 +1,4 @@
+/* --------------- BOOTSTRAP ---------------- */
 $(function () {
     $('[data-toggle="popover"]').popover()
 })
@@ -9,6 +10,12 @@ $('.popover-dismiss').popover({
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+/* ----------------- NAV --------------------- */
+$('.logout').click(function(){
+    $('.nav-dropdown').fadeToggle(500);
+})
+
 
 /* ---------------- MODAL -------------------- */
 // When the user clicks the button, open the modal
