@@ -6,7 +6,7 @@
 .skill-user hr { border-color: rgba(0,0,0,.3); }
 .skill-user > div { line-height: 30px; }
 .skill-user > div:first-child{ width: 80%; }
-.skill-user > div:last-child{ color: white; }
+.skill-user > div:last-child{ color: #FFFFFF; }
 .skill-user:hover{
     background: rgba(244,244,244);
     cursor: pointer;
@@ -51,11 +51,11 @@
 .edit-skill-users input{
     padding: 0;
     border-radius: 50% !important;
-    color: white;
+    color: #FFFFFF;
     border: none;
 }
 .edit-skill-users input:focus{
-    color: white;
+    color: #FFFFFF;
 }
 .edit-skill-users input:hover{
     -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;

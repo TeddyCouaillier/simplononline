@@ -1,23 +1,27 @@
 
 /* Show promotion */
-.promo > div:not(.promo-empty){
+.promo-users{
+    background: #FFFFFF;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
     width: 32%;
     height: 175px;
 }
-.promo-empty { width: 100%; }
+.promo-empty {
+    width: 100%;
+    text-align: center;
+}
 .promo-empty img{
     width: 100%;
-    /* height: 300px; */
     opacity: .1;
 }
 .promo-empty > div{
     position: relative;
     top: 40%;
     z-index: 2;
-    width: auto;
     padding: 10px;
     color: rgba(0,0,0,0.2);
-    background: white;
+    background: #FFFFFF;
     font-size: 3em;
 }
 

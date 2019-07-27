@@ -1,0 +1,55 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="flex just-between">
+    <span class="bold">Mes fichiers envoyés</span>
+    {% if sending is not empty %}
+    {{ template.linkModal('deletefiles','modal-button files-delete','Tout supprimer <i class="fal fa-times-circle"></i>') }}
+    {% endif %}
+</div>
+
+{% for usend in sending | reverse%}
+    {{ template.delete(file.id, "file_delete", "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
+
+    <div class="file-content rounded">
+        <div class="file-state"></div>
+        <div class="file-info">
+            <p class="bold">{{ usend.files.title }}</p>
+            <p class="file-user">
+                <em>Envoyé
+                {% if usend.sender != null %}
+                à {{ usend.receiver.firstname }} {{ usend.receiver.lastname | upper }}
+                {% endif %}
+                le {{ usend.dateSend | date('d/m/Y à H:i') }}</em>
+            </p>
+        </div>
+        <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+        data-modalid="{{ file.id }}" data-content='
+        <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+        <a class="modal-button subnav-link text-red">Supprimer</a>'></i>
+    </div>
+
+{% else %}
+    <div class="text-grey flex just-center align-center text-center no-file">
+        <p class="my-5">
+            <i class="far fa-times-circle"></i><br>
+            Aucun fichier envoyé
+        </p>
+    </div>
+{% endfor %}
+
+<div id="myModal" class="modal" data-modalid="deletefiles">
+    <div class="modal-content">
+        <div class="close-modal text-right">&times;</div>
+        <div class="mb-4 w-75 mx-auto">
+            <h2>Confirmation de suppression</h2>
+            <hr>
+            <div class="text-center mb-4">
+                <p>Ces fichiers seront supprimés définitivement et ne seront plus accessibles par les autres utilisateurs.</p>
+                <b>Êtes-vous sur de vouloir supprimer ces éléments ? </b><br>
+                <a href="{{ path('file_delete_all') }}">
+                    <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

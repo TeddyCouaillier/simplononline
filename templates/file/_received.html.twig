@@ -1,0 +1,41 @@
+<div class="received-files">
+    {% for ufiles in user.userFiles | reverse %}
+        {% set file = ufiles.files %}
+        <div class="file-content rounded">
+            {% if ufiles.important == null %}
+            <div class="file-state"></div>
+            {% else %}
+            <div class="file-state bg-red"></div>
+            {% endif %}
+            <div class="file-info">
+                <p class="bold">{{ file.title }}</p>
+                <p style="font-size: .89em;">
+                    <em>Envoyé
+                    {% if ufiles.sender != null %}
+                    par {{ ufiles.sender.firstname }} {{ ufiles.sender.lastname | upper }}
+                    {% endif %}
+                    le {{ ufiles.dateSend | date('d/m/Y à H:i') }}</em>
+                </p>
+            </div>
+            <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            data-modalid="{{ ufiles.id }}"
+            {% if ufiles.important %}
+            data-content='
+            <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+            <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a>'
+            {% else %}
+            data-content='
+            <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+            {% endif %}
+            '></i>
+        </div>
+    {% else %}
+    <span class="bold">Mes fichiers reçus</span>
+    <div class="no-file text-grey">
+        <p>
+            <i class="fal fa-folder-open"></i><br>
+            Aucun fichier reçu
+        </p>
+    </div>
+    {% endfor %}
+</div>

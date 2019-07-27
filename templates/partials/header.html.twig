@@ -10,7 +10,7 @@
 {% endif %}
 
 <div class="nav-top">
-    <div class="d-flex justify-content-between align-items-baseline">
+    <div class="flex just-between align-baseline">
         <ul>
             <li class="{{ active_home }}"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
             <li class="{{ active_projet }}"><a href="#">Projets</a></li>
@@ -18,7 +18,7 @@
             <li class="{{ active_aide }}"><a href="#">Aide</a></li>
         </ul>
         <ul>
-            <li class="logout"><a href="#"><i class="fas fa-power-off"></i></a></li>
+            <li class="logout"><a href="{{ path('account_logout') }}"><i class="fas fa-power-off"></i></a></li>
         </ul>
     </div>
 </div>

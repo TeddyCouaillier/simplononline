@@ -46,7 +46,7 @@ class SkillController extends AbstractController
      * Delete a skill
      * @Route("/{id}/delete", name="delete")
      * @IsGranted("ROLE_ADMIN")
-     * @param Skills $skill
+     * @param Skills        $skill
      * @param ObjectManager $manager
      * @return Response
      */

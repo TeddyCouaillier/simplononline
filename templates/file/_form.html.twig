@@ -1,0 +1,22 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="form-files rounded">
+    <p class="bold">Envoyer un fichier</p>
+    <div>
+        {{ form_start(form) }}
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
+            <hr>
+            {% if is_granted('ROLE_MEDIATEUR') %}
+            {{ form_label(form.receiver) }}
+            {{ form_widget(form.receiver, { 'attr' : {'multiple' : 'multiple'}}) }}
+            <hr>
+            {% endif %}
+            {{ form_widget(form.name) }}
+            <div class="custom-control custom-switch text-center mt-4">
+            {{ form_widget(form.important) }}
+            </div>
+            {{ template.confirm()}}
+        {{ form_end(form) }}
+    </div>
+</div>

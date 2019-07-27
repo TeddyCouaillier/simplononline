@@ -2,7 +2,7 @@
 {% macro message(class, message) %}
 <div class="message {{ class }}">
     {{ message | raw }}
-    <button type="button" class="close close-message">
+    <button type="button" class="close-message">
         <span>&times;</span>
     </button>
 </div>
@@ -13,7 +13,7 @@
     {% if not form.vars.valid %}
     <div class="message warning">
         Il y a un ou plusieurs erreurs de saisie.
-        <button type="button" class="close close-message">
+        <button type="button" class="close-message">
             <span>&times;</span>
         </button>
     </div>
@@ -46,16 +46,10 @@
 {% endmacro %}
 
 {# Button confirm #}
-{% macro btnConfirm(right = false) %}
-    {% if right == false %}
+{% macro confirm() %}
     <div class="text-center">
         <button type="submit" class="bg-red text-white button-circle mt-3 mb-1">&#10004;</button>
     </div>
-    {% else %}
-    <div class="text-right">
-        <button type="submit" class="bg-red text-white button-circle mt-3 mb-1 confirm-right">&#10004;</button>
-    </div>
-    {% endif %}
 {% endmacro %}
 
 {# Skill modal #}
@@ -81,7 +75,7 @@
     {% set skill = skillUser.skill %}
     {{ template.skillModal(skillUser) }}
     <div
-    data-modalid="{{ skill.id }}" class="d-flex align-items-center skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+    data-modalid="{{ skill.id }}" class="flex align-center skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
     data-content="{{ skill.label }}<hr><div class='modal-button skill-info'>Détails</div>">
         <div class="skill-label">{{ skill.label }}</div>
         <div class="level level-{{ skillUser.level }} ml-auto">{{ skillUser.level }}</div>

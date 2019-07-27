@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des fichiers{% endblock %}
+
+{% block stylesheets %}
+<link href="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/file.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Gestion des fichiers</h1>
+    <hr>
+    <div class="bg-grey rounded mt-2 p-2 flex show-files">
+        {{ include('file/_received.html.twig', {'user':user}) }}
+        {{ include('file/_form.html.twig', {'form':form}) }}
+    </div>
+    <hr>
+    <div class="bg-grey rounded mt-2 p-2">
+        {{ include('file/_sent.html.twig', {'sending':sending}) }}
+    </div>
+{% endblock %}
+
+{% block libraries %}
+<script src="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.js"></script>
+{% endblock %}

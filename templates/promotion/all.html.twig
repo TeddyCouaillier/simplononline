@@ -9,19 +9,21 @@
 {% endblock %}
 
 {% block body %}
+    <div class="px-1 px-2 px-3 px-4 px-5">test</div>
+
     {{ template.checkMessage(form) }}
-    <div class="d-flex justify-content-between">
+    <div class="flex just-between">
         <h1>Liste des promotions</h1>
         {% if is_granted('ROLE_ADMIN') %}
         {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
         {% endif %}
     </div>
     <hr>
-    <div class="d-flex flex-wrap justify-content-around">
+    <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
             {{ template.delete(promo.id,"promo_delete") }}
-            <div class="bg-white shadow text-center mb-3 p-2 all-promo">
-                <div class="d-flex justify-content-between align-items-baseline promo-nav">
+            <div class="bg-white shadow text-center mb-3 p-1 all-promo">
+                <div class="flex just-between align-baseline promo-nav">
                     {% if promo.current %}
                     <div class="current">
                         Actuelle
@@ -33,7 +35,7 @@
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ promo.id }}" data-content='
                 <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
-                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                <a class="modal-button subnav-link text-red">Supprimer</a>'>
                 </i>
                 </div>
                 {% endif %}
@@ -66,7 +68,7 @@
                 <div class="custom-control custom-switch text-center mt-4">
                 {{ form_widget(form.current) }}
                 </div>
-                {{ template.btnConfirm }}
+                {{ template.confirm() }}
                 {{ form_end(form) }}
             </div>
         </div>

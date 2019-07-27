@@ -74,7 +74,7 @@ class FileController extends AbstractController
             );
         }
 
-        return $this->render('user/show_files.html.twig', [
+        return $this->render('file/show_files.html.twig', [
             'user' => $user,
             'sending' => $sending,
             'form' => $form->createView(),

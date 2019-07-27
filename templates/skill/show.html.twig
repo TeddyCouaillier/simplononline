@@ -8,7 +8,7 @@
 
 {% block body %}
     {{ template.checkMessage(form) }}
-    <div class="d-flex justify-content-between">
+    <div class="flex just-between">
         <h1>Liste des compétences</h1>
         {% if is_granted('ROLE_ADMIN') %}
         {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
@@ -22,7 +22,7 @@
             {{ template.delete(skill.id,"skill_delete") }}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ skill.id }}" data-content='
-                <a class="modal-button delete subnav-link text-red">Supprimer</a>'></i>
+                <a class="modal-button subnav-link text-red">Supprimer</a>'></i>
             {% endif %}
             <span class="bold">{{ skill.label }}</span>
             <p class="text-justify">
@@ -43,7 +43,7 @@
                 {{ form_widget(form.label) }}
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
-                {{ template.btnConfirm }}
+                {{ template.confirm() }}
                 {{ form_end(form) }}
             </div>
         </div>

@@ -15,7 +15,7 @@
     <div class="grid-user">
         <div class="grid-user-info bg-grey rounded">
             <span class="bold">Informations personnelles</span>
-            <div class="d-flex justify-content-around text-center mt-2 form-add-user-info">
+            <div class="flex just-around text-center mt-2 form-add-user-info">
                 <div>
                     {{ form_label(form.firstname) }}<br>
                     {{ form_widget(form.firstname) }}
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    {{ template.btnConfirm }}
+    {{ template.confirm() }}
 
     {{ form_end(form) }}
 {% endblock %}

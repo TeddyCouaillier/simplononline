@@ -24,8 +24,8 @@ class UserController extends AbstractController
      * Create an user
      * @Route("/create", name="create")
      * @IsGranted("ROLE_ADMIN")
-     * @param Request $request
-     * @param ObjectManager $manager
+     * @param Request                      $request
+     * @param ObjectManager                $manager
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
@@ -38,10 +38,8 @@ class UserController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, 'test'));
             $user->setAvatar('avatar.png');
 
-            // All user's skills
             $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
 
-            // $userSkill = new UserSkills($skills);
             $user->initializeSkills($skills);
             $manager->persist($user);
             $manager->flush();
@@ -61,8 +59,8 @@ class UserController extends AbstractController
     /**
      * Edit the current user
      * @Route("/edit/{id}", name="edit")
-     * @param User $user
-     * @param Request $request
+     * @param User          $user
+     * @param Request       $request
      * @param ObjectManager $manager
      * @return Response
      */
@@ -126,7 +124,7 @@ class UserController extends AbstractController
     /**
      * Delete a specific user
      * @Route("/{id}/delete", name="delete")
-     * @param User $user
+     * @param User          $user
      * @param ObjectManager $manager
      * @return void
      */

@@ -13,10 +13,10 @@
     <div class="bg-grey rounded p-1">
         {% for user in users %}
         {{ template.delete(user.id, 'user_delete') }}
-        <div class="d-flex justify-content-between bg-white rounded all-users">
+        <div class="flex just-between bg-white rounded all-users">
             {% if user.promotion != null %}
             <div>
-                <img src="/img/icon.png" class="icon mr-2">
+                <img src="/img/icon.png" class="user-icon">
                 <span>{{ user.fullname }}</span>
             </div>
             <div>
@@ -26,13 +26,13 @@
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ user.id }}" data-content='
                 <a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
-                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                <a class="modal-button subnav-link text-red">Supprimer</a>'>
                 </i>
                 {% endif %}
             </div>
             {% else %}
             <div>
-                <img src="/img/icon_dark.png" class="icon mr-2">
+                <img src="/img/icon_dark.png" class="user-icon">
                 <span>{{ user.fullname }}</span>
             </div>
             <div>
@@ -40,7 +40,7 @@
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 data-modalid="{{ user.id }}" data-content='
                 <a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
-                <a class="modal-button delete subnav-link text-red">Supprimer</a>'>
+                <a class="modal-button subnav-link text-red">Supprimer</a>'>
                 </i>
             </div>
             {% endif %}
