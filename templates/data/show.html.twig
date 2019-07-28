@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Données de {{ user.fullname }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/data.css">
+{% endblock %}
+
+{% block body %}
+   <div class="flex just-between align-center">
+        <h1>Données de {{ user.firstname }} {{ user.lastname|upper }}</h1>
+        {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('user_data_edit',{'id':user.id}) }}" class="bg-grey button-circle text-grey icon-sm"><i class="fal fa-pen bold"></i></a>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="bg-grey rounded p-2">
+        <span class="bold">Vos logs</span>
+        <table class="w-100 data">
+            {% for udata in user.userData %}
+            <tr class="reveal">
+                <td>
+                    {{ udata.data.label }}
+                </td>
+                <td class="data-link-{{udata.id}}">
+                    {% if udata.content != null %}
+                    {{ udata.content }}
+                    {% else %}
+                    <em>Pas de données</em>
+                    {% endif %}
+                </td>
+                <td>
+                    <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')" 
+                    data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

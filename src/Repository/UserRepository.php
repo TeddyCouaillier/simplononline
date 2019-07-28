@@ -39,11 +39,25 @@ class UserRepository extends ServiceEntityRepository
      * Find all users in the current promo
      * @return User[]
      */
+    public function findCurrentPromoType()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.promotion', 'p')
+            ->andWhere('p.current = true')
+        ;
+    }
+
+    /**
+     * Find all users in the current promo
+     * @return User[]
+     */
     public function findAllByCurrentPromo()
     {
         return $this->createQueryBuilder('u')
             ->leftJoin('u.promotion', 'p')
-            ->andWhere('p.current = 1')
+            ->andWhere('p.current = true')
+            ->getQuery()
+            ->getResult()
         ;
     }
 }

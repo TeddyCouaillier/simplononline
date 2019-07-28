@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Data;
 use App\Entity\User;
 use App\Entity\Skills;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
+use App\Form\Data\EditUserDataType;
 use App\Form\Skill\EditUserSkillsType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -39,8 +41,11 @@ class UserController extends AbstractController
             $user->setAvatar('avatar.png');
 
             $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+            $datas  = $this->getDoctrine()->getRepository(Data::class)->findAll();
 
             $user->initializeSkills($skills);
+            $user->initializeDatas($datas);
+
             $manager->persist($user);
             $manager->flush();
 
@@ -135,10 +140,14 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_all');
     }
 
+    // -----------------------------------------------------
+    // -- Skill section
+    // -----------------------------------------------------
+
     /**
      * Edit user's skill
      * @Route("/{id}/edit_skills", name="edit_skills")
-     * 
+     *
      * @param User $user
      * @param Request $request
      * @param ObjectManager $manager
@@ -155,6 +164,51 @@ class UserController extends AbstractController
             return $this->redirectToRoute("user_show",['id' => $user->getId()]);
         }
         return $this->render('skill/edit_skills.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    // -----------------------------------------------------
+    // -- Data section
+    // -----------------------------------------------------
+
+    /**
+     * Show the user's data
+     * @Route("/{id}/donnees", name="data")
+     * @param User $user
+     * @return Response
+     */
+    public function showData(User $user)
+    {
+        return $this->render('data/show.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Edit the user's datas
+     * @Route("/{id}/donnees/edit", name="data_edit")
+     * @param User          $user
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editData(User $user, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(EditUserDataType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les données ont bien été modifiées.'
+            );
+            return $this->redirectToRoute("user_data",['id' => $user->getId()]);
+        }
+        return $this->render('data/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView()
         ]);

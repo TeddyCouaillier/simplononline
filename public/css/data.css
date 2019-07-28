@@ -1,0 +1,34 @@
+.data, .data-edit{
+    border-collapse:separate;
+    border-spacing: 0 5px;
+}
+.data tr, .data-edit tr{ background: white; }
+.data tr td{ padding: 15px; }
+.data tr td:first-child, .data-edit tr td:first-child { font-weight: bold; }
+.data tr td:first-child, .data-edit tr td:first-child { border-top-left-radius: 10px; }
+.data tr td:first-child, .data-edit tr td:first-child { border-bottom-left-radius: 10px; }
+.data tr td:last-child,  .data-edit tr td:last-child { border-top-right-radius: 10px; }
+.data tr td:last-child,  .data-edit tr td:last-child { border-bottom-right-radius: 10px; }
+
+.data-edit tr td{ padding: 0 15px; }
+.data-edit input{ transform: translateY(25%);}
+
+.copy{
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1em;
+    color: rgba(0,0,0,.5);
+}
+.copy:hover{ color: #000000; }
+.copy:active{ color: rgba(242,72,71,1); }
+.data-edit label{ display: none !important; }
+
+.data-list{
+    cursor: pointer;
+    background: white;
+    border: 1px solid black;
+}
+.data-list, .data-list a{ color: black; }
+.data-list:hover{ border: 1px solid rgba(242,72,71,1); }
+.data-list:hover, .data-list:hover a{ color: rgba(242,72,71,1); }

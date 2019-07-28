@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Modification des données de {{ user.fullname }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/data.css">
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <h1>Modification des données</h1>
+    <hr>
+        {{ form_start(form) }}
+    <div class="bg-grey rounded p-2">
+        <span class="bold">Modifier les logs</span>
+        <table class="w-100 data-edit">
+        {% for form in form.userData %}
+        <tr class="reveal">
+            <td>
+                {{ user.userData[loop.index-1].data.label }}
+            </td>
+            <td>
+                {{ form_widget(form) }}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        {{ template.confirm() }}
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

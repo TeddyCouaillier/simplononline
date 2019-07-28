@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des données{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/data.css">
+{% endblock %}
+
+{% block body %}
+    {{ template.checkMessage(form) }}
+    <div class="flex just-between">
+        <h1>Liste des données</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey",'<i class="fal fa-plus"></i>') }}
+        {% endif %}
+    </div>
+    <hr>
+    <div class="rounded p-2 flex wrap">
+        {% for data in datas %}
+        {{ template.delete(data.id,"data_delete") }}
+        <div class="data-list rounded  p-2 m-1">
+            <a data-modalid="{{data.id}}" class="modal-button"><i class="fal fa-times-circle mr-2"></i>{{ data.label }}</a>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <span class="bold">Lien des données de la promo actuelle</span>
+    <div class="rounded p-2 flex wrap">
+        {% for user in users %}
+        <div class="data-list rounded  p-2 m-1">
+            <a href="{{ path('user_data',{'id':user.id}) }}"><i class="fal fa-eye mr-2"></i>{{ user.fullname }}</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="myModal" class="modal" data-modalid="modal">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-50 mx-auto">
+                <h2>Ajouter une donnée</h2>
+                <hr>
+                {{ form_start(form) }}
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+                {{ template.confirm() }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -13,7 +13,7 @@
     <div class="flex just-between">
         <h1>Liste des promotions</h1>
         {% if is_granted('ROLE_ADMIN') %}
-        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey","+") }}
+        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey",'<i class="fal fa-plus"></i>') }}
         {% endif %}
     </div>
     <hr>

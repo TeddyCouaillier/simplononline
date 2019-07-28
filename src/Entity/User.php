@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Skills;
+use App\Entity\UserData;
 use App\Entity\UserSkills;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -118,12 +119,18 @@ class User implements UserInterface
      */
     private $senderFiles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserData", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $userData;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
         $this->userSkills = new ArrayCollection();
         $this->userFiles = new ArrayCollection();
         $this->senderFiles = new ArrayCollection();
+        $this->userData = new ArrayCollection();
     }
 
     /**
@@ -138,6 +145,21 @@ class User implements UserInterface
                       ->setSkill($skill);
 
             $this->addUserSkill($userSkill);
+        }
+    }
+
+    /**
+     * Add all datas to the user
+     * @param Data[] $datas
+     */
+    public function initializeDatas($datas)
+    {
+        foreach($datas as $data){
+            $userData = new UserData();
+            $userData->setUser($this)
+                     ->setData($data);
+
+            $this->addUserData($userData);
         }
     }
 
@@ -478,5 +500,36 @@ class User implements UserInterface
                 ->setSender($sender)
                 ->setFiles($file);
         $this->addUserFile($ufile);
+    }
+
+    /**
+     * @return Collection|UserData[]
+     */
+    public function getUserData(): Collection
+    {
+        return $this->userData;
+    }
+
+    public function addUserData(UserData $userData): self
+    {
+        if (!$this->userData->contains($userData)) {
+            $this->userData[] = $userData;
+            $userData->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserData(UserData $userData): self
+    {
+        if ($this->userData->contains($userData)) {
+            $this->userData->removeElement($userData);
+            // set the owning side to null (unless already changed)
+            if ($userData->getUser() === $this) {
+                $userData->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

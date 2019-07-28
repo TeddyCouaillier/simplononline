@@ -27,7 +27,7 @@ class FilesAdminType extends ApplicationType
                 'multiple'      => true,
                 'mapped'        => false,
                 'query_builder' => function(UserRepository $rep) {
-                    return $rep->findAllByCurrentPromo();
+                    return $rep->findCurrentPromoType();
                 }
 
             ])

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Data;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Skills;
@@ -24,6 +25,31 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('FR-fr');
 
+        // Data section
+        $datas = [
+            "Adresse mail personnelle",
+            "Adresse mail mot de passe",
+            "FTP lien link",
+            "FTP personnel",
+            "FTP username",
+            "FTP mot de passe",
+            "SFTP port",
+            "BDD adresse",
+            "BDD host conf.inc.php",
+            "BDD username",
+            "BDD mot de passe",
+            "BDD port"
+        ];
+        $tabDatas = [];
+        $index = 0;
+        foreach($datas as $label){
+            $data = new Data();
+            $data->setLabel($label);
+            $tabDatas[$index++] = $data;
+            $manager->persist($data);
+        }
+
+        // Skills section
         $skills = [
             "Maquetter une application" => "test",
             "Réaliser une interface utilisateur web statique et adaptable" => "test",
@@ -44,7 +70,7 @@ class AppFixtures extends Fixture
             $manager->persist($skill);
         }
 
-
+        // User role section
         $adminRole = new Role();
         $adminRole->setTitle("ROLE_ADMIN");
         $manager->persist($adminRole);
@@ -52,6 +78,7 @@ class AppFixtures extends Fixture
         $adminMediateur->setTitle("ROLE_MEDIATEUR");
         $manager->persist($adminMediateur);
 
+        // Promo section
         $promos = [];
         for($i = 0 ; $i < mt_rand(4,6) ; $i++){
             $promo = new Promotion();
@@ -63,6 +90,7 @@ class AppFixtures extends Fixture
             $manager->persist($promo);
         }
 
+        // Super admin
         $admin = new User();
         $admin->setFirstName('Teddy')
                  ->setLastName('Couaillier')
@@ -74,12 +102,14 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('CouaillierTeddy17.jpeg')
-                 ->setPromotion($promos[1])
-                 ->addUserRole($adminRole)
-                 ->initializeSkills($tabSkills);
+                 ->setPromotion($promos[1]);
+        $admin->addUserRole($adminRole);
+        $admin->initializeDatas($tabDatas);
+        $admin->initializeSkills($tabSkills);
 
         $manager->persist($admin);
 
+        // User section
         for($i = 0; $i < mt_rand(25,35); $i++){
             $user  = new User();
 
@@ -93,8 +123,9 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('avatar.png')
-                 ->setPromotion($promos[mt_rand(0,sizeof($promos)-1)])
-                 ->initializeSkills($tabSkills);
+                 ->setPromotion($promos[mt_rand(0,sizeof($promos)-1)]);
+            $user->initializeDatas($tabDatas);
+            $user->initializeSkills($tabSkills);
 
             $manager->persist($user);
         }
