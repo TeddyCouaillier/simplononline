@@ -9,10 +9,13 @@
 {% endmacro %}
 
 {# Error message for a form #}
-{% macro checkMessage(form) %}
+{% macro checkMessage(form, message = null) %}
     {% if not form.vars.valid %}
     <div class="message-warning">
         Il y a une ou plusieurs erreurs de saisie.
+        {% if message != null %}
+        <br>{{ message }}
+        {% endif %}
         <button type="button" class="close close-message">
             <span>&times;</span>
         </button>

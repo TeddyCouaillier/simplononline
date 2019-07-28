@@ -10,10 +10,10 @@
 {% form_theme form _self %}
 
 {% block body %}
+    {{ template.checkMessage(form, "Les niveaux doivent être compris entre 0 et 3") }}
     <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
     <hr>
     {{ form_start(form) }}
-
     <div class="bg-grey rounded p-2 edit-skill-users">
         {% for form in form.userSkills %}
             <div class="flex just-between align-center bg-white rounded mb-2 p-2">

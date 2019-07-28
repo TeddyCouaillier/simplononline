@@ -12,8 +12,8 @@
     <hr>
     {{ form_start(form) }}
 
-    <div class="grid-user">
-        <div class="grid-user-info bg-grey rounded">
+    <div class="grid-user bg-grey rounded p-2">
+        <div class="grid-user-info bg-white rounded">
             <span class="bold">Informations personnelles</span>
             <div class="flex just-around text-center mt-2 form-add-user-info">
                 <div>
@@ -31,13 +31,15 @@
             </div>
         </div>
 
-        <div class="grid-user-promo bg-grey rounded">
+        <div class="grid-user-promo bg-white rounded">
             <span class="bold mt-2">Avatar</span>
-            <div class="text-center my-5"><img src="/img/avatar/{{ user.avatar }}" class="bg-dark"></img></div>
+            <div class="text-center my-5">
+                <img src="/img/avatar/{{ user.avatar }}" class="bg-dark"></img>
+            </div>
             {{ form_widget(form.avatar) }}
         </div>
 
-        <div class="grid-user-supp bg-grey rounded">
+        <div class="grid-user-supp bg-white rounded">
             <span class="bold">Informations supplémentaires</span>
             <div>{{ form_label(form.tel) }}</div>
             <div>{{ form_widget(form.tel) }}</div>

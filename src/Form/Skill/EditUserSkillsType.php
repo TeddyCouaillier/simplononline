@@ -3,9 +3,11 @@
 namespace App\Form\Skill;
 
 use App\Entity\User;
+use App\Entity\UserSkills;
 use App\Form\ApplicationType;
 use App\Form\Skill\UserSkillsType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -15,7 +17,8 @@ class EditUserSkillsType extends ApplicationType
     {
         $builder
             ->add('userSkills', CollectionType::class, [
-                'entry_type' => UserSkillsType::class
+                'entry_type' => UserSkillsType::class,
+                'constraints' => array(new Valid())
             ])
         ;
     }
