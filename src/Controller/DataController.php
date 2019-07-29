@@ -10,6 +10,7 @@ use App\Repository\DataRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -20,6 +21,7 @@ class DataController extends AbstractController
     /**
      * Show all datas
      * @Route("/all", name="all")
+     * @IsGranted("ROLE_ADMIN")
      * @param Request        $request
      * @param ObjectManager  $manager
      * @param DataRepository $rep
@@ -57,6 +59,7 @@ class DataController extends AbstractController
     /**
      * Delete a specific data
      * @Route("/{id}/delete", name="delete")
+     * @IsGranted("ROLE_ADMIN")
      * @param Data $data
      * @param ObjectManager $manager
      * @return Response

@@ -15,6 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -70,6 +71,9 @@ class UserController extends AbstractController
      * @return Response
      */
     public function editUserAccount(User $user, Request $request, ObjectManager $manager){
+        if(!$this->getUser()->checkRole(User::ADMIN) && $this->getUser() != $user){
+            throw new AccessDeniedHttpException();
+        }
         $imageName = "";
 
         $currentAvatar = $user->getAvatar();
@@ -129,6 +133,7 @@ class UserController extends AbstractController
     /**
      * Delete a specific user
      * @Route("/{id}/delete", name="delete")
+     * @IsGranted("ROLE_ADMIN")
      * @param User          $user
      * @param ObjectManager $manager
      * @return void
@@ -147,11 +152,11 @@ class UserController extends AbstractController
     /**
      * Edit user's skill
      * @Route("/{id}/edit_skills", name="edit_skills")
-     *
+     * @IsGranted("ROLE_ADMIN")
      * @param User $user
      * @param Request $request
      * @param ObjectManager $manager
-     * @return void
+     * @return Response
      */
     public function editSkillsUser(User $user, Request $request, ObjectManager $manager)
     {
@@ -181,6 +186,9 @@ class UserController extends AbstractController
      */
     public function showData(User $user)
     {
+        if(!$this->getUser()->checkRole(User::ADMIN) && $this->getUser() != $user){
+            throw new AccessDeniedHttpException();
+        }
         return $this->render('data/show.html.twig', [
             'user' => $user
         ]);
@@ -189,6 +197,7 @@ class UserController extends AbstractController
     /**
      * Edit the user's datas
      * @Route("/{id}/donnees/edit", name="data_edit")
+     * @IsGranted("ROLE_ADMIN")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager

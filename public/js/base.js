@@ -16,6 +16,17 @@ $('.logout').click(function(){
     $('.nav-dropdown').fadeToggle(500);
 })
 
+$(document).mouseup(function(e)
+{
+    var container = $(".nav-dropdown");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.fadeOut(500);
+    }
+});
+
 
 /* ---------------- MODAL -------------------- */
 // When the user clicks the button, open the modal

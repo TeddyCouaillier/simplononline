@@ -93,6 +93,7 @@ class PromotionController extends AbstractController
     /**
      * Delete a promotion
      * @Route("/{id}/delete", name="delete")
+     * @IsGranted("ROLE_ADMIN")
      * @param Promotion     $promo
      * @param ObjectManager $manager
      * @return Response

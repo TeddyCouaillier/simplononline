@@ -58,10 +58,16 @@ legend{
 .all-promo > .promo-content:hover h2{
     color: rgba(242,72,71,1);
 }
-.current{
-    background: rgba(242,72,71,1);
-    color: white;
+.current, .no-current{
     padding: 5px 15px;
     text-transform: uppercase;
     font-weight: 600;
+}
+.current{
+    background: rgba(242,72,71,1);
+    color: #FFFFFF;
+}
+.no-current{
+    background: #FFFFFF;
+    color: #FFFFFF;
 }

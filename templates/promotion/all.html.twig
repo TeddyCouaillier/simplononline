@@ -27,7 +27,7 @@
                         En cours
                     </div>
                     {% else %}
-                    <div></div>
+                    <div class="no-current">test</div>
                     {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
@@ -35,8 +35,8 @@
                 <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
                 <a class="modal-button subnav-link text-red">Supprimer</a>'>
                 </i>
-                </div>
                 {% endif %}
+                </div>
                 <div class="promo-content">
                     <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
                         <h2>{{ promo.label }}</h2>
