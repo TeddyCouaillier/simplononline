@@ -1,0 +1,7 @@
+.help-link > span{
+    font-size: .85em;
+    color: rgba(0,0,0,.5);
+}
+.help-link:hover .link{
+    color: rgba(242,72,71,1);
+}

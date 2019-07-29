@@ -124,6 +124,11 @@ class User implements UserInterface
      */
     private $userData;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Help", mappedBy="publisher", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $helps;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -131,6 +136,7 @@ class User implements UserInterface
         $this->userFiles = new ArrayCollection();
         $this->senderFiles = new ArrayCollection();
         $this->userData = new ArrayCollection();
+        $this->helps = new ArrayCollection();
     }
 
     /**
@@ -527,6 +533,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userData->getUser() === $this) {
                 $userData->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Help[]
+     */
+    public function getHelps(): Collection
+    {
+        return $this->helps;
+    }
+
+    public function addHelp(Help $help): self
+    {
+        if (!$this->helps->contains($help)) {
+            $this->helps[] = $help;
+            $help->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHelp(Help $help): self
+    {
+        if ($this->helps->contains($help)) {
+            $this->helps->removeElement($help);
+            // set the owning side to null (unless already changed)
+            if ($help->getPublisher() === $this) {
+                $help->setPublisher(null);
             }
         }
 

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liens d'aide{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/help.css">
+{% endblock %}
+
+{% block body %}
+    {{ template.checkMessage(form) }}
+    <div class="flex just-between">
+        <h1>Liens d'aide</h1>
+        {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey",'<i class="fal fa-plus"></i>') }}
+    </div>
+    <hr>
+    <div class="bg-grey rounded p-2 flexc">
+        {% for help in helps %}
+        {{ template.delete(help.id,"help_delete") }}
+        <div class="bg-white rounded p-2 my-1 help-link reveal">
+
+            <div class="flex just-between">
+                <a href="{{ help.link }}" target="_blank" class="link bold">{{ help.title }}</a>
+                {% if is_granted('ROLE_ADMIN') or app.user == help.publisher %}
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                    data-modalid="{{ help.id }}" data-content='
+                    <a href="{{ help.id }}" class="subnav-link">Modifier</a><br>
+                    <a class="modal-button subnav-link text-red">Supprimer</a>'>
+                </i>
+                {% endif %}
+            </div>
+
+            <span>Posté par {{ help.publisher.fullname }} le {{ help.createdAt | date('d/m/Y à H:i') }}</span>
+
+            {% if help.description != null %}
+                <hr class="mt-1 mb-2">
+                <a href="{{ help.link }}" target="_blank">{{ help.description }}</a>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="myModal" class="modal" data-modalid="modal">
+        <div class="modal-content">
+            <div class="close-modal text-right">&times;</div>
+            <div class="mb-4 w-50 mx-auto">
+                <h2>Partager un lien</h2>
+                <hr>
+                {{ form_start(form) }}
+                <div class="my-2">
+                    {{ form_label(form.link) }}
+                    {{ form_widget(form.link) }}
+                </div>
+                <div class="my-2">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+                <div class="my-2">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                </div>
+                {{ template.confirm() }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
