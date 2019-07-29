@@ -136,7 +136,7 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @param User          $user
      * @param ObjectManager $manager
-     * @return void
+     * @return Response
      */
     public function deleteUser(User $user, ObjectManager $manager)
     {

@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * ORM\HasLifecycleCallbacks()
  * @UniqueEntity("email", message="Cette adresse mail est déjà utilisée")
  */
 class User implements UserInterface
@@ -137,6 +138,13 @@ class User implements UserInterface
         $this->senderFiles = new ArrayCollection();
         $this->userData = new ArrayCollection();
         $this->helps = new ArrayCollection();
+    }
+
+    public function updateAvatar()
+    {
+        if($this->avatar == null){
+            $this->avatar = "avatar.png";
+        }
     }
 
     /**
@@ -364,13 +372,9 @@ class User implements UserInterface
         return $this->userRoles;
     }
 
-    public function addUserRole(Role $userRole): self
+    public function addUserRole(Role $userRole)
     {
-        if (!$this->userRoles->contains($userRole)) {
-            $this->userRoles[] = $userRole;
-        }
-
-        return $this;
+        $this->userRoles[] = $userRole;
     }
 
     public function removeUserRole(Role $userRole): self

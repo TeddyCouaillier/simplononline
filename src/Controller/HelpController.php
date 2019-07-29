@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use App\Entity\Language;
 
 /**
  * @Route("/help", name="help_")
@@ -64,9 +65,12 @@ class HelpController extends AbstractController
             );
         }
 
+        $languages = $this->getDoctrine()->getRepository(Language::class)->findAll();
+
         return $this->render('help/show.html.twig', [
-            'form'  => $form->createView(),
-            'helps' => $rep->findAll()
+            'form'      => $form->createView(),
+            'helps'     => $rep->findAll(),
+            'languages' => $languages
         ]);
     }
 }

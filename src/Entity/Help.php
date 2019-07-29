@@ -48,6 +48,11 @@ class Help
      */
     private $publisher;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Language", inversedBy="helps", cascade={"persist"})
+     */
+    private $language;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -114,6 +119,18 @@ class Help
     public function setPublisher(?User $publisher): self
     {
         $this->publisher = $publisher;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

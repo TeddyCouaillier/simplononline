@@ -5,3 +5,26 @@
 .help-link:hover .link{
     color: rgba(242,72,71,1);
 }
+
+[class*="badge-link-"]{
+    padding: 3px 7px;
+    font-weight: bold;
+    font-size: .75em;
+    border-radius: 12px;
+}
+
+.badge-link-active{
+    background: rgba(242,72,71,1);
+    color: white;
+}
+
+.badge-link-inactive{
+    background: white;
+    color: rgba(242,72,71,1);
+    border: 1px solid rgba(242,72,71,1);
+}
+.badge-link-inactive:hover{
+    background: rgba(242,72,71,1);
+    color: white;
+    cursor: pointer;
+}

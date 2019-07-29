@@ -15,19 +15,29 @@
         {{ template.linkModal("modal","modal-button bg-grey button-circle text-grey",'<i class="fal fa-plus"></i>') }}
     </div>
     <hr>
-    <div class="bg-grey rounded p-2 flexc">
+    <div class="flex just-center mb-3 help-all_cats">
+        <span class="badge-link-active mx-2" data-badge="Tout">Tout</span>
+        {% for language in languages %}
+            <span class="badge-link-inactive mx-2" data-badge="{{ language.label }}">{{ language.label }}</span>
+        {% endfor %}
+    </div>
+    <div class="bg-grey rounded p-2 flexc help-all">
         {% for help in helps %}
         {{ template.delete(help.id,"help_delete") }}
-        <div class="bg-white rounded p-2 my-1 help-link reveal">
+        <div class="bg-white rounded p-2 my-1 help-link reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
 
             <div class="flex just-between">
+                <div>
                 <a href="{{ help.link }}" target="_blank" class="link bold">{{ help.title }}</a>
+                {% if help.language != null %}
+                <span class="badge-link-active">{{ help.language.label }}</span>
+                {% endif %}
+                </div>
                 {% if is_granted('ROLE_ADMIN') or app.user == help.publisher %}
                 <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                     data-modalid="{{ help.id }}" data-content='
                     <a href="{{ help.id }}" class="subnav-link">Modifier</a><br>
-                    <a class="modal-button subnav-link text-red">Supprimer</a>'>
-                </i>
+                    <a class="modal-button subnav-link text-red">Supprimer</a>'></i>
                 {% endif %}
             </div>
 
@@ -60,6 +70,10 @@
                 <div class="my-2">
                     {{ form_label(form.description) }}
                     {{ form_widget(form.description) }}
+                </div>
+                <div class="my-2">
+                    {{ form_label(form.language) }}
+                    {{ form_widget(form.language) }}
                 </div>
                 {{ template.confirm() }}
                 {{ form_end(form) }}

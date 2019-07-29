@@ -7,6 +7,7 @@ use App\Entity\Data;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Skills;
+use App\Entity\Language;
 use App\Entity\Promotion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,16 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
+
+        // Language section
+        $languages = [
+            "HTML/CSS","Javascript","PHP","SQL","Symfony","Angular","Logiciel","Divers"
+        ];
+        foreach($languages as $label){
+            $language = new Language();
+            $language->setLabel($label);
+            $manager->persist($language);
+        }
 
         // Data section
         $datas = [
@@ -72,10 +83,10 @@ class AppFixtures extends Fixture
 
         // User role section
         $adminRole = new Role();
-        $adminRole->setTitle("ROLE_ADMIN");
+        $adminRole->setTitle(User::ADMIN);
         $manager->persist($adminRole);
         $adminMediateur = new Role();
-        $adminMediateur->setTitle("ROLE_MEDIATEUR");
+        $adminMediateur->setTitle(User::MEDIATEUR);
         $manager->persist($adminMediateur);
 
         // Promo section

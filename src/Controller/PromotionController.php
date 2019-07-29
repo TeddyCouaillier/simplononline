@@ -70,6 +70,8 @@ class PromotionController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             foreach($promo->getUsers() as $user){
+                $user->updateAvatar();
+
                 $user->setPromotion($promo)
                      ->setPassword($encoder->encodePassword($user, 'test'));
                     //  ->setAvatar('avatar.png');
