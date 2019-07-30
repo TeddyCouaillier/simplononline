@@ -24,3 +24,11 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+<script>
+    $('select').on('change',function(){
+        console.log(this);
+    })
+</script>
+{% endblock %}
+

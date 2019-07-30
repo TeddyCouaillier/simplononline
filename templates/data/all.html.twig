@@ -19,7 +19,7 @@
     <hr>
     <div class="rounded p-2 flex wrap">
         {% for data in datas %}
-        {{ template.delete(data.id,"data_delete") }}
+        {{ template.delete(data.id,path('data_delete',{'id':data.id})) }}
         <div class="data-list rounded  p-2 m-1">
             <a data-modalid="{{data.id}}" class="modal-button"><i class="fal fa-times-circle mr-2"></i>{{ data.label }}</a>
         </div>

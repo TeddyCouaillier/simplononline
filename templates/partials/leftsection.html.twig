@@ -13,9 +13,9 @@
         <hr>
         <ul>
             <li class="title">Simplonien</li>
-            <li><a href="{{ path('user_show',{'id': app.user.id}) }}">Mon compte</a></li>
-            <li><a href="#">Stages</a></li>
-            <li><a href="{{ path('user_data',{'id': app.user.id}) }}">Données</a></li>
+            <li><a href="{{ path('user_show',         {'id': app.user.id}) }}">Mon compte</a></li>
+            <li><a href="{{ path('user_show_training',{'id': app.user.id}) }}">Stages</a></li>
+            <li><a href="{{ path('user_data',         {'id': app.user.id}) }}">Données</a></li>
             <hr class="mb-1">
         </ul>
     </div>

@@ -12,6 +12,7 @@ use App\Entity\Promotion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\TrainingCourse;
 
 class AppFixtures extends Fixture
 {
@@ -25,6 +26,24 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
+
+        // Training course section
+        $tabStatus = [
+            TrainingCourse::INTERESSE,
+            TrainingCourse::ATTENTE,
+            TrainingCourse::ENTRETIEN,
+            TrainingCourse::POSITIVE,
+            TrainingCourse::NEGATIVE
+        ];
+        $tabTraining = [];
+        for($i = 0 ; $i < mt_rand(15,25) ; $i++){
+            $trainingCourse = new TrainingCourse();
+            $trainingCourse->setSociety($faker->sentence(mt_rand(1,4)))
+                           ->setPlace($faker->city)
+                           ->setStatus($tabStatus[mt_rand(0,sizeof($tabStatus)-1)]);
+            $tabTraining[$i] = $trainingCourse;
+            $manager->persist($trainingCourse);
+        }
 
         // Language section
         $languages = [
@@ -81,14 +100,6 @@ class AppFixtures extends Fixture
             $manager->persist($skill);
         }
 
-        // User role section
-        $adminRole = new Role();
-        $adminRole->setTitle(User::ADMIN);
-        $manager->persist($adminRole);
-        $adminMediateur = new Role();
-        $adminMediateur->setTitle(User::MEDIATEUR);
-        $manager->persist($adminMediateur);
-
         // Promo section
         $promos = [];
         for($i = 0 ; $i < mt_rand(4,6) ; $i++){
@@ -114,11 +125,24 @@ class AppFixtures extends Fixture
                  ->setGithub($faker->url)
                  ->setAvatar('CouaillierTeddy17.jpeg')
                  ->setPromotion($promos[1]);
-        $admin->addUserRole($adminRole);
         $admin->initializeDatas($tabDatas);
         $admin->initializeSkills($tabSkills);
+        foreach($tabTraining as $training){
+            $admin->addTrainingCourse($training);
+        }
 
         $manager->persist($admin);
+
+        // User role section
+        $adminRole = new Role();
+        $adminRole->setTitle(User::ADMIN);
+        $adminRole->addUser($admin);
+        $manager->persist($adminRole);
+        $adminMediateur = new Role();
+        $adminMediateur->setTitle(User::MEDIATEUR);
+        $adminMediateur->addUser($admin);
+        $manager->persist($adminMediateur);
+
 
         // User section
         for($i = 0; $i < mt_rand(25,35); $i++){

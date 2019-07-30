@@ -1,0 +1,56 @@
+.training-course > div{ width: 30%; }
+.training-course > div:last-of-type{ width: auto; }
+
+[class^="status-"]{
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}
+.status-yellow{     background: yellow; }
+.status-red{        background: red; }
+.status-purple{     background: purple; }
+.status-green{      background: green; }
+.status-blue{       background: dodgerblue; }
+
+.detail-icon{ margin-right: .5rem; cursor: pointer; }
+.detail-icon:hover{ color: rgba(242,72,71,1); }
+
+/* Edit training */
+legend{ display: none; }
+
+.edit-status-yellow{ border-left: 3px solid yellow !important; }
+.edit-status-red{    border-left: 3px solid red !important; }
+.edit-status-purple{ border-left: 3px solid purple !important; }
+.edit-status-green{  border-left: 3px solid green !important; }
+.edit-status-blue{   border-left: 3px solid dodgerblue !important; }
+
+.user-add-training > div:not(:last-child){ width: 31%; }
+.user-add-training > div:last-child{ width: auto; }
+
+.input-group input{
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+
+}
+.input-group-prepend{ height: 38px; }
+.input-group-text{
+    align-items: unset !important;
+    border-top-left-radius: 7px !important;
+    border-bottom-left-radius: 7px !important;
+}
+.training-project{ display: none; }
+.training-project-toggle{ cursor: pointer; }
+.training-project-toggle::after{ font-size: .85em; }
+
+.chevron{
+    -moz-transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+    font-size: .8em;
+    margin-left: 5px;
+}
+.chevron.down{
+    -moz-transform:rotate(-180deg);
+    -webkit-transform:rotate(-180deg);
+    transform:rotate(-180deg);
+}

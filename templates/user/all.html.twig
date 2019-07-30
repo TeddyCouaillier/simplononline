@@ -12,7 +12,7 @@
     <hr>
     <div class="bg-grey rounded p-1">
         {% for user in users %}
-        {{ template.delete(user.id, 'user_delete') }}
+        {{ template.delete(user.id, path('user_delete',{'id':user.id})) }}
         <div class="flex just-between bg-white rounded all-users reveal">
             {% if user.promotion != null %}
             <div>

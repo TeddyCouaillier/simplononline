@@ -1,0 +1,58 @@
+{% block _training_course_user_trainingCourse_widget %}
+{{ form_widget(form) }}
+<div class="text-center">
+    <input type="hidden" id="widgets-counter" value="0">
+    <button type="button" id="add-training" class="bg-white button-circle text-grey my-2 mx-auto"> <i class="fal fa-plus"></i> </button>
+</div>
+{% endblock %}
+
+{% block _training_course_user_trainingCourse_entry_row %}
+{{ form_widget(form) }}
+{% endblock %}
+
+{% block _training_course_user_trainingCourse_entry_widget %}
+<div class="bg-white p-2 mb-2 rounded trainings" id="block_{{id}}">
+    <div class="flex just-around my-1 user-add-training">
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
+            </div>
+            {{ form_widget(form.society) }}
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+            {{ form_widget(form.place) }}
+        </div>
+
+        {% set status = form.status.vars.value %}
+        {% if status == "Intéressé(e)" %}
+        {% set status = "edit-status-yellow" %}
+        {% elseif status == "Entretien" %}
+        {% set status = "edit-status-purple" %}
+        {% elseif status == "Réponse positive" %}
+        {% set status = "edit-status-green" %}
+        {% elseif status == "Réponse négative" %}
+        {% set status = "edit-status-red" %}
+        {% elseif status == "En attente de réponse" %}
+        {% set status = "edit-status-blue" %}
+        {% else %}
+        {% set status = "" %}
+        {% endif %}
+
+        <div>{{ form_widget(form.status, {'attr': {'class': status}}) }}</div>
+
+        <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn"><i class="fal fa-times-circle"></i></button></div>
+    </div>
+    <div>
+        <div class="text-center">
+            <span class="text-grey training-project-toggle">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
+        </div>
+        <div class="p-2 training-project">
+            {{ form_widget(form.project) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

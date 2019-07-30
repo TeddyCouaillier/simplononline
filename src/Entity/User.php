@@ -130,6 +130,11 @@ class User implements UserInterface
      */
     private $helps;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TrainingCourse", cascade={"persist"}, mappedBy="user")
+     */
+    private $trainingCourse;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -138,6 +143,7 @@ class User implements UserInterface
         $this->senderFiles = new ArrayCollection();
         $this->userData = new ArrayCollection();
         $this->helps = new ArrayCollection();
+        $this->trainingCourse = new ArrayCollection();
     }
 
     public function updateAvatar()
@@ -568,6 +574,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($help->getPublisher() === $this) {
                 $help->setPublisher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TrainingCourse[]
+     */
+    public function getTrainingCourse(): Collection
+    {
+        return $this->trainingCourse;
+    }
+
+    public function addTrainingCourse(TrainingCourse $trainingCourse): self
+    {
+        if (!$this->trainingCourse->contains($trainingCourse)) {
+            $this->trainingCourse[] = $trainingCourse;
+            $trainingCourse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrainingCourse(TrainingCourse $trainingCourse): self
+    {
+        if ($this->trainingCourse->contains($trainingCourse)) {
+            $this->trainingCourse->removeElement($trainingCourse);
+            // set the owning side to null (unless already changed)
+            if ($trainingCourse->getUser() === $this) {
+                $trainingCourse->setUser(null);
             }
         }
 

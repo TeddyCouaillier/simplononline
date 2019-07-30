@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Data;
 use App\Entity\User;
 use App\Entity\Skills;
+use App\Entity\TrainingCourse;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
@@ -13,10 +14,13 @@ use App\Form\Skill\EditUserSkillsType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\TrainingCourse\TrainingCourseUserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 /**
  * @Route("/user", name="user_")
@@ -221,6 +225,74 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView()
         ]);
+    }
+
+    // -----------------------------------------------------
+    // -- Training course section
+    // -----------------------------------------------------
+
+    /**
+     * Show the specific user's training courses
+     * @Route("/{id}/stages", name="show_training")
+     * @param User $user
+     * @return Response
+     */
+    public function showTraining(User $user)
+    {
+        return $this->render('training_course/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Edit the specific user's training courses (add, remove & edit training course)
+     * @Route("/{id}/stages/edit", name="edit_training")
+     * @param User          $user
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editTrainingCourse(User $user, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(TrainingCourseUserType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les modifications ont bien été enregistrées.'
+            );
+            return $this->redirectToRoute('user_show_training', ['id'=> $user->getId()]);
+        }
+
+        return $this->render('training_course/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * Delete a specific training course posted by a specific user
+     * @Route("/{id}/stages/delete/{training_id}", name="delete_training")
+     * @Entity("training", expr="repository.find(training_id)")
+     * @param User           $user
+     * @param TrainingCourse $training
+     * @param ObjectManager  $manager
+     * @return void
+     */
+    public function deleteTrainingCourse(User $user, TrainingCourse $training, ObjectManager $manager)
+    {
+        $manager->remove($training);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Le stage a bien été supprimé.'
+        );
+
+        return $this->redirectToRoute('user_show_training',['id'=> $this->getUser()->getId()]);
     }
 
     /**

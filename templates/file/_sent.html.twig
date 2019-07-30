@@ -9,7 +9,7 @@
 
 {% for usend in sending | reverse %}
     {% set file = usend.files %}
-    {{ template.delete(file.id, "file_delete", "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
+    {{ template.delete(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
 
     <div class="file-content rounded reveal">
         <div class="file-state"></div>

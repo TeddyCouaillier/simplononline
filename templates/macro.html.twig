@@ -39,7 +39,7 @@
                 <div class="text-center mb-4">
                     <p>{{ text }}</p>
                     <b>Êtes-vous sur de vouloir supprimer cet élément ? </b><br>
-                    <a href="{{ path(route,{'id': id}) }}">
+                    <a href="{{ route|raw }}">
                         <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
                     </a>
                 </div>

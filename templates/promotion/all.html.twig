@@ -19,7 +19,7 @@
     <hr>
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
-            {{ template.delete(promo.id,"promo_delete") }}
+            {{ template.delete(promo.id,path('promo_delete',{'id':promo.id})) }}
             <div class="bg-white shadow text-center mb-3 p-1 all-promo">
                 <div class="flex just-between align-baseline promo-nav">
                     {% if promo.current %}

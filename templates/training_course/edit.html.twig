@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/training.css">
+{% endblock %}
+
+{% form_theme form 'training_course/_collection.html.twig' %}
+
+{% block body %}
+    <h1>Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}</em></h1>
+    <hr>
+    <div class="bg-grey rounded p-2">
+        <span class="bold">Etat des stages</span>
+        {{ form_start(form) }}
+        {{ form_row(form.trainingCourse) }}
+        {{ template.confirm() }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

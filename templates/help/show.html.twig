@@ -23,7 +23,7 @@
     </div>
     <div class="bg-grey rounded p-2 flexc help-all">
         {% for help in helps %}
-        {{ template.delete(help.id,"help_delete") }}
+        {{ template.delete(help.id,path('help_delete',{'id': help.id})) }}
         <div class="bg-white rounded p-2 my-1 help-link reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
 
             <div class="flex just-between">

@@ -188,7 +188,7 @@ input:focus,select:focus{
     margin: 0 !important;
     transition: all .3s linear;
     padding: 5px 8px;
-    z-index: 99999;
+    /* z-index: 99999; */
 }
 .subnav:focus{
     color: rgba(242,72,71,1) !important;
