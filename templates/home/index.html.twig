@@ -6,6 +6,7 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/home.css">
 <link rel="stylesheet" href="/css/skill.css">
+<link rel="stylesheet" href="/css/training.css">
 {% endblock %}
 
 {% block body %}
@@ -64,6 +65,38 @@
     </div>
     <div class="user-stage reveal">
         <span class="bold">Etat des stages</span>
+        {% for training in app.user.trainingCourse|slice(0,2) %}
+            {{ template.delete(training.id,path('user_delete_training',{'id':app.user.id,'training_id':training.id})) }}
+            <div class="bg-white rounded flex just-around p-2 my-1 reveal training-course shadow">
+                <div>
+                    {{ training.society }}
+                </div>
+                <div>{{ training.place }}</div>
+                <div class="flex align-center">
+                    <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
+                </div>
+                <div>
+                    {% if training.project == null %}
+                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                    title="Détail" data-content=
+                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1"><em>Pas de détail</em>'>
+                    </i>
+                    {% else %}
+                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                    title="Détail" data-content=
+                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project }}'>
+                    </i>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+        <div class="bg-white rounded p-2 h-75 flex just-center align-center text-center">
+            Il n'y a aucune demande de stage.<br>
+        </div>
+        {% endfor %}
+        {% if app.user.trainingCourse is not empty %}
+            <div class="text-center mt-3"><a href="#" class="text-grey">Voir tous ({{ app.user.trainingCourse|length}})</a></div>
+        {% endif %}
     </div>
     <div class="home-weather reveal">
         <span class="bold">Météo du jour de la promo</span>

@@ -131,7 +131,7 @@ class User implements UserInterface
     private $helps;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TrainingCourse", cascade={"persist"}, mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\TrainingCourse", mappedBy="user", cascade={"persist"}, orphanRemoval=true)
      */
     private $trainingCourse;
 

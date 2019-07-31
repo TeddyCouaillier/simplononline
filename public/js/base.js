@@ -103,38 +103,6 @@ function updateCounter() {
 updateCounter();
 handleDeleteButtons();
 
-/* ------------- TRAINING COLLECTION --------------- */
-$('#add-training').click(function (){
-    // Get futures fields created
-    const index = +$('#widgets-counter').val();
-
-    // Get entry prototype
-    const tmpl = $('#training_course_user_trainingCourse').data('prototype').replace(/__name__/g, index);
-
-    // Adding prototype in div
-    $('#training_course_user_trainingCourse').append(tmpl);
-
-    $('#widgets-counter').val(index + 1);
-
-    // Delete buttons action
-    handleDeleteButtonsTraining();
-});
-
-function handleDeleteButtonsTraining() {
-    $('button[data-action="delete"]').click(function(){
-        const target = this.dataset.target;
-        $(target).remove();
-    });
-}
-
-function updateCounterTraining() {
-    const count = +$('#training_course_user_trainingCourse div.trainings').length;
-
-    $('#widgets-counter').val(count);
-}
-updateCounterTraining();
-handleDeleteButtonsTraining();
-
 /* ------------- FILE USERS SELECTED ------------ */
 $(function() {
     $('select').multipleSelect({
@@ -221,38 +189,77 @@ $('.help-all_cats span').click(function() {
 });
 
 /* ----------------- Trainings ------------------ */
-$('select').on('change',function(){
-    var cl =  $('select').attr("class").split(" ");
+/* ------------- TRAINING COLLECTION --------------- */
+$('#add-training').click(function (){
+    // Get futures fields created
+    const index = +$('#widgets-counter').val();
+
+    // Get entry prototype
+    const tmpl = $('#training_course_user_trainingCourse').data('prototype').replace(/__name__/g, index);
+
+    // Adding prototype in div
+    $('#training_course_user_trainingCourse').append(tmpl);
+
+    $('#widgets-counter').val(index + 1);
+
+    // Delete buttons action
+    handleDeleteButtonsTraining();
+
+    $('.training-project-toggle').off('click');
+
+    $('.training-project-toggle').on('click',function(){
+        $(this).parent().parent().find('.training-project').fadeToggle(500);
+        $(this).parent().find('.chevron').toggleClass('down');
+    })
+});
+
+function handleDeleteButtonsTraining() {
+    $('button[data-action="delete"]').click(function(){
+        const target = this.dataset.target;
+        $(target).remove();
+    });
+}
+
+function updateCounterTraining() {
+    const count = +$('#training_course_user_trainingCourse div.trainings').length;
+
+    $('#widgets-counter').val(count);
+}
+updateCounterTraining();
+handleDeleteButtonsTraining();
+
+function changeStatus(el){
+    var cl =  $(el).attr("class").split(" ");
     var newcl =[];
     for(var i=0;i<cl.length;i++){
         r = cl[i].search(/edit-status-+/);
         if(r)newcl[newcl.length] = cl[i];
     }
-    switch (this.value) {
+    switch ($(el).val()) {
         case "Intéressé(e)" :
-            $(this).removeClass().addClass(newcl.join(" "));
-            $(this).addClass("edit-status-yellow");
+            $(el).removeClass().addClass(newcl.join(" "));
+            $(el).addClass("edit-status-yellow");
             break;
         case "En attente de réponse" :
-            $(this).removeClass().addClass(newcl.join(" "));
-            $(this).addClass("edit-status-blue");
+            $(el).removeClass().addClass(newcl.join(" "));
+            $(el).addClass("edit-status-blue");
             break;
         case "Entretien" :
-            $(this).removeClass().addClass(newcl.join(" "));
-            $(this).addClass("edit-status-purple");
+            $(el).removeClass().addClass(newcl.join(" "));
+            $(el).addClass("edit-status-purple");
             break;
         case "Réponse positive" :
-            $(this).removeClass().addClass(newcl.join(" "));
-            $(this).addClass("edit-status-green");
+            $(el).removeClass().addClass(newcl.join(" "));
+            $(el).addClass("edit-status-green");
             break;
         case "Réponse négative" :
-            $(this).removeClass().addClass(newcl.join(" "));
-            $(this).addClass("edit-status-red");
+            $(el).removeClass().addClass(newcl.join(" "));
+            $(el).addClass("edit-status-red");
             break;
         default:
-            $(this).removeClass().addClass(newcl.join(" "));
+            $(el).removeClass().addClass(newcl.join(" "));
     }
-})
+}
 
 $('.training-project-toggle').on('click',function(){
     $(this).parent().parent().find('.training-project').fadeToggle(500);

@@ -56,6 +56,7 @@ class TrainingCourse
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="trainingCourse")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 

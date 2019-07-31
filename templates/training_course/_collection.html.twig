@@ -42,7 +42,7 @@
         {% set status = "" %}
         {% endif %}
 
-        <div>{{ form_widget(form.status, {'attr': {'class': status}}) }}</div>
+        <div>{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
 
         <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn"><i class="fal fa-times-circle"></i></button></div>
     </div>
