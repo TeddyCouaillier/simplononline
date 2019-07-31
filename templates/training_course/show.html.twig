@@ -9,48 +9,13 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex just-between">
-        <h1>Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}</em></h1>
-        {% if is_granted("ROLE_ADMIN") or app.user == user %}
-        <a href="{{ path('user_edit_training',{'id': user.id}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
-        {% endif %}
-    </div>
-    <hr>
-    <div class="bg-grey rounded p-2">
-        <span class="bold">Etat des stages</span>
-        {% for training in user.trainingCourse %}
-            {{ template.delete(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
-            <div class="bg-white rounded flex just-around p-2 mb-1 reveal training-course">
-                <div>
-                    {% if training.project == null %}
-                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                    title="Détail" data-content=
-                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1"><em>Pas de détail</em>'>
-                    </i>
-                    {% else %}
-                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                    title="Détail" data-content=
-                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project }}'>
-                    </i>
-                    {% endif %}
-                    {{ training.society }}
-                </div>
-                <div>{{ training.place }}</div>
-                <div class="flex align-center">
-                    <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
-                </div>
-                <div>
-                    <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                    data-modalid="{{ training.id }}" data-content='
-                    <a class="modal-button subnav-link text-red">Supprimer</a>'>
-                    </i>
-                </div>
-            </div>
-        {% else %}
-        <div class="bg-white rounded p-2 mt-1 text-center">
-            Il n'y a aucune demande de stage.<br>
-            <a class="btn btn-outline-danger" href="{{ path('user_edit_training',{'id': user.id}) }}">Cliquez ici pour en ajouter</a>
-        </div>
-        {% endfor %}
-    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    {% include 'training_course/_admin_show.html.twig' %}
+    {% else %}
+    {% include 'training_course/_user_show.html.twig' %}
+    {% endif %}
+
+    {% include 'training_course/_show_training_admin.html.twig' %}
+
 {% endblock %}

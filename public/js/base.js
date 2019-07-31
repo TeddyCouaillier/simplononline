@@ -189,7 +189,6 @@ $('.help-all_cats span').click(function() {
 });
 
 /* ----------------- Trainings ------------------ */
-/* ------------- TRAINING COLLECTION --------------- */
 $('#add-training').click(function (){
     // Get futures fields created
     const index = +$('#widgets-counter').val();
@@ -266,3 +265,41 @@ $('.training-project-toggle').on('click',function(){
     $(this).parent().find('.chevron').toggleClass('down');
 
 })
+
+$('#add-training-admin').click(function (){
+    // Get futures fields created
+    const index = +$('#widgets-counter').val();
+
+    // Get entry prototype
+    const tmpl = $('#admin_training_course_user_trainingCourse').data('prototype').replace(/__name__/g, index);
+
+    // Adding prototype in div
+    $('#admin_training_course_user_trainingCourse').append(tmpl);
+
+    $('#widgets-counter').val(index + 1);
+
+    // Delete buttons action
+    handleDeleteButtonsTrainingAdmin();
+
+    $('.training-project-toggle').off('click');
+
+    $('.training-project-toggle').on('click',function(){
+        $(this).parent().parent().find('.training-project').fadeToggle(500);
+        $(this).parent().find('.chevron').toggleClass('down');
+    })
+});
+
+function handleDeleteButtonsTrainingAdmin() {
+    $('button[data-action="delete"]').click(function(){
+        const target = this.dataset.target;
+        $(target).remove();
+    });
+}
+
+function updateCounterTrainingAdmin() {
+    const count = +$('#admin_training_course_user_trainingCourse div.trainings').length;
+
+    $('#widgets-counter').val(count);
+}
+updateCounterTrainingAdmin();
+handleDeleteButtonsTrainingAdmin();

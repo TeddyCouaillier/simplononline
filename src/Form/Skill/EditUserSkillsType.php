@@ -17,7 +17,7 @@ class EditUserSkillsType extends ApplicationType
     {
         $builder
             ->add('userSkills', CollectionType::class, [
-                'entry_type' => UserSkillsType::class,
+                'entry_type'  => UserSkillsType::class,
                 'constraints' => array(new Valid())
             ])
         ;

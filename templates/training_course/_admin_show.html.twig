@@ -1,0 +1,41 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="flex just-between">
+    <h1>Liste des stages</h1>
+    <a href="{{ path('training_add') }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
+</div>
+<hr>
+<div class="bg-grey rounded p-2">
+    <span class="bold">Etat des stages</span>
+
+    {% for training in trainings %}
+        {{ template.delete(training.id,path('user_delete_training',{'id':training.user.id,'training_id':training.id})) }}
+        <div class="bg-white rounded p-2 mb-1 reveal ">
+            <div class="flex just-between">
+                <span class="bold">{{ training.user.fullname }}</span>
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ training.id }}" data-content='
+                <a class="modal-button subnav-link text-red">Supprimer</a>'>
+                </i>
+            </div>
+            <div class="flex just-around training-course">
+                <div>
+                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                    title="Détail" data-content=
+                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
+                    </i>
+                    {{ training.society }}
+                </div>
+                <div>{{ training.place }}</div>
+                <div class="flex align-center">
+                    <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    {% else %}
+        <div class="bg-white rounded p-2 mt-1 text-center">Il n'y a aucune demande de stage.</div>
+    {% endfor %}
+
+</div>
+<hr>

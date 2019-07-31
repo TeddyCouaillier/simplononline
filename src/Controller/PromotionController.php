@@ -87,7 +87,7 @@ class PromotionController extends AbstractController
             return $this->redirectToRoute('promo_show',['slug'=> $promo->getSlug()]);
         }
         return $this->render('promotion/edit.html.twig',[
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'promo' => $promo
         ]);
     }

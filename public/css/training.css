@@ -54,3 +54,9 @@ legend{ display: none; }
     -webkit-transform:rotate(-180deg);
     transform:rotate(-180deg);
 }
+
+/* Add training admin */
+.user-add-training-admin > div:nth-child(1){ width: 35%; }
+.user-add-training-admin > div:nth-child(2){ width: 35%; }
+.user-add-training-admin > div:nth-child(3){ width: 15%; }
+.user-add-training-admin > div:nth-child(4){ width: auto; }

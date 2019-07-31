@@ -18,4 +18,22 @@ class TrainingCourseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TrainingCourse::class);
     }
+
+    public function findAllTrainingAdmin()
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.number is not NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllTraining()
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.number is NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

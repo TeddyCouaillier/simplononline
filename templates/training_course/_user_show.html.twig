@@ -1,0 +1,46 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="flex just-between">
+    <h1>Liste des stages de <em>{{ user.firstname }} {{ user.lastname|upper }}</em></h1>
+    {% if app.user == user %}
+    <a href="{{ path('user_edit_training',{'id': user.id}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
+    {% endif %}
+</div>
+<hr>
+<div class="bg-grey rounded p-2">
+    <span class="bold">Etat des stages</span>
+    {% for training in user.trainingCourse %}
+        {% if app.user == user %}
+        {{ template.delete(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
+        {% endif %}
+        <div class="bg-white rounded flex just-around p-2 mb-1 reveal training-course">
+            <div>
+                <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                title="Détail" data-content=
+                'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
+                </i>
+                {{ training.society }}
+            </div>
+            <div>{{ training.place }}</div>
+            <div class="flex align-center">
+                <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
+            </div>
+            <div>
+                {% if app.user == user %}
+                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                data-modalid="{{ training.id }}" data-content='
+                <a class="modal-button subnav-link text-red">Supprimer</a>'>
+                </i>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="bg-white rounded p-2 mt-1 text-center">
+            Il n'y a aucune demande de stage.
+            {% if app.user == user %}
+            <br><a class="btn btn-outline-danger" href="{{ path('user_edit_training',{'id': user.id}) }}">Cliquez ici pour en ajouter</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+<hr>

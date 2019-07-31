@@ -11,6 +11,7 @@ use App\Form\User\CreateUserType;
 use App\Repository\UserRepository;
 use App\Form\Data\EditUserDataType;
 use App\Form\Skill\EditUserSkillsType;
+use App\Repository\TrainingCourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -232,15 +233,20 @@ class UserController extends AbstractController
     // -----------------------------------------------------
 
     /**
-     * Show the specific user's training courses
+     * Show the specific user's training courses by the same user
+     * Show all users training courses by the admin
+     * Show the training courses proposed by the admin for all users
      * @Route("/{id}/stages", name="show_training")
-     * @param User $user
+     * @param User                      $user
+     * @param TrainingCourseRepository  $rep
      * @return Response
      */
-    public function showTraining(User $user)
+    public function showTraining(User $user, TrainingCourseRepository $rep)
     {
         return $this->render('training_course/show.html.twig', [
-            'user' => $user,
+            'user'          => $user,
+            'trainingAdmin' => $rep->findAllTrainingAdmin(),
+            'trainings'     => $rep->findAllTraining()
         ]);
     }
 
@@ -280,7 +286,7 @@ class UserController extends AbstractController
      * @param User           $user
      * @param TrainingCourse $training
      * @param ObjectManager  $manager
-     * @return void
+     * @return Response
      */
     public function deleteTrainingCourse(User $user, TrainingCourse $training, ObjectManager $manager)
     {
