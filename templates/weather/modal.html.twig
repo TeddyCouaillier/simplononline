@@ -1,0 +1,21 @@
+{% if updated == false %}
+<div id="myModal" class="modal-weather pt-5" style="display: block">
+    <div class="modal-content">
+        <div class="mb-4 w-75 mx-auto">
+            <h2>Météo du jour</h2>
+            <hr>
+            <div class="text-center mb-4">
+                <b class="px-4" style="border-bottom: 2px solid red;">{{ question|default('C\'est toi qui voit') }}</b><br>
+            </div>
+            <div class="flex just-center w-100 weather-content text-center">
+                <div>
+                {{ form_start(form) }}
+                {{ form_widget(form, {'attr':{'class': 'py-1'}}) }}
+                <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
+                {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

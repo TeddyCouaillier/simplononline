@@ -97,7 +97,7 @@ hr{
 .rounded{ border-radius: 7px !important;}
 .icon-sm{ font-size: 2em; }
 .icon-md{ font-size: 3em; }
-.icon-lg{ font-size: 4em; }
+.icon-lg{ font-size: 4.5em; }
 .icon-xl{ font-size: 5em; }
 [class*="avatar-"]{ border-radius: 50%; }
 .avatar-xs{
@@ -213,7 +213,7 @@ input:focus,select:focus{
  ** MODAL
  ****************************************************/
 .modal-button { cursor: pointer; }
-.modal {
+.modal,.modal-weather {
     display: none;
     position: fixed;
     z-index: 1000;

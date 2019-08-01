@@ -1,8 +1,5 @@
 /* Skill user */
-.skill-user {
-    margin: 5px 0;
-    padding: 2px 18px;
-}
+.skill-user { margin: 5px 0; }
 .skill-user hr { border-color: rgba(0,0,0,.3); }
 .skill-user > div { line-height: 30px; }
 .skill-user > div:first-child{ width: 80%; }
@@ -44,11 +41,11 @@
 }
 .level-0{ background-color: #FF3C38 !important; }
 .level-1{ background-color: #FF8C42 !important; }
-.level-2{ background-color: #FFFC4F !important; color: black !important;}
+.level-2{ background-color: #FFFC4F !important; color: #000 !important;}
 .level-3{ background-color: #0E9E53 !important; }
 .border-level-0{ border-top: 2px solid #FF3C38; }
 .border-level-1{ border-top: 2px solid #FF8C42; }
-.border-level-2{ border-top: 2px solid rgb(255, 251, 0); }
+.border-level-2{ border-top: 2px solid #FFFB00; }
 .border-level-3{ border-top: 2px solid #0E9E53; }
 
 /* Edit user skills */

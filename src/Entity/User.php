@@ -23,6 +23,12 @@ class User implements UserInterface
     const ADMIN     = 'ROLE_ADMIN';
     const MEDIATEUR = 'ROLE_MEDIATEUR';
 
+    const SUN       = 0;
+    const RAIN      = 1;
+    const CLOUD     = 2;
+    const THUNDER   = 3;
+    const SUNCLOUD  = 4;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -135,6 +141,16 @@ class User implements UserInterface
      */
     private $trainingCourse;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $lastConnect;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $weather;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -144,6 +160,8 @@ class User implements UserInterface
         $this->userData = new ArrayCollection();
         $this->helps = new ArrayCollection();
         $this->trainingCourse = new ArrayCollection();
+        $this->lastConnect = new \DateTime;
+        $this->weather = 0;
     }
 
     public function updateAvatar()
@@ -609,5 +627,54 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+
+    public function getLastConnect(): ?\DateTimeInterface
+    {
+        return $this->lastConnect;
+    }
+
+    public function setLastConnect(\DateTimeInterface $lastConnect): self
+    {
+        $this->lastConnect = $lastConnect;
+
+        return $this;
+    }
+
+    public function getWeather(): ?int
+    {
+        return $this->weather;
+    }
+
+    public function setWeather(int $weather): self
+    {
+        $this->weather = $weather;
+
+        return $this;
+    }
+
+
+    public function getWeatherIcon()
+    {
+        switch ($this->weather) {
+            case self::SUN:
+                return '<img src="/img/weather/sun.svg" class="weather-svg">';
+                break;
+            case self::RAIN:
+                return '<img src="/img/weather/rain.svg" class="weather-svg">';
+                break;
+            case self::CLOUD:
+                return '<img src="/img/weather/clouds.svg" class="weather-svg">';
+                break;
+            case self::THUNDER:
+                return '<img src="/img/weather/thunder.svg" class="weather-svg">';
+                break;
+            case self::SUNCLOUD:
+                return '<img src="/img/weather/suncloud.svg" class="weather-svg">';
+                break;
+            default:
+                return '<p class="icon-lg">?</p>';
+        }
     }
 }

@@ -18,14 +18,22 @@
         {% include 'partials/leftsection.html.twig' %}
         {% include 'partials/header.html.twig' %}
 
+        
+
         <div class="main-content">
             <div class="main">
+
                 {% for class, messages in app.flashes %}
                     {% for message in messages %}
                         {{ template.message(class,message) }}
                     {% endfor %}
                 {% endfor %}
+        {{ render(controller(
+            'App\\Controller\\BaseController::weather'
+        )) }}
+
                 {% block body %}{% endblock %}
+
             </div>
             <footer><span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.</footer>
         </div>

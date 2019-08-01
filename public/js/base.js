@@ -52,6 +52,9 @@ $(window).click(function(event) {
     if ($(event.target).attr('id') == $('.modal').attr('id')) {
         $(".modal").fadeOut(250);
     }
+    if ($(event.target).attr('id') == $('.modal-weather').attr('id')) {
+        // alert('cherche pas');
+    }
 
     $('.popover-body .modal-button').on('click', function() {
         var docHeight = 150+$(window).scrollTop();
