@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Controller\OtherController;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends OtherController
 {

@@ -18,7 +18,9 @@
         {% include 'partials/leftsection.html.twig' %}
         {% include 'partials/header.html.twig' %}
 
-        
+        {{ render(controller(
+            'App\\Controller\\BaseController::weather'
+        )) }}
 
         <div class="main-content">
             <div class="main">
@@ -28,9 +30,6 @@
                         {{ template.message(class,message) }}
                     {% endfor %}
                 {% endfor %}
-        {{ render(controller(
-            'App\\Controller\\BaseController::weather'
-        )) }}
 
                 {% block body %}{% endblock %}
 
