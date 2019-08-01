@@ -1,8 +1,15 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body{
     font-family: 'Abel';
     font-weight: 400;
     color: #2a2d31 !important;
     background: #f6f8f9;
+    margin: 0;
 }
 /*****************************************************
  ** HTML
@@ -258,3 +265,4 @@ input:focus,select:focus{
     transform: translateY(0);
     transition: 1s cubic-bezier(.6,0,0,1);
 }
+
