@@ -106,7 +106,7 @@ hr{
 .icon-md{ font-size: 3em; }
 .icon-lg{ font-size: 4.5em; }
 .icon-xl{ font-size: 5em; }
-[class*="avatar-"]{ border-radius: 50%; }
+[class*="avatar-"]{ border-radius: 50%; border: 1px solid rgba(0,0,0,.2);}
 .avatar-xs{
     width: 30px;
     height: 30px;
@@ -254,7 +254,7 @@ input:focus,select:focus{
 }
 
 /*****************************************************
- ** REVEAL CONTENT
+ ** JAVASCRIPTS
  ****************************************************/
 .reveal{
     opacity: 0;
@@ -266,3 +266,10 @@ input:focus,select:focus{
     transition: 1s cubic-bezier(.6,0,0,1);
 }
 
+/* Select users */
+.ms-no-results{ padding: 8px !important; }
+.ms-parent{
+    width: 100% !important;
+    padding: 0 !important;
+    height: 100% !important;
+}

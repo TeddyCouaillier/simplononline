@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Modifier un projet{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/project.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Modifier le projet</h1>
+    <hr>
+    <div class="bg-grey rounded p-2 flex just-around">
+        <div class="rounded p-2 mx-1" style="width: 50%">
+            <span class="bold">Informations du projet</span>
+            {{ form_start(form) }}
+            <div class="bg-white rounded p-2 my-2">
+                {# {{ form_label(form.title) }} #}
+                <div class="mb-1">{{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}</div>
+                {# {{ form_label(form.description)}} #}
+                <div class="mb-1">{{ form_widget(form.description) }}</div>
+                {# {{ form_label(form.users) }} #}
+                {# {{ form_widget(form.users) }} #}
+                {# {{ form_label(form.github)}} #}
+                <div class="mb-1">{{ form_widget(form.github) }}</div>
+                <div class="mb-1">{{ form_widget(form.website) }}</div>
+
+            {{ template.confirm()}}
+            {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="p-2 mx-1" style="width: 50%">
+            <span class="bold">Liste des apprenants</span>
+            {% for user in project.users %}
+            <div class="bg-white rounded p-2 flex align-center mb-1 mt-2">
+                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
+                <div class="flex-fill">{{ user.fullname }} {% if loop.index == 1 %}<i class="fal fa-star text-red bold ml-1" style="font-size: .85em"></i>{% endif %}</div>
+                <div style="width: 10%"><button type="button" class="btn"><i class="fal fa-times-circle"></i></button></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

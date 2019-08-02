@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Ajouter un nouveau projet{% endblock %}
+
+{% block stylesheets %}
+<link href="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/project.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un nouveau projet</h1>
+    <hr>
+    <div class="bg-grey rounded p-2">
+        {{ form_start(form) }}
+        <span class="bold">Informations importantes</span>
+        <div class="rounded p-2 mb-2">
+            {# {{ form_label(form.title) }} #}
+            {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
+            {# {{ form_label(form.description)}} #}
+            {{ form_widget(form.description) }}
+            {# {{ form_label(form.users) }} #}
+            {{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple'}}) }}
+        </div>
+        <span class="bold">Informations secondaires</span>
+        <div class="rounded p-2">
+            {# {{ form_label(form.github)}} #}
+            {{ form_widget(form.github) }}
+            {{ form_widget(form.website) }}
+        </div>
+        {{ template.confirm()}}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block libraries %}
+<script src="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.js"></script>
+{% endblock %}

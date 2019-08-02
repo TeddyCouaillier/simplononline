@@ -5,7 +5,7 @@
 {% set active_aide = "active" %}
 {% elseif app.request.get('_route') == "promo_all" %}
 {% set active_promo = "active" %}
-{% else %}
+{% elseif app.request.get('_route') == "project_all" %}
 {% set active_projet = "active" %}
 {% endif %}
 
@@ -13,7 +13,7 @@
     <div class="flex just-between align-baseline navlist">
         <ul class="text-uppercase">
             <li class="{{ active_home }} text-uppercase"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
-            <li class="{{ active_projet }}"><a href="#">Projets</a></li>
+            <li class="{{ active_projet }}"><a href="{{ path('project_all') }}">Projets</a></li>
             <li class="{{ active_promo }}"><a href="{{ path('promo_all') }}">Promotions</a></li>
             <li class="{{ active_aide }}"><a href="{{ path('help_show') }}">Aide</a></li>
         </ul>

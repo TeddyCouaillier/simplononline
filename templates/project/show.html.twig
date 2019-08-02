@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/project.css">
+{% endblock %}
+
+{% block body %}
+    <div class="px-5 py-2">
+        <div class="flex just-between mb-0">
+        <h1 class="mb-1">{{ project.title }}</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
+        {% endif %}
+        </div>
+        <span class="text-grey">{{ project.description|default('<em>Pas de description</em>')|raw }}</span>
+        <div class="flex my-3">
+            {% for user in project.users %}
+                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs">
+            {% endfor %}
+        </div>
+        <div class="progress my-2">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="flex just-between">
+            <div>
+                {% if project.github != null %}
+                <a href="{{ project.github }}" target="_blank" class="text-grey" style="font-size: .85em"><i class="far fa-code-branch"></i> GitHub</a> &nbsp;
+                {% endif %}
+                {% if project.website != null %}
+                <a href="{{ project.website }}" target="_blank" class="text-grey" style="font-size: .85em"><i class="far fa-eye"></i> Voir le site</a>
+                {% endif %}
+            </div>
+            <div class="text-grey" style="font-size: .85em">
+                <span>{{ time }}</span>
+            </div>
+        </div>
+        <div class="bg-grey rounded p-2 flex my-4" style="font-size: .9em">
+            <div class="text-center project-nav active" data-project="task" onclick="projectPanel(this)" style="width: 33%; padding: .5rem 0;">Tâches</div>
+            <div class="text-center project-nav" data-project="detail" onclick="projectPanel(this)" style="width: 33%; padding: .5rem;">Informations détaillées</div>
+            <div class="text-center project-nav" data-project="activity" onclick="projectPanel(this)" style="width: 33%; padding: .5rem;">Activité</div>
+        </div>
+        <hr>
+        {{ include('project/_task.html.twig') }}
+        {{ include('project/_detail.html.twig') }}
+        {{ include('project/_activity.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+</script>
+{% endblock %}

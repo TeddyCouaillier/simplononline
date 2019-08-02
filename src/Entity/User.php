@@ -151,6 +151,11 @@ class User implements UserInterface
      */
     private $weather;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="users")
+     */
+    private $projects;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -162,6 +167,7 @@ class User implements UserInterface
         $this->trainingCourse = new ArrayCollection();
         $this->lastConnect = new \DateTime;
         $this->weather = 0;
+        $this->projects = new ArrayCollection();
     }
 
     public function updateAvatar()
@@ -676,5 +682,31 @@ class User implements UserInterface
             default:
                 return '<p class="icon-lg">?</p>';
         }
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+        }
+
+        return $this;
     }
 }

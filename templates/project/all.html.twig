@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Tous les projets{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/project.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Tous les projets</h1>
+    <hr>
+    <div class="bg-grey rounded p-2">
+        {% for project in projects %}
+            <div class="bg-white rounded p-2 row reveal mx-0 mt-2">
+                <div class="col-4 flex align-center">
+                    <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a>
+                </div>
+                <div class="col-4 flex align-center justify-content-end">
+                    {% for user in project.users %}
+                        <img src="/img/avatar/{{user.avatar}}" class="avatar-xs">
+                    {% endfor %}
+                </div>
+                <div class="col-2 flex align-center">
+                    <div class="status-blue mr-2"></div> en cours
+                </div>
+                <div class="col-2 flex align-center">
+                    <em>Il y a 6 jours</em>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -301,6 +301,11 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_show_training',['id'=> $this->getUser()->getId()]);
     }
 
+    // -----------------------------------------------------
+    // -- Training course section
+    // -----------------------------------------------------
+
+
     /**
      * Show a specific user
      * @Route("/{id}", name="show")

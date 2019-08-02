@@ -11,7 +11,7 @@
     {% set file = usend.files %}
     {{ template.delete(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
 
-    <div class="file-content rounded reveal">
+    <div class="file-content rounded my-2 p-2 reveal">
         <div class="file-state"></div>
         <div class="file-info">
             <p class="bold">{{ file.title }}</p>

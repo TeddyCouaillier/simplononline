@@ -76,8 +76,9 @@ $(".close-message").click(function() {
 
 /* ------------- USERS COLLECTION ------------ */
 $('#add-user').click(function (){
+    updateCounterUser();
     // Get futures fields created
-    const index = +$('#widgets-counter').val();
+    const index = +$('#widgets-counter').val() + 1;
 
     // Get entry prototype
     const tmpl = $('#edit_promotion_users').data('prototype').replace(/__name__/g, index);
@@ -85,8 +86,8 @@ $('#add-user').click(function (){
     // Adding prototype in div
     $('#edit_promotion_users').append(tmpl);
 
-    $('#widgets-counter').val(index + 1);
-
+    // $('#widgets-counter').val(index + 1);
+    
     // Delete buttons action
     handleDeleteButtons();
 });
@@ -98,12 +99,13 @@ function handleDeleteButtons() {
     });
 }
 
-function updateCounter() {
-    const count = +$('#edit_promotion_users div.promo-add-users').length;
+function updateCounterUser() {
+    const last = $('#edit_promotion_users div.promo-add-users').last();
+    var lastIndex = $(last).attr('id');
+    lastIndex = parseInt(lastIndex.replace('block_edit_promotion_users_', ''));
 
-    $('#widgets-counter').val(count);
+    $('#widgets-counter').val(lastIndex);
 }
-updateCounter();
 handleDeleteButtons();
 
 /* ------------- FILE USERS SELECTED ------------ */
@@ -306,3 +308,14 @@ function updateCounterTrainingAdmin() {
 }
 updateCounterTrainingAdmin();
 handleDeleteButtonsTrainingAdmin();
+
+function projectPanel(el){
+    $('.project-nav').removeClass('active');
+    $(el).addClass('active');
+    const pan = $(el).data('project');
+    $('.project-content').hide(750);
+    $(`.project-content#${pan}`).show(750);
+    console.log($(`.project-content#${pan}`));
+    console.log(pan);
+    //if($(document).find(`div[data-project="${}"]`)){
+}
