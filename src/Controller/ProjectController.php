@@ -156,13 +156,22 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
     {
-        $task = new Task();
+        // $task = new Task();
+        $task = $this->getDoctrine()->getRepository(Task::class)->find(3);
         $task->setProject($project);
 
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            $tab = []; $i = 0;
+            die(print_r($request->request->get('task')));
+            foreach($task->getSubtasks() as $subtask){
+                // $subtask->setTask($task);
+                // $manager->persist($subtask);
+                $tab[$i++] = $subtask->getTitle();
+            }
+            die(var_dump($tab));
             $users = $request->request->get('task')['users'];
             foreach($users as $user_id){
                 $user = $rep->find($user_id);

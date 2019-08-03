@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Subtask;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
@@ -58,10 +59,16 @@ class Task
      */
     private $project;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Subtask",cascade={"persist"}, mappedBy="task")
+     */
+    private $subtasks;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->subtasks = new ArrayCollection();
     }
 
     /**
@@ -92,6 +99,22 @@ class Task
             default:
                 return 'Il y a trop longtemps';
         }
+    }
+
+    /**
+     * Get the subtasks done
+     * @return Subtask[]
+     */
+    public function getSubtasksDone()
+    {
+        $subtasksdone = [];
+        $i = 0;
+        foreach($this->subtasks as $subtask){
+            if($subtask->getDone()){
+                $subtasksdone[$i++] = $subtask;
+            }
+        }
+        return $subtasksdone;
     }
 
     public function getId(): ?int
@@ -183,6 +206,37 @@ class Task
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Subtask[]
+     */
+    public function getSubtasks(): Collection
+    {
+        return $this->subtasks;
+    }
+
+    public function addSubtask(Subtask $subtask): self
+    {
+        if (!$this->subtasks->contains($subtask)) {
+            $this->subtasks[] = $subtask;
+            $subtask->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubtask(Subtask $subtask): self
+    {
+        if ($this->subtasks->contains($subtask)) {
+            $this->subtasks->removeElement($subtask);
+            // set the owning side to null (unless already changed)
+            if ($subtask->getTask() === $this) {
+                $subtask->setTask(null);
+            }
+        }
 
         return $this;
     }

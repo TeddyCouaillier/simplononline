@@ -5,6 +5,7 @@ namespace App\Form\Project;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Form\ApplicationType;
+use App\Form\Project\SubtaskType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -14,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TaskType extends ApplicationType
 {
@@ -38,7 +40,17 @@ class TaskType extends ApplicationType
                         return $rep->findAllByProject($task->getProject());
                     }
                 ]);
-            });
+            })
+            ->add('subtasks', CollectionType::class, [
+                'entry_type'   => SubtaskType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'attr'         => [
+                    'class' => 'my-selector',
+                ]
+                // 'by_reference' => false
+            ])
         ;
     }
 

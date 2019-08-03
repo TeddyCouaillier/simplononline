@@ -337,4 +337,72 @@ function projectPanel(el){
     console.log($(`.project-content#${pan}`));
     console.log(pan);
     //if($(document).find(`div[data-project="${}"]`)){
-}
+    }
+
+/* ------------- SUBTASK COLLECTION ------------ */
+// $('#add-subtask').click(function (){
+//     updateCounterSubtask();
+//         // Get futures fields created
+//     const index = +$('#widgets-counter').val();
+
+//     // Get entry prototype
+//     const tmpl = $('#task_subtasks').data('prototype').replace(/__name__/g, index);
+
+//     // Adding prototype in div
+//     $('#task_subtasks').append(tmpl);
+
+//     $('#widgets-counter').val(index + 1);
+
+//     // Delete buttons action
+//     handleDeleteButtonsSubtask();
+// });
+
+// function handleDeleteButtonsSubtask() {
+//     $('button[data-action="delete"]').click(function(){
+//         const target = this.dataset.target;
+//         $(target).remove();
+//     });
+// }
+
+// function updateCounterSubtask() {
+//     const last = $('#task_subtasks div.task-add-tasks').last();
+//     console.log(last);
+//     // var lastIndex = $(last).attr('id');
+//     // lastIndex = parseInt(lastIndex.replace('block_task_subtasks_', ''));
+//     // $('#widgets-counter').val(lastIndex);
+    
+// }
+// handleDeleteButtonsSubtask();
+// $('#add-subtask').click(function (){
+//     // Get futures fields created
+//     const index = +$('#widgets-counter').val();
+
+//     // Get entry prototype
+//     const tmpl = $('#task_subtasks').data('prototype').replace(/__name__/g, index);
+
+//     // Adding prototype in div
+//     $('#task_subtasks').append(tmpl);
+
+//     $('#widgets-counter').val(index + 1);
+
+//     // Delete buttons action
+//     handleDeleteButtonsTask();
+
+// });
+
+// function handleDeleteButtonsTask() {
+//     $('button[data-action="delete"]').click(function(){
+//         const target = this.dataset.target;
+//         $(target).remove();
+//     });
+// }
+
+// function updateCounterTask() {
+//     const count = +$('#task_subtasks div.task-add-subtask').length;
+
+//     $('#widgets-counter').val(count);
+// }
+// updateCounterTask();
+// handleDeleteButtonsTask();
+
+// setup an "add a tag" link

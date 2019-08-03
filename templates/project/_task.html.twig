@@ -27,16 +27,27 @@
 <div id="myModal" class="modal" data-modalid="addTask">
     <div class="modal-content">
         <div class="close-modal text-right">&times;</div>
-        <div class="mb-4 w-50 mx-auto">
+        <div class="mb-2 w-100 mx-auto">
             <h2>Ajouter une tache</h2>
             <hr>
-            <div class="my-3">{{ form_start(form) }}</div>
-            <div class="my-3">{{ form_widget(form.type) }}</div>
-            <div class="my-3">{{ form_widget(form.title) }}</div>
-            <div class="my-3">{{ form_widget(form.description) }}</div>
-            <div class="my-3">{{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple','class':'multipleselect','placeholder':'Personne(s) concernée(s)'}}) }}</div>
+            <div class="flex">
+                <div class="mx-1" style="width: 33%;">
+                    <div class="my-3">{{ form_start(form) }}</div>
+                    <div class="my-3">{{ form_widget(form.type) }}</div>
+                    <div class="my-3">{{ form_widget(form.title) }}</div>
+                    <div class="my-3">{{ form_widget(form.description) }}</div>
+                    <div class="my-3">{{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple','class':'multipleselect','placeholder':'Personne(s) concernée(s)'}}) }}</div>
+                </div>
+                <div class="mx-1 px-2 mt-3" style="width: 66%; ">{{ form_widget(form.subtasks) }}</div>
+            </div>
             <div class="my-3">{{ template.confirm() }}</div>
             <div class="my-3">{{ form_end(form) }}</div>
         </div>
     </div>
 </div>
+
+{% block javascripts %}
+ <script type="text/javascript">
+    $('.my-selector').collection();
+</script>
+{% endblock %}
