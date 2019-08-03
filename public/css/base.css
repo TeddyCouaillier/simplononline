@@ -22,7 +22,6 @@ h1,h2,h3{
     margin-bottom: .5rem;
     font-weight: 500;
     line-height: 1.2;
-    
 }
 a{ color: black; text-decoration: none;}
 i{ margin-top: 5px; }
@@ -49,16 +48,18 @@ hr{
 /*****************************************************
  ** FONT & COLORS
  ****************************************************/
-.text-grey{ color: rgba(0,0,0,.5) !important; }
-.bg-grey{ background: #e8ecf1 !important; }
-.text-white{ color: #FFFFFF !important; }
-.bg-white{ background: #FFFFFF !important; }
-.text-red{ color: rgba(242,72,71,1) !important; }
-.bg-red{ background: rgba(242,72,71,1) !important; }
-.bold{ font-weight: 600; }
-.text-center{ text-align: center!important; }
-.text-right{ text-align: right!important; }
+.bg-grey     { background: #e8ecf1 !important; }
+.bg-white    { background: #FFFFFF !important; }
+.bg-red      { background: rgba(242,72,71,1) !important; }
+.text-grey   { color: rgba(0,0,0,.5) !important; }
+.text-white  { color: #FFFFFF !important; }
+.text-red    { color: rgba(242,72,71,1) !important; }
+.bold        { font-weight: 600; }
+.text-center { text-align: center!important; }
+.text-right  { text-align: right!important; }
 .text-justify{ text-align: justify!important; }
+.text-small  { font-size: .85em; }
+.text-medium { font-size: 1.2em; }
 
 /*****************************************************
  ** DISPLAY
@@ -126,7 +127,34 @@ hr{
 .shadow{
     box-shadow: 0 0 .5rem rgba(0,0,0,.15)!important;
 }
-
+.container-grey{
+    border-radius: 7px !important;
+    background: #e8ecf1 !important;
+    padding: .5rem;
+}
+.container-white{
+    border-radius: 7px !important;
+    background: #ffffff;
+    padding: .5rem;
+}
+.button-edit{
+    background: #e8ecf1;
+    color: rgba(0,0,0,.5);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    border: none;
+}
+.button-edit:hover{
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3) !important;
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3) !important;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3) !important;
+    color: rgba(0,0,0,.9);
+    cursor: pointer;
+}
 /*****************************************************
 ** FORM
 ****************************************************/

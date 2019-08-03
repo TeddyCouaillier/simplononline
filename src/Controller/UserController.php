@@ -302,9 +302,21 @@ class UserController extends AbstractController
     }
 
     // -----------------------------------------------------
-    // -- Training course section
+    // -- Project section
     // -----------------------------------------------------
 
+    /**
+     * Show the user's projects
+     * @Route("/{id}/projets", name="show_projects")
+     * @param User $user
+     * @return Response
+     */
+    public function showUserProjects(User $user)
+    {
+        return $this->render('project/all.html.twig', [
+            'user' => $user
+        ]);
+    }
 
     /**
      * Show a specific user

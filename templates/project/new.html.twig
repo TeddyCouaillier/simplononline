@@ -12,22 +12,19 @@
 {% block body %}
     <h1>Ajouter un nouveau projet</h1>
     <hr>
-    <div class="bg-grey rounded p-2">
+    <div class="container-grey">
         {{ form_start(form) }}
         <span class="bold">Informations importantes</span>
         <div class="rounded p-2 mb-2">
-            {# {{ form_label(form.title) }} #}
             {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
-            {# {{ form_label(form.description)}} #}
             {{ form_widget(form.description) }}
-            {# {{ form_label(form.users) }} #}
-            {{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple'}}) }}
+            {{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple','class':'multipleselect','placeholder' : 'Liste des apprenants du projet'}}) }}
         </div>
         <span class="bold">Informations secondaires</span>
         <div class="rounded p-2">
-            {# {{ form_label(form.github)}} #}
             {{ form_widget(form.github) }}
             {{ form_widget(form.website) }}
+            {{ form_widget(form.languages, { 'attr' : {'multiple' : 'multiple','class':'multipleselectlang','placeholder' : 'Langages utilisés'}}) }}
         </div>
         {{ template.confirm()}}
         {{ form_end(form) }}

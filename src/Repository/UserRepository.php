@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Project;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -58,6 +59,20 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('p.current = true')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    /**
+     * Find all users in a specific project
+     * @param Project $project
+     * @return User[]
+     */
+    public function findAllByProject($project)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.projects', 'p')
+            ->andWhere('p = :project')
+            ->setParameter('project', $project)
         ;
     }
 }

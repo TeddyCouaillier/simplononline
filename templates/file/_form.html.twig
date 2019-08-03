@@ -9,7 +9,7 @@
             <hr>
             {% if is_granted('ROLE_MEDIATEUR') %}
             {{ form_label(form.receiver) }}
-            {{ form_widget(form.receiver, { 'attr' : {'multiple' : 'multiple'}}) }}
+            {{ form_widget(form.receiver, { 'attr' : {'multiple' : 'multiple','class': 'multipleselect'}}) }}
             <hr>
             {% endif %}
             {{ form_widget(form.name) }}

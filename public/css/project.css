@@ -1,24 +1,16 @@
-.progress{
-    height: 5px!important;
-}
 .add-task{
-    height: 50px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
 }
+.progress{ height: 5px!important; }
 
-.test.progress{
-    border-top-left-radius: 50000000px;
-    border-bottom-right-radius: 400000px;
-    transform: translateY(4px);
-    /* margin: 0 2px; */
-    height: 4px!important;
-    background: transparent!important;
-}
-.bg-yellow{ background: yellow; }
-.tesst{ z-index: 10;}
-    /* .task-error{ border-top: .2rem solid red; } */
-
+/* Panel */
 .project-nav{
     cursor: pointer;
+    width: 33%;
+    padding: .5rem 0;
+    font-size: .9em;
 }
 .project-nav.active{
     background: #FFFFFF;
@@ -26,6 +18,20 @@
     font-weight: 600;
 }
 .project-content:not(#task){ display: none; }
+
+/* Tasks */
+.task-progress{
+    border-top-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    transform: translateY(4px);
+    height: 4px!important;
+    background: transparent!important;
+}
+
+.task-container{ padding: 1em !important; }
+#task-title{ width: 45%; }
+#task-users{ width: 40%; }
+#task-sub  { width: 15%; }
 
 [class^="status-"], .status{
     height: 8px;
@@ -37,3 +43,15 @@
 .status-purple{     background: purple; }
 .status-green{      background: green; }
 .status-blue{       background: dodgerblue; }
+
+[class*="badge-link-"]{
+    padding: 3px 7px;
+    font-weight: bold;
+    font-size: .75em;
+    border-radius: 12px;
+}
+
+.badge-link-active{
+    background: rgba(242,72,71,1);
+    color: white;
+}

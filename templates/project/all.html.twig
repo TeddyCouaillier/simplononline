@@ -2,18 +2,31 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Tous les projets{% endblock %}
+{% block title %}
+    Tous les projets
+    {% if user is defined %}
+    de {{ user.firstname }} {{ user.lastname }}
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/project.css">
 {% endblock %}
 
 {% block body %}
-    <h1>Tous les projets</h1>
+    <h1>
+    Tous les projets
+    {% if user is defined %}
+    de {{ user.firstname }} {{ user.lastname }}
+    {% endif %}
+    </h1>
     <hr>
     <div class="bg-grey rounded p-2">
+        {% if user is defined %}
+        {% set projects = user.projects %}
+        {% endif %}
         {% for project in projects %}
-            <div class="bg-white rounded p-2 row reveal mx-0 mt-2">
+            <div class="bg-white rounded p-2 row  mx-0 mt-2">
                 <div class="col-4 flex align-center">
                     <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a>
                 </div>

@@ -12,16 +12,16 @@
 
 {% block body %}
 <div class="home bg-grey rounded">
-    <div class="user-last-project reveal">
+    <div class="user-last-project ">
         <span class="bold">Dernier projet</span>
     </div>
-    <div class="user-weather flexc reveal">
+    <div class="user-weather flexc ">
         <span class="bold">Météo du jour</span>
         <div class="h-100 flex just-center align-center">
             {{ app.user.weatherIcon|raw}}
         </div>
     </div>
-    <div class="user-skill reveal">
+    <div class="user-skill ">
         <span class="bold">Mes compétences</span>
         <div class="mt-2 rounded">
             {% for skill in app.user.userSkills %}
@@ -31,7 +31,7 @@
             {% endfor %}
         </div>
     </div>
-    <div class="user-files flexc reveal">
+    <div class="user-files flexc ">
         <span class="bold">Informations administratives</span>
         <div class="h-100 flex just-center align-center">
             <div class="flex align-center text-center">
@@ -52,23 +52,23 @@
             </div>
         </div>
     </div>
-    <div class="home-date reveal">
+    <div class="home-date ">
         <span class="bold">Date du jour</span>
         <div class="date text-center">
         {{ date | date("d/m/Y") }}
         </div>
     </div>
-    <div class="user-notif flexc reveal">
+    <div class="user-notif flexc ">
         <span class="bold">Mes notifications</span>
         <div class="h-100 flex just-center align-center">
             <i class="fal fa-bell home-icon text-red"></i>
         </div>
     </div>
-    <div class="user-stage reveal">
+    <div class="user-stage ">
         <span class="bold">Etat des stages</span>
         {% for training in app.user.trainingCourse|slice(0,2) %}
             {{ template.delete(training.id,path('user_delete_training',{'id':app.user.id,'training_id':training.id})) }}
-            <div class="bg-white rounded flex just-around p-2 my-1 reveal training-course shadow">
+            <div class="bg-white rounded flex just-around p-2 my-1  training-course shadow">
                 <div>
                     {{ training.society }}
                 </div>
@@ -99,7 +99,7 @@
             <div class="text-center mt-3"><a href="#" class="text-grey">Voir tous ({{ app.user.trainingCourse|length}})</a></div>
         {% endif %}
     </div>
-    <div class="home-weather reveal">
+    <div class="home-weather ">
         <span class="bold">Météo du jour de la promo</span>
         {% for user in users %}
         <div class="flex just-between align-center users-weather">
@@ -109,7 +109,7 @@
         {% else %}
         {% endfor %}
     </div>
-    <div class="home-projects reveal">
+    <div class="home-projects ">
         <span class="bold">Derniers projets de la promo</span>
     </div>
     <div class="home-empty">

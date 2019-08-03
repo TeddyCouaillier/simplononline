@@ -110,19 +110,38 @@ handleDeleteButtons();
 
 /* ------------- FILE USERS SELECTED ------------ */
 $(function() {
-    $('select').multipleSelect({
+    $('.multipleselect').multipleSelect({
         filter: true,
         formatSelectAll () {
         return 'Tout sélectionner'
         },
         formatAllSelected () {
-        return 'Tout les utilisateurs'
+        return 'Tous les apprenants'
         },
         formatCountSelected (count, total) {
-        return count + ' sur ' + total + ' utilisateurs'
+        return count + ' sur ' + total + ' apprennants'
         },
         formatNoMatchesFound () {
-        return 'Aucun utilisateur'
+        return 'Aucun apprenant'
+        }
+    })
+})
+
+/* ------------- FILE USERS SELECTED ------------ */
+$(function() {
+    $('.multipleselectlang').multipleSelect({
+        filter: true,
+        formatSelectAll () {
+        return 'Tout sélectionner'
+        },
+        formatAllSelected () {
+        return 'Tous les langages'
+        },
+        formatCountSelected (count, total) {
+        return count + ' sur ' + total + ' langages'
+        },
+        formatNoMatchesFound () {
+        return 'Aucun langage'
         }
     })
 })

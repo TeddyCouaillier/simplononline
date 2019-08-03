@@ -82,7 +82,7 @@
             {% endif %}
             {% for training in app.user.trainingCourse|slice(0,3) %}
             {{ template.delete(training.id,path('user_delete_training',{'id':app.user.id,'training_id':training.id})) }}
-            <div class="bg-white rounded flex just-around p-2 mt-2 reveal training-course shadow">
+            <div class="bg-white rounded flex just-around p-2 mt-2  training-course shadow">
                 <div>
                     {{ training.society }}
                 </div>

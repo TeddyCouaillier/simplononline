@@ -10,12 +10,22 @@ use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Task;
+use App\Form\Project\TaskType;
+use App\Entity\Language;
 
+/**
+ * @Route("/project", name="project_")
+ */
 class ProjectController extends AbstractController
 {
     /**
-     * @rOUTE("/project/all", name="project_all")
+     * Show all projects
+     * @Route("/all", name="all")
+     * @param ProjectRepository $rep
+     * @return Response
      */
     public function allProject(ProjectRepository $rep)
     {
@@ -25,19 +35,29 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/create", name="project_create")
+     * Create a project
+     * @Route("/create", name="create")
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @param UserRepository $rep
+     * @return Response
      */
     public function createProject(Request $request, ObjectManager $manager, UserRepository $rep)
     {
         $project = new Project();
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $users_id = $request->request->get('project')['users'];
+            $languages_id = $request->request->get('project')['languages'];
             foreach($users_id as $id){
                 $user = $rep->find($id);
-                if($user == null){ die;}
                 $project->addUser($user);
+            }
+            foreach($languages_id as $id){
+                $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
+                $project->addLanguage($language);
             }
             $manager->persist($project);
             $manager->flush();
@@ -55,7 +75,12 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/{slug}/edit", name="project_edit")
+     * Edit a specific project
+     * @Route("/{slug}/edit", name="edit")
+     * @param Project       $project
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
      */
     public function editProject(Project $project, Request $request, ObjectManager $manager)
     {
@@ -74,54 +99,94 @@ class ProjectController extends AbstractController
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
-            'form' => $form->createView()
+            'form'    => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/project/{slug}", name="project_show")
+     * Delete a specific project
+     * @Route("/{slug}/delete", name="delete")
+     * @param Project       $project
+     * @param ObjectManager $manager
+     * @return Response
      */
-    public function showProject(Project $project)
+    public function deleteProject(Project $project, ObjectManager $manager)
     {
+        $manager->remove($project);
+        $manager->flush();
 
-        // Check last connected date and now
-        $today = new \DateTime();
-        $created = $project->getCreatedAt();
-        $interval = date_diff($created, $today);
-        $day = intval($interval->format('%R%a'));
+        $this->addFlash(
+            'success',
+            'Le projet a bien été supprimé.'
+        );
 
-        switch(true){
-            case ($day == 0):
-                $time = 'Aujourd\'hui';
-                break;
-            case ($day == 1):
-                $time = 'Hier';
-                break;
-            case ($day > 1 && $day < 7):
-                $time = 'Il y a'.$day.'jours';
-                break;
-            case ($day >= 7 && $day <= 14):
-                $time = 'Il y a une semaine';
-                break;
-            case ($day >= 15 && $day <= 21):
-                $time = 'Il y a deux semaines';
-                break;
-            case ($day >= 22 && $day <= 29):
-                $time = 'Il y a trois semaines';
-                break;
-            case ($day >= 30 && $day <= 365):
-                $month = intval($day / 30);
-                $time = 'Il y a '.$month.' mois';
-                break;
-            default:
-                $time = 'Il y a trop longtemps';
+        return $this->redirectToRoute('project_all');
+    }
+
+    /**
+     * Delete a specific task in a specific project
+     * @Route("/{slug}/task/{id_task}/delete", name="delete_task")
+     * @Entity("task", expr="repository.find(id_task)")
+     * @param Project       $project
+     * @param Task          $task
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteTaskProject(Project $project, Task $task, ObjectManager $manager)
+    {
+        $manager->remove($task);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La tache a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('project_show', ['slug'=> $project->getSlug()]);
+    }
+
+    /**
+     * Show a specific project
+     * @Route("/{slug}", name="show")
+     * @param Project        $project
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @param UserRepository $rep
+     * @return Response
+     */
+    public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
+    {
+        $task = new Task();
+        $task->setProject($project);
+
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $users = $request->request->get('task')['users'];
+            foreach($users as $user_id){
+                $user = $rep->find($user_id);
+                $task->addUser($user);
+            }
+            $manager->persist($task);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La tâche a bien été ajoutée.'
+            );
         }
-        // if($interval->format('%R%a') > 0){
-        //     $updated = false;
+
+        $process   = $project->getTaskByType(Task::PROCESSING);
+        $todolist  = $project->getTaskByType(Task::TODOLIST);
+        $completed = $project->getTaskByType(Task::COMPLETED);
 
         return $this->render('project/show.html.twig', [
-            'project' => $project,
-            'time' => $time
+            'project'   => $project,
+            'form'      => $form->createView(),
+            'process'   => $process,
+            'todolist'  => $todolist,
+            'completed' => $completed
         ]);
     }
 }

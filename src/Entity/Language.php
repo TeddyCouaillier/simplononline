@@ -28,9 +28,15 @@ class Language
      */
     private $helps;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="languages")
+     */
+    private $projects;
+
     public function __construct()
     {
         $this->helps = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +82,34 @@ class Language
             if ($help->getLanguage() === $this) {
                 $help->setLanguage(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            $project->removeLanguage($this);
         }
 
         return $this;

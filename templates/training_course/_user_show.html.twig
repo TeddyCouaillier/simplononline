@@ -13,7 +13,7 @@
         {% if app.user == user %}
         {{ template.delete(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
         {% endif %}
-        <div class="bg-white rounded flex just-around p-2 mb-1 reveal training-course">
+        <div class="bg-white rounded flex just-around p-2 mb-1  training-course">
             <div>
                 <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                 title="Détail" data-content=

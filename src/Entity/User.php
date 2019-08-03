@@ -156,6 +156,11 @@ class User implements UserInterface
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Task", inversedBy="users")
+     */
+    private $tasks;
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -168,6 +173,7 @@ class User implements UserInterface
         $this->lastConnect = new \DateTime;
         $this->weather = 0;
         $this->projects = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
     }
 
     public function updateAvatar()
@@ -705,6 +711,32 @@ class User implements UserInterface
     {
         if ($this->projects->contains($project)) {
             $this->projects->removeElement($project);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
         }
 
         return $this;

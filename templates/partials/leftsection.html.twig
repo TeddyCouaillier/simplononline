@@ -4,10 +4,10 @@
     </a>
     <div>
         <ul>
-            <li><a href="#">Projets</a></li>
-            <li><a href="{{ path('skill_show') }}">Compétences</a></li>
-            <li><a href="{{ path('file_user_show') }}">Administratif</a></li>
-            <li><a href="#">Portfolio</a></li>
+            <li><a href="{{ path('user_show_projects',{'id': app.user.id})        }}">Projets</a></li>
+            <li><a href="{{ path('skill_show')                                    }}">Compétences</a></li>
+            <li><a href="{{ path('file_user_show')                                }}">Administratif</a></li>
+            <li><a href="{{ '#'                                                   }}">Portfolio</a></li>
             <li><a href="{{ path('promo_show', {'slug': app.user.promotion.slug}) }}">Promo</a></li>
         </ul>
         <hr>
@@ -22,6 +22,6 @@
     <span>Etat des projets</span>
     <div class="project-status">
         <p></p>
-        <a href="{{ path('project_create') }}" class="btn bg-red text-white mb-3">NOUVEAU PROJET</a>
+        <a href="{{ path('project_create') }}" class="btn btn-block bg-red text-white mt-1 mb-3">NOUVEAU PROJET</a>
     </div>
 </div>

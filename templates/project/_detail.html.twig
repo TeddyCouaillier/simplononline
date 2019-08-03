@@ -1,3 +1,5 @@
+{% import 'macro.html.twig' as template %}
+
 <div class="project-content" id="detail">
     <div class="flex just-between mb-3">
         <div class="w-50">
@@ -7,31 +9,54 @@
     </div>
     <div class="bg-grey rounded p-2">
         <div class="flex just-around">
-            <div class="rounded p-2 mx-1" style="width: 50%">
+            <div class="rounded p-2 w-50">
                 <span class="bold">Informations du projet</span>
-                <div class="bg-white rounded p-2 mt-2">
-                    <p>
-                        #{{project.id}} - <b>{{ project.title }}</b><br>
-                        <em>{{project.description}}</em>
-                    </p>
+                <div class="container-white mt-2">
+                    <div>
+                        <span>
+                            #{{project.id}} - <b>{{ project.title }}</b>
+                        </span>
+                        <p class="text-grey">
+                            {{project.description}}
+                        </p>
+                        <div class="flex wrap my-1">
+                        {% for language in project.languages if language is not null %}
+                            <div class="badge-link-active mr-1">{{language.label}}</div>
+                        {% endfor %}
+                        </div>
+                        <p>
+                            {{ project.tasks|length}} tâches,
+                            {{ project.completedtask }} terminés,
+                            {{ project.processingtask }} en cours,
+                            {{ project.todotask }} à faire.
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="p-2 mx-1" style="width: 50%">
+            <div class="p-2 w-50">
                 <span class="bold">Liste des apprenants</span>
-                {% for user in project.users %}
-                <div class="bg-white rounded p-2 flex align-center mb-1 mt-2">
+                {% for user in project.users if user is not null %}
+                <div class="container-white flex align-center mb-1 mt-2">
                     <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
-                    <div class="flex-fill">{{ user.fullname }} {% if loop.index == 1 %}<i class="fal fa-star text-red bold ml-1" style="font-size: .85em"></i>{% endif %}</div>
-                    <div style="width: 10%"><button type="button" class="btn"><i class="fal fa-times-circle"></i></button></div>
+                    <div class="flex-fill">
+                        {{ user.fullname }}
+                        {% if loop.index == 1 %}
+                            <i class="fal fa-star text-small text-red bold ml-1"></i>
+                        {% endif %}
+                    </div>
+                    <div style="width: 10%">
+                        <button type="button" class="btn"><i class="fal fa-times-circle"></i></button>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="bg-white rounded p-2 mb-2 text-center">
-            <a href="#" class="bold">Modifier le projet</a>
+        <div class="container-white mb-2 text-center">
+            <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
         </div>
-        <div class="bg-white rounded p-2 mb-1 text-center">
-            <a href="#" class="text-red bold">Supprimer le projet</a>
+        {{ template.delete('delete-project',path('project_delete',{'slug': project.slug}))}}
+        <div class="container-white mb-1 text-center">
+            <a class="modal-button text-red bold" data-modalid="delete-project">Supprimer le projet</a>
         </div>
     </div>
 </div>
