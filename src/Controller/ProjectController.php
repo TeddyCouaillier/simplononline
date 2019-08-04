@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Task;
 use App\Entity\Project;
+use App\Entity\Language;
+use App\Form\Project\TaskType;
 use App\Form\Project\ProjectType;
 use App\Repository\UserRepository;
 use App\Form\Project\EditProjectType;
@@ -12,9 +15,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Task;
-use App\Form\Project\TaskType;
-use App\Entity\Language;
 
 /**
  * @Route("/project", name="project_")
@@ -146,7 +146,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * Show a specific project
+     * Show a specific project and adding task form
      * @Route("/{slug}", name="show")
      * @param Project        $project
      * @param Request        $request
@@ -156,22 +156,13 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
     {
-        // $task = new Task();
-        $task = $this->getDoctrine()->getRepository(Task::class)->find(3);
+        $task = new Task();
         $task->setProject($project);
 
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-            $tab = []; $i = 0;
-            die(print_r($request->request->get('task')));
-            foreach($task->getSubtasks() as $subtask){
-                // $subtask->setTask($task);
-                // $manager->persist($subtask);
-                $tab[$i++] = $subtask->getTitle();
-            }
-            die(var_dump($tab));
             $users = $request->request->get('task')['users'];
             foreach($users as $user_id){
                 $user = $rep->find($user_id);

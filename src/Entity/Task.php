@@ -60,7 +60,7 @@ class Task
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subtask",cascade={"persist"}, mappedBy="task")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subtask", cascade={"persist"}, mappedBy="task")
      */
     private $subtasks;
 
@@ -115,6 +115,40 @@ class Task
             }
         }
         return $subtasksdone;
+    }
+
+    /**
+     * Get the progress width (%)
+     * @return integer
+     */
+    public function getProgress()
+    {
+        $done  = sizeof($this->getSubtasksDone());
+        $total = sizeof($this->getSubtasks());
+
+        return $total !== 0 ? intval($done / $total * 100) : 0;
+    }
+
+    /**
+     * Get the progress status (color)
+     * @return string
+     */
+    public function getProgressColor()
+    {
+        switch(true){
+            case ($this->getProgress() == 0):
+                return 'white';
+            case ($this->getProgress() <= 25):
+                return 'red';
+            case ($this->getProgress() <= 50):
+                return 'orange';
+            case($this->getProgress() <= 75):
+                return 'yellow';
+            case($this->getProgress() < 100):
+                return 'green';
+            default:
+                return 'green';
+        }
     }
 
     public function getId(): ?int

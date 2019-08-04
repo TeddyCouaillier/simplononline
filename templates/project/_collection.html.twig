@@ -1,8 +1,8 @@
 {% block _task_subtasks_widget %}
 {{ form_widget(form) }}
-<div class="text-center collection-form">
+<div class="text-center">
     <input type="hidden" id="widgets-counter" value="0">
-    {# <button type="button" id="add-subtask" class="button-edit my-2 mx-auto"> <i class="fal fa-plus"></i> </button> #}
+    <button type="button" id="add-subtask" class="button-edit my-2 mx-auto"> <i class="fal fa-plus"></i> </button>
 </div>
 {% endblock %}
 
@@ -13,7 +13,7 @@
 {% block _task_subtasks_entry_widget %}
 <div class="flex just-around rounded task-add-subtask" id="block_{{id}}">
         <div class="w-75">{{ form_widget(form.title) }}</div>
-        <div class="custom-control custom-switch text-grey">
+        <div>
             {{ form_widget(form.done) }}
         </div>
         <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn"><i class="fal fa-times-circle"></i></button></div>

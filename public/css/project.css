@@ -40,7 +40,7 @@
 }
 .status-yellow{     background: yellow; }
 .status-red{        background: red; }
-.status-purple{     background: purple; }
+.status-orange{     background: orange; }
 .status-green{      background: green; }
 .status-blue{       background: dodgerblue; }
 
@@ -55,9 +55,12 @@
     background: rgba(242,72,71,1);
     color: white;
 }
-.task-form{
-    /* padding-top: 5px!important; */
-}
+
 .ms-choice{ height: 35px;}
 .ms-choice span{ line-height: 35px;}
 .ms-choice > div{ height: 35px;}
+
+.custom-control-label::before{
+    box-shadow: none!important;
+    outline: none!important;
+}

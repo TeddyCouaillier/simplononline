@@ -45,11 +45,7 @@ class TaskType extends ApplicationType
                 'entry_type'   => SubtaskType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,
-                'prototype' => true,
-                'attr'         => [
-                    'class' => 'my-selector',
-                ]
-                // 'by_reference' => false
+                'by_reference' => false,
             ])
         ;
     }

@@ -19,9 +19,7 @@ $('.logout').click(function(){
 $(document).mouseup(function(e)
 {
     var container = $(".nav-dropdown");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
+    if (!container.is(e.target) && container.has(e.target).length === 0)
     {
         container.fadeOut(500);
     }
@@ -53,7 +51,7 @@ $(window).click(function(event) {
         $(".modal").fadeOut(250);
     }
     if ($(event.target).attr('id') == $('.modal-weather').attr('id')) {
-        // alert('cherche pas');
+
     }
 
     $('.popover-body .modal-button').on('click', function() {
@@ -77,18 +75,9 @@ $(".close-message").click(function() {
 /* ------------- USERS COLLECTION ------------ */
 $('#add-user').click(function (){
     updateCounterUser();
-    // Get futures fields created
     const index = +$('#widgets-counter').val() + 1;
-
-    // Get entry prototype
     const tmpl = $('#edit_promotion_users').data('prototype').replace(/__name__/g, index);
-
-    // Adding prototype in div
     $('#edit_promotion_users').append(tmpl);
-
-    // $('#widgets-counter').val(index + 1);
-    
-    // Delete buttons action
     handleDeleteButtons();
 });
 
@@ -103,7 +92,6 @@ function updateCounterUser() {
     const last = $('#edit_promotion_users div.promo-add-users').last();
     var lastIndex = $(last).attr('id');
     lastIndex = parseInt(lastIndex.replace('block_edit_promotion_users_', ''));
-
     $('#widgets-counter').val(lastIndex);
 }
 handleDeleteButtons();
@@ -214,22 +202,13 @@ $('.help-all_cats span').click(function() {
 
 /* ----------------- Trainings ------------------ */
 $('#add-training').click(function (){
-    // Get futures fields created
     const index = +$('#widgets-counter').val();
-
-    // Get entry prototype
     const tmpl = $('#training_course_user_trainingCourse').data('prototype').replace(/__name__/g, index);
-
-    // Adding prototype in div
     $('#training_course_user_trainingCourse').append(tmpl);
-
     $('#widgets-counter').val(index + 1);
-
-    // Delete buttons action
     handleDeleteButtonsTraining();
 
     $('.training-project-toggle').off('click');
-
     $('.training-project-toggle').on('click',function(){
         $(this).parent().parent().find('.training-project').fadeToggle(500);
         $(this).parent().find('.chevron').toggleClass('down');
@@ -245,7 +224,6 @@ function handleDeleteButtonsTraining() {
 
 function updateCounterTraining() {
     const count = +$('#training_course_user_trainingCourse div.trainings').length;
-
     $('#widgets-counter').val(count);
 }
 updateCounterTraining();
@@ -291,22 +269,13 @@ $('.training-project-toggle').on('click',function(){
 })
 
 $('#add-training-admin').click(function (){
-    // Get futures fields created
     const index = +$('#widgets-counter').val();
-
-    // Get entry prototype
     const tmpl = $('#admin_training_course_user_trainingCourse').data('prototype').replace(/__name__/g, index);
-
-    // Adding prototype in div
     $('#admin_training_course_user_trainingCourse').append(tmpl);
-
     $('#widgets-counter').val(index + 1);
-
-    // Delete buttons action
     handleDeleteButtonsTrainingAdmin();
 
     $('.training-project-toggle').off('click');
-
     $('.training-project-toggle').on('click',function(){
         $(this).parent().parent().find('.training-project').fadeToggle(500);
         $(this).parent().find('.chevron').toggleClass('down');
@@ -322,7 +291,6 @@ function handleDeleteButtonsTrainingAdmin() {
 
 function updateCounterTrainingAdmin() {
     const count = +$('#admin_training_course_user_trainingCourse div.trainings').length;
-
     $('#widgets-counter').val(count);
 }
 updateCounterTrainingAdmin();
@@ -334,75 +302,27 @@ function projectPanel(el){
     const pan = $(el).data('project');
     $('.project-content').hide(750);
     $(`.project-content#${pan}`).show(750);
-    console.log($(`.project-content#${pan}`));
-    console.log(pan);
-    //if($(document).find(`div[data-project="${}"]`)){
-    }
+}
 
 /* ------------- SUBTASK COLLECTION ------------ */
-// $('#add-subtask').click(function (){
-//     updateCounterSubtask();
-//         // Get futures fields created
-//     const index = +$('#widgets-counter').val();
+$('#add-subtask').click(function (){
+    const index = +$('#widgets-counter').val();
+    const tmpl = $('#task_subtasks').data('prototype').replace(/__name__/g, index);
+    $('#task_subtasks').append(tmpl);
+    $('#widgets-counter').val(index + 1);
+    handleDeleteButtonsTask();
+});
 
-//     // Get entry prototype
-//     const tmpl = $('#task_subtasks').data('prototype').replace(/__name__/g, index);
+function handleDeleteButtonsTask() {
+    $('button[data-action="delete"]').click(function(){
+        const target = this.dataset.target;
+        $(target).remove();
+    });
+}
 
-//     // Adding prototype in div
-//     $('#task_subtasks').append(tmpl);
-
-//     $('#widgets-counter').val(index + 1);
-
-//     // Delete buttons action
-//     handleDeleteButtonsSubtask();
-// });
-
-// function handleDeleteButtonsSubtask() {
-//     $('button[data-action="delete"]').click(function(){
-//         const target = this.dataset.target;
-//         $(target).remove();
-//     });
-// }
-
-// function updateCounterSubtask() {
-//     const last = $('#task_subtasks div.task-add-tasks').last();
-//     console.log(last);
-//     // var lastIndex = $(last).attr('id');
-//     // lastIndex = parseInt(lastIndex.replace('block_task_subtasks_', ''));
-//     // $('#widgets-counter').val(lastIndex);
-    
-// }
-// handleDeleteButtonsSubtask();
-// $('#add-subtask').click(function (){
-//     // Get futures fields created
-//     const index = +$('#widgets-counter').val();
-
-//     // Get entry prototype
-//     const tmpl = $('#task_subtasks').data('prototype').replace(/__name__/g, index);
-
-//     // Adding prototype in div
-//     $('#task_subtasks').append(tmpl);
-
-//     $('#widgets-counter').val(index + 1);
-
-//     // Delete buttons action
-//     handleDeleteButtonsTask();
-
-// });
-
-// function handleDeleteButtonsTask() {
-//     $('button[data-action="delete"]').click(function(){
-//         const target = this.dataset.target;
-//         $(target).remove();
-//     });
-// }
-
-// function updateCounterTask() {
-//     const count = +$('#task_subtasks div.task-add-subtask').length;
-
-//     $('#widgets-counter').val(count);
-// }
-// updateCounterTask();
-// handleDeleteButtonsTask();
-
-// setup an "add a tag" link
+function updateCounterTask() {
+    const count = +$('#task_subtasks div.task-add-subtask').length;
+    $('#widgets-counter').val(count);
+}
+updateCounterTask();
+handleDeleteButtonsTask();
