@@ -60,15 +60,15 @@ class Task
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subtask", cascade={"persist"}, mappedBy="task")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subtask", cascade={"persist","remove"}, mappedBy="task")
      */
     private $subtasks;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->users     = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->subtasks = new ArrayCollection();
+        $this->subtasks  = new ArrayCollection();
     }
 
     /**

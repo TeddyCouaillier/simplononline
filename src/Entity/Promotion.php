@@ -60,7 +60,7 @@ class Promotion
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->users   = new ArrayCollection();
         $this->current = false;
     }
 

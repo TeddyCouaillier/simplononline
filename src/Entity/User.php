@@ -163,17 +163,17 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->userRoles = new ArrayCollection();
-        $this->userSkills = new ArrayCollection();
-        $this->userFiles = new ArrayCollection();
-        $this->senderFiles = new ArrayCollection();
-        $this->userData = new ArrayCollection();
-        $this->helps = new ArrayCollection();
+        $this->userRoles      = new ArrayCollection();
+        $this->userSkills     = new ArrayCollection();
+        $this->userFiles      = new ArrayCollection();
+        $this->senderFiles    = new ArrayCollection();
+        $this->userData       = new ArrayCollection();
+        $this->helps          = new ArrayCollection();
         $this->trainingCourse = new ArrayCollection();
-        $this->lastConnect = new \DateTime;
-        $this->weather = 0;
-        $this->projects = new ArrayCollection();
-        $this->tasks = new ArrayCollection();
+        $this->projects       = new ArrayCollection();
+        $this->tasks          = new ArrayCollection();
+        $this->lastConnect    = new \DateTime;
+        $this->weather        = 0;
     }
 
     public function updateAvatar()

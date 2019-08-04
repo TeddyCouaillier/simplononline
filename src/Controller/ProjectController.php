@@ -146,6 +146,41 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * @Route("/{slug}/task/{id_task}/edit", name="edit_task")
+     * @Entity("task", expr="repository.find(id_task)")
+     *
+     * @param Task $task
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function editTaskProject(Project $project, Task $task, ObjectManager $manager)
+    {
+        $form = $this->createForm(TaskType::class, $task);
+        // $form->handleRequest($request);
+        // if($form->isSubmitted() && $form->isValid())
+        // {
+            // $users = $request->request->get('task')['users'];
+            // foreach($users as $user_id){
+            //     $user = $rep->find($user_id);
+            //     $task->addUser($user);
+            // }
+            // $manager->persist($task);
+            // $manager->flush();
+
+            // $this->addFlash(
+            //     'success',
+            //     'La tâche a bien été ajoutée.'
+            // );
+        // }
+
+        return $this->render('project/edit_task.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project
+        ]);
+        // return $this->json(['code' => 200, 'message' => 'Oui'], 200);
+    }
+
+    /**
      * Show a specific project and adding task form
      * @Route("/{slug}", name="show")
      * @param Project        $project

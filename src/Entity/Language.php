@@ -35,7 +35,7 @@ class Language
 
     public function __construct()
     {
-        $this->helps = new ArrayCollection();
+        $this->helps    = new ArrayCollection();
         $this->projects = new ArrayCollection();
     }
 
