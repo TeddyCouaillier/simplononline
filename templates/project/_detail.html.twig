@@ -54,9 +54,9 @@
         <div class="container-white mb-2 text-center">
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
         </div>
-        {{ template.delete('delete-project',path('project_delete',{'slug': project.slug}))}}
+        {{ template.deleteConfirm('delete-project',path('project_delete',{'slug': project.slug}))}}
         <div class="container-white mb-1 text-center">
-            <a class="modal-button text-red bold" data-modalid="delete-project">Supprimer le projet</a>
+            <a class="text-red bold" data-toggle="modal" data-target="#modal-delete-project">Supprimer le projet</a>
         </div>
     </div>
 </div>

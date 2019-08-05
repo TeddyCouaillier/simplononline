@@ -9,7 +9,7 @@
 
 {% for usend in sending | reverse %}
     {% set file = usend.files %}
-    {{ template.delete(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
+    {{ template.deleteConfirm(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
 
     <div class="file-content rounded my-2 p-2 reveal">
         <div class="file-state"></div>
@@ -23,10 +23,15 @@
                 le {{ usend.dateSend | date('d/m/Y à H:i') }}</em>
             </p>
         </div>
-        <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-        data-modalid="{{ file.id }}" data-content='
-        <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-        <a class="modal-button subnav-link text-red">Supprimer</a>'></i>
+        <div>
+            <div class="subnav">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="subnav-tooltip">
+                    <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                    <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{file.id}}">Supprimer</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% else %}

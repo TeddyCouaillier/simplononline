@@ -7,12 +7,14 @@ use App\Entity\Project;
 use App\Entity\Language;
 use App\Form\Project\TaskType;
 use App\Form\Project\ProjectType;
+use App\Form\Project\EditTaskType;
 use App\Repository\UserRepository;
 use App\Form\Project\EditProjectType;
 use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -148,36 +150,40 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{slug}/task/{id_task}/edit", name="edit_task")
      * @Entity("task", expr="repository.find(id_task)")
-     *
-     * @param Task $task
+     * @param Porject       $project
+     * @param Task          $task
      * @param ObjectManager $manager
-     * @return void
+     * @return Response/JsonResponse
      */
-    public function editTaskProject(Project $project, Task $task, ObjectManager $manager)
+    public function editTaskProject(Project $project, Task $task, Request $request, ObjectManager $manager)
     {
-        $form = $this->createForm(TaskType::class, $task);
-        // $form->handleRequest($request);
-        // if($form->isSubmitted() && $form->isValid())
-        // {
-            // $users = $request->request->get('task')['users'];
-            // foreach($users as $user_id){
-            //     $user = $rep->find($user_id);
-            //     $task->addUser($user);
-            // }
-            // $manager->persist($task);
-            // $manager->flush();
+        $form = $this->createForm(EditTaskType::class, $task);
 
-            // $this->addFlash(
-            //     'success',
-            //     'La tâche a bien été ajoutée.'
-            // );
-        // }
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($task);
+            $manager->flush();
 
-        return $this->render('project/edit_task.html.twig',[
+            $this->addFlash(
+                'success',
+                'La tâche a bien été ajoutée.'
+            );
+
+            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
+        }
+
+        // Ajax calling
+        $render = $this->render('project/edit_task.html.twig',[
             'form' => $form->createView(),
-            'project' => $project
+            'project' => $project,
+            'task' => $task
         ]);
-        // return $this->json(['code' => 200, 'message' => 'Oui'], 200);
+        $response = [
+            "code" => 200,
+            "render" => $render->getContent()
+        ];
+        return new JsonResponse($response);
     }
 
     /**

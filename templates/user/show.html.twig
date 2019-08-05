@@ -79,9 +79,16 @@
             {% if app.user.id == user.id %}
             <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
             data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
+            <div>
+                <div class="subnav">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="subnav-tooltip">
+                        <a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             {% for training in app.user.trainingCourse|slice(0,3) %}
-            {{ template.delete(training.id,path('user_delete_training',{'id':app.user.id,'training_id':training.id})) }}
             <div class="bg-white rounded flex just-around p-2 mt-2  training-course shadow">
                 <div>
                     {{ training.society }}
@@ -117,17 +124,9 @@
         </div>
         <div class="user-project">
             <b>Liste des projets</b>
-            {% if app.user.id == user.id %}
-            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
-            {% endif %}
         </div>
         <div class="user-portfolio">
             <b>Portfolio</b>
-            {% if app.user.id == user.id %}
-            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
-            {% endif %}
         </div>
     </div>
 {% endblock %}

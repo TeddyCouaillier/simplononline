@@ -8,27 +8,41 @@
 <link rel="stylesheet" href="/css/promo.css">
 {% endblock %}
 
-{% form_theme form 'promotion/_collection.html.twig' %}
+{% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
     <h1>{{ promo.label }}<em class="h4 ml-5">Gestion des simploniens</em></h1>
     <hr>
     <div class="bg-grey rounded promo-add">
         <span class="bold">Liste des simploniens</span>
-
         {{ form_start(form) }}
         {{ form_row(form.users) }}
         {{ template.confirm() }}
         {{ form_end(form) }}
-
     </div>
 {% endblock %}
 
+{% block _edit_promotion_users_entry_row %}
+{{ form_widget(form) }}
+{% endblock %}
+
+{% block _edit_promotion_users_entry_widget %}
+<div class="flex just-around align-center py-1 my-1 rounded promo-add-users">
+    <div>{{ form_widget(form.firstname) }}</div>
+    <div>{{ form_widget(form.lastname) }}</div>
+    <div>{{ form_widget(form.email) }}</div>
+</div>
+{% endblock %}
+
 {% block javascripts %}
-<script>
-    $('select').on('change',function(){
-        console.log(this);
-    })
-</script>
+    <script type="text/javascript">
+        $('.test').collection({
+            'up': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-up"></i></a>',
+            'down': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-down"></i></a>',
+            'remove': '<a href="#" class="mx-1 text-red"><i class="fal fa-times-circle"></i></a>',
+            'add': '<button class="bg-white button-circle text-grey mx-auto d-block mt-4"><i class="fal fa-plus"></i></button>',
+            'add_at_the_end': true
+        });
+    </script>
 {% endblock %}
 

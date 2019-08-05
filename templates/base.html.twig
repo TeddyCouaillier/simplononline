@@ -22,26 +22,27 @@
             'App\\Controller\\BaseController::weather'
         )) }}
 
-        <div class="main-content">
-            <div class="main">
+        <div class="main">
 
-                {% for class, messages in app.flashes %}
-                    {% for message in messages %}
-                        {{ template.message(class,message) }}
-                    {% endfor %}
+            {% for class, messages in app.flashes %}
+                {% for message in messages %}
+                    {{ template.message(class,message) }}
                 {% endfor %}
+            {% endfor %}
 
-                {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
 
-            </div>
-            <footer><span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.</footer>
         </div>
+
+        <footer><span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.</footer>
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.collection.js"></script>
         {% block libraries %}{% endblock %}
         <script src="/js/base.js"></script>
+        <script src="/js/ajax.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

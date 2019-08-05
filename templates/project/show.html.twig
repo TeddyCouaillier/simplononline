@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/project.css">
 {% endblock %}
 
-{% form_theme form 'project/_collection.html.twig' %}
+{% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
     <div class="px-5">
@@ -52,9 +52,33 @@
         {{ include('project/_activity.html.twig') }}
     </div>
 
-    {{ form(form) }}
+
+{% endblock %}
+
+{% block _task_subtasks_entry_row %}
+{{ form_widget(form) }}
+{% endblock %}
+
+{% block _task_subtasks_entry_widget %}
+<div class="flex just-around align-center rounded task-add-subtask">
+        <div>{{ form_widget(form.title) }}</div>
+        <div>{{ form_widget(form.done) }}</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $('.task').collection({
+            'up': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-up"></i></a>',
+            'down': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-down"></i></a>',
+            'remove': '<a href="#" class="mx-1 text-red"><i class="fal fa-times-circle"></i></a>',
+            'add': '<button class="button-edit my-2 mx-auto d-block"><i class="fal fa-plus"></i></button>',
+            'add_at_the_end': true
+        });
+    </script>
 {% endblock %}
 
 {% block libraries %}
 <script src="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.js"></script>
 {% endblock %}
+

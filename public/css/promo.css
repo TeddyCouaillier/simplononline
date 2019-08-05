@@ -34,11 +34,12 @@
     -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.4) !important;
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.4) !important;
 }
+.promo-add-users > div { margin: 0 5px;}
 .promo-add-users > div:not(:last-child){
-    width: 31%;
+    width: 30%;
 }
 .promo-add-users > div:last-child{
-    width: auto;
+    width: 10%;
 }
 .promo-add-users input{
     border: none;

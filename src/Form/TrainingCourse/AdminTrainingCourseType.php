@@ -18,7 +18,7 @@ class AdminTrainingCourseType extends ApplicationType
             ->add('society', TextType::class,     $this->getConfiguration(null,'Nom de la société'))
             ->add('place',   TextType::class,     $this->getConfiguration(null,'Lieu du stage'))
             ->add('project', TextareaType::class, $this->getConfiguration('Détail du stage','Projet pendant le stage, entretien à telle date, autres ...', ['required' => false]))
-            ->add('number',  IntegerType::class,  $this->getConfiguration(null,'Nb de stagiaire',['required' => false]))
+            ->add('number',  IntegerType::class,  $this->getConfiguration(null,'0',['required' => false]))
         ;
     }
 

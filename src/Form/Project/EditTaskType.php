@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class TaskType extends ApplicationType
+class EditTaskType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,25 +29,13 @@ class TaskType extends ApplicationType
                 'choices'     => Task::TYPE,
                 'placeholder' => "Veuillez choisir un état"
             ])
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
-                $task = $event->getData();
-                $event->getForm()->add('users', EntityType::class, [
-                    'class'         => User::class,
-                    'choice_label'  => 'fullname',
-                    'multiple'      => true,
-                    'mapped'        => false,
-                    'query_builder' => function (UserRepository $rep) use ($task) {
-                        return $rep->findAllByProject($task->getProject());
-                    }
-                ]);
-            })
             ->add('subtasks', CollectionType::class, [
                 'entry_type'   => SubtaskType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'task',
+                    'class' => 'edit-task',
                 ],
             ])
         ;

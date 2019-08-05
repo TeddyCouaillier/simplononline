@@ -9,14 +9,18 @@
     <span class="bold">Etat des stages</span>
 
     {% for training in trainings %}
-        {{ template.delete(training.id,path('user_delete_training',{'id':training.user.id,'training_id':training.id})) }}
+        {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':training.user.id,'training_id':training.id})) }}
         <div class="bg-white rounded p-2 mb-1  ">
             <div class="flex just-between">
                 <span class="bold">{{ training.user.fullname }}</span>
-                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                data-modalid="{{ training.id }}" data-content='
-                <a class="modal-button subnav-link text-red">Supprimer</a>'>
-                </i>
+                <div>
+                    <div class="subnav">
+                        <i class="fas fa-ellipsis-v"></i>
+                        <div class="subnav-tooltip">
+                            <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{training.id}}">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="flex just-around training-course">
                 <div>

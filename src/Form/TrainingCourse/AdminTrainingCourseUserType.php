@@ -19,7 +19,10 @@ class AdminTrainingCourseUserType extends ApplicationType
                 'entry_type'   => AdminTrainingCourseType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'attr' => [
+                    'class' => 'training',
+                ],
             ])
         ;
     }

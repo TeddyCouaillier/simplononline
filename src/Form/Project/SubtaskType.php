@@ -15,7 +15,7 @@ class SubtaskType extends ApplicationType
     {
         $builder
             ->add('title',   TextType::class,     $this->getConfiguration(null, 'Titre de la sous-tache'))
-            ->add('done',    CheckboxType::class, $this->getConfiguration(' ',null,[
+            ->add('done',    CheckboxType::class, $this->getConfiguration('✓',null,[
                 'attr'       => array('class' => 'custom-control-input'),
                 'label_attr' => array('class' => 'custom-control-label'),
                 'required'   => false

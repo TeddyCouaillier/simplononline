@@ -86,7 +86,7 @@ class Task
             case ($day == 1):
                 return 'Hier';
             case ($day > 1 && $day < 7):
-                return 'Il y a'.$day.'jours';
+                return 'Il y a '.$day.' jours';
             case ($day >= 7 && $day <= 14):
                 return 'Il y a une semaine';
             case ($day >= 15 && $day <= 21):

@@ -11,7 +11,7 @@
     <span class="bold">Etat des stages</span>
     {% for training in user.trainingCourse %}
         {% if app.user == user %}
-        {{ template.delete(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
+        {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
         {% endif %}
         <div class="bg-white rounded flex just-around p-2 mb-1  training-course">
             <div>
@@ -27,10 +27,15 @@
             </div>
             <div>
                 {% if app.user == user %}
-                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                data-modalid="{{ training.id }}" data-content='
-                <a class="modal-button subnav-link text-red">Supprimer</a>'>
-                </i>
+                <div>
+                    <div class="subnav">
+                        <i class="fas fa-ellipsis-v"></i>
+                        <div class="subnav-tooltip">
+                            <a href="{{ path('user_edit_training',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
+                            <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{training.id}}">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>

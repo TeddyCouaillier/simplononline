@@ -24,8 +24,8 @@ legend{ display: none; }
 .edit-status-green{  border-left: 3px solid green !important; }
 .edit-status-blue{   border-left: 3px solid dodgerblue !important; }
 
-.user-add-training > div:not(:last-child){ width: 31%; }
-.user-add-training > div:last-child{ width: auto; }
+.user-add-training > div{ width: 31%; }
+.training_course_user_trainingCourse-collection-actions{ text-align: right; }
 
 .input-group input{
     border-top-left-radius: 0 !important;
@@ -56,7 +56,7 @@ legend{ display: none; }
 }
 
 /* Add training admin */
-.user-add-training-admin > div:nth-child(1){ width: 35%; }
-.user-add-training-admin > div:nth-child(2){ width: 35%; }
-.user-add-training-admin > div:nth-child(3){ width: 15%; }
-.user-add-training-admin > div:nth-child(4){ width: auto; }
+.user-add-training-admin > div:nth-child(1){ width: 40%; }
+.user-add-training-admin > div:nth-child(2){ width: 40%; }
+.user-add-training-admin > div:nth-child(3){ width: 5%; }
+.admin_training_course_user_trainingCourse-collection-actions{ text-align: right;}
