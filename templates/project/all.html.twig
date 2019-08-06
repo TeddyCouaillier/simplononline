@@ -26,7 +26,7 @@
         {% set projects = user.projects %}
         {% endif %}
         {% for project in projects %}
-            <div class="bg-white rounded p-2 row  mx-0 mt-2">
+            <div class="container-white row  mx-0 mt-2">
                 <div class="col-4 flex align-center">
                     <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a>
                 </div>
@@ -41,6 +41,11 @@
                 <div class="col-2 flex align-center">
                     <em>Il y a 6 jours</em>
                 </div>
+            </div>
+        {% else %}
+            <div class="container-white mx-0 mt-2 text-center">
+                <span class="bold">Cette section est vide.</span><br>
+                <a href="{{ path('project_create') }}" class="btn button-see-task py-1 px-2 my-1">Créer un projet</a>
             </div>
         {% endfor %}
     </div>

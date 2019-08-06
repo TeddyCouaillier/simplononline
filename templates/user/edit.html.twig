@@ -8,7 +8,12 @@
 
 {% block body %}
     {{ template.checkMessage(form) }}
+    <div class="flex just-between align-center">
     <h1>Modifier mon compte</h1>
+    {% if user == app.user %}
+    <a href="{{ path('account_password') }}" class="button-edit"><i class="fal fa-user-lock"></i></a>
+    {% endif %}
+    </div>
     <hr>
     {{ form_start(form) }}
 
