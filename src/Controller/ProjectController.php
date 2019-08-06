@@ -62,6 +62,10 @@ class ProjectController extends AbstractController
                 $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
                 $project->addLanguage($language);
             }
+            // Publisher
+            $project->setModerator($this->getUser());
+            $project->addUser($this->getUser());
+
             $manager->persist($project);
             $manager->flush();
 

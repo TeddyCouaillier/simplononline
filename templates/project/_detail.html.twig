@@ -42,13 +42,15 @@
                     <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
                     <div class="flex-fill">
                         {{ user.fullname }}
-                        {% if loop.index == 1 %}
+                        {% if project.moderator == user %}
                             <i class="fal fa-star text-small text-red bold ml-1"></i>
                         {% endif %}
                     </div>
+                    {% if project.moderator == app.user %}
                     <div style="width: 10%">
                         <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}"><i class="fal fa-times-circle"></i></button>
                     </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

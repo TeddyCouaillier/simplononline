@@ -161,6 +161,11 @@ class User implements UserInterface
      */
     private $tasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="moderator")
+     */
+    private $projectmod;
+
     public function __construct()
     {
         $this->userRoles      = new ArrayCollection();
@@ -172,6 +177,7 @@ class User implements UserInterface
         $this->trainingCourse = new ArrayCollection();
         $this->projects       = new ArrayCollection();
         $this->tasks          = new ArrayCollection();
+        $this->projectmod     = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
         $this->weather        = 0;
     }
@@ -737,6 +743,37 @@ class User implements UserInterface
     {
         if ($this->tasks->contains($task)) {
             $this->tasks->removeElement($task);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectmod(): Collection
+    {
+        return $this->projectmod;
+    }
+
+    public function addProjectmod(Project $projectmod): self
+    {
+        if (!$this->projectmod->contains($projectmod)) {
+            $this->projectmod[] = $projectmod;
+            $projectmod->setModerator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectmod(Project $projectmod): self
+    {
+        if ($this->projectmod->contains($projectmod)) {
+            $this->projectmod->removeElement($projectmod);
+            // set the owning side to null (unless already changed)
+            if ($projectmod->getModerator() === $this) {
+                $projectmod->setModerator(null);
+            }
         }
 
         return $this;

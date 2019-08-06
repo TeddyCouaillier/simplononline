@@ -66,6 +66,12 @@ class Project
      */
     private $languages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projectmod")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $moderator;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -341,6 +347,18 @@ class Project
         if ($this->languages->contains($language)) {
             $this->languages->removeElement($language);
         }
+
+        return $this;
+    }
+
+    public function getModerator(): ?User
+    {
+        return $this->moderator;
+    }
+
+    public function setModerator(?User $moderator): self
+    {
+        $this->moderator = $moderator;
 
         return $this;
     }
