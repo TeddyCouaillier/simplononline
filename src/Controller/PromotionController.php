@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Promotion;
 use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
-use App\Form\Promotion\EditPromotionType;
+use App\Form\Promotion\AddUsersPromotionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -34,7 +35,7 @@ class PromotionController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             if($promo->getCurrent() == true){
-                foreach($rep->findBy(['current' => true]) as $currentPromo){
+                foreach($rep->findAllOtherCurrent($promo) as $currentPromo){
                     $currentPromo->setCurrent(false);
                 }
             }
@@ -66,7 +67,7 @@ class PromotionController extends AbstractController
      */
     public function editUsersPromo(Promotion $promo, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $form = $this->createForm(EditPromotionType::class,$promo);
+        $form = $this->createForm(AddUsersPromotionType::class,$promo);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             foreach($promo->getUsers() as $user){
@@ -74,7 +75,6 @@ class PromotionController extends AbstractController
 
                 $user->setPromotion($promo)
                      ->setPassword($encoder->encodePassword($user, 'test'));
-                    //  ->setAvatar('avatar.png');
 
                 $manager->persist($user);
             }
@@ -90,6 +90,49 @@ class PromotionController extends AbstractController
             'form'  => $form->createView(),
             'promo' => $promo
         ]);
+    }
+
+    /**
+     * Undocumented function
+     * @Route("/{slug}/edit", name="edit")
+     * @param Promotion $promo
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function editPromo(Promotion $promo, Request $request, ObjectManager $manager, PromotionRepository $rep)
+    {
+        $form = $this->createForm(PromotionType::class, $promo);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if($promo->getCurrent() == true){
+                foreach($rep->findAllOtherCurrent($promo) as $currentPromo){
+                    $currentPromo->setCurrent(false);
+                }
+            }
+
+            $manager->persist($promo);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La promotion a bien été modifiée.'
+            );
+
+            return $this->redirectToRoute('promo_all');
+        }
+
+        $render = $this->render('promotion/_edit_promo.html.twig', [
+            'form'   => $form->createView(),
+            'promo'  => $promo
+        ]);
+
+        $response = [
+            "code" => 200,
+            "render" => $render->getContent()
+        ];
+        return new JsonResponse($response);
     }
 
     /**

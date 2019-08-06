@@ -18,4 +18,18 @@ class PromotionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Promotion::class);
     }
+
+    public function findAllOtherCurrent($promo)
+    {
+        $query = $this->getEntityManager()->createQuery('
+                SELECT p FROM App\Entity\Promotion p
+                WHERE p.current = true
+                AND p != :promo
+
+            ')
+            ->setParameter('promo', $promo);
+        ;
+
+        return $query->getResult();
+    }
 }

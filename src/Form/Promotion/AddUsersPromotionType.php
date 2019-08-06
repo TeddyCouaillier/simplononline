@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class EditPromotionType extends AbstractType
+class AddUsersPromotionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,7 @@ class EditPromotionType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'test',
+                    'class' => 'promo',
                 ],
             ])
         ;

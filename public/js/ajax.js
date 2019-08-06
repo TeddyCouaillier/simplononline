@@ -27,6 +27,25 @@ $(document).on('click','.edit-task',function(){
     });
 })
 
+$(document).on('click','.edit-promo',function(){
+    const url = $(this).data('url');
+    modal = $(this).data('target');
+
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(response){
+            if (url !== undefined)
+            {
+                $('.modal[id*="modal-edit-"] .modal-body').html("");
+                $(modal).find('.modal-body').append(response.render);
+            }
+        }
+    });
+})
+
+
 function seeMore(el){
     counter = parseInt($(el).parent().parent().find('#task-counter').val());
     const url  = $(el).data('url');

@@ -1,0 +1,19 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="flex just-between align-center">
+    <h2>Modifier une promo</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<hr>
+<div class="py-4 w-75 mx-auto">
+    {{ form_start(form, {'action': path('promo_edit',{'slug':promo.slug})}) }}
+    {{ form_label(form.label) }}
+    {{ form_widget(form.label) }}
+    {{ form_label(form.nickname) }}
+    {{ form_widget(form.nickname) }}
+    <div class="custom-control custom-switch text-center mt-4">
+        {{ form_widget(form.current) }}
+    </div>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
