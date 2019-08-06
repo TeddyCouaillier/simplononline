@@ -22,11 +22,6 @@ class Subtask
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $done;
@@ -49,18 +44,6 @@ class Subtask
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(?string $content): self
-    {
-        $this->content = $content;
 
         return $this;
     }

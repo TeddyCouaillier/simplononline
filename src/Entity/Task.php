@@ -72,49 +72,41 @@ class Task
     }
 
     /**
-     * Get the difference between the task creating time and now
+     * Get the difference between the project creating time and now
      * @return String
      */
     public function getInterval()
     {
-        $interval = date_diff($this->createdAt, new \DateTime());
-        $day = intval($interval->format('%R%a'));
-
-        switch(true){
-            case ($day == 0):
-                return 'Aujourd\'hui';
-            case ($day == 1):
-                return 'Hier';
-            case ($day > 1 && $day < 7):
-                return 'Il y a '.$day.' jours';
-            case ($day >= 7 && $day <= 14):
-                return 'Il y a une semaine';
-            case ($day >= 15 && $day <= 21):
-                return 'Il y a deux semaines';
-            case ($day >= 22 && $day <= 29):
-                return 'Il y a trois semaines';
-            case ($day >= 30 && $day <= 365):
-                $month = intval($day / 30);
-                return 'Il y a '.$month.' mois';
-            default:
-                return 'Il y a trop longtemps';
+        $time_diff = date_diff($this->createdAt, new \DateTime());
+        $format = "Aujourd'hui";
+        if ($time_diff->d == 1) {
+            $format = "Hier";
         }
+        if ($time_diff->d > 1) {
+            $format = "Il y a %d jours";
+        }
+        if ($time_diff->m > 0) {
+            $format = "Il y a %m mois";
+        }
+        if ($time_diff->y > 0) {
+            $format = "Il y a %m ans";
+        }
+        return $time_diff->format($format);
     }
 
     /**
      * Get the subtasks done
-     * @return Subtask[]
+     * @return integer
      */
     public function getSubtasksDone()
     {
-        $subtasksdone = [];
-        $i = 0;
+        $res = 0;
         foreach($this->subtasks as $subtask){
             if($subtask->getDone()){
-                $subtasksdone[$i++] = $subtask;
+                $res++;
             }
         }
-        return $subtasksdone;
+        return $res;
     }
 
     /**
@@ -123,7 +115,7 @@ class Task
      */
     public function getProgress()
     {
-        $done  = sizeof($this->getSubtasksDone());
+        $done  = $this->getSubtasksDone();
         $total = sizeof($this->getSubtasks());
 
         return $total !== 0 ? intval($done / $total * 100) : 0;

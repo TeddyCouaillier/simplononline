@@ -61,42 +61,45 @@
 {% endmacro %}
 
 {# Task container #}
-{% macro task(tasks, project, progress = true) %}
-    {% for task in tasks|reverse if task is not null %}
-    {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
-    {{ _self.modal("modal-edit-"~task.id) }}
-    <div class="mt-2 ">
-        {% if progress == true %}
-        <div class="task-progress progress">
-            <div class="progress-bar status-{{task.progresscolor}}" role="progressbar" style="width: {{ task.progress }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        {% endif %}
-        <div class="container-white flex align-center task-container">
-            <div id="task-title">
-                <span class="bold">{{ task.title }}</span><br>
-                <span class="text-grey">{{ task.interval }}</span>
-            </div>
-            <div class="text-right" id="task-users">
-                {% for user in task.users %}
-                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
-                {% endfor %}
-            </div>
-            <div class="text-center text-grey" id="task-sub">
-                <i class="fal fa-tasks mr-2"></i>
-                <span class="text-small"> {{ task.subtasksdone|length }} / {{ task.subtasks|length}} </span>
-            </div>
-            <div>
-                <div class="subnav">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <div class="subnav-tooltip">
-                        <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
-                        <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+{% macro task(tasks, project, type) %}
+    <div class="testt">
+        <input type="hidden" id="task-counter" value="{{tasks|length}}">
+        {% for task in tasks if task is not null %}
+            {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
+            {{ _self.modal("modal-edit-"~task.id) }}
+            <div class="mt-2 ">
+                <div class="container-white flex align-center task-container">
+                    <div id="task-title">
+                        <span class="bold">{{ task.title }}</span><br>
+                        <span class="text-grey">{{ task.interval }}</span>
+                    </div>
+                    <div class="text-right" id="task-users">
+                        {% for user in task.users %}
+                            <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
+                        {% endfor %}
+                    </div>
+                    <div class="text-center text-grey" id="task-sub">
+                        <i class="fal fa-tasks mr-2"></i>
+                        <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
+                    </div>
+                <div>
+                    <div class="subnav">
+                        <i class="fas fa-ellipsis-v"></i>
+                        <div class="subnav-tooltip">
+                            <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                            <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% if tasks|length >= 5 %}
+    <div class="text-center my-2">
+        <button class="btn button-see-task py-1 px-3" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" onclick="seeMore(this)">Voir plus</button>
+    </div>
+    {% endif %}
 {% endmacro %}
 
 {% macro deleteConfirm(id,route,text = '') %}

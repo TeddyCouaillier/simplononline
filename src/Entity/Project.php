@@ -81,28 +81,22 @@ class Project
      */
     public function getInterval()
     {
-        $interval = date_diff($this->createdAt, new \DateTime());
-        $day = intval($interval->format('%R%a'));
+        $time_diff = date_diff($this->createdAt, new \DateTime());
 
-        switch(true){
-            case ($day == 0):
-                return 'Aujourd\'hui';
-            case ($day == 1):
-                return 'Hier';
-            case ($day > 1 && $day < 7):
-                return 'Il y a '. $day .' jours';
-            case ($day >= 7 && $day <= 14):
-                return 'Il y a une semaine';
-            case ($day >= 15 && $day <= 21):
-                return 'Il y a deux semaines';
-            case ($day >= 22 && $day <= 29):
-                return 'Il y a trois semaines';
-            case ($day >= 30 && $day <= 365):
-                $month = intval($day / 30);
-                return 'Il y a '. $month .' mois';
-            default:
-                return 'Il y a trop longtemps';
+        $format = "Aujourd'hui";
+        if ($time_diff->d == 1) {
+            $format = "Hier";
         }
+        if ($time_diff->d > 1) {
+            $format = "Il y a %d jours";
+        }
+        if ($time_diff->m > 0) {
+            $format = "Il y a %m mois";
+        }
+        if ($time_diff->y > 0) {
+            $format = "Il y a %m ans";
+        }
+        return $time_diff->format($format);
     }
 
     /**
@@ -168,36 +162,21 @@ class Project
     }
 
     /**
-     * Get the progress width (%)
-     * @return integer
-     */
-    public function getProgress()
-    {
-        $total = 0;
-        $done  = 0;
-        foreach($this->getTasks() as $task){
-            $total += sizeof($task->getSubtasks());
-            $done  += sizeof($task->getSubtasksDone());
-        }
-        return $total !== 0 ? intval($done / $total * 100) : 0;
-    }
-
-    /**
      * Get the progress status (color)
      * @return string
      */
-    public function getProgressColor()
+    public function getProgressColor($val)
     {
         switch(true){
-            case ($this->getProgress() == 0):
+            case ($val == 0):
                 return 'white';
-            case ($this->getProgress() <= 25):
+            case ($val <= 25):
                 return 'red';
-            case ($this->getProgress() <= 50):
+            case ($val <= 50):
                 return 'orange';
-            case($this->getProgress() <= 75):
+            case( $val <= 75):
                 return 'yellow';
-            case($this->getProgress() < 100):
+            case ($val < 100):
                 return 'green';
             default:
                 return 'green';

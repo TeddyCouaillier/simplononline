@@ -1,0 +1,32 @@
+{% import 'macro.html.twig' as template %}
+
+{% for task in tasks if task is not null %}
+    {{ template.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
+    {{ template.modal("modal-edit-"~task.id) }}
+    <div class="mt-2 animated fadeIn">
+        <div class="container-white flex align-center task-container">
+            <div id="task-title">
+                <span class="bold">{{ task.title }}</span><br>
+                <span class="text-grey">{{ task.interval }}</span>
+            </div>
+            <div class="text-right" id="task-users">
+                {% for user in task.users %}
+                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
+                {% endfor %}
+            </div>
+            <div class="text-center text-grey" id="task-sub">
+                <i class="fal fa-tasks mr-2"></i>
+                <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
+            </div>
+            <div>
+                <div class="subnav">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="subnav-tooltip">
+                        <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                        <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

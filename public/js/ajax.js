@@ -1,5 +1,6 @@
 $(document).on('click','.edit-task',function(){
     const url = $(this).data('url');
+    console.log(url);
     modal = $(this).data('target');
 
     $.ajax({
@@ -25,3 +26,28 @@ $(document).on('click','.edit-task',function(){
         }
     });
 })
+
+function seeMore(el){
+    counter = parseInt($(el).parent().parent().find('#task-counter').val());
+    const url  = $(el).data('url');
+    const type = $(el).data('type');
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data:{
+            type: type,
+            offset: counter
+        },
+        success: function(response){
+            if (url !== undefined)
+            {
+                $(el).parent().parent().find('.testt').append(response.render);
+                $(el).parent().parent().find('#task-counter').val(counter+response.size);
+                if(response.size < 5){
+                    $(el).parent().remove();
+                }
+            }
+        }
+    });
+}

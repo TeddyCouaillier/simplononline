@@ -11,7 +11,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-$('.subnav').on('click',function() {
+$(document).on('click','.subnav',function() {
     $(this).find('.subnav-tooltip').fadeToggle();
 })
 
@@ -96,10 +96,6 @@ const observer = new IntersectionObserver(handleIntersect, options);
 document.querySelectorAll('.reveal').forEach(function (r) {
     observer.observe(r)
 })
-
-$(document).ready(function(){
-    $(".main-content").fadeIn(500)
-});
 
 /* ----------------- COPY LINKS ----------------- */
 function copyToClipboard(element) {

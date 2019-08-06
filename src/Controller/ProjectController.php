@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Entity\Project;
 use App\Entity\Language;
 use App\Form\Project\TaskType;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -74,6 +75,36 @@ class ProjectController extends AbstractController
         return $this->render('project/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * Remove a project's specific user
+     * @Route("/{slug}/remove", name="remove_user")
+     * @param Project       $project
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function removeUser(Project $project, Request $request, ObjectManager $manager)
+    {
+        $id = $request->query->get('id');
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        foreach($project->getTasks() as $task){
+            $user->removeTask($task);
+        }
+
+        $project->removeUser($user);
+        $manager->persist($user);
+        $manager->persist($project);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'L\'utilisateur a bien été retiré.'
+        );
+
+        return $this->redirectToRoute('project_show', ['slug'=> $project->getSlug()]);
     }
 
     /**
@@ -187,6 +218,33 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * Ajax calling to see more task (by type)
+     * @Route("/{slug}/seemore", name="seemore")
+     * @param Project           $project
+     * @param Request           $request
+     * @param ProjectRepository $rep
+     * @return JsonResponse
+     */
+    public function seeMoreTask(Project $project, Request $request, ProjectRepository $rep)
+    {
+        $offset = $request->request->get('offset');
+        $type   = $request->request->get('type');
+        $tasks  = $rep->findAllTasksByType($project, $type, $offset);
+
+        $render = $this->render('project/_task_content.html.twig',[
+            'project' => $project,
+            'tasks' => $tasks
+        ]);
+
+        $response = [
+            "code" => 200,
+            "render" => $render->getContent(),
+            "size" => sizeof($tasks)
+        ];
+        return new JsonResponse($response);
+    }
+
+    /**
      * Show a specific project and adding task form
      * @Route("/{slug}", name="show")
      * @param Project        $project
@@ -218,16 +276,38 @@ class ProjectController extends AbstractController
             );
         }
 
-        $process   = $project->getTaskByType(Task::PROCESSING);
-        $todolist  = $project->getTaskByType(Task::TODOLIST);
-        $completed = $project->getTaskByType(Task::COMPLETED);
+        // Repositories
+        $reptask    = $this->getDoctrine()->getRepository(Task::class);
+        $repproject = $this->getDoctrine()->getRepository(Project::class);
+
+        // Get progressing datas
+        $process_total  = $reptask->getTotalSubtaskByType($project, Task::PROCESSING);
+        $todolist_total = $reptask->getTotalSubtaskByType($project, Task::TODOLIST);
+        $process_done   = $reptask->getTotalSubtaskDoneByType($project, Task::PROCESSING);
+        $todolist_done  = $reptask->getTotalSubtaskDoneByType($project, Task::TODOLIST);
+
+        $process_progress  = $process_total != 0 ? ($process_done / $process_total * 100) : 0;
+        $todolist_progress = $todolist_total != 0 ? ($todolist_done / $todolist_total * 100) : 0;
+
+        // Get all task by type
+        $process   = $repproject->findAllTasksByType($project, Task::PROCESSING);
+        $todolist  = $repproject->findAllTasksByType($project, Task::TODOLIST);
+        $completed = $repproject->findAllTasksByType($project, Task::COMPLETED);
+
+        // Project datas
+        $total = $reptask->getTotalSubtask($project);
+        $done  = $reptask->getTotalSubtaskDone($project);
+        $progress = $total != 0 ? ($done / $total * 100) : 0;
 
         return $this->render('project/show.html.twig', [
             'project'   => $project,
             'form'      => $form->createView(),
             'process'   => $process,
             'todolist'  => $todolist,
-            'completed' => $completed
+            'completed' => $completed,
+            'progress'  => $progress,
+            'process_progress'  => $process_progress,
+            'todolist_progress' => $todolist_progress
         ]);
     }
 }

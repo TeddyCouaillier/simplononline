@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Task;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Project;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Task|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,77 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    // /**
-    //  * @return Task[] Returns an array of Task objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    /**
+     * Get all subtasks total in a project
+     * @param Project $project
+     * @return integer
+     */
+    public function getTotalSubtask(Project $project){
+        $query = $this->getEntityManager()->createQuery('
+            SELECT count(s)
+            FROM App\Entity\Subtask s, App\Entity\Task t
+            WHERE t.project = :project
+            AND t.id = s.task
+        ')
+        ->setParameter('project',$project->getId());
+        return intval($query->getSingleScalarResult());
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Task
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    /**
+     * Get all subtasks done total in a project
+     * @param Project $project
+     * @return integer
+     */
+    public function getTotalSubtaskDone(Project $project){
+        $query = $this->getEntityManager()->createQuery('
+            SELECT count(s)
+            FROM App\Entity\Subtask s, App\Entity\Task t
+            WHERE t.project = :project
+            AND t.id = s.task
+            AND s.done = true
+        ')
+        ->setParameter('project',$project->getId());
+        return intval($query->getSingleScalarResult());
     }
-    */
+
+    /**
+     * Get all subtasks total by type in a project
+     * @param Project $project
+     * @param integer $type
+     * @return integer
+     */
+    public function getTotalSubtaskByType(Project $project, int $type)
+    {
+        $query = $this->getEntityManager()->createQuery('
+            SELECT COUNT(s) FROM App\Entity\Subtask s, App\Entity\Task t
+            WHERE s.task = t
+            AND t.project = :project
+            AND t.type = :type
+        ')
+        ->setParameters([
+            'project' => $project,
+            'type' => $type
+        ]);
+        return intval($query->getSingleScalarResult());
+    }
+
+    /**
+     * Get all subtasks done total by type in a project
+     * @param Project $project
+     * @param integer $type
+     * @return integer
+     */
+    public function getTotalSubtaskDoneByType(Project $project, int $type)
+    {
+        $query = $this->getEntityManager()->createQuery('
+        SELECT COUNT(s) FROM App\Entity\Subtask s, App\Entity\Task t
+        WHERE s.task = t
+        AND t.project = :project
+        AND t.type = :type
+        AND s.done = true
+        ')
+        ->setParameters(['project' => $project,'type' => $type]);
+
+        return intval($query->getSingleScalarResult());
+    }
 }

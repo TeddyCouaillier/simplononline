@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\Language;
 use App\Form\ApplicationType;
 use App\Repository\UserRepository;
+use App\Repository\LanguageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +38,10 @@ class ProjectType extends ApplicationType
                 'choice_label'  => 'label',
                 'placeholder'   => 'Liste des apprenants du projet',
                 'multiple'      => true,
-                'mapped'        => false
+                'mapped'        => false,
+                'query_builder' => function (LanguageRepository $er) {
+                    return $er->getAllLanguages();
+                }
             ])
         ;
     }

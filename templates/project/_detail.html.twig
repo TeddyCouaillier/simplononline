@@ -1,6 +1,7 @@
 {% import 'macro.html.twig' as template %}
 
 <div class="project-content" id="detail">
+{# {{path('project_remove_user',{'slug': ",'id': user.id})}} #}
     <div class="flex just-between mb-3">
         <div class="w-50">
             <span class="bold" style="font-size:1.2em">Détail du projet</span>
@@ -36,6 +37,7 @@
             <div class="p-2 w-50">
                 <span class="bold">Liste des apprenants</span>
                 {% for user in project.users if user is not null %}
+                {{ template.deleteConfirm('remove-user-'~user.id,path('project_remove_user',{'slug': project.slug,'id': user.id}))}}
                 <div class="container-white flex align-center mb-1 mt-2">
                     <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
                     <div class="flex-fill">
@@ -45,7 +47,7 @@
                         {% endif %}
                     </div>
                     <div style="width: 10%">
-                        <button type="button" class="btn"><i class="fal fa-times-circle"></i></button>
+                        <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}"><i class="fal fa-times-circle"></i></button>
                     </div>
                 </div>
                 {% endfor %}

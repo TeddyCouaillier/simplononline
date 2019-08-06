@@ -19,32 +19,31 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    // /**
-    //  * @return Project[] Returns an array of Project objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Get all tasks by the type given
+     * @param Project $project
+     * @param integer $type
+     * @param integer $offset
+     * @return array
+     */
+    public function findAllTasksByType(Project $project, int $type, int $offset = 0)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        $query = $this->getEntityManager()->createQuery('
+                SELECT DISTINCT t
+                FROM App\Entity\Project p
+                JOIN App\Entity\Task t
+                WHERE t.project = :project
+                AND t.type = :type
+                ORDER BY t.createdAt DESC
+            ')
+            ->setFirstResult($offset)
+            ->setMaxResults(5)
+            ->setParameters([
+                'project' =>$project,
+                'type'    =>$type
+            ])
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Project
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $query->getResult();
     }
-    */
 }
