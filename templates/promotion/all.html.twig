@@ -44,7 +44,7 @@
                 {% endif %}
                 </div>
                 <div class="promo-content">
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="promo-url">
                         <h2>{{ promo.label }}</h2>
                         <ul>
                             <li>Formateur : <em>PETIT Romain</em></li>
@@ -56,6 +56,7 @@
                 </div>
             </div>
         {% endfor %}
+        <a href="#" class="text-grey users-without-promo">Utilisateurs sans promotion <i class="fal fa-directions"></i></a>
     </div>
 
     <div class="modal fade" id="modal-add-promo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

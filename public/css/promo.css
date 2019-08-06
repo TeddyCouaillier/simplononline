@@ -5,8 +5,9 @@
     margin-bottom: 1rem;
     padding: 1rem 0;
     width: 32%;
-    height: 175px;
+    height: 180px;
 }
+.promo-user-info{ height: 90%; }
 .promo-empty {
     width: 100%;
     text-align: center;
@@ -56,6 +57,9 @@ legend{
 .all-promo .promo-content{
     padding: 20px;
 }
+.all-promo > .promo-content h2{
+    transition: all .2s linear;
+}
 .all-promo > .promo-content:hover h2{
     color: rgba(242,72,71,1);
 }
@@ -72,3 +76,5 @@ legend{
     background: #FFFFFF;
     color: #FFFFFF;
 }
+.users-without-promo{ transition: all .2s linear; }
+.users-without-promo:hover{ color: #000000 !important; }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Promotion;
+use App\Repository\UserRepository;
 use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
 use App\Form\Promotion\AddUsersPromotionType;
@@ -56,6 +57,19 @@ class PromotionController extends AbstractController
     }
 
     /**
+     * Show all users without a promotion
+     * @Route("/autres", name="other")
+     * @param UserRepository $rep
+     * @return Response
+     */
+    public function allOthersPromo(UserRepository $rep)
+    {
+        return $this->render('promotion/other.html.twig', [
+            'users' => $rep->findBy(['promotion'=> null])
+        ]);
+    }
+
+    /**
      * Add/Remove users from a promotion
      * @Route("/{slug}/edit-users", name="edit_users")
      * @IsGranted("ROLE_ADMIN")
@@ -93,12 +107,12 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Ajax calling to edit a promo
      * @Route("/{slug}/edit", name="edit")
      * @param Promotion $promo
      * @param Request $request
      * @param ObjectManager $manager
-     * @return void
+     * @return JsonResponse/Response
      */
     public function editPromo(Promotion $promo, Request $request, ObjectManager $manager, PromotionRepository $rep)
     {
