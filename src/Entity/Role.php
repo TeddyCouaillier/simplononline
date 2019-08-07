@@ -77,4 +77,11 @@ class Role
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $pos  = strrpos($this->title, "_");
+        $name = substr($this->title,$pos+1);
+        return ucfirst(strtolower($name));
+    }
 }

@@ -1,4 +1,6 @@
-/* EDIT & CREATE USER */
+.edit-user-pwd{ width: 59%;}
+.edit-user-promo{ width: 40%; }
+
 .grid-user {
     display: grid;
     grid-template-columns: 60%;
@@ -24,7 +26,7 @@
 }
 
 .form-add-user-info>div {
-    width: 30%;
+    width: 33%;
 }
 
 .grid-user input {

@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use App\Entity\Role;
 
 /**
  * @Route("/user", name="user_")
@@ -43,6 +43,14 @@ class UserController extends AbstractController
         $form = $this->createForm(CreateUserType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $role_id = $request->request->get('create_user')['userRoles'];
+            if($role_id !== null){
+                $reprole = $this->getDoctrine()->getRepository(Role::Class);
+                $role = $reprole->find($role_id);
+                $role->addUser($user);
+                $user->setPromotion(null);
+            }
+
             $user->setPassword($encoder->encodePassword($user, 'test'));
             $user->setAvatar('avatar.png');
 

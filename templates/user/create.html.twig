@@ -12,8 +12,8 @@
     <hr>
     {{ form_start(form) }}
 
-    <div class="grid-user">
-        <div class="grid-user-info bg-grey rounded">
+    <div class="flex flex-wrap">
+        <div class="container-grey w-100 mb-2">
             <span class="bold">Informations personnelles</span>
             <div class="flex just-around text-center mt-2 form-add-user-info">
                 <div>
@@ -31,17 +31,24 @@
             </div>
         </div>
 
-        <div class="grid-user-promo bg-grey rounded">
+        <div class="container-grey edit-user-pwd mb-2 mr-1">
             <span class="bold mt-2">Information de connexion</span>
             <div class="mt-2">
                 {{ form_widget(form.password) }}
             </div>
         </div>
 
-        <div class="grid-user-supp bg-grey rounded">
+        <div class="container-grey edit-user-promo mb-2 ml-1">
             <span class="bold">Promotion</span>
             <div class="mt-2">
                 {{ form_widget(form.promotion) }}
+            </div>
+        </div>
+
+        <div class="container-grey w-100 mb-2">
+            <span class="bold">Roles</span>
+            <div class="mt-2">
+                {{ form_widget(form.userRoles) }}
             </div>
         </div>
     </div>

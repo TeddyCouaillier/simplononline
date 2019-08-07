@@ -64,8 +64,15 @@ class PromotionController extends AbstractController
      */
     public function allOthersPromo(UserRepository $rep)
     {
+        $others = $rep->findBy(['promotion'=> null]);
+        $users = [];
+        foreach($others as $other){
+            if(sizeof($other->getRoles()) <= 1){
+                $users[] = $other;
+            }
+        }
         return $this->render('promotion/other.html.twig', [
-            'users' => $rep->findBy(['promotion'=> null])
+            'users' => $users
         ]);
     }
 

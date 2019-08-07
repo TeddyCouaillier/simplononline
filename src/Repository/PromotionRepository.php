@@ -25,7 +25,6 @@ class PromotionRepository extends ServiceEntityRepository
                 SELECT p FROM App\Entity\Promotion p
                 WHERE p.current = true
                 AND p != :promo
-
             ')
             ->setParameter('promo', $promo);
         ;
