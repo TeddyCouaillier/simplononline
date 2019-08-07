@@ -33,7 +33,7 @@ class ProjectType extends ApplicationType
                     return $rep->findCurrentPromoType();
                 }
             ])
-            ->add('languages',EntityType::class, [
+            ->add('languages',   EntityType::class, [
                 'class'         => Language::class,
                 'choice_label'  => 'label',
                 'placeholder'   => 'Liste des apprenants du projet',

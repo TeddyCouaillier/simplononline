@@ -72,13 +72,19 @@ class Project
      */
     private $moderator;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Correction", cascade={"persist"}, mappedBy="project")
+     */
+    private $corrections;
+
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
-        $this->projects  = new ArrayCollection();
-        $this->users     = new ArrayCollection();
-        $this->tasks     = new ArrayCollection();
-        $this->languages = new ArrayCollection();
+        $this->createdAt   = new \DateTime();
+        $this->projects    = new ArrayCollection();
+        $this->users       = new ArrayCollection();
+        $this->tasks       = new ArrayCollection();
+        $this->languages   = new ArrayCollection();
+        $this->corrections = new ArrayCollection();
     }
 
     /**
@@ -359,6 +365,37 @@ class Project
     public function setModerator(?User $moderator): self
     {
         $this->moderator = $moderator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Correction[]
+     */
+    public function getCorrections(): Collection
+    {
+        return $this->corrections;
+    }
+
+    public function addCorrection(Correction $correction): self
+    {
+        if (!$this->corrections->contains($correction)) {
+            $this->corrections[] = $correction;
+            $correction->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCorrection(Correction $correction): self
+    {
+        if ($this->corrections->contains($correction)) {
+            $this->corrections->removeElement($correction);
+            // set the owning side to null (unless already changed)
+            if ($correction->getProject() === $this) {
+                $correction->setProject(null);
+            }
+        }
 
         return $this;
     }

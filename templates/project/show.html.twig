@@ -12,7 +12,9 @@
 {% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
-     <div class="px-5">
+    {{ template.checkMessage(form) }}
+    {{ template.checkMessage(formCorrect) }}
+    <div class="px-5">
         <div class="flex just-between">
             <h1>{{ project.title }}</h1>
             {% if is_granted('ROLE_ADMIN') or project.moderator == app.user %}
@@ -44,7 +46,7 @@
         <div class="container-grey flex my-4">
             <div class="text-center project-nav active" data-project="task" onclick="projectPanel(this)">Tâches</div>
             <div class="text-center project-nav" data-project="detail" onclick="projectPanel(this)">Informations détaillées</div>
-            <div class="text-center project-nav" data-project="activity" onclick="projectPanel(this)">Activité</div>
+            <div class="text-center project-nav" data-project="activity" onclick="projectPanel(this)">Corrigés</div>
         </div>
         <hr>
         {{ include('project/_task.html.twig') }}

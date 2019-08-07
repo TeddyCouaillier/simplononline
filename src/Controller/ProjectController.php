@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Entity\Project;
 use App\Entity\Language;
+use App\Entity\Correction;
 use App\Form\Project\TaskType;
 use App\Form\Project\ProjectType;
 use App\Form\Project\EditTaskType;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\Project\AddCorrectionType;
 
 /**
  * @Route("/project", name="project_")
@@ -259,10 +261,14 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
     {
+        $correction = new Correction();
         $task = new Task();
         $task->setProject($project);
 
+        $formCorrect = $this->createForm(AddCorrectionType::class, $correction);
         $form = $this->createForm(TaskType::class, $task);
+
+        $formCorrect->handleRequest($request);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
@@ -277,6 +283,17 @@ class ProjectController extends AbstractController
             $this->addFlash(
                 'success',
                 'La tâche a bien été ajoutée.'
+            );
+        }
+
+        if($formCorrect->isSubmitted() && $formCorrect->isValid()){
+            $project->addCorrection($correction);
+            $manager->persist($project);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La correction a bien été ajoutée.'
             );
         }
 
@@ -304,12 +321,13 @@ class ProjectController extends AbstractController
         $progress = $total != 0 ? ($done / $total * 100) : 0;
 
         return $this->render('project/show.html.twig', [
-            'project'   => $project,
-            'form'      => $form->createView(),
-            'process'   => $process,
-            'todolist'  => $todolist,
-            'completed' => $completed,
-            'progress'  => $progress,
+            'project'     => $project,
+            'form'        => $form->createView(),
+            'formCorrect' => $formCorrect->createView(),
+            'process'     => $process,
+            'todolist'    => $todolist,
+            'completed'   => $completed,
+            'progress'    => $progress,
             'process_progress'  => $process_progress,
             'todolist_progress' => $todolist_progress
         ]);
