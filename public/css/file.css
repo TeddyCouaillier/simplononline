@@ -1,4 +1,4 @@
-.show-files{ height: 425px; }
+.show-files{ height: 444px; }
 .received-files{
     width: calc(100% - 300px);
     max-height: 100%;
@@ -11,7 +11,7 @@
     height: 100%;
     background: #FFFFFF;
     padding: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 5px 30px;
 }
 .file-content{
     display: flex;
@@ -43,3 +43,4 @@
 
 .files-delete i,
 .files-delete:hover{ color: rgba(242,72,71,1) !important; }
+.files-delete{ font-size: 1em; }

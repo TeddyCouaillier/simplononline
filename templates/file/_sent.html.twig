@@ -3,7 +3,7 @@
 <div class="flex just-between">
     <span class="bold">Mes fichiers envoyés</span>
     {% if sending is not empty %}
-    {{ template.linkModal('deletefiles','modal-button files-delete','Tout supprimer <i class="fal fa-times-circle"></i>') }}
+        <div class="files-delete ml-2" data-toggle="modal" data-target="#modal-delete-all">Tout supprimer <i class="fal fa-times-circle"></i></div>
     {% endif %}
 </div>
 
@@ -43,19 +43,4 @@
     </div>
 {% endfor %}
 
-<div id="myModal" class="modal" data-modalid="deletefiles">
-    <div class="modal-content">
-        <div class="close-modal text-right">&times;</div>
-        <div class="mb-4 w-75 mx-auto">
-            <h2>Confirmation de suppression</h2>
-            <hr>
-            <div class="text-center mb-4">
-                <p>Ces fichiers seront supprimés définitivement et ne seront plus accessibles par les autres utilisateurs.</p>
-                <b>Êtes-vous sur de vouloir supprimer ces éléments ? </b><br>
-                <a href="{{ path('file_delete_all') }}">
-                    <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+{{ template.deleteConfirm('modal-delete-all',path('file_delete_all'),'Ces fichiers seront supprimés définitivement et ne seront plus accessibles par les autres utilisateurs.') }}

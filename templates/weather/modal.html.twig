@@ -1,21 +1,26 @@
-{% if updated == false %}
-<div id="myModal" class="modal-weather pt-5" style="display: block">
-    <div class="modal-content">
-        <div class="mb-4 w-75 mx-auto">
-            <h2>Météo du jour</h2>
-            <hr>
-            <div class="text-center mb-4">
-                <b class="px-4" style="border-bottom: 2px solid red;">{{ question|default('C\'est toi qui voit') }}</b><br>
-            </div>
-            <div class="flex just-center w-100 weather-content text-center">
-                <div>
-                {{ form_start(form) }}
-                {{ form_widget(form, {'attr':{'class': 'py-1'}}) }}
-                <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
-                {{ form_end(form) }}
+{% if updated == 0 %}
+    <div class="modal fade" id="modal-weather" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-update="{{ updated }}">
+    {{ form_start(form) }}
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body px-4 pt-3 pb-0 mb-3">
+                <div class="flex just-between align-center">
+                    <h2>Météo du jour</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <hr>
+                <div class="text-center mb-4">
+                    <b class="px-4" style="border-bottom: 2px solid red;">{{ question|default('C\'est toi qui voit') }}</b><br>
+                </div>
+                <div class="flex just-center w-100 weather-content text-center">
+                    <div>
+                    {{ form_widget(form, {'attr':{'class': 'py-1'}}) }}
+                    <button type="submit" class="bg-red text-white button-circle mt-3">&#10004;</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    {{ form_end(form) }}
+    </div>
 {% endif %}

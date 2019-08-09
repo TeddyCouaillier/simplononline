@@ -17,6 +17,7 @@
     <body>
         {% include 'partials/leftsection.html.twig' %}
         {% include 'partials/header.html.twig' %}
+        {# {% include 'partials/subnav.html.twig' %} #}
 
         {{ render(controller(
             'App\\Controller\\BaseController::weather'
@@ -26,7 +27,30 @@
 
             {% for class, messages in app.flashes %}
                 {% for message in messages %}
-                    {{ template.message(class,message) }}
+                    <div>
+                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-2">
+                            <div class="messages-icon-{{class}}">
+                                {% if class == "success" %}
+                                <i class="fas fa-check-circle icon-sm pr-4"></i>
+                                {% elseif class == "warning" %}
+                                <i class="fas fa-exclamation-circle icon-sm pr-4"></i>
+                                {% endif %}
+                            </div>
+                            <p class="w-100">
+                                <span class="bold">
+                                {% if class == "success" %}
+                                    Succès
+                                {% elseif class == "warning" %}
+                                    Erreur
+                                {% endif %}
+                                </span><br>
+                                <span class="text-grey">{{ message }}</span>
+                            </p>
+                            <button type="button" class="close close-message text-grey">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 {% endfor %}
             {% endfor %}
 

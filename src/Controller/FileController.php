@@ -38,9 +38,7 @@ class FileController extends AbstractController
     public function showFileUser(Request $request, ObjectManager $manager, UserRepository $rep)
     {
         $user = $this->getUser();
-        $sending = $this->getDoctrine()->getRepository(UserFiles::class)->findBy([
-            'sender' => $user
-        ]);
+
         $access = $this->container->get('security.authorization_checker')->isGranted(User::MEDIATEUR);
         $file = new Files();
 
@@ -73,6 +71,10 @@ class FileController extends AbstractController
                 'Le fichier a bien été envoyé.'
             );
         }
+
+        $sending = $this->getDoctrine()->getRepository(UserFiles::class)->findBy([
+            'sender' => $user
+        ]);
 
         return $this->render('file/show_files.html.twig', [
             'user'    => $user,

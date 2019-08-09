@@ -16,8 +16,21 @@ $(document).on('click','.subnav',function() {
 })
 
 /* ----------------- NAV --------------------- */
+$(function () {
+    const modal = $('#modal-weather');
+    const update = $(modal).data('update');
+    if(parseInt(update) == 0){
+        $(modal).modal('show');
+    }
+})
+
+/* ----------------- NAV --------------------- */
 $('.logout').click(function(){
-    $('.nav-dropdown').fadeToggle(500);
+    if($('.nav-dropdown').css('display') == 'none'){
+        $('.nav-dropdown').fadeIn(500);
+    } else {
+        $('.nav-dropdown').fadeOut(500);
+    }
 })
 
 $(document).mouseup(function(e)
@@ -36,7 +49,7 @@ $(document).mouseup(function(e)
 
 /* ---------------- CLOSE -------------------- */
 $(".close-message").click(function() {
-    $(this).parent().fadeOut(500);
+    $(this).parent().parent().fadeOut(500);
 });
 
 /* ------------- FILE USERS SELECTED ------------ */
@@ -185,3 +198,14 @@ function projectPanel(el){
     $('.project-content').hide(750);
     $(`.project-content#${pan}`).show(750);
 }
+
+
+$(document).on('click','.notif',function() {
+    $(this).parent().parent().find('.user-notif').fadeToggle();
+    // $(this).find('.subnav-tooltip').fadeToggle();
+})
+
+$(document).on('click','.dots',function() {
+    $(this).parent().parent().find('.user-subnav').fadeToggle();
+    // $(this).find('.subnav-tooltip').fadeToggle();
+})

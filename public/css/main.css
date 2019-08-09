@@ -120,6 +120,7 @@
 .main{
     min-height: calc(100vh - 65px);
     padding: 70px 100px 30px 275px;
+    /* padding: 70px 200px 30px 200px; */
 }
 
 footer{
@@ -163,3 +164,66 @@ input[type=radio]:checked + label:before {
 label{
     cursor:pointer;
 }
+/* 
+.user-nav{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: white;
+    padding: .5rem 1em;
+    width: 150px;
+    border-radius: 50px;
+    color: rgba(0,0,0,0.3);
+}
+.dots{ opacity: .3; width: 15px;}
+.dots:hover{ opacity: 1; cursor: pointer;}
+.notif:hover{ color: rgba(0,0,0,0.75); cursor: pointer;}
+.user-nav > *{
+    margin: 0 10px;
+}
+
+.user-notif{
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    right: 200px;
+    width: 400px;
+    height: auto;
+    z-index: 100;
+}
+.notif.active{
+    color: rgba(242,72,71,1);
+}
+.notifs div:nth-of-type(1){ width: 60%; }
+.notifs div:nth-of-type(2){ width: 20%; }
+.notifs div:nth-of-type(3){ width: 20%; }
+.notifs div:nth-of-type(4){ width: 5%; }
+
+.notifs-header div:nth-of-type(1){ width: 80%; }
+.notifs-header div:nth-of-type(2){ width: 20%; }
+.notifs-header div:nth-of-type(3){ width: 5%; }
+
+.user-subnav{
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 90px;
+    cursor: pointer;
+}
+
+.subnav-circle{
+    border-radius: 50%;
+    background: rgba(242,72,71,1);
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-weight: 900!important;
+}
+.subnav-circle a{ color: #FFFFFF!important; }
+.subnav-circle:hover{
+    font-weight: bold!important;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5) !important;
+         box-shadow: 0px 0px 10px 0px rgba(242,72,71,.5) !important;
+} */

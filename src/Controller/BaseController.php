@@ -41,7 +41,7 @@ class BaseController extends OtherController
         $interval = date_diff($lastConnect, $today);
 
         if($interval->format('%R%a') > 0){
-            $updated = false;
+            $updated = 0;
 
             // Choose a random question
             $index = mt_rand(0, sizeof($this->questions)-1);
@@ -72,7 +72,7 @@ class BaseController extends OtherController
                 'form'     => $form->createView()
             ];
         } else {
-            $updated = true;
+            $updated = 1;
 
             $render = [
                 'user'    => $user,

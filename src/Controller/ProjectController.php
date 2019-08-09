@@ -185,6 +185,7 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * Ajax calling for task edit
      * @Route("/{slug}/task/{id_task}/edit", name="edit_task")
      * @Entity("task", expr="repository.find(id_task)")
      * @param Porject       $project

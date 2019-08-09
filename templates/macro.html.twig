@@ -1,13 +1,3 @@
-{# Message template #}
-{% macro message(class, message) %}
-<div class="message-{{ class }}">
-    {{ message | raw }}
-    <button type="button" class="close close-message">
-        <span>&times;</span>
-    </button>
-</div>
-{% endmacro %}
-
 {# Error message for a form #}
 {% macro checkMessage(form, message = null) %}
     {% if not form.vars.valid %}

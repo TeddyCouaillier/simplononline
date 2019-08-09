@@ -170,6 +170,16 @@ class User implements UserInterface
      */
     private $projectmod;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="sender", orphanRemoval=true)
+     */
+    private $notifSent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", mappedBy="receiver")
+     */
+    private $notifReceived;
+
     public function __construct()
     {
         $this->userRoles      = new ArrayCollection();
@@ -184,6 +194,8 @@ class User implements UserInterface
         $this->projectmod     = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
         $this->weather        = 0;
+        $this->notifSent = new ArrayCollection();
+        $this->notifReceived = new ArrayCollection();
     }
 
     public function updateAvatar()
@@ -777,6 +789,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($projectmod->getModerator() === $this) {
                 $projectmod->setModerator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notification[]
+     */
+    public function getNotifSent(): Collection
+    {
+        return $this->notifSent;
+    }
+
+    public function addNotifSent(Notification $notifSent): self
+    {
+        if (!$this->notifSent->contains($notifSent)) {
+            $this->notifSent[] = $notifSent;
+            $notifSent->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifSent(Notification $notifSent): self
+    {
+        if ($this->notifSent->contains($notifSent)) {
+            $this->notifSent->removeElement($notifSent);
+            // set the owning side to null (unless already changed)
+            if ($notifSent->getSender() === $this) {
+                $notifSent->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserNotif[]
+     */
+    public function getNotifReceived(): Collection
+    {
+        return $this->notifReceived;
+    }
+
+    public function addNotifReceived(UserNotif $notifReceived): self
+    {
+        if (!$this->notifReceived->contains($notifReceived)) {
+            $this->notifReceived[] = $notifReceived;
+            $notifReceived->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifReceived(UserNotif $notifReceived): self
+    {
+        if ($this->notifReceived->contains($notifReceived)) {
+            $this->notifReceived->removeElement($notifReceived);
+            // set the owning side to null (unless already changed)
+            if ($notifReceived->getReceiver() === $this) {
+                $notifReceived->setReceiver(null);
             }
         }
 
