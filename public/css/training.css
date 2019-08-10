@@ -1,4 +1,9 @@
-.training-course > div{ width: 30%; }
+.training-course > div{
+    width: 30%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .training-course > div:last-of-type{ width: auto; }
 
 [class^="status-"]{
@@ -13,7 +18,7 @@
 .status-blue{       background: dodgerblue; }
 
 .detail-icon{ margin-right: .5rem; cursor: pointer; }
-.detail-icon:hover{ color: rgba(242,72,71,1); }
+.detail-icon:hover{ color: var(--red); }
 
 /* Edit training */
 legend{ display: none; }

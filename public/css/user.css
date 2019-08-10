@@ -11,7 +11,7 @@
 .user > div{
     background: white;
     border-radius: 7px;
-    box-shadow: 0 0 1px rgba(0,0,0,.25), 0 2px 4px rgba(0,0,0,.25);
+    box-shadow: var(--shadow);
 }
 
 .user-info      { grid-area: 1 / 1 / 4 / 2; }
@@ -25,17 +25,17 @@
 .div9           { grid-area: 6 / 1 / 7 / 4; }
 
 .user-secondary-info li { margin-bottom: .25rem; }
-.user-secondary-info a{ color: rgba(0,0,0,.5); }
-.user-secondary-info a:hover{ color: black; }
+.user-secondary-info a{ color: var(--greylight); }
+.user-secondary-info a:hover{ color: var(--black); }
 .user-secondary-info i{
     width: 20px;
     text-align: center;
-    color: black;
+    color: var(--black);
 }
 
 .user-header { font-size: .94em; }
 .user-header p:hover{
-    color: rgba(242,72,71,1); cursor: pointer;
+    color: var(--red); cursor: pointer;
 }
 
 .user-weather img { width: 75px; height: 75px; }
@@ -45,12 +45,12 @@
     background: #EEE;
 }
 
-.see-project:hover{ color: rgba(242,72,71,1); }
+.see-project:hover{ color: var(--red); }
 .user-see-more{
-    border-bottom: 2px solid rgba(242,72,71,1);
+    border-bottom: 2px solid var(--red);
     transition: all .1s linear;
 }
-.user-see-more:hover{ background: rgba(242,72,71,1);}
+.user-see-more:hover{ background: var(--red);}
 
 .user-datas .circle{
     width: 90px;
@@ -59,7 +59,7 @@
     line-height: 90px;
     font-size: 2em;
     color: #FFF;
-    background: rgba(242,72,71,1);
+    background: var(--red);
     margin-bottom: .25rem;
 }
 

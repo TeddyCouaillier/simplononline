@@ -10,40 +10,19 @@
 
 {% block body %}
     {{ template.checkMessage(form) }}
-    <div class="flex just-between">
-        <h1>Liste des promotions</h1>
-        {% if is_granted('ROLE_ADMIN') %}
-        <div class="button-edit icon-sm" data-toggle="modal" data-target="#modal-add-promo"><i class="fal fa-plus"></i></div>
-        {% endif %}
-    </div>
+    <h1>Liste des promotions</h1>
     <hr>
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
-            {{ template.deleteConfirm(promo.id,path('promo_delete',{'id':promo.id})) }}
             <div class="bg-white shadow text-center mb-3 p-1 all-promo">
-                <div class="flex just-between align-baseline promo-nav">
-                    {% if promo.current %}
-                    <div class="current">
-                        En cours
-                    </div>
-                    {% else %}
-                    <div class="no-current">test</div>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    {{ template.modalPromotion('modal-edit-'~promo.id) }}
-                    <div>
-                        <div class="subnav">
-                            <i class="fas fa-ellipsis-v"></i>
-                            <div class="subnav-tooltip">
-                                <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="subnav-link">Ajouter</a><br>
-                                <a data-url="{{ path('promo_edit',{'slug':promo.slug}) }}" data-toggle="modal" data-target="#modal-edit-{{promo.id}}" class="subnav-link edit-promo">Modifier</a><br>
-                                <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{promo.id}}">Supprimer</a>
-                            </div>
+                {% if promo.current %}
+                    <div class="" style="position: absolute; width: 100px">
+                        <div class="current">
+                            En cours
                         </div>
                     </div>
-                    {% endif %}
-                </div>
-                <div class="promo-content">
+                {% endif %}
+                <div class="promo-content mt-3 mb-1">
                     <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="promo-url">
                         <h2>{{ promo.label }}</h2>
                         <ul>
@@ -58,32 +37,5 @@
         {% endfor %}
         <a href="{{ path('promo_other') }}" class="text-grey users-without-promo">Utilisateurs sans promotion <i class="fal fa-directions"></i></a>
     </div>
-
-    <div class="modal fade" id="modal-add-promo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    {{ form_start(form) }}
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="flex just-between align-center">
-                    <h2>Ajouter une promo</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <hr>
-                <div class="py-4 w-75 mx-auto">
-                {{ form_start(form) }}
-                {{ form_label(form.label) }}
-                {{ form_widget(form.label) }}
-                {{ form_label(form.nickname) }}
-                {{ form_widget(form.nickname) }}
-                <div class="custom-control custom-switch text-center mt-4">
-                {{ form_widget(form.current) }}
-                </div>
-                {{ template.confirm() }}
-                {{ form_end(form) }}
-            </div>
-            </div>
-        </div>
-    </div>
-    {{ form_end(form) }}
 </div>
 {% endblock %}

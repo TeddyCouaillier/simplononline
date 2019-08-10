@@ -1,8 +1,8 @@
 body{
-    background: rgba(242,72,71,1);
-    background: -moz-linear-gradient(-45deg,  rgba(242,72,71,1) 0%, rgba(242,72,71,0.75) 100%);
-    background: -webkit-linear-gradient(-45deg,  rgba(242,72,71,1) 0%,rgba(242,72,71,0.75) 100%);
-    background: linear-gradient(135deg,  rgba(242,72,71,1) 0%,rgba(242,72,71,0.75) 100%);
+    background: var(--red);
+    background: -moz-linear-gradient(-45deg,  var(--red) 0%, rgba(242,72,71,0.75) 100%);
+    background: -webkit-linear-gradient(-45deg,  var(--red) 0%,rgba(242,72,71,0.75) 100%);
+    background: linear-gradient(135deg,  var(--red) 0%,rgba(242,72,71,0.75) 100%);
     font-family: 'Abel' !important;
     font-weight: 400;
 }
@@ -22,8 +22,8 @@ body{
 .main form{ width: 85%; }
 
 .message-danger{
-    border: 1px solid rgba(242,72,71,1);
-    color: rgba(242,72,71,1);
+    border: 1px solid var(--red);
+    color: var(--red);
     font-weight: 500;
     margin: 5px 20px;
     padding: 10px 20px;

@@ -9,13 +9,72 @@
 {% endblock %}
 
 {% block body %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-    {% include 'training_course/_admin_show.html.twig' %}
-    {% else %}
-    {% include 'training_course/_user_show.html.twig' %}
+<div class="flex just-between">
+    <h1>Liste des stages</h1>
+    {% if app.user == user %}
+    <a href="{{ path('user_edit_training',{'id': user.id}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
     {% endif %}
-
-    {% include 'training_course/_show_training_admin.html.twig' %}
-
+</div>
+<hr>
+<div class="bg-grey rounded p-2">
+    {% for training in user.trainingCourse %}
+        <div class="container-white mb-2">
+            <div class="flex align-center">
+                <div class="w-33">
+                    <i class="fas fa-user-tie text-grey mr-1"></i>
+                    {{ training.society }}
+                </div>
+                <div class="w-33">
+                    <i class="fas fa-map-marker mr-1 text-grey"></i>
+                    {{ training.place }}
+                </div>
+                <div class="flex align-center w-25">
+                    <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
+                </div>
+                {% if app.user == user %}
+                <div class="ml-auto mr-2 rhover">
+                    <a data-toggle="modal" data-target="#modal-{{training.id}}"><i class="fal fa-times-circle"></i></a>
+                </div>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="my-2">
+                <em>
+                    {{ training.project|default('Pas de projet défini') }}
+                </em>
+            </div>
+        </div>
+        {% if app.user == user %}
+        {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
+        {% endif %}
+    {% else %}
+        <div class="py-3 text-center">
+            <i class="fal fa-times-hexagon icon-md"></i><br>
+            Il n'y a aucune demande de stage
+        </div>
+    {% endfor %}
+</div>
+<hr>
+<div class="bg-grey rounded p-2">
+    <span class="bold">Propositions de stage</span>
+    {% for training in trainingAdmin %}
+        <div class="bg-white rounded flex just-around p-2 mb-1  training-course">
+            <div>
+                <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                title="Détail" data-content=
+                'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
+                </i>
+                {{ training.society }}
+            </div>
+            <div>{{ training.place }}</div>
+            <div class="flex align-center"><span>{{ training.number }} stagiaire(s)</span></div>
+            <div></div>
+        </div>
+    {% else %}
+        <div class="py-3 text-center">
+            <i class="fal fa-times-hexagon icon-md"></i><br>
+            Il n'y a aucune proposition de stage
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

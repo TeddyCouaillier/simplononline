@@ -15,39 +15,31 @@
 
 {% block body %}
     <h1>
-    Tous les projets
-    {% if user is defined %}
-    de {{ user.firstname }} {{ user.lastname }}
-    {% endif %}
+        Tous les projets
+        {% if user is defined %}
+        de {{ user.firstname }} {{ user.lastname }}
+        {% endif %}
     </h1>
     <hr>
-    <div class="bg-grey rounded p-2">
-        {% if user is defined %}
-        {% set projects = user.projects %}
-        {% endif %}
-        {% for project in projects %}
-            <div class="container-white row  mx-0 mt-2">
-                <div class="col-4 flex align-center">
-                    <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a>
-                </div>
-                <div class="col-4 flex align-center justify-content-end">
-                    {% for user in project.users %}
-                        <img src="/img/avatar/{{user.avatar}}" class="avatar-xs">
-                    {% endfor %}
-                </div>
-                <div class="col-2 flex align-center">
-                    <div class="status-blue mr-2"></div> en cours
-                </div>
-                <div class="col-2 flex align-center">
-                    <em>Il y a 6 jours</em>
-                </div>
+    {% if user is defined %}
+    {% set projects = user.projects %}
+    {% endif %}
+    <div class="flex wrap">
+    {% for project in projects %}
+        <div class="container-white py-3 m-1 shadow-small text-center project-container">
+            <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a><br>
+            {% for user in project.users %}
+                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2">
+            {% endfor %}
+            <div class="flex wrap just-center text-small text-grey">
+                {% for language in project.languages %}
+                    {{ language.label }}
+                {% endfor %}
             </div>
-        {% else %}
-            <div class="container-white mx-0 mt-2 text-center">
-                <span class="bold">Cette section est vide.</span><br>
-                <a href="{{ path('project_create') }}" class="btn button-see-task py-1 px-2 my-1">Créer un projet</a>
-            </div>
-        {% endfor %}
+        </div>
+    {% endfor %}
+        <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
+            <a href="{{ path('project_create') }}"><div class="all-add-project p-4">+</div></a>
+        </div>
     </div>
-
 {% endblock %}

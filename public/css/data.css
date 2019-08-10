@@ -18,17 +18,17 @@
     border-radius: 50%;
     cursor: pointer;
     font-size: 1em;
-    color: rgba(0,0,0,.5);
+    color: var(--greylight);
 }
 .copy:hover{ color: #000000; }
-.copy:active{ color: rgba(242,72,71,1); }
+.copy:active{ color: var(--red); }
 .data-edit label{ display: none !important; }
 
 .data-list{
     cursor: pointer;
     background: white;
-    border: 1px solid black;
+    border: 1px solid var(--black);
 }
-.data-list, .data-list a{ color: black; }
-.data-list:hover{ border: 1px solid rgba(242,72,71,1); }
-.data-list:hover, .data-list:hover a{ color: rgba(242,72,71,1); }
+.data-list, .data-list a{ color: var(--black); }
+.data-list:hover{ border: 1px solid var(--red); }
+.data-list:hover, .data-list:hover a{ color: var(--red); }

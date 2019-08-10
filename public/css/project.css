@@ -13,7 +13,7 @@
     font-size: .9em;
 }
 .project-nav.active{
-    background: #FFFFFF;
+    background: var(--white);
     border-radius: 7px!important;
     font-weight: 600;
 }
@@ -45,7 +45,7 @@
 }
 
 .badge-link-active{
-    background: rgba(242,72,71,1);
+    background: var(--red);
     color: white;
 }
 
@@ -67,17 +67,17 @@
 
 .button-see-task{
     border-radius: 20px;
-    background: #FFFFFF;
-    color: rgba(242,72,71,1);
-    border-color: rgba(242,72,71,1);
+    background: var(--white);
+    color: var(--red);
+    border-color: var(--red);
     font-weight: 650;
 }
 .button-see-task:hover{
-    background: rgba(242,72,71,1);
-    color: #FFFFFF;
+    background: var(--red);
+    color: var(--white);
 }
 .button-see-task:focus{
-    box-shadow: 0 0 6px 0 rgba(0,0,0,.25);
+    box-shadow: var(--shadow);
 }
 
 @-webkit-keyframes fadeIn {
@@ -110,6 +110,21 @@
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+
+.all-add-project{
+    border-radius: 50%;
+    font-size: 5em;
+    color: #CCC;
+    cursor: pointer;
+    transition: all .3s linear;
+}
+.all-add-project:hover{
+    color: var(--red);
+}
+.project-container{
+    width: 32%;
+    height: 125px;
 }
 
 @media (min-width: 992px){

@@ -1,9 +1,9 @@
 .help-link > span{
     font-size: .85em;
-    color: rgba(0,0,0,.5);
+    color: var(--greylight);
 }
 .help-link:hover .link{
-    color: rgba(242,72,71,1);
+    color: var(--red);
 }
 
 [class*="badge-link-"]{
@@ -14,17 +14,17 @@
 }
 
 .badge-link-active{
-    background: rgba(242,72,71,1);
+    background: var(--red);
     color: white;
 }
 
 .badge-link-inactive{
     background: white;
-    color: rgba(242,72,71,1);
-    border: 1px solid rgba(242,72,71,1);
+    color: var(--red);
+    border: 1px solid var(--red);
 }
 .badge-link-inactive:hover{
-    background: rgba(242,72,71,1);
+    background: var(--red);
     color: white;
     cursor: pointer;
 }

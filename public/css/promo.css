@@ -1,7 +1,7 @@
 
 /* Show promotion */
 .promo-users{
-    background: #FFFFFF;
+    background: var(--white);
     margin-bottom: 1rem;
     padding: 1rem 0;
     width: 32%;
@@ -21,8 +21,8 @@
     top: 40%;
     z-index: 2;
     padding: 10px;
-    color: rgba(0,0,0,0.2);
-    background: #FFFFFF;
+    color: var(--greydark);
+    background: var(--white);
     font-size: 3em;
 }
 
@@ -31,9 +31,9 @@
     padding: 10px;
 }
 .promo-add .button-circle{
-    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.4) !important;
-    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.4) !important;
-    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.4) !important;
+    -webkit-box-shadow: var(--shadow);
+       -moz-box-shadow: var(--shadow);
+            box-shadow: var(--shadow);
 }
 .promo-add-users > div { margin: 0 5px;}
 .promo-add-users > div:not(:last-child){
@@ -61,7 +61,7 @@ legend{
     transition: all .2s linear;
 }
 .all-promo > .promo-content:hover h2{
-    color: rgba(242,72,71,1);
+    color: var(--red);
 }
 .current, .no-current{
     padding: 5px 15px;
@@ -69,12 +69,12 @@ legend{
     font-weight: 600;
 }
 .current{
-    background: rgba(242,72,71,1);
-    color: #FFFFFF;
+    background: var(--red);
+    color: var(--white);
 }
 .no-current{
-    background: #FFFFFF;
-    color: #FFFFFF;
+    background: var(--white);
+    color: var(--white);
 }
 .users-without-promo{ transition: all .2s linear; }
 .users-without-promo:hover{ color: #000000 !important; }
