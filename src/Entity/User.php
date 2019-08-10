@@ -192,17 +192,10 @@ class User implements UserInterface
         $this->projects       = new ArrayCollection();
         $this->tasks          = new ArrayCollection();
         $this->projectmod     = new ArrayCollection();
+        $this->notifSent      = new ArrayCollection();
+        $this->notifReceived  = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
         $this->weather        = 0;
-        $this->notifSent = new ArrayCollection();
-        $this->notifReceived = new ArrayCollection();
-    }
-
-    public function updateAvatar()
-    {
-        if($this->avatar == null){
-            $this->avatar = "avatar.png";
-        }
     }
 
     /**
@@ -395,6 +388,12 @@ class User implements UserInterface
     {
         return strtoupper($this->lastname).' '.ucfirst($this->firstname);
     }
+
+    public function getInitial()
+    {
+        return strtoupper($this->firstname[0].$this->lastname[0]);
+    }
+
     public function getAvatarName(): ?string
     {
         return $this->lastname.''.$this->firstname.''.$this->id;

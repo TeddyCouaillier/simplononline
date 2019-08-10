@@ -9,124 +9,230 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex just-between">
-        <div>
-            <h1>{{ user.fullname }}</h1>
-            {% if user.promotion != null %}
-            <span class="badge badge-pill badge-danger">{{ user.promotion.label }}</span>
-            {% endif %}
+<div class="user">
+    {######################################
+     #### USER INFO
+     #####################################}
+    <div class="user-info flexc align-center just-around p-3">
+        {% if user.avatar is not null %}
+        <img src="/img/avatar/{{user.avatar}}" class="avatar-lg mb-2">
+        {% else %}
+        <div class="flex just-center align-center initial avatar-lg mb-2"><span>{{ user.initial }}</span></div>
+        {% endif %}
+        <span class="text-red bold">{{ user.fullname }}</span>
+        {% if user.promotion != null %}
+        <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
+        {% endif %}
+        <ul class="user-secondary-info mt-2 mr-auto text-grey">
+            <li><i class="fal fa-envelope"></i> {{user.email }}</li>
+            <li>
+                <i class="fal fa-mobile-android"></i>
+                {% if user.tel != null %}
+                {{ user.tel }}
+                {% else %}
+                <em>Pas de numéro de téléphone</em>
+                {% endif %}
+            </li>
+            <li>
+                <i class="far fa-map-marker-alt"></i>
+                {% if user.zipcode != null or user.city != null %}
+                {{ user.zipcode }} {{ user.city }}
+                {% else %}
+                <em>Pas d'adresse</em>
+                {% endif %}
+            </li>
+            <li>
+                <i class="fal fa-globe"></i>
+                {% if user.website != null %}
+                <a href="{{ user.website }}" target="_blank">Site internet</a>
+                {% else %}
+                <em>Pas de site internet</em>
+                {% endif %}
+            </li>
+            <li>
+                <i class="fal fa-code-branch"></i>
+                {% if user.github != null %}
+                <a href="{{ user.github }}" target="_blank">GitHub</a>
+                {% else %}
+                <em>Pas de lien github</em>
+                {% endif %}
+            </li>
+        </ul>
+        <div class="text-center text-red text-medium">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
         </div>
-        <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm">
     </div>
-    <hr>
-    <div class="bg-grey user-info">
-        <div class="user-primary-info">
-            <b>Info personnelles</b>
-            {% if app.user.id == user.id %}
-                <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-                data-content='<a href="{{ path('user_edit',{'id': app.user.id}) }}" class="subnav-link">Modifier</a>'></i>
-            {% endif %}
-            <ul class="mt-2">
-                <li class="mb-1"><i class="fal fa-envelope"></i> {{user.email }}</li>
-                <li class="mb-1">
-                    <i class="fal fa-mobile-android"></i>
-                    {% if user.tel != null %}
-                    {{ user.tel }}
-                    {% else %}
-                    <em>Pas de numéro de téléphone</em>
-                    {% endif %}
-                </li>
-                <li class="mb-1">
-                    <i class="far fa-map-marker-alt"></i>
-                    {% if user.zipcode != null or user.city != null %}
-                    {{ user.zipcode }} {{ user.city }}
-                    {% else %}
-                    <em>Pas d'adresse</em>
-                    {% endif %}
-                </li>
-                <li class="mb-1">
-                    <i class="fal fa-globe"></i>
-                    {% if user.website != null %}
-                    <a href="{{ user.website }}" target="_blank">Site internet</a>
-                    {% else %}
-                    <em>Pas de site internet</em>
-                    {% endif %}
-                </li>
-                <li class="mb-1">
-                    <i class="fal fa-code-branch"></i>
-                    {% if user.github != null %}
-                    <a href="{{ user.github }}" target="_blank">GitHub</a>
-                    {% else %}
-                    <em>Pas de lien github</em>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
-        <div class="user-skills" id="skills">
-            <b>Compétences</b>
-            {% if app.user.id == user.id %}
-            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('user_edit_skills',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
-            {% endif %}
-            <div class="mt-2 rounded">
-            {% for skill in user.userSkills %}
-                {{ template.level(skill) }}
-            {% endfor %}
+
+    {######################################
+     #### USER NAV
+     #####################################}
+    <div class="user-header flex just-around align-center text-center p-3">
+        {% if app.user == user %}
+        <p>
+            <i class="far fa-list-ul text-large"></i><br>
+            Projets
+        </p>
+        <p>
+            <i class="fas fa-envelope text-large"></i><br>
+            Fichiers
+        </p>
+        <p>
+            <i class="fas fa-handshake text-large"></i><br>
+            Stages
+        </p>
+        <p>
+            <i class="fas fa-key text-large"></i><br>
+            Données
+        </p>
+        <p>
+            <i class="fas fa-cog text-large"></i><br>
+            Modifier
+        </p>
+        <p>
+            <i class="fas fa-lock text-large"></i><br>
+            Password
+        </p>
+        {% else %}
+        <p class="text-grey">
+            {# En contrat avec <em>Médiatech</em> #}
+            {# Apprenant Promo 1.1 #}
+            Sans emploi
+        </p>
+        {% endif %}
+    </div>
+
+    {######################################
+     #### USER FILES
+     #####################################}
+    <div class="user-files">
+        <div class="flex just-center align-center h-100">
+            <div class="flex align-center text-center">
+                {% if app.user == user %}
+                    {% set filecount = user.importantFiles|length %}
+                    <p class="bold">
+                        {% if filecount == 0 %}
+                        {{ filecount }} fichier important.<br>
+                        <i class="fal fa-folder-times icon-sm mt-2"></i>
+                        {% elseif filecount == 1 %}
+                        <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                        <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
+                        {% else %}
+                        <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                        <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <i class="fab fa-symfony icon-lg"></i>
+                {% endif %}
             </div>
         </div>
-        <div class="user-stage">
-            <b>Stages</b>
-            {% if app.user.id == user.id %}
-            <i tabindex="0" class="fas fa-ellipsis-v subnav" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-content='<a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a>'></i>
-            <div>
-                <div class="subnav">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <div class="subnav-tooltip">
-                        <a href="{{ path('user_edit',{'id': user.id}) }}" class="subnav-link">Modifier</a><br>
+    </div>
+
+    {######################################
+     #### USER WEATHER
+     #####################################}
+     <div class="user-weather flexc just-between">
+        <div class="flex just-center align-center h-100">
+            {{ user.weatherIcon|raw }}
+        </div>
+        <div class="now text-center bold py-2">
+            {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
+        </div>
+    </div>
+
+    {######################################
+     #### USER PROJECTS
+     #####################################}
+    <div class="user-projects p-3">
+        {% if user.projects is not empty %}
+            {% for project in user.projects|slice(0,4) %}
+                <div class="flex just-between align-baseline">
+                    <span>{{ project.title }}</span>
+                    <a href="#" class="see-project"><i class="fal fa-arrow-circle-right"></i></a>
+                </div>
+                <hr>
+            {% endfor %}
+            <div class="text-center mt-4">
+                <a href="#" class="user-see-more p-1">Voir tous</a>
+            </div>
+        {% else %}
+            <div class="flex just-center align-center text-center bold h-100">
+                <p>
+                    <i class="fal fa-times-hexagon icon-lg mb-2"></i><br>
+                    Aucun projet en cours
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    {######################################
+     #### USER TRAINING COURSES
+     #####################################}
+    <div class="user-trainings">
+        {% if user.trainingCourse is not empty %}
+            <div class="p-2">
+                {% for training in user.trainingCourse|slice(0,5) %}
+                    <div class="flex align-baseline py-1 px-2">
+                        <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                        title="Détail" data-content=
+                        'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
+                        </i>
+                        <div style="width: 60%">{{ training.society }}</div>
+                        <div class="flex align-center">
+                            <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
+                        </div>
                     </div>
+                {% endfor %}
+                <div class="text-center mt-4">
+                    <a href="#" class="user-see-more p-1">Voir tous</a>
                 </div>
             </div>
-            {% endif %}
-            {% for training in app.user.trainingCourse|slice(0,3) %}
-            <div class="bg-white rounded flex just-around p-2 mt-2  training-course shadow">
-                <div>
-                    {{ training.society }}
-                </div>
-                <div>{{ training.place }}</div>
-                <div class="flex align-center">
-                    <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
-                </div>
-                <div>
-                    {% if training.project == null %}
-                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                    title="Détail" data-content=
-                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1"><em>Pas de détail</em>'>
-                    </i>
-                    {% else %}
-                    <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                    title="Détail" data-content=
-                    'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project }}'>
-                    </i>
-                    {% endif %}
-                </div>
+        {% else %}
+            <div class="flex just-center align-center text-center bold h-100">
+                <p>
+                    <i class="fal fa-times-hexagon icon-lg mb-2"></i><br>
+                    Aucune proposition de stage
+                </p>
             </div>
-            {% else %}
-            <div class="bg-white rounded p-2 h-75 flex just-center align-center text-center">
-                Il n'y a aucune demande de stage.<br>
-            </div>
-            {% endfor %}
-            {% if app.user.trainingCourse is not empty %}
-                <div class="text-center mt-3">
-                    <a href="#" class="text-grey">Voir tous ({{ app.user.trainingCourse|length}})</a>
-                </div>
-            {% endif %}
+        {% endif %}
+    </div>
+
+    {######################################
+     #### USER DATA
+     #####################################}
+    <div class="user-datas flex just-around align-center text-center bold">
+        <div>
+            <div class="circle">{{ user.projects|length }}</div>
+            <span>Projets</span>
         </div>
-        <div class="user-project">
-            <b>Liste des projets</b>
+        <div>
+            <div class="circle">{{ user.helps|length }}</div>
+            <span>Aides</span>
         </div>
-        <div class="user-portfolio">
-            <b>Portfolio</b>
+        <div>
+            <div class="circle">10</div>
+            <span>Autres</span>
         </div>
     </div>
+
+    {######################################
+     #### USER SKILLS
+     #####################################}
+    <div class="user-skills py-1 px-3">
+        <div class="mt-2 rounded">
+        {% for skill in user.userSkills %}
+            {{ template.level(skill) }}
+        {% endfor %}
+        </div>
+    </div>
+
+    {######################################
+     #### OTHER
+     #####################################}
+    <div class="div9"></div>
+</div>
 {% endblock %}

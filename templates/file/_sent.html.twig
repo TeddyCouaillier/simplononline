@@ -1,7 +1,7 @@
 {% import 'macro.html.twig' as template %}
 
-<div class="flex just-between">
-    <span class="bold">Mes fichiers envoyés</span>
+<div class="flex just-between align-baseline pt-1">
+    <span class="bold ml-1">Mes fichiers envoyés</span>
     {% if sending is not empty %}
         <div class="files-delete ml-2" data-toggle="modal" data-target="#modal-delete-all">Tout supprimer <i class="fal fa-times-circle"></i></div>
     {% endif %}

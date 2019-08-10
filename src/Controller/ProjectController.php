@@ -13,13 +13,13 @@ use App\Form\Project\EditTaskType;
 use App\Repository\UserRepository;
 use App\Form\Project\EditProjectType;
 use App\Repository\ProjectRepository;
+use App\Form\Project\AddCorrectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\Project\AddCorrectionType;
 
 /**
  * @Route("/project", name="project_")
@@ -262,6 +262,13 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
     {
+        // $lien = 'https://api.github.com/repos/TeddyCouaillier/simplononline/commits';
+
+        // $httpClient = HttpClient::create();
+        // $response = $httpClient->request('GET', $lien);
+
+        // dump($response->getContent());
+
         $correction = new Correction();
         $task = new Task();
         $task->setProject($project);

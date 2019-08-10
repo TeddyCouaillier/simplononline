@@ -23,22 +23,22 @@
             <div><a href="#" class="btn btn-danger"><i class="far fa-arrow-circle-right"></i></a></div>
             <div><i class="fal fa-times-circle"></i></div>
         </div>
-        <div class="container-white flex align-center my-1 shadow w-100 text-center notifs">
-            <div class="text-left">Vos compétences ont été modifiées</div>
-            <div><span class="text-small text-grey">Il y a 17 jours</span></div>
-            <div><a href="#" class="btn btn-danger"><i class="far fa-arrow-circle-right"></i></a></div>
-            <div><i class="fal fa-times-circle"></i></div>
+        <div class="container-white flex align-center my-1 shadow w-100 text-center notifs" style="background: red!important;">
+            <div class="text-left text-white">Vos compétences ont été modifiées</div>
+            <div><span class="text-small text-white">Il y a 17 jours</span></div>
+            <div><a href="#" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a></div>
+            <div><i class="fal fa-times-circle text-white"></i></div>
         </div>
     </div>
 </div>
 
 <div class="user-subnav">
     <div class="flexc justify-content-end align-center">
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
-            <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope"></i></a>
-        </div>
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Projets">
             <a href="{{ path('user_show_projects',{'id': app.user.id}) }}"><i class="far fa-list-ul"></i></a>
+        </div>
+        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
+            <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope"></i></a>
         </div>
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
             <a href="{{ path('user_show',{'id': app.user.id}) }}#skills"><i class="fal fa-star"></i></a>
@@ -49,9 +49,8 @@
     </div>
 </div>
 
-<div class="flex just-around align-center shadow user-nav">
+<div class="flex just-around align-center user-nav">
     <i class="fas fa-bell notif"></i>
-    {# <i class="fal fa-ellipsis-h-alt"></i> #}
     <img src="/img/dot.svg" class="dots">
-    <img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs">
+    <a href="{{path('user_show',{'id': app.user.id }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
 </div>

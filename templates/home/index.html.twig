@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="home bg-grey rounded">
+{# <div class="home rounded">
     <div class="user-last-project ">
         <span class="bold">Dernier projet</span>
     </div>
@@ -66,9 +66,9 @@
     </div>
     <div class="user-stage ">
         <span class="bold">Etat des stages</span>
-        {% for training in app.user.trainingCourse|slice(0,2) %}
+        {% for training in app.user.trainingCourse|slice(0,2) %} #}
             {# {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':app.user.id,'training_id':training.id})) }} #}
-            <div class="bg-white rounded flex just-around p-2 my-1  training-course shadow">
+            {# <div class="bg-white rounded flex just-around p-2 my-1  training-course shadow">
                 <div>
                     {{ training.society }}
                 </div>
@@ -114,5 +114,24 @@
     </div>
     <div class="home-empty">
     </div>
-</div>
+</div> #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

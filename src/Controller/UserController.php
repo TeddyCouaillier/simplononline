@@ -335,7 +335,8 @@ class UserController extends AbstractController
     public function showUser(User $user)
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'date' => new \DateTime()
         ]);
     }
 }

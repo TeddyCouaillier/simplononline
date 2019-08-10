@@ -60,6 +60,7 @@ hr{
 .text-justify{ text-align: justify!important; }
 .text-small  { font-size: .85em; }
 .text-medium { font-size: 1.2em; }
+.text-large  { font-size: 1.6em; }
 
 /*****************************************************
  ** DISPLAY
@@ -122,8 +123,13 @@ hr{
     height: 75px;
 }
 .avatar-lg{
-    width: 175px;
-    height: 175px;
+    width: 150px;
+    height: 150px;
+}
+.initial{
+    background: #AAA;
+    color: #CCC;
+    font-size: 5em;
 }
 .shadow{
     box-shadow: 0 0 .5rem rgba(0,0,0,.15)!important;

@@ -1,7 +1,7 @@
 <div class="received-files">
     {% for ufiles in user.userFiles | reverse %}
         {% set file = ufiles.files %}
-        <div class="file-content rounded ">
+        <div class="file-content rounded mb-2">
             {% if ufiles.important == null %}
             <div class="file-state"></div>
             {% else %}

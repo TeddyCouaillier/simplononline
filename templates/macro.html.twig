@@ -1,15 +1,25 @@
 {# Error message for a form #}
 {% macro checkMessage(form, message = null) %}
     {% if not form.vars.valid %}
-    <div class="message-warning">
-        Il y a une ou plusieurs erreurs de saisie.
-        {% if message != null %}
-        <br>{{ message }}
-        {% endif %}
-        <button type="button" class="close close-message">
-            <span>&times;</span>
-        </button>
-    </div>
+        <div>
+            <div class="messages-warning flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-2">
+                <div class="messages-icon-warning">
+                    <i class="fas fa-exclamation-circle icon-sm pr-4"></i>
+                </div>
+                <p class="w-100">
+                    <span class="bold">
+                        Erreur
+                    </span><br>
+                    <span class="text-grey">Il y a une ou plusieurs erreurs de saisie.</span><br>
+                    {% if message != null %}
+                    <span class="text-grey">{{ message }}</span>
+                    {% endif %}
+                </p>
+                <button type="button" class="close close-message text-grey">
+                    <span>&times;</span>
+                </button>
+            </div>
+        </div>
     {% endif %}
 {% endmacro %}
 
