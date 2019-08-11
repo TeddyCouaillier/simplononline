@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Data;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Skills;
+use App\Entity\UserNotif;
+use App\Entity\Notification;
 use App\Entity\TrainingCourse;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
@@ -21,7 +24,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\Role;
 
 /**
  * @Route("/user", name="user_")
@@ -164,7 +166,7 @@ class UserController extends AbstractController
 
     /**
      * Edit user's skill
-     * @Route("/{id}/edit_skills", name="edit_skills")
+     * @Route("/{id}/competences", name="edit_skills")
      * @IsGranted("ROLE_ADMIN")
      * @param User $user
      * @param Request $request
@@ -176,6 +178,9 @@ class UserController extends AbstractController
         $form = $this->createForm(EditUserSkillsType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $notif = $user->createSenderNotif(Notification::SKILL, $user->getId());
+            $user->createUserNotif($notif);
+
             $manager->persist($user);
             $manager->flush();
 
@@ -326,14 +331,84 @@ class UserController extends AbstractController
         ]);
     }
 
+    // -----------------------------------------------------
+    // -- Notification section
+    // -----------------------------------------------------
+
     /**
-     * Show a specific user
-     * @Route("/{id}", name="show")
+     * Delete a specific user's notification
+     * @Route("/notification/{id}/delete", name="delete_notif")
+     * @param UserNotif     $unotif
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteUserNotif(UserNotif $unotif, ObjectManager $manager)
+    {
+        $manager->remove($unotif);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La notification a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('user_show_notif',['id' => $this->getUser()->getId()]);
+    }
+
+    /**
+     * Delete all user's notifications
+     * @Route("/notification/delete_all", name="delete_all_notif")
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteAllNotif(ObjectManager $manager)
+    {
+        foreach($this->getUser()->getNotifReceived() as $unotif){
+            $manager->remove($unotif);
+        }
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Les notifications ont bien été supprimées.'
+        );
+
+        return $this->redirectToRoute('user_show_notif',['id' => $this->getUser()->getId()]);
+    }
+
+    /**
+     * Show all user's notifications
+     * @Route("/{id}/notification", name="show_notif")
      * @param User $user
      * @return Response
      */
-    public function showUser(User $user)
+    public function showUserNotif(User $user)
     {
+        return $this->render('notification/show.html.twig',[
+            'user' => $user
+        ]);
+    }
+
+
+    /**
+     * Show a specific user
+     * @Route("/{id}", name="show")
+     * @param User          $user
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function showUser(User $user, Request $request, ObjectManager $manager)
+    {
+        if($request->query->get('seen') != null){
+            $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
+            if($unotif != null){
+                $unotif->setSeen(true);
+                $manager->persist($unotif);
+                $manager->flush();
+            }
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'date' => new \DateTime()

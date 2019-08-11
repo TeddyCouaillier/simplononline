@@ -201,11 +201,21 @@ function projectPanel(el){
 
 
 $(document).on('click','.notif',function() {
-    $(this).parent().parent().find('.user-notif').fadeToggle();
-    // $(this).find('.subnav-tooltip').fadeToggle();
+    if($(this).parent().parent().find('.user-notif').css('display') == 'none'){
+        $(this).parent().parent().find('.user-notif').fadeIn();
+        $(this).addClass('text-black');
+    } else {
+        $(this).parent().parent().find('.user-notif').fadeOut();
+        $(this).removeClass('text-black');
+    }
 })
 
 $(document).on('click','.dots',function() {
-    $(this).parent().parent().find('.user-subnav').fadeToggle();
-    // $(this).find('.subnav-tooltip').fadeToggle();
+    if($(this).parent().parent().find('.user-subnav').css('display') == 'none'){
+        $(this).parent().parent().find('.user-subnav').fadeIn();
+        $(this).addClass('active');
+    } else {
+        $(this).parent().parent().find('.user-subnav').fadeOut();
+        $(this).removeClass('active');
+    }
 })

@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Entity\Skills;
 use App\Entity\UserData;
+use App\Entity\UserNotif;
 use App\Entity\UserSkills;
+use App\Entity\Notification;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -171,12 +173,12 @@ class User implements UserInterface
     private $projectmod;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="sender", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Notification", cascade={"persist"}, mappedBy="sender", orphanRemoval=true)
      */
     private $notifSent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", mappedBy="receiver")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", cascade={"persist"}, mappedBy="receiver")
      */
     private $notifReceived;
 
@@ -563,10 +565,30 @@ class User implements UserInterface
     {
         $ufile = new UserFiles();
         $ufile->setImportant($important)
-                ->setReceiver($this)
-                ->setSender($sender)
-                ->setFiles($file);
+              ->setReceiver($this)
+              ->setSender($sender)
+              ->setFiles($file);
         $this->addUserFile($ufile);
+    }
+
+    public function createUserNotif($notif)
+    {
+        $unotif = new UserNotif();
+        $unotif->setNotification($notif)
+               ->setReceiver($this);
+        $this->addNotifReceived($unotif);
+    }
+
+    public function createSenderNotif($type, $target = null)
+    {
+        $notif = new Notification();
+        $notif->setSender($this)
+              ->setType($type);
+        if($target != null){
+            $notif->setTarget($target);
+        }
+        $this->addNotifSent($notif);
+        return $notif;
     }
 
     /**
@@ -854,5 +876,15 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function hasNotif()
+    {
+        foreach($this->notifReceived as $notif){
+            if(!$notif->getSeen()){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -62,6 +62,7 @@ hr{
 .text-grey   { color: var(--greylight) !important; }
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
+.text-black  { color: var(--black) !important; }
 .bold        { font-weight: 600; }
 .text-small  { font-size: .85em; }
 .text-medium { font-size: 1.2em; }
@@ -170,6 +171,7 @@ hr{
 }
 .w-33{ width: 33% !important; }
 .w-66{ width: 66% !important; }
+.pointer{ cursor: pointer; }
 /*****************************************************
 ** FORM
 ****************************************************/

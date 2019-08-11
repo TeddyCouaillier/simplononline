@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Notification
 {
+    const TASK    = 1;
+    const PROJECT = 2;
+    const SKILL   = 3;
+    const FILE    = 4;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -38,6 +43,11 @@ class Notification
      * @ORM\Column(type="integer")
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $target;
 
     public function __construct()
     {
@@ -113,6 +123,59 @@ class Notification
     public function setType(int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        switch($this->type){
+            case self::TASK:
+                return 'Vous avez été assigné à une tache';
+                break;
+            case self::PROJECT:
+                return 'Vous avez rejoint un projet';
+                break;
+            case self::SKILL:
+                return 'Vos compétences ont été modifiées';
+                break;
+            case self::FILE:
+                return 'Vous avez reçu un fichier';
+                break;
+        }
+    }
+
+    /**
+     * Get the difference between the project creating time and now
+     * @return String
+     */
+    public function getInterval()
+    {
+        $time_diff = date_diff($this->sentAt, new \DateTime());
+        $format = "Aujourd'hui";
+        if ($time_diff->d == 1) {
+            $format = "Hier";
+        }
+        if ($time_diff->d > 1) {
+            $format = "Il y a %d jours";
+        }
+        if ($time_diff->m > 0) {
+            $format = "Il y a %m mois";
+        }
+        if ($time_diff->y > 0) {
+            $format = "Il y a %m ans";
+        }
+        return $time_diff->format($format);
+    }
+
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    public function setTarget(string $target): self
+    {
+        $this->target = $target;
 
         return $this;
     }

@@ -1,16 +1,28 @@
+{% extends 'base.html.twig' %}
+
 {% import 'macro.html.twig' as template %}
 
-<div class="user-notif">
-    <div class="flexc">
-        <div class="container-white flex align-center my-1 shadow w-100 text-center bg-red text-white notifs-header">
-            <div class="">Vous avez <span class="text-white bold">{{ app.user.notifReceived|length }}</span> notifications</div>
-            <div><a href="{{ path('user_show_notif',{'id':app.user.id}) }}" class="text-white bold"><i class="far fa-arrow-circle-right"></i></a></div>
-        </div>
-        {% for unotif in app.user.notifReceived|slice(0,4) %}
+{% block title %}Liens d'aide{% endblock %}
+
+{% block body %}
+    {{ template.deleteConfirm('delete-all',path('user_delete_all_notif'), 'Toutes vos notifications seront supprimées')}}
+    <div class="flex just-between align-center">
+        <h1>Vos notifications</h1>
+        <i data-toggle="modal" data-target="#modal-delete-all" class="fal fa-times-circle icon-md pointer rhover"></i>
+    </div>
+    <hr>
+    <div class="container-grey">
+        {% for unotif in app.user.notifReceived %}
             {% set notif = unotif.notification %}
+            {{ template.deleteConfirm(unotif.id,path('user_delete_notif',{'id': unotif.id}))}}
             {% if unotif.seen == false %}
                 <div class="rounded p-2 flex align-center my-1 shadow w-100 bg-red text-white text-center notifs">
-                    <div class="text-left">{{ notif.title }}</div>
+                    <div class="text-left">
+                        {{ notif.title }}
+                        <span class="text-black ml-2">
+                            par {{ notif.sender.firstname|capitalize }} {{ notif.sender.lastname|slice(0,1)|upper }}.
+                        </span>
+                    </div>
                     <div><span class="text-small">{{ notif.interval }}</span></div>
                     <div>
                     {% if notif.type == 1 or notif.type == 2 %}
@@ -21,10 +33,16 @@
                     <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}
                     </div>
+                    <div><i data-toggle="modal" data-target="#modal-{{unotif.id}}" class="fal fa-times-circle pointer rhover"></i></div>
                 </div>
             {% else %}
                 <div class="container-white flex align-center my-1 shadow w-100 text-center notifs">
-                    <div class="text-left">{{ notif.title }}</div>
+                    <div class="text-left">
+                        {{ notif.title }}
+                        <span class="text-grey ml-2">
+                            par {{ notif.sender.firstname|capitalize }} {{ notif.sender.lastname|slice(0,1)|upper }}.
+                        </span>
+                    </div>
                     <div><span class="text-small text-grey">{{ notif.interval }}</span></div>
                     <div>
                     {% if notif.type == 1 or notif.type == 2 %}
@@ -35,31 +53,14 @@
                     <a href="{{ path('file_user_show') }}" class="btn btn-danger text-white"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}
                     </div>
+                    <div><i data-toggle="modal" data-target="#modal-{{unotif.id}}" class="fal fa-times-circle pointer"></i></div>
                 </div>
             {% endif %}
+        {% else %}
+            <div class="text-center py-2">
+                <i class="fal fa-times-hexagon icon-sm"></i><br>
+                <span class="bold">Aucune notification</span>
+            </div>
         {% endfor %}
     </div>
-</div>
-
-<div class="user-subnav">
-    <div class="flexc justify-content-end align-center">
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Projets">
-            <a href="{{ path('user_show_projects',{'id': app.user.id}) }}"><i class="far fa-list-ul"></i></a>
-        </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
-            <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope"></i></a>
-        </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
-            <a href="{{ path('user_show',{'id': app.user.id}) }}#skills"><i class="fal fa-star"></i></a>
-        </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Stages">
-            <a href="{{ path('user_show_training',{'id': app.user.id}) }}"><i class="fal fa-handshake"></i></a>
-        </div>
-    </div>
-</div>
-
-<div class="flex just-around align-center user-nav">
-    <i class="fas fa-bell notif {% if app.user.hasNotif %} active {% endif %}"></i>
-    <img src="/img/dot.svg" class="dots">
-    <a href="{{path('user_show',{'id': app.user.id }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
-</div>
+{% endblock %}

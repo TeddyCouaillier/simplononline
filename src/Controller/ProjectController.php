@@ -20,6 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\UserNotif;
+use App\Entity\Notification;
 
 /**
  * @Route("/project", name="project_")
@@ -54,7 +56,8 @@ class ProjectController extends AbstractController
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $users_id = $request->request->get('project')['users'];
+            // Get form datas
+            $users_id     = $request->request->get('project')['users'];
             $languages_id = $request->request->get('project')['languages'];
             foreach($users_id as $id){
                 $user = $rep->find($id);
@@ -64,11 +67,23 @@ class ProjectController extends AbstractController
                 $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
                 $project->addLanguage($language);
             }
+
             // Publisher
             $project->setModerator($this->getUser());
             $project->addUser($this->getUser());
 
             $manager->persist($project);
+            $manager->flush();
+
+            // New notification
+            $notif = $this->getUser()->createSenderNotif(Notification::PROJECT, $project->getSlug());
+            $manager->persist($this->getUser());
+            foreach($project->getUsers() as $user){
+                if($user != $this->getUser()){
+                    $user->createUserNotif($notif);
+                    $manager->persist($user);
+                }
+            }
             $manager->flush();
 
             $this->addFlash(
@@ -269,6 +284,15 @@ class ProjectController extends AbstractController
 
         // dump($response->getContent());
 
+        if($request->query->get('seen') != null){
+            $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
+            if($unotif != null){
+                $unotif->setSeen(true);
+                $manager->persist($unotif);
+                $manager->flush();
+            }
+        }
+
         $correction = new Correction();
         $task = new Task();
         $task->setProject($project);
@@ -286,6 +310,17 @@ class ProjectController extends AbstractController
                 $task->addUser($user);
             }
             $manager->persist($task);
+            $manager->flush();
+
+            // New notification
+            $notif = $this->getUser()->createSenderNotif(Notification::TASK, $project->getSlug());
+            $manager->persist($this->getUser());
+            foreach($task->getUsers() as $user){
+                if($user != $this->getUser()){
+                    $user->createUserNotif($notif);
+                    $manager->persist($user);
+                }
+            }
             $manager->flush();
 
             $this->addFlash(

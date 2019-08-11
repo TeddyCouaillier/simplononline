@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Files;
 use App\Entity\UserFiles;
+use App\Entity\UserNotif;
+use App\Entity\Notification;
 use App\Form\File\FilesType;
 use App\Form\File\FilesAdminType;
 use App\Repository\UserRepository;
@@ -37,6 +39,15 @@ class FileController extends AbstractController
      */
     public function showFileUser(Request $request, ObjectManager $manager, UserRepository $rep)
     {
+        if($request->query->get('seen') != null){
+            $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
+            if($unotif != null){
+                $unotif->setSeen(true);
+                $manager->persist($unotif);
+                $manager->flush();
+            }
+        }
+
         $user = $this->getUser();
 
         $access = $this->container->get('security.authorization_checker')->isGranted(User::MEDIATEUR);
@@ -48,12 +59,17 @@ class FileController extends AbstractController
             $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData());
             $file->setName($filename);
 
+            // New notification
+            $notif = $user->createSenderNotif(Notification::FILE);
+            $manager->persist($user);
+
             if($access){
                 $data = $request->request->get('files_admin');
                 foreach($data['receiver'] as $receiver_id){
                     $receiver = $rep->find($receiver_id);
                     $important = isset($data['important']) ? true : false;
                     $receiver->createUserFile($this->getUser(), $file, $important);
+                    $receiver->createUserNotif($notif);
                     $manager->persist($receiver);
                 }
             } else {
@@ -61,6 +77,7 @@ class FileController extends AbstractController
                 foreach($rep->findAllByUserRole(User::MEDIATEUR) as $mediateur){
                     $important = isset($data['important']) ? true : false;
                     $mediateur->createUserFile($this->getUser(), $file, $important);
+                    $mediateur->createUserNotif($notif);
                     $manager->persist($mediateur);
                 }
             }
