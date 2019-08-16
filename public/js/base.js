@@ -256,3 +256,7 @@ $(document).on('click', '.see-trainings', function() {
     var id = $(this).data('id');
     $('tbody').find(`[data-training=${id}]`).fadeToggle();
 })
+
+$('.files-select').selectpicker();
+$('.project-user-select').selectpicker();
+$('.language-select').selectpicker();

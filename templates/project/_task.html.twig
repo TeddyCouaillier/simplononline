@@ -46,7 +46,16 @@
                         <div class="my-3">{{ form_widget(form.type) }}</div>
                         <div class="my-3">{{ form_widget(form.title) }}</div>
                         <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '8'}}) }}</div>
-                        <div class="my-3">{{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple','class':'multipleselect','placeholder':'Personne(s) concernée(s)'}}) }}</div>
+                        <div class="my-3">{{ form_widget(form.users, {'attr': {
+                            'class': 'task-user-selected selectpicker',
+                            'title': 'Apprenant(s) lié(s)',
+                            'data-live-search': 'true',
+                            'multiple': '',
+                            'data-selected-text-format': 'count > 2',
+                            'data-style': 'bg-white',
+                            'data-size': '6'
+                            }})  }}
+                        </div>
                     </div></div>
                     <div class="mx-1 p-2" style="width: 66%; ">
                         <span class="bold">Liste des sous-tâches</span>

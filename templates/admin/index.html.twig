@@ -5,7 +5,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block stylesheets %}
-<link href="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="/css/skill.css">
 <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
@@ -55,7 +55,7 @@
     {% endfor %}
     </div>
 
-    <div class="container-white shadow-small my-3 w-33" style="max-height: 400px">
+    <div class="container-white shadow-small my-3 w-33" style="max-height: 425px">
         <div class="form-files rounded">
             <p class="bold">Envoyer un fichier</p>
             <div>
@@ -64,7 +64,15 @@
                     {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
                     <hr>
                     {{ form_label(form.receiver) }}
-                    {{ form_widget(form.receiver, { 'attr' : {'multiple' : 'multiple','class': 'multipleselect'}}) }}
+                    {{ form_widget(form.receiver, {'attr': {
+                        'class': 'files-selected selectpicker',
+                        'title': 'Choisir les utilisateurs',
+                        'data-live-search': 'true',
+                        'multiple': '',
+                        'data-selected-text-format': 'count > 2',
+                        'data-style': 'bg-grey',
+                        'data-size': '6'
+                    }}) }}
                     <hr>
                     {{ form_widget(form.name) }}
                     <div class="custom-control custom-switch text-center mt-4">
@@ -100,6 +108,12 @@
 </div>
 {% endblock %}
 
+{% block libraries %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+{% endblock %}
+
 {% block javascripts %}
-<script src="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.js"></script>
+<script>
+$('.files-select').selectpicker();
+</script>
 {% endblock %}

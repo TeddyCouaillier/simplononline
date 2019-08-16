@@ -214,6 +214,9 @@ input:focus,select:focus{
        -moz-box-shadow: var(--shadow);
             box-shadow: var(--shadow);
 }
+.dropdown-item:active {
+    background: var(--red) !important;
+}
 
 .modal{
     transform: none !important;
