@@ -1,5 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
+
 {% import 'macro.html.twig' as template %}
+
 {% block title %}Modifier mon compte{% endblock %}
 
 {% block stylesheets %}
@@ -10,6 +12,7 @@
 {% form_theme form _self %}
 
 {% block body %}
+    <div class="container px-5 my-3">
     {{ template.checkMessage(form, "Les niveaux doivent être compris entre 0 et 3") }}
     <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
     <hr>
@@ -25,6 +28,7 @@
     </div>
 
     {{ form_end(form) }}
+    </div>
 {% endblock %}
 
 {% block _edit_user_skills_userSkills_entry_widget %}

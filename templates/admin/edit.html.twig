@@ -1,0 +1,155 @@
+{% import 'macro.html.twig' as template %}
+
+{% if promo is defined %}
+<h1>Modifier une promo</h1>
+<hr>
+<div class="container-white">
+    {{ form_start(form, {'action': path('admin_promo_edit',{'id':promo.id})}) }}
+    <div class="mb-3">
+    {{ form_label(form.label) }}
+    {{ form_widget(form.label) }}
+    </div>
+    <div class="mt-3">
+    {{ form_label(form.nickname) }}
+    {{ form_widget(form.nickname) }}
+    </div>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if data is defined %}
+<h1>Modifier une donnée</h1>
+<hr>
+<div class="container-grey">
+    {{ form_start(form, {'action': path('admin_data_edit',{'id':data.id})}) }}
+    {{ form_label(form.label) }}
+    {{ form_widget(form.label) }}
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if help is defined %}
+<h1>Modifier une aide</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    {{ form_start(form, {'action': path('admin_help_edit',{'id':help.id})}) }}
+        <div class="my-2">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="my-2">
+            {{ form_label(form.link) }}
+            {{ form_widget(form.link) }}
+        </div>
+        <div class="my-2">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div class="my-2">
+            {{ form_label(form.language) }}
+            {{ form_widget(form.language) }}
+        </div>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if skill is defined %}
+<h1>Modifier une compétence</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    {{ form_start(form, {'action': path('admin_skill_edit',{'id':skill.id})}) }}
+        <div class="my-1">
+        {{ form_label(form.label) }}
+        {{ form_widget(form.label) }}
+        </div>
+        <div class="my-1">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}
+        </div>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if project is defined %}
+<h1>Modifier un projet</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    <h2>{{ project.title }}</h2>
+    {{ form_start(form, {'action': path('admin_project_edit',{'id':project.id})}) }}
+        <div class="mb-1">
+            {{ form_label(form.title)}}
+            {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.description)}}
+            {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.github) }}{{ form_widget(form.github) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.website) }}
+            {{ form_widget(form.website) }}
+        </div>
+    {{ template.confirm()}}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if projectCorrection is defined %}
+<h1>Ajouter une correction</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    <h2>{{ projectCorrection.title }}</h2>
+    {{ form_start(form, {'action': path('admin_project_edit_correction',{'id':projectCorrection.id})}) }}
+        <div class="my-3">
+            <b>{{ form_label(form.content) }}</b>
+            {{ form_widget(form.content,{'attr': {'rows': '10'}}) }}
+        </div>
+        {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
+{% if projectTask is defined %}
+    {% form_theme form _self 'jquery.collection.html.twig' %}
+
+    {% block body %}
+        <h1>Ajouter une tâche</h1>
+        <hr>
+        <div class="container-white">
+            {{ form_start(form, {'action': path('admin_project_add_task',{'id':projectTask.id})}) }}
+                <div class="flex"><div class="mx-1" style="width: 33%;">
+                    <div class="container-grey" >
+                        <span class="bold">Info</span>
+                        <div class="my-3">{{ form_widget(form.type) }}</div>
+                        <div class="my-3">{{ form_widget(form.title) }}</div>
+                        <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '8'}}) }}</div>
+                        <div class="my-3">{{ form_widget(form.users, { 'attr' : {'multiple' : 'multiple','class':'multipleselect','placeholder':'Personne(s) concernée(s)'}}) }}</div>
+                    </div></div>
+                    <div class="mx-1 p-2" style="width: 66%; ">
+                        <span class="bold">Liste des sous-tâches</span>
+                        <div class="mt-3">{{ form_widget(form.subtasks) }}</div>
+                    </div>
+                </div>
+                <div class="my-3">{{ template.confirm() }}</div>
+            {{ form_end(form) }}
+        </div>
+    {% endblock %}
+
+    {% block _task_subtasks_entry_row %}
+    {{ form_widget(form) }}
+    {% endblock %}
+
+    {% block _task_subtasks_entry_widget %}
+    <div class="flex just-around align-center rounded task-add-subtask-edit">
+        <div>{{ form_widget(form.title) }}</div>
+        <div>
+            {% if form.done is defined %}
+            {{ form_widget(form.done) }}
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+{% endif %}

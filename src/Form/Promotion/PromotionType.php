@@ -16,11 +16,11 @@ class PromotionType extends ApplicationType
         $builder
             ->add('label',    TextType::class,     $this->getConfiguration('Label de la promotion', 'Promo 1.1'))
             ->add('nickname', TextType::class,     $this->getConfiguration('Surnom de la promotion','Les simploniens',['required'=>false]))
-            ->add('current',  CheckboxType::class, $this->getConfiguration('Actuelle',null,[
-                'attr'       => array('class' => 'custom-control-input'),
-                'label_attr' => array('class' => 'custom-control-label'),
-                'required'   => false
-            ]))
+            // ->add('current',  CheckboxType::class, $this->getConfiguration('Actuelle',null,[
+            //     'attr'       => array('class' => 'custom-control-input'),
+            //     'label_attr' => array('class' => 'custom-control-label'),
+            //     'required'   => false
+            // ]))
         ;
     }
 

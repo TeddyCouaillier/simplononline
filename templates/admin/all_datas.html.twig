@@ -1,0 +1,134 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des données{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/data.css">
+{% endblock %}
+
+{% block body %}
+<div class="container px-5 my-4">
+  <div class="flex just-between">
+    <h1>Liste des données</h1>
+    <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-datas"><i class="fal fa-plus"></i></div>
+  </div>
+  <hr>
+  <div class="flex just-around">
+    <table class="table table-hover text-center w-50 bg-white shadow-small">
+      <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Label</th>
+            <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in datas %}
+        {{ template.deleteConfirm('data-'~data.id,path('data_delete',{'id':data.id})) }}
+        {{ template.modal('edit-data-'~data.id)}}
+        <tr>
+          <th scope="row">{{ data.id }}</th>
+          <td class="w-100">
+            <span class="bold">{{ data.label }}</span>
+          </td>
+          <td>
+            <div class="btn-group" role="group">
+              <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-info edit-data" data-url="{{path('admin_data_edit',{'id': data.id}) }}" data-toggle="modal" data-target="#edit-data-{{data.id}}">
+                  Modifier
+                  </button>
+              </div>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-data-{{data.id}}"><i class="fal fa-times-circle"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="w-33">
+      <table class="table table-hover text-center bg-white shadow-small">
+        <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Label</th>
+              <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for language in languages %}
+          {{ template.deleteConfirm('language-'~language.id,path('admin_language_delete',{'id':language.id})) }}
+          <tr>
+            <th scope="row">{{ language.id }}</th>
+            <td class="w-100">
+              <span class="bold">{{ language.label }}</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal"
+              data-target="#modal-language-{{language.id}}"><i class="fal fa-times-circle"></i></button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <table class="table table-hover text-center bg-white shadow-small">
+        <thead>
+          <tr>
+              <th scope="col"></th>
+              <th scope="col">Label</th>
+              <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for role in roles %}
+            {% for urole in role.userroles %}
+            {{ template.deleteConfirm('role-'~role.id,path('admin_role_remove',{'id':role.id, 'id_role': urole.id})) }}
+            <tr>
+              <td class="text-left">{{ role.fullname }}</td>
+              <td>{{ urole }}</td>
+              <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-role-{{role.id}}"><i class="fal fa-times-circle"></i></button>
+              </td>
+            </tr>
+            {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-add-datas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body px-4 pt-3 pb-2">
+          <div class="flex just-between align-center">
+            <h2></h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <hr>
+          <div class="my-2">
+            <h3>Ajouter une donnée</h3>
+            {{ form_start(formData, {'attr': {'name' : 'language'}}) }}
+              {{ form_label(formData.label) }}
+              {{ form_widget(formData.label) }}
+              {{ template.confirm() }}
+            {{ form_end(formData) }}
+          </div>
+          <hr>
+          <div class="my-2">
+            <h3>Ajouter un langage</h3>
+            {{ form_start(formLanguage) }}
+              {{ form_label(formLanguage.label) }}
+              {{ form_widget(formLanguage.label) }}
+              {{ template.confirm() }}
+            {{ form_end(formLanguage) }}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

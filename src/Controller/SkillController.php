@@ -19,25 +19,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SkillController extends AbstractController
 {
     /**
-     * Show all skills + adding form
+     * Show all skills
      * @Route("", name="show")
      * @param UserSkills $uskill
      * @return Response
      */
-    public function showSkills(UserSkillsRepository $rep, Request $request, ObjectManager $manager)
+    public function showSkills(UserSkillsRepository $rep)
     {
-        $skill = new Skills();
-        $form = $this->createForm(SkillType::class, $skill);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-            $skill->initializeUsers($users);
-
-            $manager->persist($skill);
-            $manager->flush();
-        }
         return $this->render('skill/show.html.twig',[
-            'form' => $form->createView()
+            // 'form' => $form->createView()
         ]);
     }
 

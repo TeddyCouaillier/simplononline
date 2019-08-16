@@ -1,0 +1,96 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des promotions{% endblock %}
+
+{% block body %}
+<div class="container px-5 my-4">
+    <div class="flex just-between align-center">
+        <h1>Liste des promotions</h1>
+        <a  class="button-edit" data-toggle="modal" data-target="#modal-add-promo"><i class="fal fa-plus"></i></a>
+    </div>
+    <hr>
+    <table class="table table-hover text-center bg-white shadow-small">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Label</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Surnom</th>
+                <th scope="col">Formateurs</th>
+                <th scope="col">Médiateurs</th>
+                <th scope="col">Apprenants</th>
+                <th scope="col">Actuelle</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for promotion in promotions %}
+                {{ template.deleteConfirm(promotion.id,path('promo_delete',{'id':promotion.id})) }}
+                {{ template.modalPromotion('modal-promo-edit-'~promotion.id) }}
+                <tr>
+                    <th scope="row">{{ promotion.id }}</th>
+                    <td>{{ promotion.label }}</td>
+                    <td>{{ promotion.slug }}</td>
+                    <td>{{ promotion.nickname }}</td>
+                    <td>Romain PETIT</td>
+                    <td>Benoit CARON</td>
+                    <td>
+                        {% if promotion.users is not empty %}
+                            {{ promotion.users|length }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="flex just-center">
+                        <input class="switch_base promocurrent" data-promourl="{{path('admin_promo_active',{'id':promotion.id}) }}"
+                        type="checkbox" {% if promotion.current %} checked {% endif %}>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Modifier
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item rhover" href="{{ path('promo_edit_users',{'slug': promotion.slug}) }}">Ajouter</a>
+                                    <a data-url="{{ path('admin_promo_edit',{'id':promotion.id}) }}" data-toggle="modal" data-target="#modal-promo-edit-{{promotion.id}}" class="dropdown-item rhover promo-edit"><span class="rhover">Modifier</span></a>
+                                    <a class="dropdown-item rhover" href="{{ path('promo_show',{'slug': promotion.slug }) }}">Afficher</a>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{promotion.id}}"><i class="fal fa-times-circle"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-add-promo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content p-5">
+            <div class="flex just-between align-center">
+                <h2>Ajouter une donnée</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body p-0">
+            <hr>
+                {{ form_start(form) }}
+                <div class="my-3">
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+                </div>
+                <div class="my-3">
+                {{ form_label(form.nickname) }}
+                {{ form_widget(form.nickname) }}
+                </div>
+                {{ template.confirm() }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

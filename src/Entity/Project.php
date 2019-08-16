@@ -73,7 +73,7 @@ class Project
     private $moderator;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Correction", cascade={"persist"}, mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Correction", cascade={"persist"}, mappedBy="project", orphanRemoval=true)
      */
     private $corrections;
 

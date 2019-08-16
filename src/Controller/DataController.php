@@ -74,6 +74,6 @@ class DataController extends AbstractController
             'La donnée a bien été supprimée.'
         );
 
-        return $this->redirectToRoute('data_all');
+        return $this->redirectToRoute('admin_all_datas');
     }
 }

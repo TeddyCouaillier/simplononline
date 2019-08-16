@@ -1,0 +1,58 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des stages{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/training.css">
+{% endblock %}
+
+{% block body %}
+<div class="container px-5 my-4">
+    <h1>Liste des stages</h1>
+    <hr>
+    <table class="table table-hover text-center bg-white shadow-small table-trainings">
+      <thead>
+        <tr>
+          <th scope="col">Société</th>
+          <th scope="col">Lieu</th>
+          <th scope="col">Statut</th>
+          <th scope="col">Projet</th>
+          <th scope="col">Envoyé</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td colspan="4" class="bg-grey pointer see-trainings" data-id="{{user.id}}">
+              <span class="ml-5 pl-5">{{ user.fullname }}</span> <i class="fal fa-chevron-circle-down ml-2"></i>
+            </td>
+            <td class="bg-grey">
+              <div class="shadow-small bold bg-white mx-auto training-length">{{ user.trainingCourse|length}}</div>
+            </td>
+          </tr>
+          {% for training in user.trainingCourse %}
+          <tr data-training="{{user.id}}" class="user-training-see">
+            <td class="text-left"><span class="bold">{{ training.society }}</span></td>
+            <td class="text-left">{{ training.place }}</td>
+            <td class="flex align-center">
+              <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
+            </td>
+            <td>
+              {% if training.project is not null %}
+              <i class="fal fa-info-circle rhover" data-toggle="tooltip" data-placement="top" title="{{ training.project }}"></i>
+              {% endif %}
+            </td>
+            <td>{{ training.interval }}</td>
+          </tr>
+          {% else %}
+          <tr data-training="{{user.id}}" class="user-training-see">
+              <td colspan="4" class="text-small"><p class="ml-5 pl-5">Aucun stage proposé</p></td>
+          </tr>
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% import 'macro.html.twig' as template %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>SimplonOnline - Admin - {% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
+        <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/admin.css">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% set active_users = "" %} {% set active_projects = "" %} {% set active_promo = "" %} {% set active_helps = "" %}
+        {% set active_skills = "" %} {% set active_trainings = "" %} {% set active_datas = "" %} {% set active = "text-red bold" %}
+        {% if app.request.get('_route') == "admin_all_users" %}
+        {% set active_users = active %}
+        {% elseif app.request.get('_route') == "admin_all_promo" %}
+        {% set active_promo = active %}
+        {% elseif app.request.get('_route') == "admin_all_skills" %}
+        {% set active_skills = active %}
+        {% elseif app.request.get('_route') == "admin_all_projects" %}
+        {% set active_projects = active %}
+        {% elseif app.request.get('_route') == "admin_all_trainings" %}
+        {% set active_trainings = active %}
+        {% elseif app.request.get('_route') == "admin_all_helps" %}
+        {% set active_helps = active %}
+        {% elseif app.request.get('_route') == "admin_all_datas" %}
+        {% set active_datas = active %}
+        {% endif %}
+
+        {{ render(controller(
+            'App\\Controller\\BaseController::weather'
+        )) }}
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-small text-uppercase text-small p-0 m-0 admin_nav">
+            <a class="navbar-brand bold text-medium p-2" href="{{ path('admin_home') }}"><span class="text-red">Simplon</span>Online</a>
+            <p class="bg-red text-white p-2 role">Formateur</p>
+            <a class="text-red p-2 simplon" href="{{ path('home') }}">Voir le site</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminnav" aria-controls="adminnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="adminnav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users') }}">Utilisateurs</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_projects }}" href="{{ path('admin_all_projects') }}">Projets</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_promo }}" href="{{ path('admin_all_promo') }}">Promotions</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_skills }}" href="{{ path('admin_all_skills') }}">Compétences</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_trainings }}" href="{{ path('admin_all_trainings') }}">Stages</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_helps }}" href="{{ path('admin_all_helps') }}">Aides</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link {{ active_datas }}" href="{{ path('admin_all_datas') }}">Autres</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+
+        <div class="px-5 my-3">
+            {% for class, messages in app.flashes %}
+                {% for message in messages %}
+                    <div>
+                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-2">
+                            <div class="messages-icon-{{class}}">
+                                {% if class == "success" %}
+                                <i class="fas fa-check-circle icon-sm pr-4"></i>
+                                {% elseif class == "warning" %}
+                                <i class="fas fa-exclamation-circle icon-sm pr-4"></i>
+                                {% endif %}
+                            </div>
+                            <p class="w-100">
+                                <span class="bold">
+                                {% if class == "success" %}
+                                    Succès
+                                {% elseif class == "warning" %}
+                                    Erreur
+                                {% endif %}
+                                </span><br>
+                                <span class="text-grey">{{ message }}</span>
+                            </p>
+                            <button type="button" class="close close-message text-grey">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.collection.js"></script>
+        {% block javascripts %}{% endblock %}
+        <script src="/js/base.js"></script>
+        <script src="/js/ajax.js"></script>
+    </body>
+</html>

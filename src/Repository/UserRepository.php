@@ -75,4 +75,14 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('project', $project)
         ;
     }
+
+    public function findAllUserByRole()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRoles', 'ur')
+            ->andWhere('ur is not null')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

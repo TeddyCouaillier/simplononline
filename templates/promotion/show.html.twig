@@ -8,13 +8,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex just-between">
-        <h1>{{ promo.label }}<em class="h4 ml-5">{{ promo.nickname }}</em></h1>
-        {% if is_granted("ROLE_ADMIN") %}
-        <a href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
-        {% endif %}
-    </div>
-
+    <h1>{{ promo.label }}<em class="h4 ml-5">{{ promo.nickname }}</em></h1>
     <hr>
     <div class="flex wrap just-around promo">
         {% for user in promo.users %}

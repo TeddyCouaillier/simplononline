@@ -14,10 +14,10 @@ class EditProjectType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',       TextType::class,     $this->getConfiguration(null,"Titre du projet"))
-            ->add('description', TextareaType::class, $this->getConfiguration(null,"Description du projet"))
-            ->add('github',      TextType::class,     $this->getConfiguration(null,"Lien GitHub du projet",['required'=> false]))
-            ->add('website',     TextType::class,     $this->getConfiguration(null,"Site internet du projet",['required'=> false]))
+            ->add('title',       TextType::class,     $this->getConfiguration("Titre du projet"))
+            ->add('description', TextareaType::class, $this->getConfiguration("Description"))
+            ->add('github',      TextType::class,     $this->getConfiguration("Lien GitHub",null,['required'=> false]))
+            ->add('website',     TextType::class,     $this->getConfiguration("Site internet",null,['required'=> false]))
         ;
     }
 

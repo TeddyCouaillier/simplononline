@@ -133,19 +133,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * Show all users
-     * @Route("/all", name="all")
-     * @param UserRepository $rep
-     * @return Response
-     */
-    public function allUsers(UserRepository $rep)
-    {
-        return $this->render('user/all.html.twig', [
-            'users' => $rep->findAll()
-        ]);
-    }
-
-    /**
      * Delete a specific user
      * @Route("/{id}/delete", name="delete")
      * @IsGranted("ROLE_ADMIN")
@@ -157,7 +144,13 @@ class UserController extends AbstractController
     {
         $manager->remove($user);
         $manager->flush();
-        return $this->redirectToRoute('user_all');
+
+        $this->addFlash(
+            'success',
+            'L\'utilisateur a bien été supprimé.'
+        );
+
+        return $this->redirectToRoute('admin_all_users');
     }
 
     // -----------------------------------------------------
@@ -184,7 +177,12 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute("user_show",['id' => $user->getId()]);
+            $this->addFlash(
+                'success',
+                'Les compétences ont bien été modifiées'
+            );
+
+            return $this->redirectToRoute("admin_all_users");
         }
         return $this->render('skill/edit_skills.html.twig', [
             'user' => $user,
@@ -233,7 +231,7 @@ class UserController extends AbstractController
                 'success',
                 'Les données ont bien été modifiées.'
             );
-            return $this->redirectToRoute("user_data",['id' => $user->getId()]);
+            return $this->redirectToRoute("admin_all_users");
         }
         return $this->render('data/edit.html.twig', [
             'user' => $user,

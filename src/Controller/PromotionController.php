@@ -21,38 +21,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class PromotionController extends AbstractController
 {
     /**
-     * Show all promotions and add a new promo in a modal
+     * Show all promotions
      * @Route("/all", name="all")
-     * @param Request               $request
-     * @param ObjectManager         $manager
      * @param PromotionRepository   $rep
      * @return Response
      */
-    public function allPromo(Request $request, ObjectManager $manager, PromotionRepository $rep)
+    public function allPromo(PromotionRepository $rep)
     {
-        $promo = new Promotion();
-        $form = $this->createForm(PromotionType::class, $promo);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            if($promo->getCurrent() == true){
-                foreach($rep->findAllOtherCurrent($promo) as $currentPromo){
-                    $currentPromo->setCurrent(false);
-                }
-            }
-
-            $manager->persist($promo);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'La promotion a bien été ajoutée.'
-            );
-        }
-
         return $this->render('promotion/all.html.twig', [
-            'promos' => $rep->findAll(),
-            'form'   => $form->createView()
+            'promos' => $rep->findAll()
         ]);
     }
 
@@ -112,49 +89,6 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * Ajax calling to edit a promo
-     * @Route("/{slug}/edit", name="edit")
-     * @param Promotion $promo
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @return JsonResponse/Response
-     */
-    public function editPromo(Promotion $promo, Request $request, ObjectManager $manager, PromotionRepository $rep)
-    {
-        $form = $this->createForm(PromotionType::class, $promo);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            if($promo->getCurrent() == true){
-                foreach($rep->findAllOtherCurrent($promo) as $currentPromo){
-                    $currentPromo->setCurrent(false);
-                }
-            }
-
-            $manager->persist($promo);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'La promotion a bien été modifiée.'
-            );
-
-            return $this->redirectToRoute('promo_all');
-        }
-
-        $render = $this->render('promotion/_edit_promo.html.twig', [
-            'form'   => $form->createView(),
-            'promo'  => $promo
-        ]);
-
-        $response = [
-            "code" => 200,
-            "render" => $render->getContent()
-        ];
-        return new JsonResponse($response);
-    }
-
-    /**
      * Delete a promotion
      * @Route("/{id}/delete", name="delete")
      * @IsGranted("ROLE_ADMIN")
@@ -171,7 +105,7 @@ class PromotionController extends AbstractController
             'success',
             'La promotion a bien été supprimée.'
         );
-        return $this->redirectToRoute('promo_all');
+        return $this->redirectToRoute('admin_all_promo');
     }
 
     /**

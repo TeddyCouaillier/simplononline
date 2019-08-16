@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
@@ -11,6 +11,7 @@
 {% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
+    <div class="container px-5 my-3">
     <h1>{{ promo.label }}<em class="h4 ml-5">Gestion des simploniens</em></h1>
     <hr>
     <div class="bg-grey rounded promo-add">
@@ -19,6 +20,7 @@
         {{ form_row(form.users) }}
         {{ template.confirm() }}
         {{ form_end(form) }}
+    </div>
     </div>
 {% endblock %}
 

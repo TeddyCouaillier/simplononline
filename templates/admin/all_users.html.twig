@@ -1,0 +1,152 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des simploniens{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/skill.css">
+<link rel="stylesheet" href="/css/help.css">
+{% endblock %}
+
+{% block body %}
+{{ template.checkMessage(form) }}
+<div class="container px-5 my-4">
+    <div class="flex just-between align-center">
+        <h1>Liste des utilisateurs</h1>
+        <a  class="button-edit" data-toggle="modal" data-target="#modal-add-user"><i class="fal fa-plus"></i></a>
+    </div>
+    <hr>
+    <div class="flex just-center mb-3 admin-all-promo">
+        <span class="badge-link-active mx-2" data-badge="Tout">Tout</span>
+        {% for promotion in promotions %}
+            <span class="badge-link-inactive mx-2" data-badge="{{ promotion.label }}">{{ promotion.label }}</span>
+        {% endfor %}
+    </div>
+    <table class="table table-hover text-center bg-white shadow-small">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Stages</th>
+                <th scope="col">Projets</th>
+                <th scope="col">Taches</th>
+                <th scope="col">Compétences</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="admin-all">
+            {% for user in users %}
+            {{ template.deleteConfirm(user.id,path('user_delete',{'id':user.id})) }}
+            <tr data-badge="{% if user.promotion != null %}{{ user.promotion.label }}{% endif %}" >
+                <th scope="row">{{ user.id }}</th>
+                <td class="text-left">{{ user.fullname }}</td>
+                <td>
+                    {% if user.trainingCourse is not empty %}
+                        {{ user.trainingCourse|length }}</td>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.projects is not empty %}
+                        {{ user.projects|length }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                    <td>
+                    {% if user.tasks is not empty %}
+                        {{ user.tasks|length }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td class="flex just-center">
+                    {% for uskill in user.userSkills %}
+                        <div
+                        class="level-xs level-{{ uskill.level }} m-1" data-toggle="tooltip"
+                        data-placement="top" title="{{ uskill.skill.label }}">
+                        </div>
+                    {% endfor %}
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Modifier
+                            </button>
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item rhover" href="{{ path('user_edit_skills',{'id': user.id }) }}">Compétences</a>
+                            <a class="dropdown-item rhover" href="{{ path('user_data_edit',{'id': user.id}) }}">Données</a>
+                            <a class="dropdown-item rhover" href="{{ path('user_edit',{'id': user.id}) }}">Compte</a>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{user.id}}"><i class="fal fa-times-circle"></i></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-5">
+            <div class="flex just-between align-center">
+                <h2>Ajouter une donnée</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body p-0">
+            <hr>
+                {{ form_start(form) }}
+                <div class="flex flex-wrap">
+                    <div class="container-grey w-100 mb-2">
+                        <span class="bold">Informations personnelles</span>
+                        <div class="flex just-around text-center mt-2 form-add-user-info">
+                            <div>
+                                {{ form_label(form.firstname) }}<br>
+                                {{ form_widget(form.firstname) }}
+                            </div>
+                            <div>
+                                {{ form_label(form.lastname) }}<br>
+                                {{ form_widget(form.lastname) }}
+                            </div>
+                            <div>
+                                {{ form_label(form.email) }}<br>
+                                {{ form_widget(form.email) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-grey edit-user-pwd mb-2">
+                        <span class="bold mt-2">Information de connexion</span>
+                        <div class="mt-2">
+                            {{ form_widget(form.password) }}
+                        </div>
+                    </div>
+
+                    <div class="container-grey edit-user-promo mb-2 ml-1">
+                        <span class="bold">Promotion</span>
+                        <div class="mt-2">
+                            {{ form_widget(form.promotion) }}
+                        </div>
+                    </div>
+
+                    <div class="container-grey w-100 mb-2">
+                        <span class="bold">Roles</span>
+                        <div class="mt-2">
+                            {{ form_widget(form.userRoles) }}
+                        </div>
+                    </div>
+                </div>
+
+                {{ template.confirm() }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

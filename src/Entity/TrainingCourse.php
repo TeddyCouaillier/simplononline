@@ -143,6 +143,29 @@ class TrainingCourse
         return $this;
     }
 
+    /**
+     * Get the difference between the project creating time and now
+     * @return String
+     */
+    public function getInterval()
+    {
+        $time_diff = date_diff($this->sent_at, new \DateTime());
+        $format = "Aujourd'hui";
+        if ($time_diff->d == 1) {
+            $format = "Hier";
+        }
+        if ($time_diff->d > 1) {
+            $format = "Il y a %d jours";
+        }
+        if ($time_diff->m > 0) {
+            $format = "Il y a %m mois";
+        }
+        if ($time_diff->y > 0) {
+            $format = "Il y a %m ans";
+        }
+        return $time_diff->format($format);
+    }
+
     public function getSentAt(): ?\DateTimeInterface
     {
         return $this->sent_at;

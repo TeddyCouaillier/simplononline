@@ -67,6 +67,7 @@ hr{
 .text-small  { font-size: .85em; }
 .text-medium { font-size: 1.2em; }
 .text-large  { font-size: 1.6em; }
+.text-xlarge { font-size: 2em; }
 .rhover:hover{ color: var(--red); cursor: pointer; }
 
 /*****************************************************
@@ -176,9 +177,9 @@ hr{
 ** FORM
 ****************************************************/
 input{
-    background: var(--white) !important;
-    border-radius: 7px !important;
-    padding: 2px 7px !important;
+    background: var(--white) ;
+    border-radius: 7px ;
+    padding: 2px 7px ;
 }
 input:focus,select:focus{
     border: none;

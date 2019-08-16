@@ -1,0 +1,74 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des compétences{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/skill.css">
+{% endblock %}
+
+{% block body %}
+<div class="container px-5 my-4">
+    {{ template.checkMessage(form) }}
+    <div class="flex just-between">
+        <h1>Liste des compétences</h1>
+        <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-skill"><i class="fal fa-plus"></i></div>
+    </div>
+    <hr>
+    <table class="table table-hover text-center bg-white shadow-small">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Label + description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for skill in skills %}
+            {{ template.deleteConfirm(skill.id,path('skill_delete',{'id':skill.id})) }}
+            {{ template.modal('edit-skill-'~skill.id)}}
+            <tr>
+                <th scope="row">{{ skill.id }}</th>
+                <td>
+                    <span class="bold">{{ skill.label }}</span><br>
+                    {{ skill.description }}
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-info edit-skill" data-url="{{path('admin_skill_edit',{'id': skill.id}) }}" data-toggle="modal" data-target="#edit-skill-{{skill.id}}">
+                            Modifier
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{skill.id}}"><i class="fal fa-times-circle"></i></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-add-skill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+{{ form_start(form) }}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body px-4 pt-3 pb-0 mb-2">
+            <div class="flex just-between align-center">
+                <h2>Ajouter une compétence</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr>
+            {{ form_start(form) }}
+            {{ form_label(form.label) }}
+            {{ form_widget(form.label) }}
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+            {{ template.confirm() }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+</div>
+{% endblock %}

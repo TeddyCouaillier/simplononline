@@ -197,7 +197,7 @@ class User implements UserInterface
         $this->notifSent      = new ArrayCollection();
         $this->notifReceived  = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
-        $this->weather        = 0;
+        $this->weather        = self::SUN;
     }
 
     /**
@@ -455,7 +455,7 @@ class User implements UserInterface
 
     public function addUserSkill(UserSkills $userSkill): self
     {
-        if (!$this->userSkills->contains($userSkill)) {
+        if(!$this->userSkills->contains($userSkill)) {
             $this->userSkills[] = $userSkill;
             $userSkill->setUser($this);
         }

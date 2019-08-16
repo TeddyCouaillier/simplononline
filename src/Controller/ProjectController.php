@@ -173,8 +173,8 @@ class ProjectController extends AbstractController
             'success',
             'Le projet a bien été supprimé.'
         );
-
-        return $this->redirectToRoute('project_all');
+        $path = $this->getUser()->checkRole(User::ADMIN) ? 'admin_all_projects' : 'project_all';
+        return $this->redirectToRoute($path);
     }
 
     /**
