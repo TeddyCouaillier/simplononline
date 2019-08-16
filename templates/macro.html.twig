@@ -83,6 +83,7 @@
                         <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
                     </div>
                 <div>
+                    {% if project.completed == false %}
                     <div class="subnav">
                         <i class="fas fa-ellipsis-v"></i>
                         <div class="subnav-tooltip">
@@ -90,6 +91,7 @@
                             <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -38,7 +38,9 @@
             <tr>
                 <td class="flex just-center">
                     {% if project.completed %}
-                    <div class="completed"></div>
+                    <div class="completed"
+                    data-toggle="tooltip" data-placement="top" title="Terminé le {{ project.endAt | date('d/m/Y') }}">
+                    </div>
                     {% endif %}
                 <td>
                     <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">

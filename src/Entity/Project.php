@@ -82,6 +82,11 @@ class Project
      */
     private $completed;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $endAt;
+
     public function __construct()
     {
         $this->createdAt   = new \DateTime();
@@ -413,6 +418,18 @@ class Project
     public function setCompleted(bool $completed): self
     {
         $this->completed = $completed;
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeInterface
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(?\DateTimeInterface $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }

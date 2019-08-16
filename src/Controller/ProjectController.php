@@ -141,6 +141,12 @@ class ProjectController extends AbstractController
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            if($project->getCompleted() && $project->getEndAt() == null){
+                $project->setEndAt(new \DateTime());
+            }
+            if(!$project->getCompleted() && $project->getEndAt() != null){
+                $project->setEndAt(null);
+            }
             $manager->persist($project);
             $manager->flush();
 

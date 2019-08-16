@@ -164,7 +164,6 @@ hr{
     border: none;
 }
 .button-edit:hover{
-    cursor: pointer;
     color: rgba(0,0,0,.9);
     -webkit-box-shadow: var(--shadow);
        -moz-box-shadow: var(--shadow);
