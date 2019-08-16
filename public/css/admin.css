@@ -114,3 +114,10 @@ input[type="checkbox"].switch_base:checked:after {
 }
 
 .circle{ width: 75px; height: 75px; border-radius: 50%; line-height: 75px;}
+.completed{
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    background: var(--red);
+    transform: translateY(12px);
+}

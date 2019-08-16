@@ -19,7 +19,7 @@
     <table class="table table-hover text-center bg-white shadow-small">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Fini</th>
                 <th scope="col">Titre</th>
                 <th scope="col">Créé</th>
                 <th scope="col">Liens</th>
@@ -36,7 +36,10 @@
             {{ template.modal('add-project-task-'~project.id)}}
             {{ template.modal('edit-project-'~project.id)}}
             <tr>
-                <th scope="row">{{ project.id }}</th>
+                <td class="flex just-center">
+                    {% if project.completed %}
+                    <div class="completed"></div>
+                    {% endif %}
                 <td>
                     <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">
                         {{ project.title|truncate(25) }}

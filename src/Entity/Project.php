@@ -77,6 +77,11 @@ class Project
      */
     private $corrections;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $completed;
+
     public function __construct()
     {
         $this->createdAt   = new \DateTime();
@@ -396,6 +401,18 @@ class Project
                 $correction->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompleted(): ?bool
+    {
+        return $this->completed;
+    }
+
+    public function setCompleted(bool $completed): self
+    {
+        $this->completed = $completed;
 
         return $this;
     }

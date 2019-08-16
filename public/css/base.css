@@ -217,6 +217,8 @@ input:focus,select:focus{
 .dropdown-item:active {
     background: var(--red) !important;
 }
+.form-check label{ transform: translateY(-5px) !important; }
+.form-check input{ margin-right: 10px !important; }
 
 .modal{
     transform: none !important;
