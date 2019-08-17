@@ -260,3 +260,7 @@ $(document).on('click', '.see-trainings', function() {
 $('.files-select').selectpicker();
 $('.project-user-select').selectpicker();
 $('.language-select').selectpicker();
+
+jQuery(document).ready(function() {
+    $('.js-datepicker').datepicker();
+});

@@ -48,17 +48,20 @@ class AdminEditController extends AbstractController
     {
         $form = $this->createForm(PromotionType::class, $promo);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($promo);
-            $manager->flush();
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $manager->persist($promo);
+                $manager->flush();
 
-            $this->addFlash(
-                'success',
-                'La promotion a bien été ajoutée.'
-            );
+                $this->addFlash(
+                    'success',
+                    'La promotion a bien été modifiée.'
+                );
+            }
 
             return $this->redirectToRoute('admin_all_promo');
         }
+
 
         $render = $this->render('admin/edit.html.twig', [
             'form' => $form->createView(),

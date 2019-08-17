@@ -47,6 +47,16 @@ class Promotion
     private $current;
 
     /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $startAt;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $endAt;
+
+    /**
      * @ORM\PreRemove
      */
     public function removeUsers()
@@ -142,6 +152,30 @@ class Promotion
     public function setCurrent(bool $current): self
     {
         $this->current = $current;
+
+        return $this;
+    }
+
+    public function getStartAt(): ?\DateTimeInterface
+    {
+        return $this->startAt;
+    }
+
+    public function setStartAt(?\DateTimeInterface $startAt): self
+    {
+        $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeInterface
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(?\DateTimeInterface $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }

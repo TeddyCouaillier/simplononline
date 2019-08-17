@@ -5,6 +5,7 @@
 {% block title %}Liste des promotions{% endblock %}
 
 {% block body %}
+{{ template.checkMessage(form,"Verifiez les dates")}}
 <div class="container px-5 my-4">
     <div class="flex just-between align-center">
         <h1>Liste des promotions</h1>
@@ -14,7 +15,7 @@
     <table class="table table-hover text-center bg-white shadow-small">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Label</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Surnom</th>
@@ -30,7 +31,20 @@
                 {{ template.deleteConfirm(promotion.id,path('promo_delete',{'id':promotion.id})) }}
                 {{ template.modalPromotion('modal-promo-edit-'~promotion.id) }}
                 <tr>
-                    <th scope="row">{{ promotion.id }}</th>
+                    <td>
+                        {% set startAt = promotion.startAt|date('d/m/Y') %}
+                        {% set endAt   = promotion.endAt|date('d/m/Y') %}
+                        {% if promotion.startAt is null %}
+                        {% set startAt = '--/--/----' %}
+                        {% endif %}
+                        {% if promotion.endAt is null %}
+                        {% set endAt = '--/--/----' %}
+                        {% endif %}
+                        <i class="fal fa-info-circle rhover" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=
+                        "Débutée le {{ startAt }} <br>
+                         Terminée le {{ endAt }}">
+                        </i>
+                    </td>
                     <td>{{ promotion.label }}</td>
                     <td>{{ promotion.slug }}</td>
                     <td>{{ promotion.nickname }}</td>
@@ -86,6 +100,14 @@
                 <div class="my-3">
                 {{ form_label(form.nickname) }}
                 {{ form_widget(form.nickname) }}
+                </div>
+                <div class="my-3">
+                {{ form_label(form.startAt) }}
+                {{ form_widget(form.startAt) }}
+                </div>
+                <div class="my-3">
+                {{ form_label(form.endAt) }}
+                {{ form_widget(form.endAt) }}
                 </div>
                 {{ template.confirm() }}
                 {{ form_end(form) }}
