@@ -13,7 +13,7 @@ use App\Form\Project\EditTaskType;
 use App\Repository\UserRepository;
 use App\Form\Project\EditProjectType;
 use App\Repository\ProjectRepository;
-use App\Form\Project\AddCorrectionType;
+use App\Form\Project\CorrectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -303,7 +303,7 @@ class ProjectController extends AbstractController
         $task = new Task();
         $task->setProject($project);
 
-        $formCorrect = $this->createForm(AddCorrectionType::class, $correction);
+        $formCorrect = $this->createForm(CorrectionType::class, $correction);
         $form = $this->createForm(TaskType::class, $task);
 
         $formCorrect->handleRequest($request);

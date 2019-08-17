@@ -11,6 +11,7 @@ use App\Entity\Skills;
 use App\Entity\Language;
 use App\Entity\UserData;
 use App\Entity\Promotion;
+use App\Entity\Correction;
 use App\Entity\UserSkills;
 use App\Form\Data\DataType;
 use App\Form\Help\HelpType;
@@ -24,7 +25,9 @@ use App\Repository\SkillsRepository;
 use App\Form\Promotion\PromotionType;
 use App\Repository\ProjectRepository;
 use App\Repository\LanguageRepository;
+use App\Form\Project\AddCorrectionType;
 use App\Repository\PromotionRepository;
+use App\Repository\CorrectionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -282,6 +285,32 @@ class AdminShowController extends AbstractController
         return $this->render('admin/all_helps.html.twig', [
             'helps' => $rep->findAll(),
             'form'  => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/corrections", name="all_corrections")
+     *
+     * @param CorrectionRepository $rep
+     * @return void
+     */
+    public function allCorrections(CorrectionRepository $rep, Request $request, ObjectManager $manager)
+    {
+        $correction = new Correction();
+        $form = $this->createForm(AddCorrectionType::class, $correction);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($correction);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La correction a bien été ajoutée.'
+            );
+        }
+        return $this->render('admin/all_corrections.html.twig', [
+            'form'        => $form->createView(),
+            'corrections' => $rep->findAll()
         ]);
     }
 }

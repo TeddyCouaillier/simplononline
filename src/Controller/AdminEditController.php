@@ -22,7 +22,7 @@ use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
 use App\Form\Project\EditProjectType;
 use App\Form\Promotion\PromotionType;
-use App\Form\Project\AddCorrectionType;
+use App\Form\Project\CorrectionType;
 use App\Repository\PromotionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -319,7 +319,7 @@ class AdminEditController extends AbstractController
     public function addCorrection(Project $project, Request $request, ObjectManager $manager)
     {
         $correction = new Correction();
-        $form = $this->createForm(AddCorrectionType::class, $correction);
+        $form = $this->createForm(CorrectionType::class, $correction);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $project->addCorrection($correction);
@@ -401,5 +401,62 @@ class AdminEditController extends AbstractController
         ];
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/correction/{id}/edit", name="correction_edit")
+     *
+     * @param Correction $correction
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function editCorrection(Correction $correction, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(CorrectionType::class, $correction);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($correction);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La correction a bien été modifiée.'
+            );
+
+            return $this->redirectToRoute('admin_all_corrections');
+        }
+
+        $render = $this->render('admin/edit.html.twig', [
+            'form'        => $form->createView(),
+            'correction'  => $correction
+        ]);
+
+        $response = [
+            "code"   => 200,
+            "render" => $render->getContent()
+        ];
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/correction/{id}/delete", name="correction_delete")
+     *
+     * @param Correction $correction
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function deleteCorrection(Correction $correction, ObjectManager $manager)
+    {
+        $manager->remove($correction);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La correction a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('admin_all_corrections');
     }
 }

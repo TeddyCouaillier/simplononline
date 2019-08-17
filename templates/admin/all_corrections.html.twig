@@ -1,0 +1,70 @@
+{% extends 'base_admin.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des corrections{% endblock %}
+
+{% block body %}
+<div class="container px-5 my-4">
+  <div class="flex just-between">
+      <h1>Liste des corrections</h1>
+      <div class="button-edit ml-2" data-toggle="modal" data-target="#modal-new-correction"><i class="fal fa-plus"></i></div>
+  </div>
+  <hr>
+  <table class="table table-hover text-center bg-white shadow-small">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" class="w-50">Contenu</th>
+        <th scope="col" class="w-25">Projet</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for correction in corrections %}
+      {{ template.deleteConfirm(correction.id,path('admin_correction_delete',{'id':correction.id})) }}
+      {{ template.modal('edit-correction-'~correction.id)}}
+      <tr>
+        <th scope="row">{{ correction.id }}</th>
+        <td>{{ correction.content }}</td>
+        <td><a href="{{ path('project_show',{'slug':correction.project.slug}) }}" target="_blank">{{ correction.project.title|truncate(35) }}</a></td>
+        <td>
+          <div class="btn-group" role="group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-info edit-correction" data-url="{{path('admin_correction_edit',{'id': correction.id}) }}" data-toggle="modal" data-target="#edit-correction-{{correction.id}}">
+                Modifier
+                </button>
+            </div>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{correction.id}}"><i class="fal fa-times-circle"></i></button>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="modal-new-correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+{{ form_start(form) }}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body px-4 pt-3 pb-0">
+            <div class="flex just-between align-center">
+                <h2>Ajouter une correction</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr>
+            <div class="my-2">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
+            </div>
+            <div class="my-2">
+                {{ form_widget(form.project) }}
+            </div>
+            {{ template.confirm() }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+</div>
+{% endblock %}

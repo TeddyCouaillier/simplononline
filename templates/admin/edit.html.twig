@@ -40,6 +40,18 @@
 </div>
 {% endif %}
 
+{% if correction is defined %}
+<h1>Modifier une correction</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    {{ form_start(form, {'action': path('admin_correction_edit',{'id':correction.id})}) }}
+    {{ form_label(form.content) }}
+    {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>
+{% endif %}
+
 {% if help is defined %}
 <h1>Modifier une aide</h1>
 <hr>

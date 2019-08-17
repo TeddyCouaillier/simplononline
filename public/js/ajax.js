@@ -183,3 +183,20 @@ $(document).on('click','.edit-project',function(){
         }
     });
 })
+
+$(document).on('click','.edit-correction',function(){
+    const url = $(this).data('url');
+    modal = $(this).data('target');
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(response){
+            if (url !== undefined)
+            {
+                $('.modal[id*="edit-correction"] .modal-body').html("");
+                $(modal).find('.modal-body').append(response.render);
+            }
+        }
+    });
+})
