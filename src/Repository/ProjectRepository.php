@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Language;
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -45,5 +46,21 @@ class ProjectRepository extends ServiceEntityRepository
         ;
 
         return $query->getResult();
+    }
+
+    /**
+     * Get all projects by a specific language
+     * @param Language $language
+     * @return Project[]
+     */
+    public function findAllByLanguage(Language $language)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.languages','l')
+            ->andWhere('l = :language')
+            ->setParameter('language', $language)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

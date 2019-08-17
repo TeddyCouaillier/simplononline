@@ -22,22 +22,41 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\UserNotif;
 use App\Entity\Notification;
+use App\Repository\LanguageRepository;
 
 /**
- * @Route("/project", name="project_")
+ * @Route("/projet", name="project_")
  */
 class ProjectController extends AbstractController
 {
     /**
      * Show all projects
-     * @Route("/all", name="all")
+     * @Route("s/all", name="all")
      * @param ProjectRepository $rep
      * @return Response
      */
-    public function allProject(ProjectRepository $rep)
+    public function allProject(ProjectRepository $prep, LanguageRepository $lrep)
     {
         return $this->render('project/all.html.twig', [
-            'projects' => $rep->findAll()
+            'projects'  => $prep->findAll(),
+            'languages' => $lrep->findAll()
+        ]);
+    }
+
+    /**
+     * Show all projects by language
+     * @Route("s/{label}", name="all_by_language")
+     * @param Language           $language
+     * @param ProjectRepository  $prep
+     * @param LanguageRepository $lrep
+     * @return Response
+     */
+    public function allProjectByLanguage(Language $language, ProjectRepository $prep, LanguageRepository $lrep)
+    {
+        return $this->render('project/all.html.twig', [
+            'projects'  => $prep->findAllByLanguage($language),
+            'languages' => $lrep->findAll(),
+            'language'  => $language
         ]);
     }
 
@@ -221,6 +240,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            $task->checkType();
             $manager->persist($task);
             $manager->flush();
 
@@ -234,12 +254,12 @@ class ProjectController extends AbstractController
 
         // Ajax calling
         $render = $this->render('project/edit_task.html.twig',[
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
             'project' => $project,
-            'task' => $task
+            'task'    => $task
         ]);
         $response = [
-            "code" => 200,
+            "code"   => 200,
             "render" => $render->getContent()
         ];
         return new JsonResponse($response);

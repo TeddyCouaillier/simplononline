@@ -14,12 +14,37 @@
 {% endblock %}
 
 {% block body %}
-    <h1>
-        Tous les projets
-        {% if user is defined %}
-        de {{ user.firstname }} {{ user.lastname }}
+    <div class="flex just-between align-center">
+        <h1>
+            {% if user is not defined %}
+            Tous les projets
+            {% else %}
+            Tous mes projets
+            {% endif %}
+        </h1>
+        {% if user is not defined %}
+        <div class="btn-group shadow-small">
+            <div class="btn-group dropleft" role="group">
+                <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
+                    <a href="{{ path('project_all') }}" class="dropdown-item">Tout</a>
+                    {% for language in languages %}
+                    <a href="{{ path('project_all_by_language',{'label': language.label}) }}" class="dropdown-item">
+                        {{ language.label }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <span class="btn bg-white">
+                {% if language is defined %}
+                {{ language.label }}
+                {% else %}
+                Tout
+                {% endif %}
+            </span>
+        </div>
         {% endif %}
-    </h1>
+    </div>
     <hr>
     {% if user is defined %}
     {% set projects = user.projects %}
@@ -38,10 +63,10 @@
             </div>
         </div>
     {% endfor %}
-        {% if is_granted('ROLE_ADMIN') == false %}
+        {# {% if is_granted('ROLE_ADMIN') == false %} #}
         <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
             <a href="{{ path('project_create') }}"><div class="all-add-project">+</div></a>
         </div>
-        {% endif %}
+        {# {% endif %} #}
     </div>
 {% endblock %}

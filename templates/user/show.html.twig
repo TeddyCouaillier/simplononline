@@ -157,7 +157,7 @@
                 <hr>
             {% endfor %}
             <div class="text-center mt-4">
-                <a href="#" class="user-see-more p-1">Voir tous</a>
+                <a href="{{ path('user_show_projects',{'id':user.id}) }}" class="user-see-more p-1">Voir tous</a>
             </div>
         {% else %}
             <div class="flex just-center align-center text-center bold h-100">
@@ -233,6 +233,27 @@
     {######################################
      #### OTHER
      #####################################}
-    <div class="div9"></div>
+    <div class="user-portfolio">
+        <div class="text-center">
+            <span class="bold">Portfolio</span>
+            <hr>
+        </div>
+        <div class="flex wrap align-center">
+        {% for project in user.projects if project.completed %}
+            <div class="container-white py-3 m-1 shadow-small text-center" style="width:32%; height: 125px;">
+                <span class="bold">{{ project.title }}</span><br>
+                <p class="h-50">{{ project.description|truncate(75)|default('Aucune description') }}</p>
+                <span class="text-small text-grey">
+                {% for language in project.languages %}
+                {{ language.label }}
+                {% else %}
+                Aucun langage
+                {% endfor %}
+                </span>
+            </div>
+        {% else %}
+        {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

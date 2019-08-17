@@ -404,12 +404,12 @@ class AdminEditController extends AbstractController
     }
 
     /**
+     * Edit a specific correction
      * @Route("/correction/{id}/edit", name="correction_edit")
-     *
-     * @param Correction $correction
-     * @param Request $request
+     * @param Correction    $correction
+     * @param Request       $request
      * @param ObjectManager $manager
-     * @return void
+     * @return Response/JsonResponse
      */
     public function editCorrection(Correction $correction, Request $request, ObjectManager $manager)
     {
@@ -441,11 +441,11 @@ class AdminEditController extends AbstractController
     }
 
     /**
+     * Delete a specific correction
      * @Route("/correction/{id}/delete", name="correction_delete")
-     *
-     * @param Correction $correction
+     * @param Correction    $correction
      * @param ObjectManager $manager
-     * @return void
+     * @return Response
      */
     public function deleteCorrection(Correction $correction, ObjectManager $manager)
     {

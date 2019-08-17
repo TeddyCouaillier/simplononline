@@ -291,6 +291,28 @@ class UserController extends AbstractController
     }
 
     /**
+     * Delete all trainings courses posted by a specific user
+     * @Route("/{id}/stages/delete/all", name="delete_all_trainings")
+     * @param User          $user
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteAllTrainingCourse(User $user, ObjectManager $manager)
+    {
+        foreach($user->getTrainingCourse() as $training){
+            $manager->remove($training);
+        }
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Les stages ont bien été supprimés.'
+        );
+
+        return $this->redirectToRoute('user_show_training',['id'=> $this->getUser()->getId()]);
+    }
+
+    /**
      * Delete a specific training course posted by a specific user
      * @Route("/{id}/stages/delete/{training_id}", name="delete_training")
      * @Entity("training", expr="repository.find(training_id)")

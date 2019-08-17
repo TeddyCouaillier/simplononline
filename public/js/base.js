@@ -37,12 +37,30 @@ $(document).mouseup(function(e)
 {
     var container = $(".nav-dropdown");
     var tooltip = $(".subnav-tooltip");
-    if (!container.is(e.target) && container.has(e.target).length === 0)
+    if (!container.is(e.target) && (container.has(e.target).length === 0 || tooltip.has(e.target).length === 0))
     {
         container.fadeOut(500);
     }
-    if(!container.is(e.target) && tooltip.has(e.target).length === 0)
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(".notif");
+    var tooltip = $(".user-notif");
+    if (!container.is(e.target) && (container.has(e.target).length === 0 || tooltip.has(e.target).length === 0))
     {
+        container.removeClass('text-black');
+        tooltip.fadeOut(500);
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(".dots");
+    var tooltip = $(".user-subnav");
+    if (!container.is(e.target) && (container.has(e.target).length === 0 || tooltip.has(e.target).length === 0))
+    {
+        container.removeClass('active');
         tooltip.fadeOut(500);
     }
 });

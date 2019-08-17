@@ -109,6 +109,22 @@ class Task
         return $res;
     }
 
+    public function checkType()
+    {
+        $completed = true;
+        if(sizeof($this->subtasks) == 0){
+            $completed = false;
+        }
+        foreach($this->subtasks as $subtask){
+            if(!$subtask->getDone()){
+                $completed = false;
+            }
+        }
+        if($completed){
+            $this->type = self::COMPLETED;
+        }
+    }
+
     /**
      * Get the progress width (%)
      * @return integer

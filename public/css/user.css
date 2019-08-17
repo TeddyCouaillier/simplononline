@@ -8,7 +8,7 @@
     padding: 0 25px;
 }
 
-.user > div{
+.user > div:not(.user-portfolio){
     background: white;
     border-radius: 7px;
     box-shadow: var(--shadow);
@@ -22,7 +22,7 @@
 .user-trainings { grid-area: 4 / 1 / 5 / 3; }
 .user-datas     { grid-area: 5 / 1 / 6 / 3; }
 .user-skills    { grid-area: 4 / 3 / 6 / 4; }
-.div9           { grid-area: 6 / 1 / 7 / 4; }
+.user-portfolio { grid-area: 6 / 1 / 7 / 4; }
 
 .user-secondary-info li { margin-bottom: .25rem; }
 .user-secondary-info a{ color: var(--greylight); }

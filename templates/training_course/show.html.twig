@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+{{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'id': user.id}), 'Toutes vos propositions de stage seront supprimées') }}
 <div class="flex just-between">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
@@ -17,6 +18,14 @@
 </div>
 <hr>
 <div class="bg-grey rounded p-2">
+    <div class="flex just-between">
+        <span class="ml-1 bold">Etat de mes stages</span>
+        <div class="mr-2 mb-2 text-small rhover">
+            <a data-toggle="modal" data-target="#modal-delete-trainings">
+                Tout supprimer <i class="fal fa-times-circle text-red"></i>
+            </a>
+        </div>
+    </div>
     {% for training in user.trainingCourse %}
         <div class="container-white mb-2">
             <div class="flex align-center">
