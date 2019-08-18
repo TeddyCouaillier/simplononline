@@ -50,7 +50,7 @@ class FileController extends AbstractController
 
         $user = $this->getUser();
 
-        $access = $this->container->get('security.authorization_checker')->isGranted(User::MEDIATEUR);
+        $access = $user->hasRole();
         $file = new Files();
 
         $form = $access ? $this->createForm(FilesAdminType::class, $file) : $this->createForm(FilesType::class, $file);
@@ -65,20 +65,21 @@ class FileController extends AbstractController
 
             if($access){
                 $data = $request->request->get('files_admin');
+                $important = isset($data['important']) ? true : false;
                 foreach($data['receiver'] as $receiver_id){
                     $receiver = $rep->find($receiver_id);
-                    $important = isset($data['important']) ? true : false;
                     $receiver->createUserFile($this->getUser(), $file, $important);
                     $receiver->createUserNotif($notif);
                     $manager->persist($receiver);
                 }
             } else {
                 $data = $request->request->get('files');
-                foreach($rep->findAllByUserRole(User::MEDIATEUR) as $mediateur){
-                    $important = isset($data['important']) ? true : false;
-                    $mediateur->createUserFile($this->getUser(), $file, $important);
-                    $mediateur->createUserNotif($notif);
-                    $manager->persist($mediateur);
+                $important = isset($data['important']) ? true : false;
+                foreach($data['receiver'] as $sup_user_id){
+                    $sup_user = $rep->find($sup_user_id);
+                    $sup_user->createUserFile($this->getUser(), $file, $important);
+                    $sup_user->createUserNotif($notif);
+                    $manager->persist($sup_user);
                 }
             }
             $manager->flush();

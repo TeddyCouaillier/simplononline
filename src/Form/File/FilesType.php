@@ -2,9 +2,12 @@
 
 namespace App\Form\File;
 
+use App\Entity\User;
 use App\Entity\Files;
 use App\Form\ApplicationType;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,6 +25,17 @@ class FilesType extends ApplicationType
                 'attr'       => array('class' => "custom-control-input"),
                 'label_attr' => array('class' => 'custom-control-label'),
                 'required'   => false
+            ])
+            ->add('receiver',  EntityType::class, [
+                'class'         => User::class,
+                'choice_label'  => 'fullname',
+                'label'         => 'Destinataire',
+                'multiple'      => true,
+                'mapped'        => false,
+                'query_builder' => function(UserRepository $rep) {
+                    return $rep->getAllUserRoleByCurrentPromo();
+                }
+
             ])
         ;
     }

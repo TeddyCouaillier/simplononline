@@ -243,7 +243,7 @@ $(document).on('click', '.see-trainings', function() {
     $('tbody').find(`[data-training=${id}]`).fadeToggle();
 })
 
-$('.files-select').selectpicker();
+$('.files-selected').selectpicker();
 $('.project-user-select').selectpicker();
 $('.language-select').selectpicker();
 

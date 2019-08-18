@@ -426,6 +426,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function hasRole()
+    {
+        return sizeof($this->userRoles) > 0 ? true : false;
+    }
+
     public function checkRole($roleChecked)
     {
         foreach($this->getRoles() as $role){

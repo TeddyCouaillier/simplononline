@@ -100,4 +100,17 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('ur is not null')
         ;
     }
+
+    /**
+     * Get all users with a role in the current promo
+     */
+    public function getAllUserRoleByCurrentPromo()
+    {
+        return $this->createQueryBuilder('u')
+        ->join('u.userRoles', 'ur')
+        ->join('u.promotionmod', 'p')
+        ->andWhere('ur is not null')
+        ->andWhere('p.current = true')
+        ;
+    }
 }

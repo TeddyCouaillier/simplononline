@@ -7,7 +7,6 @@
             {{ form_label(form.title) }}
             {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
             <hr>
-            {% if is_granted('ROLE_MEDIATEUR') %}
             {{ form_label(form.receiver) }}
             {{ form_widget(form.receiver, {'attr': {
                 'class': 'files-selected selectpicker',
@@ -19,7 +18,6 @@
                 'data-size': '6'
             }}) }}
             <hr>
-            {% endif %}
             {{ form_widget(form.name) }}
             <div class="custom-control custom-switch text-center mt-4">
             {{ form_widget(form.important) }}
