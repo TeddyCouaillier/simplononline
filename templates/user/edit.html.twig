@@ -57,6 +57,21 @@
             <div>{{ form_label(form.github) }}</div>
             <div>{{ form_widget(form.github) }}</div>
         </div>
+
+        <div class="container-white w-100 mb-2">
+            <span class="bold">Roles</span>
+            <div class="mt-2">
+                {{ form_widget(form.userRoles) }}
+            </div>
+        </div>
+
+        <div class="container-white edit-user-promo w-100 mb-2 ml-1">
+            <span class="bold">Promotion</span>
+            <div class="mt-2">
+                {{ form_widget(form.promotion) }}
+            </div>
+        </div>
+
     </div>
 
     {{ template.confirm() }}

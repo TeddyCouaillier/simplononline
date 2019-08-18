@@ -26,8 +26,24 @@
                     <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="promo-url">
                         <h2>{{ promo.label }}</h2>
                         <ul>
-                            <li>Formateur : <em>PETIT Romain</em></li>
-                            <li>Médiateur : <em>CARON Benoit</em></li>
+                            <li>Formateur :
+                                <em>
+                                {% for former in promo.formers %}
+                                    {{ former.fullname }} &nbsp;
+                                {% else %}
+                                    Aucun
+                                {% endfor %}
+                                </em>
+                            </li>
+                            <li>Médiateur :
+                                <em>
+                                {% for mediator in promo.mediators %}
+                                    {{ mediator.fullname }} &nbsp;
+                                {% else %}
+                                    Aucun
+                                {% endfor %}
+                                </em>
+                            </li>
                         </ul>
                         <hr>
                         <span class="text-grey">{{ promo.nickname | capitalize }}</span>

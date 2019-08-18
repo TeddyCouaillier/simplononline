@@ -89,4 +89,15 @@ class UserRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Find all users with a role
+     */
+    public function getAllUserByRole()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRoles', 'ur')
+            ->andWhere('ur is not null')
+        ;
+    }
 }

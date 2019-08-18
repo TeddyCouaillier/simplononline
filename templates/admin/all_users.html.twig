@@ -26,10 +26,11 @@
                             {{ promotion.label }}
                         </a>
                         {% endfor %}
+                        <a href="{{ path('admin_all_users',{'slug': 'other'}) }}" class="dropdown-item">Autres</a>
                     </div>
                 </div>
                 <span class="btn bg-white">
-                    {% if promo is not null %}
+                    {% if promo is not empty and promo is not null %}
                     {{ promo.label }}
                     {% else %}
                     Tout

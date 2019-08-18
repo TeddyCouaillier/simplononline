@@ -38,7 +38,11 @@ $(document).on('click','.promo-edit',function(){
             if (url !== undefined)
             {
                 $('.modal[id*="modal-promo-edit-"] .modal-body').html("");
-                $(modal).find('.modal-body').append(response.render);
+                $(modal).find('.modal-body').append(response.render + `
+                    <script>
+                        $('.promo-mod-selected').selectpicker();
+                    </script>
+                `);
             }
         }
     });

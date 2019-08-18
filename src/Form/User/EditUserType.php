@@ -2,8 +2,11 @@
 
 namespace App\Form\User;
 
+use App\Entity\Role;
+use App\Entity\Promotion;
 use App\Form\User\UserType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -19,6 +22,18 @@ class EditUserType extends UserType
             ->add('website'  , TextType::class, $this->getConfiguration("Site internet",false,['required'=>false]))
             ->add('github'   , TextType::class, $this->getConfiguration("Lien github",false,['required'=>false]))
             ->add('avatar'   , FileType::class, [ 'required' => false,'data_class' => null])
+            ->add('promotion', EntityType::class, [
+                'class'        => Promotion::class,
+                'choice_label' => 'label',
+                'required'     => false,
+                'placeholder'  => 'Aucune'
+            ])
+            ->add('userRoles', EntityType::class, [
+                'class'       => Role::class,
+                'required'    => false,
+                'mapped'      => false,
+                'placeholder' => 'Apprenant'
+            ])
         ;
     }
 }

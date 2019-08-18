@@ -58,13 +58,25 @@ class AdminShowController extends AbstractController
     /**
      * Show all users (all or by promotion) + adding user form
      * @Route("/users/{slug}", name="all_users")
-     * @param UserRepository               $urep
-     * @param PromotionRepository          $prep
+     * @param string  $slug promo search (all, other, specific promo)
+     * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function allUsers(Promotion $promo = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function allUsers(string $slug = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
+        $urep = $this->getDoctrine()->getRepository(User::class);
+        $prep = $this->getDoctrine()->getRepository(Promotion::class);
+
+        $promo = $prep->findOneBy(['slug' => $slug]);
+        if($slug == 'all'){
+            $users = $urep->findAll();
+        } else if($slug == 'other'){
+            $users = $urep->findBy(['promotion' => null]);
+        } else {
+            $users = $urep->findBy(['promotion' => $promo]);
+        }
+
         $user = new User();
         $form = $this->createForm(CreateUserType::class, $user);
         $form->handleRequest($request);
@@ -95,15 +107,6 @@ class AdminShowController extends AbstractController
                 'success',
                 'L\'utilisateur a bien été créé.'
             );
-        }
-
-        $urep = $this->getDoctrine()->getRepository(User::class);
-        $prep = $this->getDoctrine()->getRepository(Promotion::class);
-
-        if($promo != null){
-            $users = $urep->findBy(['promotion'=> $promo]);
-        } else {
-            $users = $urep->findAll();
         }
 
         return $this->render('admin/all_users.html.twig', [

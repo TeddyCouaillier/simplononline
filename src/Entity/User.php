@@ -173,6 +173,11 @@ class User implements UserInterface
     private $projectmod;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Promotion", inversedBy="moderators")
+     */
+    private $promotionmod;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Notification", cascade={"persist"}, mappedBy="sender", orphanRemoval=true)
      */
     private $notifSent;
@@ -186,6 +191,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
 
     public function __construct()
     {
@@ -204,6 +210,7 @@ class User implements UserInterface
         $this->lastConnect    = new \DateTime;
         $this->weather        = self::SUN;
         $this->isActive       = true;
+        $this->promotionmod = new ArrayCollection();
     }
 
     /**
@@ -902,6 +909,32 @@ class User implements UserInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Promotion[]
+     */
+    public function getPromotionmod(): Collection
+    {
+        return $this->promotionmod;
+    }
+
+    public function addPromotionmod(Promotion $promotionmod): self
+    {
+        if (!$this->promotionmod->contains($promotionmod)) {
+            $this->promotionmod[] = $promotionmod;
+        }
+
+        return $this;
+    }
+
+    public function removePromotionmod(Promotion $promotionmod): self
+    {
+        if ($this->promotionmod->contains($promotionmod)) {
+            $this->promotionmod->removeElement($promotionmod);
+        }
 
         return $this;
     }

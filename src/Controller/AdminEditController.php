@@ -50,6 +50,13 @@ class AdminEditController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted()){
             if($form->isValid()){
+                if(isset($request->request->get('promotion')['moderators'])){
+                    $moderators = $request->request->get('promotion')['moderators'];
+                    foreach($moderators as $mod_id){
+                        $moderator = $this->getDoctrine()->getRepository(User::class)->find($mod_id);
+                        $promo->addModerator($moderator);
+                    }
+                }
                 $manager->persist($promo);
                 $manager->flush();
 

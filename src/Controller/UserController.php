@@ -115,6 +115,14 @@ class UserController extends AbstractController
                     $user->setAvatar($imageName);
                 }
 
+                $role_id = $request->request->get('edit_user')['userRoles'];
+                if($role_id !== null){
+                    $reprole = $this->getDoctrine()->getRepository(Role::Class);
+                    $role = $reprole->find($role_id);
+                    $role->addUser($user);
+                    $user->setPromotion(null);
+                }
+
                 $manager->persist($user);
                 $manager->flush();
 
@@ -150,7 +158,7 @@ class UserController extends AbstractController
             'L\'utilisateur a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('admin_all_users');
+        return $this->redirectToRoute('admin_all_users', ['slug' => 'all']);
     }
 
     // -----------------------------------------------------

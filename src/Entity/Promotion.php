@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PromotionRepository")
@@ -57,6 +58,11 @@ class Promotion
     private $endAt;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="promotionmod")
+     */
+    private $moderators;
+
+    /**
      * @ORM\PreRemove
      */
     public function removeUsers()
@@ -68,8 +74,9 @@ class Promotion
 
     public function __construct()
     {
-        $this->users   = new ArrayCollection();
-        $this->current = false;
+        $this->users      = new ArrayCollection();
+        $this->moderators = new ArrayCollection();
+        $this->current    = false;
     }
 
     public function getId(): ?int
@@ -178,5 +185,67 @@ class Promotion
         $this->endAt = $endAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getModerators(): Collection
+    {
+        return $this->moderators;
+    }
+
+    public function addModerator(User $moderator): self
+    {
+        if (!$this->moderators->contains($moderator)) {
+            $this->moderators[] = $moderator;
+            $moderator->addPromotionmod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModerator(User $moderator): self
+    {
+        if ($this->moderators->contains($moderator)) {
+            $this->moderators->removeElement($moderator);
+            $moderator->removePromotionmod($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get promotion's mediators
+     * @return User[]
+     */
+    public function getMediators()
+    {
+        $mediators = [];
+        foreach($this->moderators as $moderator){
+            foreach($moderator->getRoles() as $role){
+                if($role === User::MEDIATEUR){
+                    $mediators[] = $moderator;
+                }
+            }
+        }
+        return $mediators;
+    }
+
+    /**
+     * Get promotion's formers
+     * @return User[]
+     */
+    public function getFormers()
+    {
+        $formers = [];
+        foreach($this->moderators as $moderator){
+            foreach($moderator->getRoles() as $role){
+                if($role === User::ADMIN){
+                    $formers[] = $moderator;
+                }
+            }
+        }
+        return $formers;
     }
 }
