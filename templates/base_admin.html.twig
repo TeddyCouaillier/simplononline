@@ -52,7 +52,7 @@
             <div class="collapse navbar-collapse" id="adminnav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users') }}">Utilisateurs</a>
+                <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users',{'slug': 'all'}) }}">Utilisateurs</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link {{ active_projects }}" href="{{ path('admin_all_projects') }}">Projets</a>

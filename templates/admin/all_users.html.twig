@@ -15,19 +15,35 @@
 <div class="container px-5 my-4">
     <div class="flex just-between align-center">
         <h1>Liste des utilisateurs</h1>
-        <a  class="button-edit" data-toggle="modal" data-target="#modal-add-user"><i class="fal fa-plus"></i></a>
+        <div class="flex align-center">
+            <div class="btn-group shadow-small mr-4">
+                <div class="btn-group dropleft" role="group">
+                    <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
+                        <a href="{{ path('admin_all_users',{'slug': 'all'}) }}" class="dropdown-item">Tout</a>
+                        {% for promotion in promotions %}
+                        <a href="{{ path('admin_all_users',{'slug': promotion.slug}) }}" class="dropdown-item">
+                            {{ promotion.label }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <span class="btn bg-white">
+                    {% if promo is not null %}
+                    {{ promo.label }}
+                    {% else %}
+                    Tout
+                    {% endif %}
+                </span>
+            </div>
+            <a  class="button-edit" data-toggle="modal" data-target="#modal-add-user"><i class="fal fa-plus"></i></a>
+        </div>
     </div>
     <hr>
-    <div class="flex just-center mb-3 admin-all-promo">
-        <span class="badge-link-active mx-2" data-badge="Tout">Tout</span>
-        {% for promotion in promotions %}
-            <span class="badge-link-inactive mx-2" data-badge="{{ promotion.label }}">{{ promotion.label }}</span>
-        {% endfor %}
-    </div>
     <table class="table table-hover text-center bg-white shadow-small">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Actif</th>
                 <th scope="col">Fullname</th>
                 <th scope="col">Stages</th>
                 <th scope="col">Projets</th>
@@ -39,8 +55,11 @@
         <tbody class="admin-all">
             {% for user in users %}
             {{ template.deleteConfirm(user.id,path('user_delete',{'id':user.id})) }}
-            <tr data-badge="{% if user.promotion != null %}{{ user.promotion.label }}{% endif %}" >
-                <th scope="row">{{ user.id }}</th>
+            <tr>
+                <td class="flex just-center">
+                    <input class="switch_base active-user" data-userurl="{{path('admin_user_active',{'id':user.id}) }}"
+                    type="checkbox" {% if user.isActive %} checked {% endif %}>
+                </td>
                 <td class="text-left">{{ user.fullname }}</td>
                 <td>
                     {% if user.trainingCourse is not empty %}

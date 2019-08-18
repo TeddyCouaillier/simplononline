@@ -57,13 +57,13 @@ class AdminShowController extends AbstractController
 
     /**
      * Show all users (all or by promotion) + adding user form
-     * @Route("/users", name="all_users")
+     * @Route("/users/{slug}", name="all_users")
      * @param UserRepository               $urep
      * @param PromotionRepository          $prep
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function allUsers(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function allUsers(Promotion $promo = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(CreateUserType::class, $user);
@@ -100,8 +100,15 @@ class AdminShowController extends AbstractController
         $urep = $this->getDoctrine()->getRepository(User::class);
         $prep = $this->getDoctrine()->getRepository(Promotion::class);
 
+        if($promo != null){
+            $users = $urep->findBy(['promotion'=> $promo]);
+        } else {
+            $users = $urep->findAll();
+        }
+
         return $this->render('admin/all_users.html.twig', [
-            'users'      => $urep->findAll(),
+            'users'      => $users,
+            'promo'      => $promo,
             'promotions' => $prep->findAll(),
             'form'       => $form->createView()
         ]);

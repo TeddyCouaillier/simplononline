@@ -76,6 +76,10 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Find all users with a role
+     * @return User[]
+     */
     public function findAllUserByRole()
     {
         return $this->createQueryBuilder('u')

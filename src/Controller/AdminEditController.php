@@ -309,6 +309,26 @@ class AdminEditController extends AbstractController
     }
 
     /**
+     * Active/Inactive a specific user
+     * @Route("/user/{id}/active", name="user_active")
+     * @param User          $user
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function editActiveUser(User $user, ObjectManager $manager)
+    {
+        $user->getIsActive() ? $user->setIsActive(false) : $user->setIsActive(true);
+        $manager->persist($user);
+        $manager->flush();
+
+        $response = [
+            "code" => 200
+        ];
+
+        return new JsonResponse($response);
+    }
+
+    /**
      * Adding a specific project's correction
      * @Route("/projet/{id}/add-correction", name="project_edit_correction")
      * @param Project       $project

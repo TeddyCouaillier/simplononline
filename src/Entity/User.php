@@ -182,6 +182,11 @@ class User implements UserInterface
      */
     private $notifReceived;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     public function __construct()
     {
         $this->userRoles      = new ArrayCollection();
@@ -198,6 +203,7 @@ class User implements UserInterface
         $this->notifReceived  = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
         $this->weather        = self::SUN;
+        $this->isActive       = true;
     }
 
     /**
@@ -886,5 +892,17 @@ class User implements UserInterface
             }
         }
         return false;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
     }
 }

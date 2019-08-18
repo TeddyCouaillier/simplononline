@@ -85,6 +85,25 @@ $(document).on('click','.promocurrent', function() {
     });
 })
 
+$(document).on('click','.active-user', function() {
+    const check = $(this);
+
+    const url = $(this).data('userurl');
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(response){
+            // if($(check).)
+            if($(check).is(':checked')){
+                $(check).prop("checked",true);
+            } else {
+                $(check).prop("checked",false);
+            }
+        }
+    });
+})
+
 $(document).on('click','.edit-data',function(){
     const url = $(this).data('url');
     modal = $(this).data('target');

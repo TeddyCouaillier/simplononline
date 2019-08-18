@@ -170,38 +170,6 @@ $('.help-all_cats span').click(function() {
 
 });
 
-$('.admin-all-promo span').click(function() {
-    var category = $(this).data('badge');
-
-    $('.admin-all-promo span').addClass('badge-link-inactive').removeClass('badge-link-active');
-    $(this).removeClass('badge-link-inactive')
-    $(this).addClass('badge-link-active');
-
-    if (category === "Tout")
-    {
-        var elems = $('.admin-all tr');
-        Array.from(elems).forEach(function(elem) {
-            $(elem).fadeIn();
-        });
-    }
-    else
-    {
-        var elems = $('.admin-all tr');
-
-        Array.from(elems).forEach(function(elem) {
-            var category_ = $(elem).data('badge');
-
-            $(elem).hide();
-
-            if (category_ === category)
-            {
-                $(elem).fadeIn();
-            }
-        });
-    }
-
-});
-
 function changeStatus(el){
     var cl =  $(el).attr("class").split(" ");
     var newcl =[];
