@@ -14,7 +14,17 @@
                 <span class="bold">Info</span>
                 <div class="my-3">{{ form_widget(form.type) }}</div>
                 <div class="my-3">{{ form_widget(form.title) }}</div>
-                <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '8'}}) }}</div>
+                <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '6'}}) }}</div>
+                <div class="my-3">{{ form_widget(form.users, {'attr': {
+                    'class': 'task-user-selected selectpicker',
+                    'title': 'Ajouter un contributeur',
+                    'data-live-search': 'true',
+                    'multiple': '',
+                    'data-selected-text-format': 'count > 2',
+                    'data-style': 'bg-white',
+                    'data-size': '6'
+                    }})  }}
+                </div>
             </div></div>
             <div class="mx-1 p-2" style="width: 66%; ">
                 <span class="bold">Liste des sous-tâches</span>
@@ -30,7 +40,7 @@
 {% endblock %}
 
 {% block _edit_task_subtasks_entry_widget %}
-<div class="flex just-around align-center rounded task-add-subtask-edit">
+<div class="flex just-around align-baseline rounded task-add-subtask-edit">
         <div>{{ form_widget(form.title) }}</div>
         <div>
             {% if form.done is defined %}

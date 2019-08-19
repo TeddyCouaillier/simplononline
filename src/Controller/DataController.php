@@ -21,7 +21,7 @@ class DataController extends AbstractController
     /**
      * Show all datas
      * @Route("/all", name="all")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_FORMER")
      * @param Request        $request
      * @param ObjectManager  $manager
      * @param DataRepository $rep
