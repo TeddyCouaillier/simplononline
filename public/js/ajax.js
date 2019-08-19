@@ -237,3 +237,16 @@ $(document).on('click','.edit-correction',function(){
         }
     });
 })
+
+$(document).on('click','.remove-language',function(){
+    const url = $(this).data('url');
+    const pill = $(this);
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            $(pill).parent().fadeOut(500);
+        }
+    });
+})

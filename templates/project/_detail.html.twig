@@ -22,7 +22,12 @@
                         </p>
                         <div class="flex wrap my-1">
                         {% for language in project.languages if language is not null %}
-                            <div class="badge-link-active mr-1">{{language.label}}</div>
+                            <div class="badge-link-active mr-1">
+                            {{language.label}}
+                            {% if project.moderator == app.user %}
+                            <i class="fal fa-times-circle pointer remove-language" data-url="{{ path('project_remove_language',{'id_project': project.id,'id': language.id}) }}"></i>
+                            {% endif %}
+                            </div>
                         {% endfor %}
                         </div>
                         <p>

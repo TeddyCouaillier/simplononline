@@ -83,13 +83,15 @@
                     -
                     {% endif %}
                 </td>
-                <td class="flex just-center">
+                <td>
+                    <div class="flex just-center">
                     {% for uskill in user.userSkills %}
                         <div
                         class="level-xs level-{{ uskill.level }} m-1" data-toggle="tooltip"
                         data-placement="top" title="{{ uskill.skill.label }}">
                         </div>
                     {% endfor %}
+                    </div>
                 </td>
                 <td>
                     <div class="btn-group" role="group">

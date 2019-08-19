@@ -246,6 +246,8 @@ $(document).on('click', '.see-trainings', function() {
 $('.files-selected').selectpicker();
 $('.project-user-select').selectpicker();
 $('.language-select').selectpicker();
+$('.project-selected').selectpicker();
+$('.language-selected').selectpicker();
 
 jQuery(document).ready(function() {
     $('.js-datepicker').datepicker();

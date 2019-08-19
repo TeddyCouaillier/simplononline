@@ -160,6 +160,21 @@ class ProjectController extends AbstractController
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            if(isset($request->request->get('edit_project')['users'])){
+                $users_id     = $request->request->get('edit_project')['users'];
+                foreach($users_id as $id){
+                    $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+                    $project->addUser($user);
+                }
+            }
+            if(isset($request->request->get('edit_project')['languages'])){
+                $languages_id = $request->request->get('edit_project')['languages'];
+                foreach($languages_id as $id){
+                    $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
+                    $project->addLanguage($language);
+                }
+            }
+
             if($project->getCompleted() && $project->getEndAt() == null){
                 $project->setEndAt(new \DateTime());
             }
@@ -290,6 +305,24 @@ class ProjectController extends AbstractController
             "size" => sizeof($tasks)
         ];
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/{id_project}/{id}/remove", name="remove_language")
+     * @Entity("project", expr="repository.find(id_project)")
+     * @Entity("language", expr="repository.find(id)")
+     * @param Project $project
+     * @param Language $language
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function removeLanguage(Project $project, Language $language, ObjectManager $manager)
+    {
+        $project->removeLanguage($language);
+        $manager->persist($project);
+        $manager->flush();
+
+        return new JsonResponse();
     }
 
     /**
