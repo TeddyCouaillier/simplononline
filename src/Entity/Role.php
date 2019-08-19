@@ -82,6 +82,16 @@ class Role
     {
         $pos  = strrpos($this->title, "_");
         $name = substr($this->title,$pos+1);
-        return ucfirst(strtolower($name));
+        $title = ucfirst(strtolower($name));
+        switch($title){
+            case "Admin":
+                return 'Administrateur';
+            case "Mediateur":
+                return 'Médiateur';
+            case "Former":
+                return 'Formateur';
+            default:
+                return $title;
+        }
     }
 }

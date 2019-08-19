@@ -23,10 +23,12 @@ class User implements UserInterface
 {
     const USER      = 'ROLE_USER';
     const ADMIN     = 'ROLE_ADMIN';
+    const FORMER    = 'ROLE_FORMER';
     const MEDIATEUR = 'ROLE_MEDIATEUR';
     const ROLES     = [
-        'Formateur' => self::ADMIN,
-        'Médiateur' => self::MEDIATEUR
+        'Administrateur' => self::ADMIN,
+        'Formateur'      => self::FORMER,
+        'Médiateur'      => self::MEDIATEUR
     ];
 
     const SUN       = 0;
