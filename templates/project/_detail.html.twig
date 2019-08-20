@@ -51,7 +51,7 @@
                             <i class="fal fa-star text-small text-red bold ml-1"></i>
                         {% endif %}
                     </div>
-                    {% if project.moderator == app.user %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
                     <div style="width: 10%">
                         <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}"><i class="fal fa-times-circle"></i></button>
                     </div>
@@ -60,6 +60,7 @@
                 {% endfor %}
             </div>
         </div>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
         <div class="container-white mb-2 text-center">
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
         </div>
@@ -67,5 +68,6 @@
         <div class="container-white mb-1 text-center">
             <a class="text-red bold" data-toggle="modal" data-target="#modal-delete-project">Supprimer le projet</a>
         </div>
+        {% endif %}
     </div>
 </div>

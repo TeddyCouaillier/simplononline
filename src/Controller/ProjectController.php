@@ -6,23 +6,24 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Entity\Project;
 use App\Entity\Language;
+use App\Entity\UserNotif;
 use App\Entity\Correction;
+use App\Entity\Notification;
 use App\Form\Project\TaskType;
 use App\Form\Project\ProjectType;
 use App\Form\Project\EditTaskType;
 use App\Repository\UserRepository;
+use App\Form\Project\CorrectionType;
 use App\Form\Project\EditProjectType;
 use App\Repository\ProjectRepository;
-use App\Form\Project\CorrectionType;
+use App\Repository\LanguageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\UserNotif;
-use App\Entity\Notification;
-use App\Repository\LanguageRepository;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/projet", name="project_")
@@ -127,6 +128,10 @@ class ProjectController extends AbstractController
      */
     public function removeUser(Project $project, Request $request, ObjectManager $manager)
     {
+        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole() ) {
+            throw new AccessDeniedException();
+        }
+
         $id = $request->query->get('id');
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
@@ -157,6 +162,10 @@ class ProjectController extends AbstractController
      */
     public function editProject(Project $project, Request $request, ObjectManager $manager)
     {
+        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -206,6 +215,10 @@ class ProjectController extends AbstractController
      */
     public function deleteProject(Project $project, ObjectManager $manager)
     {
+        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+            throw new AccessDeniedException();
+        }
+
         $manager->remove($project);
         $manager->flush();
 
@@ -228,6 +241,10 @@ class ProjectController extends AbstractController
      */
     public function deleteTaskProject(Project $project, Task $task, ObjectManager $manager)
     {
+        if(!$project->checkUserProject($this->getUser()) && !$this->getUser()->hasRole()){
+            throw new AccessDeniedException();
+        }
+
         $manager->remove($task);
         $manager->flush();
 
@@ -250,6 +267,13 @@ class ProjectController extends AbstractController
      */
     public function editTaskProject(Project $project, Task $task, Request $request, ObjectManager $manager)
     {
+        if(!$request->isXmlHttpRequest()) {
+            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
+        }
+        if(!$project->checkUserProject($this->getUser()) && !$this->getUser()->hasRole()){
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(EditTaskType::class, $task);
 
         $form->handleRequest($request);
@@ -275,7 +299,7 @@ class ProjectController extends AbstractController
         ]);
         $response = [
             "code"   => 200,
-            "render" => $render->getContent()
+            "render" => $render->getContent(),
         ];
         return new JsonResponse($response);
     }
@@ -286,10 +310,14 @@ class ProjectController extends AbstractController
      * @param Project           $project
      * @param Request           $request
      * @param ProjectRepository $rep
-     * @return JsonResponse
+     * @return Response/JsonResponse
      */
     public function seeMoreTask(Project $project, Request $request, ProjectRepository $rep)
     {
+        if(!$request->isXmlHttpRequest()) {
+            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
+        }
+
         $offset = $request->request->get('offset');
         $type   = $request->request->get('type');
         $tasks  = $rep->findAllTasksByType($project, $type, $offset);
@@ -318,6 +346,10 @@ class ProjectController extends AbstractController
      */
     public function removeLanguage(Project $project, Language $language, ObjectManager $manager)
     {
+        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+            throw new AccessDeniedException();
+        }
+
         $project->removeLanguage($language);
         $manager->persist($project);
         $manager->flush();
@@ -336,13 +368,6 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project, Request $request, ObjectManager $manager, UserRepository $rep)
     {
-        // $lien = 'https://api.github.com/repos/TeddyCouaillier/simplononline/commits';
-
-        // $httpClient = HttpClient::create();
-        // $response = $httpClient->request('GET', $lien);
-
-        // dump($response->getContent());
-
         if($request->query->get('seen') != null){
             $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
             if($unotif != null){

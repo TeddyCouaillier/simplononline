@@ -17,7 +17,7 @@
         <span class="bold">Informations importantes</span>
         <div class="rounded p-2 mb-2">
             {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
-            {{ form_widget(form.description) }}
+            {{ form_widget(form.description, {'attr': {'maxlength': 500} }) }}
             {{ form_widget(form.users, {'attr': {
                 'class': 'project-user-selected selectpicker',
                 'title': 'Personne(s) liée(s) au projet',

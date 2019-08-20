@@ -17,7 +17,7 @@
     <div class="px-5">
         <div class="flex just-between">
             <h1>{{ project.title }}</h1>
-            {% if is_granted('ROLE_ADMIN') or project.moderator == app.user %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="button-edit"><i class="fal fa-pen bold"></i></a>
             {% endif %}
         </div>
@@ -52,9 +52,7 @@
         {{ include('project/_task.html.twig') }}
         {{ include('project/_detail.html.twig') }}
         {{ include('project/_activity.html.twig') }}
-    </div> 
-
-
+    </div>
 {% endblock %}
 
 {% block _task_subtasks_entry_row %}

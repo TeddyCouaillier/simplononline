@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Data;
 use App\Entity\Help;
@@ -18,13 +18,11 @@ use App\Form\Help\HelpType;
 use App\Form\Skill\SkillType;
 use App\Form\File\FilesAdminType;
 use App\Form\User\CreateUserType;
-use App\Repository\DataRepository;
 use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
 use App\Repository\SkillsRepository;
 use App\Form\Promotion\PromotionType;
 use App\Repository\ProjectRepository;
-use App\Repository\LanguageRepository;
 use App\Form\Project\AddCorrectionType;
 use App\Repository\PromotionRepository;
 use App\Repository\CorrectionRepository;

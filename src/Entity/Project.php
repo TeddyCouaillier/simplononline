@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
@@ -22,6 +23,8 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=4, minMessage="Le titre doit faire au moins {{ limit }} caractères")
+     * @Assert\Length(max=60, maxMessage="Le titre doit faire moins de {{ limit }} caractères")
      */
     private $title;
 
@@ -32,11 +35,13 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Veuillez renseigner un URL valide pour GitHub")
      */
     private $github;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(max=500, maxMessage="La description doit faire moins de {{ limit }} caractères")
      */
     private $description;
 
@@ -47,6 +52,7 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Veuillez renseigner un URL valide pour le site")
      */
     private $website;
 
@@ -433,4 +439,20 @@ class Project
 
         return $this;
     }
+
+    /**
+     * Security
+     * Check the specific user with the project's user
+     * @param User $user
+     * @return boolean
+     */
+    public function checkUserProject(User $user){
+        foreach($this->users as $uproject){
+            if($uproject == $user){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
