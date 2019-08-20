@@ -22,6 +22,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -128,7 +129,7 @@ class ProjectController extends AbstractController
      */
     public function removeUser(Project $project, Request $request, ObjectManager $manager)
     {
-        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole() ) {
+        if(!$this->isGranted('ROLE_FORMER') && $project->getModerator() != $this->getUser() ) {
             throw new AccessDeniedException();
         }
 
@@ -162,7 +163,7 @@ class ProjectController extends AbstractController
      */
     public function editProject(Project $project, Request $request, ObjectManager $manager)
     {
-        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+        if(!$this->isGranted('ROLE_FORMER') && $project->getModerator() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 
@@ -215,7 +216,7 @@ class ProjectController extends AbstractController
      */
     public function deleteProject(Project $project, ObjectManager $manager)
     {
-        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+        if(!$this->isGranted('ROLE_FORMER') && $project->getModerator() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 
@@ -241,7 +242,7 @@ class ProjectController extends AbstractController
      */
     public function deleteTaskProject(Project $project, Task $task, ObjectManager $manager)
     {
-        if(!$project->checkUserProject($this->getUser()) && !$this->getUser()->hasRole()){
+        if(!$this->isGranted('ROLE_FORMER') &&  !$project->checkUserProject($this->getUser())){
             throw new AccessDeniedException();
         }
 
@@ -270,7 +271,7 @@ class ProjectController extends AbstractController
         if(!$request->isXmlHttpRequest()) {
             return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
         }
-        if(!$project->checkUserProject($this->getUser()) && !$this->getUser()->hasRole()){
+        if(!$this->isGranted('ROLE_FORMER') && !$project->checkUserProject($this->getUser())){
             throw new AccessDeniedException();
         }
 
@@ -346,7 +347,7 @@ class ProjectController extends AbstractController
      */
     public function removeLanguage(Project $project, Language $language, ObjectManager $manager)
     {
-        if($project->getModerator() != $this->getUser() && !$this->getUser()->hasRole()) {
+        if(!$this->isGranted('ROLE_FORMER') && $project->getModerator() != $this->getUser()) {
             throw new AccessDeniedException();
         }
 

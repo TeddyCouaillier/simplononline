@@ -3,18 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Help;
-use App\Entity\User;
 use App\Form\Help\HelpType;
 use App\Repository\HelpRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Language;
 
 /**
- * @Route("/help", name="help_")
+ * @Route("/aide", name="help_")
  */
 class HelpController extends AbstractController
 {
@@ -27,8 +27,8 @@ class HelpController extends AbstractController
      */
     public function deleteHelp(Help $help, ObjectManager $manager)
     {
-        if(!$this->getUser()->checkRole(User::ADMIN) && $this->getUser() != $help->getPublisher()){
-            throw new AccessDeniedHttpException();
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $help->getPublisher()){
+            throw new AccessDeniedException();
         }
         $manager->remove($help);
         $manager->flush();

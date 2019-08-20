@@ -6,6 +6,7 @@ use App\Entity\Subtask;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
@@ -31,6 +32,8 @@ class Task
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\Length(max=100, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
 
@@ -46,6 +49,7 @@ class Task
 
     /**
      * @ORM\Column(type="integer")
+     * Assert\Type(type="integer",message="Format invalide")
      */
     private $type;
 

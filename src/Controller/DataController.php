@@ -10,6 +10,7 @@ use App\Repository\DataRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,6 +22,7 @@ class DataController extends AbstractController
     /**
      * Delete a specific data
      * @Route("/{id}/delete", name="delete")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Data $data
      * @param ObjectManager $manager
      * @return Response

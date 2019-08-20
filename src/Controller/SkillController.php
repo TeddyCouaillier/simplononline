@@ -10,6 +10,7 @@ use App\Repository\UserSkillsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -34,7 +35,7 @@ class SkillController extends AbstractController
     /**
      * Delete a skill
      * @Route("/{id}/delete", name="delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Skills        $skill
      * @param ObjectManager $manager
      * @return Response

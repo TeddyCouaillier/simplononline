@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserDataRepository")
@@ -29,7 +30,9 @@ class UserData
     private $data;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $content;
 

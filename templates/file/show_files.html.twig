@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% import 'macro.html.twig' as template %}
+
 {% block title %}Gestion des fichiers{% endblock %}
 
 {% block stylesheets %}
@@ -8,6 +10,7 @@
 {% endblock %}
 
 {% block body %}
+    {{ template.checkMessage(form)}}
     <h1>Gestion des fichiers</h1>
     <hr>
     <div class="bg-grey rounded mt-2 p-2 flex show-files">

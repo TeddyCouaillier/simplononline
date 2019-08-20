@@ -27,8 +27,9 @@ class Help
     private $link;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
 

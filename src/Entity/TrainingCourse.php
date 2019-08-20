@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrainingCourseRepository")
@@ -30,17 +31,22 @@ class TrainingCourse
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $society;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $place;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotBlank
      */
     private $status;
 
@@ -62,6 +68,7 @@ class TrainingCourse
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(type="integer", message="Format invalide")
      */
     private $number;
 

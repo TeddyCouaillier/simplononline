@@ -33,7 +33,7 @@
                 <span class="badge-link-active">{{ help.language.label }}</span>
                 {% endif %}
                 </div>
-                {% if is_granted('ROLE_ADMIN') or app.user == help.publisher %}
+                {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') or app.user == help.publisher %}
                 <div>
                     <div class="subnav">
                         <i class="fas fa-ellipsis-v"></i>

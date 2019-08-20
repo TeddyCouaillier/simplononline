@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubtaskRepository")
@@ -18,6 +19,8 @@ class Subtask
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\Length(max=255, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
 

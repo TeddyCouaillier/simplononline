@@ -7,12 +7,7 @@
 {% endblock %}
 
 {% block body %}
-   <div class="flex just-between align-center">
-        <h1>Données de {{ user.firstname }} {{ user.lastname|upper }}</h1>
-        {% if is_granted("ROLE_ADMIN") %}
-        <a href="{{ path('user_data_edit',{'id':user.id}) }}" class="bg-grey button-circle text-grey icon-sm"><i class="fal fa-pen bold"></i></a>
-        {% endif %}
-    </div>
+    <h1>Mes données</h1>
     <hr>
     <div class="bg-grey rounded p-2">
         <span class="bold">Vos logs</span>
@@ -30,7 +25,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')" 
+                    <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')"
                     data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
                 </td>
             </tr>

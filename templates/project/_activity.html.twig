@@ -3,7 +3,7 @@
 <div class="project-content" id="activity">
      <div class="flex align-center mb-3">
         <span class="text-medium bold">Corrigés</span>
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') %}
+        {% if is_granted('ROLE_FORMER') %}
         <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-correct">+</div>
         {% endif %}
     </div>

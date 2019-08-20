@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PromotionRepository")
@@ -22,7 +23,9 @@ class Promotion
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=20)
+     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\Length(max=20, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $label;
 
@@ -33,7 +36,8 @@ class Promotion
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $nickname;
 

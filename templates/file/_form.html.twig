@@ -4,6 +4,7 @@
     <p class="bold">Envoyer un fichier</p>
     <div>
         {{ form_start(form) }}
+            {{ form_errors(form.name) }}
             {{ form_label(form.title) }}
             {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
             <hr>

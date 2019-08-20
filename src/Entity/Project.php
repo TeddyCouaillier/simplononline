@@ -22,7 +22,7 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=60)
      * @Assert\Length(min=4, minMessage="Le titre doit faire au moins {{ limit }} caractères")
      * @Assert\Length(max=60, maxMessage="Le titre doit faire moins de {{ limit }} caractères")
      */

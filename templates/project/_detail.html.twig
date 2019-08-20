@@ -1,7 +1,6 @@
 {% import 'macro.html.twig' as template %}
 
 <div class="project-content" id="detail">
-{# {{path('project_remove_user',{'slug': ",'id': user.id})}} #}
     <div class="flex just-between mb-3">
         <div class="w-50">
             <span class="bold" style="font-size:1.2em">Détail du projet</span>
@@ -24,7 +23,7 @@
                         {% for language in project.languages if language is not null %}
                             <div class="badge-link-active mr-1">
                             {{language.label}}
-                            {% if project.moderator == app.user %}
+                            {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
                             <i class="fal fa-times-circle pointer remove-language" data-url="{{ path('project_remove_language',{'id_project': project.id,'id': language.id}) }}"></i>
                             {% endif %}
                             </div>
@@ -60,7 +59,7 @@
                 {% endfor %}
             </div>
         </div>
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
+        {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
         <div class="container-white mb-2 text-center">
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
         </div>

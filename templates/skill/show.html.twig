@@ -10,7 +10,7 @@
     {{ template.checkMessage(form) }}
     <div class="flex just-between">
         <h1>Liste des compétences</h1>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_FORMER') %}
         <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-skill"><i class="fal fa-plus"></i></div>
         {% endif %}
     </div>
@@ -19,7 +19,7 @@
     {% for uskill in app.user.userskills %}
         {% set skill = uskill.skill %}
         <div class="bg-white rounded p-2 mt-1 mb-2 border-level-{{uskill.level}}">
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_FORMER') %}
             {{ template.deleteConfirm(skill.id,path('skill_delete',{'id':skill.id})) }}
                 <div>
                     <div class="subnav">

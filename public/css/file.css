@@ -1,4 +1,4 @@
-.show-files{ height: 444px; }
+.show-files{ min-height: 444px; }
 .received-files{
     width: calc(100% - 300px);
     max-height: 100%;

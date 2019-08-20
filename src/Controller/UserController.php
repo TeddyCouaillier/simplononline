@@ -20,6 +20,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\TrainingCourse\TrainingCourseUserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -33,7 +35,7 @@ class UserController extends AbstractController
     /**
      * Create an user
      * @Route("/create", name="create")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Request                      $request
      * @param ObjectManager                $manager
      * @param UserPasswordEncoderInterface $encoder
@@ -86,7 +88,7 @@ class UserController extends AbstractController
      * @return Response
      */
     public function editUserAccount(User $user, Request $request, ObjectManager $manager){
-        if(!$this->getUser()->checkRole(User::ADMIN) && $this->getUser() != $user){
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
             throw new AccessDeniedHttpException();
         }
         $imageName = "";
@@ -143,7 +145,7 @@ class UserController extends AbstractController
     /**
      * Delete a specific user
      * @Route("/{id}/delete", name="delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param User          $user
      * @param ObjectManager $manager
      * @return Response
@@ -168,7 +170,7 @@ class UserController extends AbstractController
     /**
      * Edit user's skill
      * @Route("/{id}/competences", name="edit_skills")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_FORMER")
      * @param User $user
      * @param Request $request
      * @param ObjectManager $manager
@@ -210,7 +212,7 @@ class UserController extends AbstractController
      */
     public function showData(User $user)
     {
-        if(!$this->getUser()->checkRole(User::ADMIN) && $this->getUser() != $user){
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
             throw new AccessDeniedHttpException();
         }
         return $this->render('data/show.html.twig', [
@@ -221,7 +223,7 @@ class UserController extends AbstractController
     /**
      * Edit the user's datas
      * @Route("/{id}/donnees/edit", name="data_edit")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager
@@ -279,6 +281,9 @@ class UserController extends AbstractController
      */
     public function editTrainingCourse(User $user, Request $request, ObjectManager $manager)
     {
+        if($this->getUser() != $user) {
+            throw new AccessDeniedException();
+        }
         $form = $this->createForm(TrainingCourseUserType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -307,6 +312,10 @@ class UserController extends AbstractController
      */
     public function deleteAllTrainingCourse(User $user, ObjectManager $manager)
     {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
+            throw new AccessDeniedHttpException();
+        }
+
         foreach($user->getTrainingCourse() as $training){
             $manager->remove($training);
         }
@@ -331,6 +340,10 @@ class UserController extends AbstractController
      */
     public function deleteTrainingCourse(User $user, TrainingCourse $training, ObjectManager $manager)
     {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
+            throw new AccessDeniedHttpException();
+        }
+
         $manager->remove($training);
         $manager->flush();
 
@@ -416,7 +429,6 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
-
 
     /**
      * Show a specific user

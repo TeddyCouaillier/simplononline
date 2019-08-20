@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -56,7 +57,7 @@ class PromotionController extends AbstractController
     /**
      * Add/Remove users from a promotion
      * @Route("/{slug}/edit-users", name="edit_users")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Promotion                     $promo    promotion to edit
      * @param Request                       $request
      * @param ObjectManager                 $manager
@@ -91,7 +92,7 @@ class PromotionController extends AbstractController
     /**
      * Delete a promotion
      * @Route("/{id}/delete", name="delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Promotion     $promo
      * @param ObjectManager $manager
      * @return Response

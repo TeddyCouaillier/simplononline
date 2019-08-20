@@ -111,6 +111,10 @@ class FileController extends AbstractController
      */
     public function editStatusFileUser(UserFiles $ufile, ObjectManager $manager)
     {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $ufile->getSender()){
+            throw new AccessDeniedException();
+        }
+
         $ufile->setImportant(false);
         $manager->persist($ufile);
         $manager->flush();
@@ -125,6 +129,10 @@ class FileController extends AbstractController
      */
     public function deleteAllFilesUser(ObjectManager $manager)
     {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() == null){
+            throw new AccessDeniedException();
+        }
+
         $user = $this->getUser();
         foreach($user->getSenderFiles() as $ufile){
             $file = $ufile->getFiles();
@@ -152,6 +160,10 @@ class FileController extends AbstractController
      */
     public function deleteFileUser(Files $file, ObjectManager $manager)
     {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() == null){
+            throw new AccessDeniedException();
+        }
+
         $rep = $this->getDoctrine()->getRepository(UserFiles::class);
         $this->removeFile($file->getName());
 

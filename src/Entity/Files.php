@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FilesRepository")
@@ -20,11 +21,24 @@ class Files
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Veuillez choisir un fichier")
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     maxSizeMessage = "Taille autorisée : {{ limit }} {{ suffix }}",
+     *     mimeTypes = {
+     *         "image/*",
+     *         "application/*",
+     *         "text/*",
+     *     },
+     *     mimeTypesMessage = "Le fichier n'est pas valide"
+     * )
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=60)
+     * @Assert\NotBlank(message="Veuillez renseigner un titre")
+     * @Assert\Length(max=60, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
 

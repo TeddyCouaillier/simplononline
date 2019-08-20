@@ -40,7 +40,7 @@
                 <div class="flex align-center w-25">
                     <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
                 </div>
-                {% if app.user == user %}
+                {% if is_granted('ROLE_FORMER') or app.user == user %}
                 <div class="ml-auto mr-2 rhover">
                     <a data-toggle="modal" data-target="#modal-{{training.id}}"><i class="fal fa-times-circle"></i></a>
                 </div>
@@ -53,7 +53,7 @@
                 </em>
             </div>
         </div>
-        {% if app.user == user %}
+        {% if is_granted('ROLE_FORMER') or app.user == user %}
         {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
         {% endif %}
     {% else %}
