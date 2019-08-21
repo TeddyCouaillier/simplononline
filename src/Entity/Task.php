@@ -32,7 +32,7 @@ class Task
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\NotBlank
      * @Assert\Length(max=100, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;

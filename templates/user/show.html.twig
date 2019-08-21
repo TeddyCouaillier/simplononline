@@ -65,35 +65,35 @@
      #####################################}
     <div class="user-header flex just-around align-center text-center p-3">
         {% if app.user == user %}
-        <p>
+        <a href="{{ path('user_show_projects',{'id':user.id}) }}" class="rhover">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
-        </p>
-        <p>
+        </a>
+        <a href="{{ path('file_user_show') }}" class="rhover">
             <i class="fas fa-envelope text-large"></i><br>
             Fichiers
-        </p>
-        <p>
+        </a>
+        <a href="{{ path('user_show_training',{'id':user.id}) }}" class="rhover">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
-        </p>
-        <p>
+        </a>
+        <a href="{{ path('user_data',{'id':user.id}) }}" class="rhover">
             <i class="fas fa-key text-large"></i><br>
             Données
-        </p>
-        <p>
+        </a>
+        <a href="{{ path('user_edit',{'id':user.id}) }}" class="rhover">
             <i class="fas fa-cog text-large"></i><br>
             Modifier
-        </p>
-        <p>
+        </a>
+        <a href="{{ path('account_password') }}" class="rhover">
             <i class="fas fa-lock text-large"></i><br>
             Password
-        </p>
+        </a>
         {% else %}
         <p class="text-grey">
             {# En contrat avec <em>Médiatech</em> #}
             {# Apprenant Promo 1.1 #}
-            Sans emploi
+            {# Sans emploi #}
         </p>
         {% endif %}
     </div>

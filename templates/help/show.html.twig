@@ -15,10 +15,10 @@
         <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
     </div>
     <hr>
-    <div class="flex just-center mb-3 help-all_cats">
-        <span class="badge-link-active mx-2" data-badge="Tout">Tout</span>
+    <div class="flex wrap just-center mb-3 help-all_cats">
+        <span class="badge-link-active m-2" data-badge="Tout">Tout</span>
         {% for language in languages %}
-            <span class="badge-link-inactive mx-2" data-badge="{{ language.label }}">{{ language.label }}</span>
+            <span class="badge-link-inactive m-2" data-badge="{{ language.label }}">{{ language.label }}</span>
         {% endfor %}
     </div>
     <div class="bg-grey rounded p-2 flexc help-all">

@@ -70,44 +70,6 @@ $(".close-message").click(function() {
     $(this).parent().parent().fadeOut(500);
 });
 
-/* ------------- FILE USERS SELECTED ------------ */
-$(function() {
-    $('.multipleselect').multipleSelect({
-        filter: true,
-        formatSelectAll () {
-        return 'Tout sélectionner'
-        },
-        formatAllSelected () {
-        return 'Tous les apprenants'
-        },
-        formatCountSelected (count, total) {
-        return count + ' sur ' + total + ' apprennants'
-        },
-        formatNoMatchesFound () {
-        return 'Aucun apprenant'
-        }
-    })
-})
-
-/* ------------- FILE USERS SELECTED ------------ */
-$(function() {
-    $('.multipleselectlang').multipleSelect({
-        filter: true,
-        formatSelectAll () {
-        return 'Tout sélectionner'
-        },
-        formatAllSelected () {
-        return 'Tous les langages'
-        },
-        formatCountSelected (count, total) {
-        return count + ' sur ' + total + ' langages'
-        },
-        formatNoMatchesFound () {
-        return 'Aucun langage'
-        }
-    })
-})
-
 /* --------------- REVEAL CONTENTS -------------- */
 const ratio = .1
 const options = {
@@ -242,13 +204,3 @@ $(document).on('click', '.see-trainings', function() {
     var id = $(this).data('id');
     $('tbody').find(`[data-training=${id}]`).fadeToggle();
 })
-
-$('.files-selected').selectpicker();
-$('.project-user-select').selectpicker();
-$('.language-select').selectpicker();
-$('.project-selected').selectpicker();
-$('.language-selected').selectpicker();
-
-jQuery(document).ready(function() {
-    $('.js-datepicker').datepicker();
-});

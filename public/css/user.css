@@ -15,7 +15,7 @@
 }
 
 .user-info      { grid-area: 1 / 1 / 4 / 2; }
-.user-header    { grid-area: 1 / 2 / 2 / 4; color: #CCC; }
+.user-header    { grid-area: 1 / 2 / 2 / 4; }
 .user-files     { grid-area: 2 / 2 / 3 / 3; height: 150px; }
 .user-weather   { grid-area: 3 / 2 / 4 / 3; height: 150px; }
 .user-projects  { grid-area: 2 / 3 / 4 / 4; }
@@ -24,6 +24,12 @@
 .user-skills    { grid-area: 4 / 3 / 6 / 4; }
 .user-portfolio { grid-area: 6 / 1 / 7 / 4; }
 
+.user-header { font-size: .94em; }
+.user-header a{
+    color: #CCC ;
+}
+
+
 .user-secondary-info li { margin-bottom: .25rem; }
 .user-secondary-info a{ color: var(--greylight); }
 .user-secondary-info a:hover{ color: var(--black); }
@@ -31,11 +37,6 @@
     width: 20px;
     text-align: center;
     color: var(--black);
-}
-
-.user-header { font-size: .94em; }
-.user-header p:hover{
-    color: var(--red); cursor: pointer;
 }
 
 .user-weather img { width: 75px; height: 75px; }
