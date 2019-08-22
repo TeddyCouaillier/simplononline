@@ -8,6 +8,7 @@ use App\Entity\UserNotif;
 use App\Entity\UserSkills;
 use App\Entity\Notification;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -193,6 +194,12 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"firstname","lastname"})
+     */
+    private $slug;
 
 
     public function __construct()
@@ -942,6 +949,18 @@ class User implements UserInterface
         if ($this->promotionmod->contains($promotionmod)) {
             $this->promotionmod->removeElement($promotionmod);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

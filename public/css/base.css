@@ -60,6 +60,7 @@ hr{
 .bg-white    { background: var(--white) !important; }
 .bg-red      { background: var(--red) !important; }
 .text-grey   { color: var(--greylight) !important; }
+.text-greyd  { color: rgba(0,0,0,.75) !important; }
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
 .text-black  { color: var(--black) !important; }
@@ -304,4 +305,24 @@ input:focus,select:focus{
     width: 100% !important;
     padding: 0 !important;
     height: 100% !important;
+}
+
+*::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgba(0,0,0,75);
 }

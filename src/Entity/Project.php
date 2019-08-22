@@ -101,6 +101,7 @@ class Project
         $this->tasks       = new ArrayCollection();
         $this->languages   = new ArrayCollection();
         $this->corrections = new ArrayCollection();
+        $this->completed   = false;
     }
 
     /**

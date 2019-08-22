@@ -12,17 +12,18 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class BaseController extends OtherController
 {
     /**
-     * Home page
-     * @Route("/", name="home")
+     * Show all users weather (only current promotion users)
+     * @Route("/users/weather", name="users_weather")
+     * @param UserRepository $rep
      * @return Response
      */
-    public function home(UserRepository $rep)
+    public function usersWeather(UserRepository $rep)
     {
-        return $this->render('home/index.html.twig', [
-            'date'  => new \DateTime(),
+        return $this->render('weather/all.html.twig', [
             'users' => $rep->findAllByCurrentPromo()
         ]);
     }
+
 
     /**
      * Show a weather modal every day with random questions and persist the "user weather"

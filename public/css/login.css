@@ -1,8 +1,5 @@
 body{
-    background: var(--red);
-    background: -moz-linear-gradient(-45deg,  var(--red) 0%, rgba(242,72,71,0.75) 100%);
-    background: -webkit-linear-gradient(-45deg,  var(--red) 0%,rgba(242,72,71,0.75) 100%);
-    background: linear-gradient(135deg,  var(--red) 0%,rgba(242,72,71,0.75) 100%);
+    background: #f6f8f9;
     font-family: 'Abel' !important;
     font-weight: 400;
 }

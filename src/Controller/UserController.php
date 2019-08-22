@@ -11,7 +11,6 @@ use App\Entity\Notification;
 use App\Entity\TrainingCourse;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
-use App\Repository\UserRepository;
 use App\Form\Data\EditUserDataType;
 use App\Form\Skill\EditUserSkillsType;
 use App\Repository\TrainingCourseRepository;
@@ -28,13 +27,13 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/user", name="user_")
+ * @Route("", name="user_")
  */
 class UserController extends AbstractController
 {
     /**
      * Create an user
-     * @Route("/create", name="create")
+     * @Route("/create-user", name="create")
      * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Request                      $request
      * @param ObjectManager                $manager
@@ -51,8 +50,10 @@ class UserController extends AbstractController
             if($role_id !== null){
                 $reprole = $this->getDoctrine()->getRepository(Role::Class);
                 $role = $reprole->find($role_id);
-                $role->addUser($user);
-                $user->setPromotion(null);
+                if($role !== null){
+                    $role->addUser($user);
+                    $user->setPromotion(null);
+                }
             }
 
             $user->setPassword($encoder->encodePassword($user, 'test'));
@@ -71,7 +72,7 @@ class UserController extends AbstractController
                 'success',
                 'L\'utilisateur a bien été créé.'
             );
-            return $this->redirectToRoute("user_show",['id' => $user->getId()]);
+            return $this->redirectToRoute("user_show",['slug' => $user->getSlug()]);
         }
 
         return $this->render('user/create.html.twig', [
@@ -81,7 +82,7 @@ class UserController extends AbstractController
 
     /**
      * Edit the current user
-     * @Route("/edit/{id}", name="edit")
+     * @Route("/{slug}/edit", name="edit")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager
@@ -132,7 +133,7 @@ class UserController extends AbstractController
                     'success',
                     'L\'utilisateur a bien été mis à jour.'
                 );
-                return $this->redirectToRoute('user_show', ['id'=> $user->getId()]);
+                return $this->redirectToRoute('user_show', ['slug'=> $user->getSlug()]);
             }
         }
 
@@ -144,7 +145,7 @@ class UserController extends AbstractController
 
     /**
      * Delete a specific user
-     * @Route("/{id}/delete", name="delete")
+     * @Route("/{slug}/delete", name="delete")
      * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param User          $user
      * @param ObjectManager $manager
@@ -169,7 +170,7 @@ class UserController extends AbstractController
 
     /**
      * Edit user's skill
-     * @Route("/{id}/competences", name="edit_skills")
+     * @Route("/{slug}/competences", name="edit_skills")
      * @IsGranted("ROLE_FORMER")
      * @param User $user
      * @param Request $request
@@ -206,7 +207,7 @@ class UserController extends AbstractController
 
     /**
      * Show the user's data
-     * @Route("/{id}/donnees", name="data")
+     * @Route("/{slug}/donnees", name="data")
      * @param User $user
      * @return Response
      */
@@ -222,7 +223,7 @@ class UserController extends AbstractController
 
     /**
      * Edit the user's datas
-     * @Route("/{id}/donnees/edit", name="data_edit")
+     * @Route("/{slug}/donnees/edit", name="data_edit")
      * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param User          $user
      * @param Request       $request
@@ -257,7 +258,7 @@ class UserController extends AbstractController
      * Show the specific user's training courses by the same user
      * Show all users training courses by the admin
      * Show the training courses proposed by the admin for all users
-     * @Route("/{id}/stages", name="show_training")
+     * @Route("/{slug}/stages", name="show_training")
      * @param User                      $user
      * @param TrainingCourseRepository  $rep
      * @return Response
@@ -273,7 +274,7 @@ class UserController extends AbstractController
 
     /**
      * Edit the specific user's training courses (add, remove & edit training course)
-     * @Route("/{id}/stages/edit", name="edit_training")
+     * @Route("/{slug}/stages/edit", name="edit_training")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager
@@ -294,7 +295,7 @@ class UserController extends AbstractController
                 'success',
                 'Les modifications ont bien été enregistrées.'
             );
-            return $this->redirectToRoute('user_show_training', ['id'=> $user->getId()]);
+            return $this->redirectToRoute('user_show_training', ['slug'=> $user->getSlug()]);
         }
 
         return $this->render('training_course/edit.html.twig', [
@@ -305,7 +306,7 @@ class UserController extends AbstractController
 
     /**
      * Delete all trainings courses posted by a specific user
-     * @Route("/{id}/stages/delete/all", name="delete_all_trainings")
+     * @Route("/{slug}/stages/delete/all", name="delete_all_trainings")
      * @param User          $user
      * @param ObjectManager $manager
      * @return Response
@@ -326,12 +327,12 @@ class UserController extends AbstractController
             'Les stages ont bien été supprimés.'
         );
 
-        return $this->redirectToRoute('user_show_training',['id'=> $this->getUser()->getId()]);
+        return $this->redirectToRoute('user_show_training',['slug'=> $this->getUser()->getSlug()]);
     }
 
     /**
      * Delete a specific training course posted by a specific user
-     * @Route("/{id}/stages/delete/{training_id}", name="delete_training")
+     * @Route("/{slug}/stages/delete/{training_id}", name="delete_training")
      * @Entity("training", expr="repository.find(training_id)")
      * @param User           $user
      * @param TrainingCourse $training
@@ -352,7 +353,7 @@ class UserController extends AbstractController
             'Le stage a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('user_show_training',['id'=> $this->getUser()->getId()]);
+        return $this->redirectToRoute('user_show_training',['slug'=> $this->getUser()->getSlug()]);
     }
 
     // -----------------------------------------------------
@@ -361,7 +362,7 @@ class UserController extends AbstractController
 
     /**
      * Show the user's projects
-     * @Route("/{id}/projets", name="show_projects")
+     * @Route("/{slug}/projets", name="show_projects")
      * @param User $user
      * @return Response
      */
@@ -393,7 +394,7 @@ class UserController extends AbstractController
             'La notification a bien été supprimée.'
         );
 
-        return $this->redirectToRoute('user_show_notif',['id' => $this->getUser()->getId()]);
+        return $this->redirectToRoute('user_show_notif',['slug' => $this->getUser()->getSlug()]);
     }
 
     /**
@@ -414,12 +415,12 @@ class UserController extends AbstractController
             'Les notifications ont bien été supprimées.'
         );
 
-        return $this->redirectToRoute('user_show_notif',['id' => $this->getUser()->getId()]);
+        return $this->redirectToRoute('user_show_notif',['slug' => $this->getUser()->getSlug()]);
     }
 
     /**
      * Show all user's notifications
-     * @Route("/{id}/notification", name="show_notif")
+     * @Route("/{slug}/notification", name="show_notif")
      * @param User $user
      * @return Response
      */
@@ -432,14 +433,18 @@ class UserController extends AbstractController
 
     /**
      * Show a specific user
-     * @Route("/{id}", name="show")
+     * @Route("/account", name="account_show")
+     * @Route("/{slug}", name="show")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager
      * @return Response
      */
-    public function showUser(User $user, Request $request, ObjectManager $manager)
+    public function showUser(User $user = null, Request $request, ObjectManager $manager)
     {
+        if($user == null){
+            $user = $this->getUser();
+        }
         if($request->query->get('seen') != null){
             $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
             if($unotif != null){

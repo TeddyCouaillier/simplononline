@@ -28,7 +28,7 @@ class Help
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Length(min=5, minMessage="Format invalide ({{ limit }} caractères minimum)")
+     * @Assert\NotBlank
      * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;

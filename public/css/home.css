@@ -33,9 +33,7 @@
 .home-projects { grid-area: 5 / 2 / 7 / 4; }
 .home-empty { grid-area: 6 / 1 / 7 / 2; }
 
-.weather-svg{ max-height: 120px; }
-.users-weather:hover { background: rgba(225,225,225,.25); }
-.users-weather .weather-svg{ max-height: 30px; }
+
 
 
 

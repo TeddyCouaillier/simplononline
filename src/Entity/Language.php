@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,6 +35,12 @@ class Language
      * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="languages")
      */
     private $projects;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Gedmo\Slug(fields={"label"})
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -120,5 +127,17 @@ class Language
     public function __toString()
     {
         return $this->label;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

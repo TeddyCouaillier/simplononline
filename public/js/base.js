@@ -204,3 +204,15 @@ $(document).on('click', '.see-trainings', function() {
     var id = $(this).data('id');
     $('tbody').find(`[data-training=${id}]`).fadeToggle();
 })
+
+
+$(document).on('click','.nav-left-button', function() {
+    const navleft = $(this).parent().find('.nav-left');
+    if($(this).hasClass('active')){
+        $(navleft).removeClass('active');
+        $(this).removeClass('active');
+    } else {
+        $(navleft).addClass('active');
+        $(this).addClass('active');
+    }
+})

@@ -317,7 +317,7 @@ class AdminEditController extends AbstractController
 
     /**
      * Active/Inactive a specific user
-     * @Route("/user/{id}/active", name="user_active")
+     * @Route("/user/{slug}/active", name="user_active")
      * @param User          $user
      * @param ObjectManager $manager
      * @return JsonResponse

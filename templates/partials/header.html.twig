@@ -1,33 +1,38 @@
-{% set active_home = "" %} {% set active_projet = "" %} {% set active_promo = "" %} {% set active_aide = "" %}
-{% if app.request.get('_route') == "home" %}
-{% set active_home = "active" %}
-{% elseif app.request.get('_route') == "help_show" %}
-{% set active_aide = "active" %}
-{% elseif app.request.get('_route') == "promo_all" %}
-{% set active_promo = "active" %}
-{% elseif app.request.get('_route') == "project_all" %}
-{% set active_projet = "active" %}
-{% endif %}
-
-<div class="nav-top">
-    <div class="flex just-between align-baseline navlist">
-        <ul class="text-uppercase">
-            <li class="{{ active_home }} text-uppercase"><a href="{{ path('home') }}" class="bold"><span class="text-danger">Simplon</span>Online</a></li>
-            <li class="{{ active_projet }}"><a href="{{ path('project_all') }}">Projets</a></li>
-            <li class="{{ active_promo }}"><a href="{{ path('promo_all') }}">Promotions</a></li>
-            <li class="{{ active_aide }}"><a href="{{ path('help_show') }}">Aide</a></li>
-        </ul>
-        <ul>
-            <li class="logout"><p><i class="fas fa-cog"></i></p></li>
-        </ul>
+<div class="flexc nav-left vh-100 p-2 shadow inactive bg-white">
+    <div class="flexc content">
+        <div class="text-center">
+            <img src="/img/logo.jpeg" class="w-50"></img>
+            <hr class="my-2">
+        </div>
+        <div class="bold">
+            <a href="{{ path('account_logout') }}" class="text-red">Se deconnecter</a>
+            <hr class="my-2">
+        </div>
+        <div class="bold">
+            <a href="{{ path('project_all') }}" class="text-greyd">Tous les projets</a>
+            <hr class="my-2">
+        </div>
+        <div class="bold">
+            <a href="{{ path('promo_all') }}" class="text-greyd">Toutes les promotions</a>
+            <hr class="my-2">
+        </div>
+        <div class="bold">
+            <a href="{{ path('help_show') }}" class="text-greyd">Liens d'aide</a>
+            <hr class="my-2">
+        </div>
     </div>
-    <div class="nav-dropdown rounded">
-        <ul>
-            <li><a href="#">Rejoindre un projet</a></li>
-            <li><a href="#">Modifier mon compte</a></li>
-            <li><a href="#">Modifier le mot de passe</a></li>
-            <hr>
-            <li class="bold"><a href="{{ path('account_logout') }}">Se déconnecter</a></li>
-        </ul>
+    <div>
+        <span class="bold">Météo du jour</span>
+        <div class="flex wrap bg-white mt-2 all-weather">
+        {{ render(controller(
+            'App\\Controller\\BaseController::usersWeather'
+        )) }}
+        </div>
+    </div>
+</div>
+
+<div class="flex align-center vh-100 inactive nav-left-button">
+    <div class="text-left bg-white">
+        <img src="/img/navleft.png" class="w-auto">
     </div>
 </div>

@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block body %}
-{{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'id': user.id}), 'Toutes vos propositions de stage seront supprimées') }}
+{{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'slug': user.slug}), 'Toutes vos propositions de stage seront supprimées') }}
 <div class="flex just-between">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
-    <a href="{{ path('user_edit_training',{'id': user.id}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
+    <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
     {% endif %}
 </div>
 <hr>
@@ -54,7 +54,7 @@
             </div>
         </div>
         {% if is_granted('ROLE_FORMER') or app.user == user %}
-        {{ template.deleteConfirm(training.id,path('user_delete_training',{'id':user.id,'training_id':training.id})) }}
+        {{ template.deleteConfirm(training.id,path('user_delete_training',{'slug':user.slug,'training_id':training.id})) }}
         {% endif %}
     {% else %}
         <div class="py-3 text-center">

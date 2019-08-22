@@ -47,7 +47,7 @@ class ProjectController extends AbstractController
 
     /**
      * Show all projects by language
-     * @Route("s/{label}", name="all_by_language")
+     * @Route("s/{slug}", name="all_by_language")
      * @param Language           $language
      * @param ProjectRepository  $prep
      * @param LanguageRepository $lrep

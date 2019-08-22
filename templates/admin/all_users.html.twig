@@ -55,10 +55,10 @@
         </thead>
         <tbody class="admin-all">
             {% for user in users %}
-            {{ template.deleteConfirm(user.id,path('user_delete',{'id':user.id})) }}
+            {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}
             <tr>
                 <td class="flex just-center">
-                    <input class="switch_base active-user" data-userurl="{{path('admin_user_active',{'id':user.id}) }}"
+                    <input class="switch_base active-user" data-userurl="{{path('admin_user_active',{'slug':user.slug}) }}"
                     type="checkbox" {% if user.isActive %} checked {% endif %}>
                 </td>
                 <td class="text-left">{{ user.fullname }}</td>
@@ -100,9 +100,9 @@
                             Modifier
                             </button>
                             <div class="dropdown-menu">
-                            <a class="dropdown-item rhover" href="{{ path('user_edit_skills',{'id': user.id }) }}">Compétences</a>
-                            <a class="dropdown-item rhover" href="{{ path('user_data_edit',{'id': user.id}) }}">Données</a>
-                            <a class="dropdown-item rhover" href="{{ path('user_edit',{'id': user.id}) }}">Compte</a>
+                            <a class="dropdown-item rhover" href="{{ path('user_edit_skills',{'slug': user.slug }) }}">Compétences</a>
+                            <a class="dropdown-item rhover" href="{{ path('user_data_edit',{'slug': user.slug}) }}">Données</a>
+                            <a class="dropdown-item rhover" href="{{ path('user_edit',{'slug': user.slug}) }}">Compte</a>
                             </div>
                         </div>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{user.id}}"><i class="fal fa-times-circle"></i></button>

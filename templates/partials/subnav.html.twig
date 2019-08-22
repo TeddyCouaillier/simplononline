@@ -4,7 +4,7 @@
     <div class="flexc">
         <div class="container-white flex align-center my-1 shadow w-100 text-center bg-red text-white notifs-header">
             <div class="">Vous avez <span class="text-white bold">{{ app.user.notifReceived|length }}</span> notifications</div>
-            <div><a href="{{ path('user_show_notif',{'id':app.user.id}) }}" class="text-white bold"><i class="far fa-arrow-circle-right"></i></a></div>
+            <div><a href="{{ path('user_show_notif',{'slug':app.user.slug}) }}" class="text-white bold"><i class="far fa-arrow-circle-right"></i></a></div>
         </div>
         {% for unotif in app.user.notifReceived|slice(0,4) %}
             {% set notif = unotif.notification %}
@@ -44,16 +44,16 @@
 <div class="user-subnav">
     <div class="flexc justify-content-end align-center">
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Projets">
-            <a href="{{ path('user_show_projects',{'id': app.user.id}) }}"><i class="far fa-list-ul"></i></a>
+            <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}"><i class="far fa-list-ul"></i></a>
         </div>
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
             <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope"></i></a>
         </div>
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
-            <a href="{{ path('user_show',{'id': app.user.id}) }}#skills"><i class="fal fa-star"></i></a>
+            <a href="{{ path('user_show',{'slug': app.user.slug}) }}#skills"><i class="fal fa-star"></i></a>
         </div>
         <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Stages">
-            <a href="{{ path('user_show_training',{'id': app.user.id}) }}"><i class="fal fa-handshake"></i></a>
+            <a href="{{ path('user_show_training',{'slug': app.user.slug}) }}"><i class="fal fa-handshake"></i></a>
         </div>
     </div>
 </div>
@@ -61,5 +61,5 @@
 <div class="flex just-around align-center user-nav">
     <i class="fas fa-bell notif {% if app.user.hasNotif %} active {% endif %}"></i>
     <img src="/img/dot.svg" class="dots">
-    <a href="{{path('user_show',{'id': app.user.id }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
+    <a href="{{path('user_show',{'slug': app.user.slug }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
 </div>
