@@ -786,6 +786,17 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getProjectsCompleted()
+    {
+        $projects = [];
+        foreach($this->projects as $project){
+            if($project->getCompleted()){
+                $projects[] = $projects;
+            }
+        }
+        return $projects;
+    }
+
     /**
      * @return Collection|Task[]
      */

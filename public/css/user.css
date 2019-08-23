@@ -59,8 +59,8 @@
     border-radius: 50%;
     line-height: 90px;
     font-size: 2em;
-    color: #FFF;
-    background: var(--red);
+    color: var(--red);
+    border: 2px solid var(--red);
     margin-bottom: .25rem;
 }
 
