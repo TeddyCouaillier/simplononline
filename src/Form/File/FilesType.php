@@ -35,7 +35,6 @@ class FilesType extends ApplicationType
                 'query_builder' => function(UserRepository $rep) {
                     return $rep->getAllUserRoleByCurrentPromo();
                 }
-
             ])
         ;
     }

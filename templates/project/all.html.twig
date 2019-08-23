@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex just-between align-center">
+    <div class="flex wrap just-between align-center">
         <h1>
             {% if user is not defined %}
             Tous les projets
@@ -49,24 +49,36 @@
     {% if user is defined %}
     {% set projects = user.projects %}
     {% endif %}
-    <div class="flex wrap">
+
+    <div class="flex wrap just-center">
     {% for project in projects %}
-        <div class="container-white py-3 m-1 shadow-small text-center project-container">
-            <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a><br>
-            {% for user in project.users %}
-                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2">
-            {% endfor %}
-            <div class="flex wrap just-center text-small text-grey">
-                {% for language in project.languages %}
-                    {{ language.label }}
-                {% endfor %}
+        <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+            <div>
+                <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                <div class="flex just-center align-center">
+                    {% for user in project.users|slice(0,4) %}
+                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        {{ user.fullname }} <br>
+                    '>
+                    {% endfor %}
+                    {% if project.users|length > 4 %}
+                    <div class="avatar-xs my-2 text-white see-more" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        {% for user in project.users|slice(4, project.users|length) %}
+                        {{ user.fullname }}<br>
+                        {% endfor %}
+                    '>...</div>
+                    {% endif %}
+                </div>
+                <p class="text-small text-grey">
+                    {% for language in project.languages %}
+                        {{ language.label }}
+                    {% endfor %}
+                </p>
             </div>
         </div>
     {% endfor %}
-        {# {% if is_granted('ROLE_ADMIN') == false %} #}
         <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
             <a href="{{ path('project_create') }}"><div class="all-add-project">+</div></a>
         </div>
-        {# {% endif %} #}
     </div>
 {% endblock %}

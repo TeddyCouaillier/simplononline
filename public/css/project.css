@@ -126,6 +126,19 @@
     width: 32%;
     height: 125px;
 }
+.project-container p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical; 
+}
+.project-container .see-more{
+    width: 25px !important;
+    height: 25px !important;
+    background: rgba(100,100,100,.75);
+    font-size: 1.5em;
+    line-height: 10px;
+}
 
 @media (min-width: 992px){
     .modal-task{
