@@ -6,8 +6,11 @@
 }
 
 @media screen and (max-width: 769px){
+    /* Main */
     /* Project */
     .project-container{ width: 100%; }
+    /* Promotion */
+    .all-promo, .promo-users{ width: 48%; }
 }
 
 @media screen and (max-width: 577px){
@@ -16,4 +19,6 @@
     .nav-left{ width: 300px; margin-left: -300px; }
     .nav-left-button.active{ margin-left: 300px; }
     /* Project */
+    /* Promotion */
+    .all-promo, .promo-users{ width: 100%; }
 }
