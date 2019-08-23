@@ -9,28 +9,22 @@
 {% block body %}
     <h1>Mes données</h1>
     <hr>
-    <div class="bg-grey rounded p-2">
-        <span class="bold">Vos logs</span>
-        <table class="w-100 data">
-            {% for udata in user.userData %}
-            <tr class="">
-                <td>
-                    {{ udata.data.label }}
-                </td>
-                <td class="data-link-{{udata.id}}">
-                    {% if udata.content != null %}
-                    {{ udata.content }}
-                    {% else %}
-                    <em>Pas de données</em>
-                    {% endif %}
-                </td>
-                <td>
-                    <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')"
-                    data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-
+    {% for udata in user.userData %}
+        <div class="container-white row flex align-center mx-0 my-1 py-3 shadow-small">
+            <div class="col-md-6 bold">
+                {{ udata.data.label }}
+            </div>
+            <div class="col-md-4 data-link-{{udata.id}}">
+                {% if udata.content != null %}
+                {{ udata.content }}
+                {% else %}
+                <em>Pas de données</em>
+                {% endif %}
+            </div>
+            <div class="col-md-2">
+                <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')"
+                data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -26,9 +26,7 @@
     .nav-left{ width: 300px; margin-left: -300px; }
     .nav-left-button.active{ margin-left: 300px; }
     /* Project */
-
     /* Promotion */
     .all-promo, .promo-users{ width: 100%; }
     /* Files */
-
 }
