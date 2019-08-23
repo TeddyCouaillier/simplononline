@@ -2,7 +2,7 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}{% endblock %}
+{% block title %}Liste des stages{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/training.css">
@@ -11,10 +11,9 @@
 {% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
-    <h1>Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}</em></h1>
+    <h1>Liste des stages</em></h1>
     <hr>
     <div class="bg-grey rounded p-2">
-        <span class="bold">Etat des stages</span>
         {{ form_start(form) }}
         {{ form_row(form.trainingCourse) }}
         {{ template.confirm() }}
@@ -27,16 +26,16 @@
 {% endblock %}
 
 {% block _training_course_user_trainingCourse_entry_widget %}
-<div class="bg-white p-2 mb-2 rounded trainings" id="block_{{id}}">
-    <div class="flex just-around my-1 user-add-training">
+<div class="container-white mb-2 trainings" id="block_{{id}}">
+    <div class="row my-1 user-add-training">
 
-        <div class="input-group">
+        <div class="input-group col-md-4 col-sm-12 my-1">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
             </div>
             {{ form_widget(form.society) }}
         </div>
-        <div class="input-group">
+        <div class="input-group col-md-4 col-sm-12 my-1">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker-alt"></i></span>
             </div>
@@ -58,7 +57,7 @@
         {% set status = "" %}
         {% endif %}
 
-        <div>{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
+        <div class="col-md-4 col-sm-12 my-1">{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
 
     </div>
     <div>

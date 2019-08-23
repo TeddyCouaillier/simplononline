@@ -2,7 +2,7 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Liste des stages de {{ user.firstname }} {{ user.lastname|upper }}{% endblock %}
+{% block title %}Liste des stages{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/training.css">
@@ -10,7 +10,7 @@
 
 {% block body %}
 {{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'slug': user.slug}), 'Toutes vos propositions de stage seront supprimées') }}
-<div class="flex just-between">
+<div class="flex wrap just-between">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
     <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
@@ -28,34 +28,24 @@
     </div>
     {% for training in user.trainingCourse %}
         <div class="container-white mb-2">
-            <div class="flex align-center">
-                <div class="w-33">
+            <div class="row user-training">
+                <div class="col-md-5 col-sm-12">
                     <i class="fas fa-user-tie text-grey mr-1"></i>
                     {{ training.society }}
                 </div>
-                <div class="w-33">
+                <div class="col-md-4 col-sm-12">
                     <i class="fas fa-map-marker mr-1 text-grey"></i>
                     {{ training.place }}
                 </div>
-                <div class="flex align-center w-25">
+                <div class="col-md-3 col-sm-12 flex align-center">
                     <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
                 </div>
-                {% if is_granted('ROLE_FORMER') or app.user == user %}
-                <div class="ml-auto mr-2 rhover">
-                    <a data-toggle="modal" data-target="#modal-{{training.id}}"><i class="fal fa-times-circle"></i></a>
-                </div>
-                {% endif %}
             </div>
             <hr>
-            <div class="my-2">
-                <em>
-                    {{ training.project|default('Pas de projet défini') }}
-                </em>
+            <div class="my-2 text-justify">
+                <em>{{ training.project|default('Pas de projet défini') }}</em>
             </div>
         </div>
-        {% if is_granted('ROLE_FORMER') or app.user == user %}
-        {{ template.deleteConfirm(training.id,path('user_delete_training',{'slug':user.slug,'training_id':training.id})) }}
-        {% endif %}
     {% else %}
         <div class="py-3 text-center">
             <i class="fal fa-times-hexagon icon-md"></i><br>

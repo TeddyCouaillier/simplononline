@@ -16,6 +16,7 @@
     .show-files{ flex-wrap: wrap; }
     .form-files { width: 100%; }
     .received-files { width: 100%; margin-bottom: .75rem; margin-right: 0px; }
+    /* Training course */
 }
 
 @media screen and (max-width: 577px){

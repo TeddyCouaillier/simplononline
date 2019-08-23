@@ -29,7 +29,6 @@ legend{ display: none; }
 .edit-status-green{  border-left: 3px solid green !important; }
 .edit-status-blue{   border-left: 3px solid dodgerblue !important; }
 
-.user-add-training > div{ width: 31%; }
 .training_course_user_trainingCourse-collection-actions{ text-align: right; }
 
 .input-group input{
