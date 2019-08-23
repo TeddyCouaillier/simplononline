@@ -17,7 +17,6 @@ class HelpType extends ApplicationType
     {
         $builder
             ->add('link',        TextType::class,     $this->getConfiguration('Lien du partage'))
-            ->add('description', TextareaType::class, $this->getConfiguration('Description du partage','',['required' => false]))
             ->add('title',       TextType::class,     $this->getConfiguration('Titre du lien'))
             ->add('language',   EntityType::class, [
                 'class'        => Language::class,

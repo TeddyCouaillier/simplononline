@@ -232,8 +232,8 @@ input:focus,select:focus{
 ****************************************************/
 .messages-success{ border-left: 4px solid #4BB543; }
 .messages-warning{ border-left: 4px solid #ffc800; }
-.messages-icon-success{ color: #4BB543; }
-.messages-icon-warning{ color: #ffc800; }
+.message-icon-success{ color: #4BB543; }
+.message-icon-warning{ color: #ffc800; }
 
 /*****************************************************
  ** SUB-NAVIGATION (Link & button)

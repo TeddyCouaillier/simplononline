@@ -7,6 +7,7 @@
 
 @media screen and (max-width: 769px){
     /* Main */
+    [class^="messages-"]{ width: 75%!important; }
     /* Project */
     .project-container{ width: 100%; }
     /* Promotion */
@@ -15,6 +16,7 @@
 
 @media screen and (max-width: 577px){
     /* Main */
+    [class^="messages-"]{ width: 100%!important; }
     .main{ width: 80%; }
     .nav-left{ width: 300px; margin-left: -300px; }
     .nav-left-button.active{ margin-left: 300px; }

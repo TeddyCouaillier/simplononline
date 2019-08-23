@@ -27,16 +27,11 @@ class Help
     private $link;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=75)
      * @Assert\NotBlank
-     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
+     * @Assert\Length(max=75, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="datetime")
@@ -84,18 +79,6 @@ class Help
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

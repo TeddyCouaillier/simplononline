@@ -15,10 +15,10 @@
         <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
     </div>
     <hr>
-    <div class="flex wrap just-center m-2 help-all_cats">
-        <span class="badge-link-active m-2" data-badge="Tout">Tout</span>
+    <div class="flex wrap just-center mx-2 my-1 help-all_cats">
+        <span class="badge-link-active mx-2 my-1" data-badge="Tout">Tout</span>
         {% for language in languages %}
-            <span class="badge-link-inactive m-2" data-badge="{{ language.label }}">{{ language.label }}</span>
+            <span class="badge-link-inactive mx-2 my-1" data-badge="{{ language.label }}">{{ language.label }}</span>
         {% endfor %}
     </div>
     <div class="bg-grey rounded p-2 flexc help-all">
@@ -47,11 +47,6 @@
 
             <span>Posté par {{ help.publisher.fullname }} le {{ help.createdAt | date('d/m/Y à H:i') }}</span>
 
-            {% if help.description != null %}
-                <hr class="mt-1 mb-2">
-                <a href="{{ help.link }}" target="_blank">{{ help.description }}</a>
-            {% endif %}
-
         </div>
         {% endfor %}
     </div>
@@ -72,17 +67,15 @@
                 </div>
                 <div class="my-2">
                     {{ form_label(form.title) }}
-                    {{ form_widget(form.title) }}
-                </div>
-                <div class="my-2">
-                    {{ form_label(form.description) }}
-                    {{ form_widget(form.description) }}
+                    {{ form_widget(form.title, {'attr': {'maxlength': 75}}) }}
                 </div>
                 <div class="my-2">
                     {{ form_label(form.language) }}
                     {{ form_widget(form.language) }}
                 </div>
-                {{ template.confirm() }}
+                <div class="my-2">
+                    {{ template.confirm() }}
+                </div>
             </div>
         </div>
     </div>

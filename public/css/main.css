@@ -50,6 +50,7 @@ label{
 /* SUBNAV */
 .user-nav{
     position: fixed;
+    z-index: 9999;
     bottom: 25px;
     right: 25px;
     background: white;

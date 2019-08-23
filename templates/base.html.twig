@@ -29,8 +29,8 @@
             {% for class, messages in app.flashes %}
                 {% for message in messages %}
                     <div>
-                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-2">
-                            <div class="messages-icon-{{class}}">
+                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-4">
+                            <div class="message-icon-{{class}}">
                                 {% if class == "success" %}
                                 <i class="fas fa-check-circle icon-sm pr-4"></i>
                                 {% elseif class == "warning" %}
