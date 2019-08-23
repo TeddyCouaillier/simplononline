@@ -12,6 +12,10 @@
     .project-container{ width: 100%; }
     /* Promotion */
     .all-promo, .promo-users{ width: 48%; }
+    /* Files */
+    .show-files{ flex-wrap: wrap; }
+    .form-files { width: 100%; }
+    .received-files { width: 100%; margin-bottom: .75rem; margin-right: 0px; }
 }
 
 @media screen and (max-width: 577px){
@@ -21,6 +25,9 @@
     .nav-left{ width: 300px; margin-left: -300px; }
     .nav-left-button.active{ margin-left: 300px; }
     /* Project */
+
     /* Promotion */
     .all-promo, .promo-users{ width: 100%; }
+    /* Files */
+
 }
