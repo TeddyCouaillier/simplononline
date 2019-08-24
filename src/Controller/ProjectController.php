@@ -268,9 +268,6 @@ class ProjectController extends AbstractController
      */
     public function editTaskProject(Project $project, Task $task, Request $request, ObjectManager $manager)
     {
-        if(!$request->isXmlHttpRequest()) {
-            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
-        }
         if(!$this->isGranted('ROLE_FORMER') && !$project->checkUserProject($this->getUser())){
             throw new AccessDeniedException();
         }

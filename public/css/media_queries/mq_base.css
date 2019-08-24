@@ -19,7 +19,7 @@
     .user-portfolio{ grid-area: 7 / 4 / 8 / 1; }
     /* Task */
     #modal-add-task .modal-dialog{ max-width: 75%; }
-    .task_subtasks-collection-actions{ display: none; }
+    .task_subtasks-collection-actions, .edit_task_subtasks-collection-actions{ display: none; }
     .custom-control, .custom-switch{ padding: 0; }
 }
 
