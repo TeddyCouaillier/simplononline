@@ -182,7 +182,7 @@ class UserController extends AbstractController
         $form = $this->createForm(EditUserSkillsType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $notif = $user->createSenderNotif(Notification::SKILL, $user->getId());
+            $notif = $user->createSenderNotif(Notification::SKILL, $user->getSlug());
             $user->createUserNotif($notif);
 
             $manager->persist($user);
@@ -196,7 +196,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute("admin_all_users");
         }
         return $this->render('skill/edit_skills.html.twig', [
-            'user' => $user,
+           'user' => $user,
             'form' => $form->createView()
         ]);
     }

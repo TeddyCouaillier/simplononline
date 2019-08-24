@@ -16,7 +16,7 @@
                     {% if notif.type == 1 or notif.type == 2 %}
                     <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% elseif notif.type == 3 %}
-                    <a href="{{ path('user_show',{'id': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('user_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% else %}
                     <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}

@@ -1,0 +1,123 @@
+Users:                              =>
+    CRUD                            => OK
+    Update password                 => OK
+    Update avatar                   => OK
+    Roles                           => OK
+    Log in/out                      => OK
+    Cookie                          => OK
+    Weather                         => OK
+    Send mail when created          => ~
+    Project list                    => OK
+    Portfolio                       => OK
+    Change role admin               => OK
+    Active/Inactive                 => ~
+    Portfolio website               =>
+
+-----------------------------------------
+Promotions:                         => OK
+    CRUD                            => OK
+    Current                         => OK
+    Users without promotion         => OK
+    Roles                           => OK
+    Start/ending time               => OK
+-----------------------------------------
+-----------------------------------------
+Files:                              => OK
+    Send file user->mediators       => OK
+    Send file mediator->users       => OK
+    Send file user->formateurs      => OK
+    Send file formateur->users      => OK
+    Receive files                   => OK
+    Delete files by sender          => OK
+    Important                       => OK
+-----------------------------------------
+-----------------------------------------
+Skills:                             => OK
+    CRUD                            => OK
+    CRUD user's skills by formateur => OK
+-----------------------------------------
+-----------------------------------------
+Trainings courses:                  => OK
+    CRUD user's trainings           => OK
+    Training courses proposed       => OK
+    Status                          => OK
+    Delete all                      => OK
+-----------------------------------------
+-----------------------------------------
+Datas:                              => OK
+    CRUD                            => OK
+    Copied link                     => OK
+    CRUD user's datas               => OK
+    Edit all users datas            => OK
+    All datas                       => OK
+-----------------------------------------
+-----------------------------------------
+Languages:                          => OK
+    CRUD                            => OK
+    List project by Languages       => OK
+-----------------------------------------
+-----------------------------------------
+Help links:                         => OK
+    CRUD                            => OK
+    Show by Languages               => OK
+-----------------------------------------
+
+Project:                            =>
+    CRUD                            => OK
+    List all projects               => OK
+    List all user's projects        => OK
+    Status                          => OK
+    Ending                          => OK
+    Add to portfolio at ending      => OK
+    Info                            => OK
+    Edit Languages                  => OK
+    Pagination                      =>
+
+-----------------------------------------
+Tasks:                              => OK
+    CRUD (by project)               => OK
+    List only project's users       => OK
+    Type                            => OK
+    Multiselect                     => OK
+-----------------------------------------
+-----------------------------------------
+Subtask:                            => OK
+    CRUD                            => OK
+    Go to "completed"               => OK
+    Collection                      => OK
+-----------------------------------------
+-----------------------------------------
+Corrections:                        => OK
+    CRUD                            => OK
+-----------------------------------------
+
+Survey:                             =>
+    Api                             =>
+
+-----------------------------------------
+Notifications:                      => OK
+    CRD                             => OK
+    Seen/Not Seen                   => OK
+    Dismiss on click                => OK
+-----------------------------------------
+
+Planning:                           =>
+
+All:                                =>
+    Security                        => OK
+    Responsive                      =>
+    Asset                           =>
+    JS errors                       => OK
+    Home                            => OK
+    Show user                       =>
+    Recrutement                     =>
+    Dashboard Simplon               =>
+    Dashboard Roles                 => OK
+    Login                           => OK
+    Former pages                    => OK
+    Mediator  pages                 => OK
+    Test to get activate code       =>
+    Pagination                      =>
+    Update avatar                   =>
+    Electron                        =>
+
