@@ -13,7 +13,7 @@
             <div class="container-grey" >
                 <span class="bold">Info</span>
                 <div class="my-3">{{ form_widget(form.type) }}</div>
-                <div class="my-3">{{ form_widget(form.title) }}</div>
+                <div class="my-3">{{ form_widget(form.title, {'attr': {'maxlength': '50'}}) }}</div>
                 <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '6'}}) }}</div>
                 <div class="my-3">{{ form_widget(form.users, {'attr': {
                     'class': 'task-user-selected selectpicker',

@@ -31,9 +31,9 @@ class Task
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank
-     * @Assert\Length(max=100, maxMessage="Format invalide ({{ limit }} caractères maximum)")
+     * @Assert\Length(max=50, maxMessage="Format invalide ({{ limit }} caractères maximum)")
      */
     private $title;
 

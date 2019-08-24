@@ -14,18 +14,28 @@
 {% block body %}
     {{ template.checkMessage(form) }}
     {{ template.checkMessage(formCorrect) }}
-    <div class="px-5">
-        <div class="flex just-between">
+    <div class="px-5 project">
+        <div class="flex just-between project-title">
             <h1>{{ project.title }}</h1>
             {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="button-edit"><i class="fal fa-pen bold"></i></a>
             {% endif %}
         </div>
-        <span class="text-grey">{{ project.description|default('<em>Pas de description</em>')|raw }}</span>
-        <div class="flex mt-2 mb-3">
-            {% for user in project.users %}
-                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
+        <div class="text-grey project-description">{{ project.description|default('<em>Pas de description</em>')|raw }}</div>
+        <div class="flex align-center mt-1 mb-2 project-members">
+            {% for user in project.users|slice(0,4) %}
+            <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+            {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                {{ user.fullname }} <br>
+            '>
             {% endfor %}
+            {% if project.users|length > 4 %}
+            <div class="avatar-xs my-2 ml-1 border-0 text-center text-small project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                {% for user in project.users|slice(4, project.users|length) %}
+                {{ user.fullname }}<br>
+                {% endfor %}
+            '>+{{project.users|length - 4}}</div>
+            {% endif %}
         </div>
         <div class="progress">
             <div class="progress-bar status-{{project.progresscolor(progress)}}" role="progressbar" style="width: {{progress}}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -43,9 +53,9 @@
                 <span>{{ project.interval }}</span>
             </div>
         </div>
-        <div class="container-grey flex my-4">
+        <div class="container-grey flex wrap my-4">
             <div class="text-center project-nav active" data-project="task" onclick="projectPanel(this)">Tâches</div>
-            <div class="text-center project-nav" data-project="detail" onclick="projectPanel(this)">Informations détaillées</div>
+            <div class="text-center project-nav" data-project="detail" onclick="projectPanel(this)">Détail</div>
             <div class="text-center project-nav" data-project="activity" onclick="projectPanel(this)">Corrigés</div>
         </div>
         <hr>
@@ -60,9 +70,11 @@
 {% endblock %}
 
 {% block _task_subtasks_entry_widget %}
-<div class="flex just-around align-center rounded task-add-subtask">
+<div class="flex wrap just-around align-center rounded task-add-subtask">
         <div>{{ form_widget(form.title) }}</div>
-        <div>{{ form_widget(form.done) }}</div>
+        <div class="custom-control custom-switch text-center">
+            {{ form_widget(form.done) }}
+        </div>
 </div>
 {% endblock %}
 

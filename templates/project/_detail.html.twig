@@ -7,66 +7,60 @@
         </div>
         <div></div>
     </div>
-    <div class="bg-grey rounded p-2">
-        <div class="flex just-around">
-            <div class="rounded p-2 w-50">
-                <span class="bold">Informations du projet</span>
-                <div class="container-white mt-2">
-                    <div>
-                        <span>
-                            #{{project.id}} - <b>{{ project.title }}</b>
-                        </span>
-                        <p class="text-grey">
-                            {{project.description}}
-                        </p>
-                        <div class="flex wrap my-1">
-                        {% for language in project.languages if language is not null %}
-                            <div class="badge-link-active mr-1">
-                            {{language.label}}
-                            {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
-                            <i class="fal fa-times-circle pointer remove-language" data-url="{{ path('project_remove_language',{'id_project': project.id,'id': language.id}) }}"></i>
-                            {% endif %}
-                            </div>
-                        {% endfor %}
-                        </div>
-                        <p>
-                            {{ project.tasks|length}} tâches,
-                            {{ project.completedtask }} terminés,
-                            {{ project.processingtask }} en cours,
-                            {{ project.todotask }} à faire.
-                        </p>
+    <div class="flex wrap just-between">
+        <div class="container-white shadow-small project-detail mb-1">
+            <div>
+                <span>
+                    #{{project.id}} - <b>{{ project.title }}</b>
+                </span>
+                <p class="text-grey">
+                    {{project.description}}
+                </p>
+                <div class="flex wrap my-1">
+                {% for language in project.languages if language is not null %}
+                    <div class="badge-link-active mr-1 my-1">
+                    {{language.label}}
+                    {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
+                    <i class="fal fa-times-circle pointer remove-language" data-url="{{ path('project_remove_language',{'id_project': project.id,'id': language.id}) }}"></i>
+                    {% endif %}
                     </div>
+                {% endfor %}
                 </div>
+                <p>
+                    {{ project.tasks|length}} tâches,
+                    {{ project.completedtask }} terminés,
+                    {{ project.processingtask }} en cours,
+                    {{ project.todotask }} à faire.
+                </p>
             </div>
-            <div class="p-2 w-50">
-                <span class="bold">Liste des apprenants</span>
-                {% for user in project.users if user is not null %}
-                {{ template.deleteConfirm('remove-user-'~user.id,path('project_remove_user',{'slug': project.slug,'id': user.id}))}}
-                <div class="container-white flex align-center mb-1 mt-2">
-                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
-                    <div class="flex-fill">
-                        {{ user.fullname }}
-                        {% if project.moderator == user %}
-                            <i class="fal fa-star text-small text-red bold ml-1"></i>
-                        {% endif %}
-                    </div>
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
-                    <div style="width: 10%">
-                        <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}"><i class="fal fa-times-circle"></i></button>
-                    </div>
+        </div>
+        <div class="project-detail-user mb-1">
+            {% for user in project.users if user is not null %}
+            {{ template.deleteConfirm('remove-user-'~user.id,path('project_remove_user',{'slug': project.slug,'id': user.id}))}}
+            <div class="container-white flex align-center shadow-small mb-1">
+                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
+                <div class="flex-fill">
+                    {{ user.fullname }}
+                    {% if project.moderator == user %}
+                        <i class="fal fa-star text-small text-red bold ml-1"></i>
                     {% endif %}
                 </div>
-                {% endfor %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
+                <div style="width: 12%">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}"><i class="fal fa-times-circle"></i></button>
+                </div>
+                {% endif %}
             </div>
+            {% endfor %}
         </div>
-        {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
-        <div class="container-white mb-2 text-center">
-            <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
-        </div>
-        {{ template.deleteConfirm('delete-project',path('project_delete',{'slug': project.slug}))}}
-        <div class="container-white mb-1 text-center">
-            <a class="text-red bold" data-toggle="modal" data-target="#modal-delete-project">Supprimer le projet</a>
-        </div>
-        {% endif %}
     </div>
+    {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
+    <div class="container-white shadow-small my-1 text-center">
+        <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
+    </div>
+    {{ template.deleteConfirm('delete-project',path('project_delete',{'slug': project.slug}))}}
+    <div class="container-white shadow-small my-1 text-center">
+        <a class="text-red bold" data-toggle="modal" data-target="#modal-delete-project">Supprimer le projet</a>
+    </div>
+    {% endif %}
 </div>

@@ -57,16 +57,17 @@
                 <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
                 <div class="flex just-center align-center">
                     {% for user in project.users|slice(0,4) %}
-                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                    {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                         {{ user.fullname }} <br>
                     '>
                     {% endfor %}
                     {% if project.users|length > 4 %}
-                    <div class="avatar-xs my-2 text-white see-more" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                    <div class="avatar-xs my-2 bg-grey border-0 project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                         {% for user in project.users|slice(4, project.users|length) %}
                         {{ user.fullname }}<br>
                         {% endfor %}
-                    '>...</div>
+                    '>+{{project.users|length - 4}}</div>
                     {% endif %}
                 </div>
                 <p class="text-small text-grey">

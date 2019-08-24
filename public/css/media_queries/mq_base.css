@@ -6,6 +6,7 @@
 }
 
 @media screen and (max-width: 993px){
+    /* User */
     .user          { padding: 0; grid-template-columns: 210px 175px auto; }
     .user-header   { grid-area: 1 / 1 / 1 / 4; }
     .user-info     { grid-area: 2 / 1 / 3 / 2; }
@@ -16,6 +17,10 @@
     .user-skills   { grid-area: 5 / 1 / 6 / 4; }
     .user-datas    { grid-area: 6 / 4 / 7 / 1; }
     .user-portfolio{ grid-area: 7 / 4 / 8 / 1; }
+    /* Task */
+    #modal-add-task .modal-dialog{ max-width: 75%; }
+    .task_subtasks-collection-actions{ display: none; }
+    .custom-control, .custom-switch{ padding: 0; }
 }
 
 @media screen and (max-width: 769px){
@@ -23,7 +28,10 @@
     [class^="messages-"]{ width: 75%!important; }
     .user-notif{ width: 300px; }
     /* Project */
+    .project{ padding: 0 !important;}
     .project-container{ width: 100%; }
+    .project-detail{ width: 100% !important; }
+    .project-detail-user{ width: 100% !important; }
     /* Promotion */
     .all-promo, .promo-users{ width: 48%; }
     /* Files */
@@ -43,9 +51,20 @@
     .user-portfolio { grid-area: 8 / 1 / 8 / 3; }
     .user-secondary-info{ text-align: center; }
     .hr-user{ display: block; }
+    /* Task */
+    .task-info{ width: 100% !important; }
+    .task-subtask{ width: 100% !important; }
+    .task-icon{ display: none; }
 }
 
 @media screen and (max-width: 577px){
+    /* Base */
+    .button-edit{
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 1em;
+    }
     /* Main */
     [class^="messages-"]{ width: 100%!important; }
     .user-notif{ right: 10px; bottom: 80px; }
@@ -54,6 +73,20 @@
     .nav-left{ width: 300px; margin-left: -300px; }
     .nav-left-button.active{ margin-left: 300px; }
     /* Project */
+    .project-title h1{
+        font-size: 1.3em !important;
+        font-weight: bold;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .project-description{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
     /* Promotion */
     .all-promo, .promo-users{ width: 100%; }
     /* Files */
@@ -70,4 +103,10 @@
     .user-portfolio { grid-area: 9 / 1 / 9 / 2; }
     .user-header{ flex-wrap: wrap; }
     .user-header .user-edit{ display: none; }
+    /* Task */
+    #modal-add-task .modal-dialog{ max-width: 100%; }
+    .custom-control, .custom-switch{ padding-left: 10px; }
+    .task-container{ flex-wrap: wrap; }
+    #task-users { -ms-flex-pack: start!important; justify-content: start!important; width: 65%; }
+    #task-sub { width: auto; margin: 0 .5rem; }
 }

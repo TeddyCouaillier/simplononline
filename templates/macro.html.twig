@@ -62,37 +62,45 @@
 
 {# Task container #}
 {% macro task(tasks, project, type) %}
-    <div class="testt">
+    <div class="tasks">
         <input type="hidden" id="task-counter" value="{{tasks|length}}">
         {% for task in tasks if task is not null %}
             {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
             {{ _self.modal("modal-edit-"~task.id) }}
-            <div class="mt-2">
-                <div class="container-white flex align-center task-container">
-                    <div id="task-title">
-                        <span class="bold">{{ task.title }}</span><br>
-                        <span class="text-grey">{{ task.interval }}</span>
-                    </div>
-                    <div class="text-right" id="task-users">
-                        {% for user in task.users %}
-                            <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
+            <div class="container-white flex align-center mt-2 task-container">
+                <div id="task-title">
+                    <p class="bold">{{ task.title }}</p>
+                    <p class="text-grey">{{ task.interval }}</p>
+                </div>
+                <div class="flex align-center justify-content-end mt-1 mb-2 project-members" id="task-users">
+                    {% for user in task.users|slice(0,4) %}
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                    {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                        {{ user.fullname }} <br>
+                    '>
+                    {% endfor %}
+                    {% if project.users|length > 4 %}
+                    <div class="avatar-xs my-2 ml-1 border-0 text-center text-small project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        {% for user in project.users|slice(4, project.users|length) %}
+                        {{ user.fullname }}<br>
                         {% endfor %}
-                    </div>
-                    <div class="text-center text-grey" id="task-sub">
-                        <i class="fal fa-tasks mr-2"></i>
-                        <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
-                    </div>
-                <div>
-                    {% if project.completed == false %}
-                    <div class="subnav">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <div class="subnav-tooltip">
-                            <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
-                            <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
-                        </div>
-                    </div>
+                    '>+{{project.users|length - 4}}</div>
                     {% endif %}
                 </div>
+                <div class="text-center text-grey" id="task-sub">
+                    <i class="fal fa-tasks task-icon mr-2"></i>
+                    <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
+                </div>
+            <div>
+            {% if project.completed == false %}
+            <div class="subnav">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="subnav-tooltip">
+                    <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                    <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                </div>
+            </div>
+            {% endif %}
             </div>
         </div>
         {% endfor %}

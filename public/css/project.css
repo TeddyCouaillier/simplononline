@@ -22,9 +22,15 @@
 
 
 .task-container{ padding: 1em !important; }
-#task-title{ width: 45%; }
-#task-users{ width: 40%; }
-#task-sub  { width: 15%; }
+#task-title{ width: 100%; }
+#task-title p:first-child{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#task-users{ width: 45%; }
+#task-sub  { width: 25%; }
 
 [class^="status-"], .status{
     height: 8px;
@@ -130,15 +136,20 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical; 
+    -webkit-box-orient: vertical;
 }
-.project-container .see-more{
-    width: 25px !important;
-    height: 25px !important;
-    background: rgba(100,100,100,.75);
-    font-size: 1.5em;
-    line-height: 10px;
+.project-other-users{
+    background: var(--greydark);
+    opacity: .5;
+    line-height: 30px;
 }
+.project-members img:not(:first-of-type){
+    margin-left: -7px;
+}
+
+.project-detail, .project-detail-user{ width: 49%; }
+
+.project-title h1{ width: 90%; }
 
 @media (min-width: 992px){
     .modal-task{

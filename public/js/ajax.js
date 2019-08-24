@@ -64,7 +64,7 @@ function seeMore(el){
         success: function(response){
             if (url !== undefined)
             {
-                $(el).parent().parent().find('.testt').append(response.render);
+                $(el).parent().parent().find('.tasks').append(response.render);
                 $(el).parent().parent().find('#task-counter').val(counter+response.size);
                 if(response.size < 5){
                     $(el).parent().remove();
