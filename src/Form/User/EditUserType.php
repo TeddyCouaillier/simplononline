@@ -22,18 +22,6 @@ class EditUserType extends UserType
             ->add('website'  , TextType::class, $this->getConfiguration("Site internet",false,['required'=>false]))
             ->add('github'   , TextType::class, $this->getConfiguration("Lien github",false,['required'=>false]))
             ->add('avatar'   , FileType::class, [ 'required' => false,'data_class' => null])
-            ->add('promotion', EntityType::class, [
-                'class'        => Promotion::class,
-                'choice_label' => 'label',
-                'required'     => false,
-                'placeholder'  => 'Aucune'
-            ])
-            ->add('userRoles', EntityType::class, [
-                'class'       => Role::class,
-                'required'    => false,
-                'mapped'      => false,
-                'placeholder' => 'Apprenant'
-            ])
         ;
     }
 }
