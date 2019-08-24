@@ -29,6 +29,7 @@
     color: #CCC ;
 }
 
+.hr-user{ display: none; }
 
 .user-secondary-info li { margin-bottom: .25rem; }
 .user-secondary-info a{ color: var(--greylight); }

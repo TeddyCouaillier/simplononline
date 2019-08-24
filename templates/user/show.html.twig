@@ -6,9 +6,11 @@
 <link rel="stylesheet" href="/css/user.css">
 <link rel="stylesheet" href="/css/skill.css">
 <link rel="stylesheet" href="/css/training.css">
+<link rel="stylesheet" href="/css/project.css">
 {% endblock %}
 
 {% block body %}
+
 <div class="user">
     {######################################
      #### USER INFO
@@ -23,7 +25,8 @@
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
         {% endif %}
-        <ul class="user-secondary-info mt-2 mr-auto text-grey">
+        <div class="user-secondary-info mt-2 text-grey">
+        <ul>
             <li><i class="fal fa-envelope"></i> {{user.email }}</li>
             <li>
                 <i class="fal fa-mobile-android"></i>
@@ -58,6 +61,7 @@
                 {% endif %}
             </li>
         </ul>
+        </div>
     </div>
 
     {######################################
@@ -65,27 +69,27 @@
      #####################################}
     <div class="user-header flex just-around align-center text-center p-3">
         {% if app.user == user %}
-        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover">
+        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
         </a>
-        <a href="{{ path('file_user_show') }}" class="rhover">
+        <a href="{{ path('file_user_show') }}" class="rhover mx-1">
             <i class="fas fa-envelope text-large"></i><br>
             Fichiers
         </a>
-        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover">
+        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
         </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover">
+        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
             <i class="fas fa-key text-large"></i><br>
             Données
         </a>
-        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover">
+        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
             <i class="fas fa-cog text-large"></i><br>
             Modifier
         </a>
-        <a href="{{ path('account_password') }}" class="rhover">
+        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit">
             <i class="fas fa-lock text-large"></i><br>
             Password
         </a>
@@ -169,18 +173,21 @@
         {% if user.trainingCourse is not empty %}
             <div class="p-2">
                 {% for training in user.trainingCourse|slice(0,5) %}
-                    <div class="flex align-baseline py-1 px-2">
-                        <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                        title="Détail" data-content=
-                        'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
-                        </i>
-                        <div style="width: 60%">{{ training.society }}</div>
-                        <div class="flex align-center">
+                    <div class="row flex align-baseline py-1 px-2">
+                        <div class="col-md-1 col-sm-1">
+                            <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                            title="Détail" data-content=
+                            'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
+                            </i>
+                        </div>
+                        <div class="col-md-6 col-sm-11">{{ training.society }}</div>
+                        <div class="col-md-5 col-sm-12 flex align-center">
                             <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
                         </div>
                     </div>
+                    <hr class="hr-user">
                 {% endfor %}
-                <div class="text-center mt-4">
+                <div class="text-center my-2 mb-2">
                     <a href="#" class="user-see-more p-1">Voir tous</a>
                 </div>
             </div>
@@ -197,7 +204,7 @@
     {######################################
      #### USER DATA
      #####################################}
-    <div class="user-datas flex just-around align-center text-center bold">
+    <div class="user-datas flex wrap just-around align-center p-2 text-center bold">
         <div>
             <div class="circle">{{ user.projects|length }}</div>
             <span>Projets</span>
@@ -231,22 +238,19 @@
             <span class="bold">Portfolio</span>
             <hr>
         </div>
-        <div class="flex wrap align-center">
-        {% for project in user.projects if project.completed %}
-            <div class="container-white py-3 m-1 shadow-small text-center" style="width:32%; height: 125px;">
-                <span class="bold">{{ project.title }}</span><br>
-                <p class="h-50">{{ project.description|truncate(75)|default('Aucune description') }}</p>
-                <span class="text-small text-grey">
-                {% for language in project.languages %}
-                {{ language.label }}
-                {% else %}
-                Aucun langage
-                {% endfor %}
-                </span>
-            </div>
-        {% else %}
-        {% endfor %}
+        <div class="flex wrap just-center">
+            {% for project in user.projects %}
+                <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+                    <div>
+                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                        <p class="text-small text-grey">
+                            {% for language in project.languages %}
+                                {{ language.label }}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
 </div>
 {% endblock %}
