@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/admin.css">
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="/css/media_queries/mq_admin.css">
     </head>
     <body>
         {% set active_users = "" %} {% set active_projects = "" %} {% set active_promo = "" %} {% set active_helps = "" %}
@@ -50,7 +51,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="adminnav">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto ml-2">
                 <li class="nav-item">
                 <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users',{'slug': 'all'}) }}">Utilisateurs</a>
                 </li>
@@ -79,12 +80,12 @@
             </div>
         </nav>
 
-        <div class="px-5 my-3">
+        <div class="px-5 my-3 admin-main">
             {% for class, messages in app.flashes %}
                 {% for message in messages %}
                     <div>
-                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-2">
-                            <div class="messages-icon-{{class}}">
+                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-4">
+                            <div class="message-icon-{{class}}">
                                 {% if class == "success" %}
                                 <i class="fas fa-check-circle icon-sm pr-4"></i>
                                 {% elseif class == "warning" %}

@@ -12,7 +12,7 @@ width:33%;
 display: inline-block;
 background-color:#34495E;
 color:#fff;
-margin-top: 50px; 
+margin-top: 50px;
 }
 .icon-section i{
 font-size: 30px;
@@ -121,3 +121,5 @@ input[type="checkbox"].switch_base:checked:after {
     background: var(--red);
     transform: translateY(12px);
 }
+
+.admin-user-responsive{ display: none; }

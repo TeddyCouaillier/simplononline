@@ -1,0 +1,37 @@
+@media screen and (max-width: 993px){
+    /* Home */
+    .dashboard{ width: 100%; }
+    .admin-promo-users{ width: 49% !important; }
+    /* Users */
+    .admin-user{ display: none !important;}
+    .admin-user-responsive{ display: block; }
+}
+
+@media screen and (max-width: 769px){
+    /*************** Main ***************/
+    [class^="messages-"]{ width: 75%!important; }
+    .user-notif{ width: 300px; }
+    /* Home */
+    .admin-main{ padding: 0 !important; }
+    .admin-user-weather{ width: 100% !important; }
+    .admin-user-files{ width: 100% !important; }
+}
+
+@media screen and (max-width: 577px){
+    /*************** Main ***************/
+    [class^="messages-"]{ width: 100%!important; }
+    .user-notif{ right: 10px; bottom: 80px; }
+    .user-nav{ right: 10px; bottom: 10px; }
+    .main{ width: 80%; }
+    .nav-left{ width: 300px; margin-left: -300px; }
+    .nav-left-button.active{ margin-left: 300px; }
+    /* Home */
+    .main-section, .admin-section{ width: 95%; }
+    .users-weather{ width: 100% !important; }
+    .admin-promo-users{ width: 100% !important; }
+    .role{ display: none; }
+    /* Users */
+    .admin-uskill{ display: none !important; }
+    /* Skills */
+    .edit-skill-label{ width: 100% !important; }
+}

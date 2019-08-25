@@ -20,9 +20,10 @@ use App\Form\Skill\SkillType;
 use App\Form\Project\TaskType;
 use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
+use App\Form\Project\CorrectionType;
+use App\Form\User\AdminEditUserType;
 use App\Form\Project\EditProjectType;
 use App\Form\Promotion\PromotionType;
-use App\Form\Project\CorrectionType;
 use App\Repository\PromotionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -81,6 +82,69 @@ class AdminEditController extends AbstractController
         ];
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * Edit the current user
+     * @Route("/user/{slug}/edit", name="user_edit")
+     * @param User          $user
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editUserAccount(User $user, Request $request, ObjectManager $manager){
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR')){
+            throw new AccessDeniedHttpException();
+        }
+        $imageName = "";
+
+        $currentAvatar = $user->getAvatar();
+        if(!empty($currentAvatar)){
+            $imageName = $user->getAvatar();
+        }
+        $form = $this->createForm(AdminEditUserType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            if(!$form->isValid()){
+                $user->setAvatar($imageName);
+            } else {
+                $image = $form->get('avatar')->getData();
+                if($image != NULL)
+                {
+                    $imageName = $user->getAvatarName().'.'.$image->guessExtension();
+                    $image->move(
+                        $this->getParameter('image_directory'),
+                        $imageName
+                    );
+                    $user->setAvatar($imageName);
+                } else {
+                    $user->setAvatar($imageName);
+                }
+
+                $role_id = $request->request->get('edit_user')['userRoles'];
+                if($role_id !== null){
+                    $reprole = $this->getDoctrine()->getRepository(Role::Class);
+                    $role = $reprole->find($role_id);
+                    $role->addUser($user);
+                    $user->setPromotion(null);
+                }
+
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'L\'utilisateur a bien été mis à jour.'
+                );
+                return $this->redirectToRoute('admin_all_users', ['slug'=>'all']);
+            }
+        }
+
+        return $this->render('admin/edit_user.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
     }
 
     /**

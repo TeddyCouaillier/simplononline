@@ -13,23 +13,14 @@
     <div class="container px-5 my-3">
     <h1>Modification des données</h1>
     <hr>
-        {{ form_start(form) }}
-    <div class="bg-grey rounded p-2">
-        <span class="bold">Modifier les logs</span>
-        <table class="w-100 data-edit">
-        {% for form in form.userData %}
-        <tr class="">
-            <td>
-                {{ user.userData[loop.index-1].data.label }}
-            </td>
-            <td>
-                {{ form_widget(form) }}
-            </td>
-        </tr>
-        {% endfor %}
-        </table>
-        {{ template.confirm() }}
-        {{ form_end(form) }}
-    </div>
+    {{ form_start(form) }}
+    {% for form in form.userData %}
+        <div class="container-white row mx-0 pb-0 flex align-baseline shadow-small my-1 w-100 data-edit">
+            <div class="col-md-6 col-sm-6">{{ user.userData[loop.index-1].data.label }}</div>
+            <div class="col-md-6 col-sm-6">{{ form_widget(form) }}</div>
+        </div>
+    {% endfor %}
+    {{ template.confirm() }}
+    {{ form_end(form) }}
     </div>
 {% endblock %}

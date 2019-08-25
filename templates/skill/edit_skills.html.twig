@@ -17,10 +17,10 @@
     <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
     <hr>
     {{ form_start(form) }}
-    <div class="bg-grey rounded p-2 edit-skill-users">
+    <div class="container-grey edit-skill-users">
         {% for form in form.userSkills %}
-            <div class="flex just-between align-center bg-white rounded mb-2 p-2">
-                <div>{{ user.userSkills[loop.index-1].skill.label }}</div>
+            <div class="flex wrap just-between align-center bg-white rounded mb-2 p-2">
+                <div class="w-75 edit-skill-label">{{ user.userSkills[loop.index-1].skill.label }}</div>
                 <div>{{ form_widget(form) }}</div>
             </div>
         {% endfor %}

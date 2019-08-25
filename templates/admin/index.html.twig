@@ -45,7 +45,7 @@
 </div>
 
 <div class="admin-section flex wrap just-between">
-    <div class="container-white flex wrap shadow-small my-3 w-66">
+    <div class="container-white flex wrap shadow-small my-3 w-66 admin-user-weather">
     {% for user in users %}
         <div class="flex just-between align-center users-weather px-2 w-50">
             <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
@@ -55,7 +55,7 @@
     {% endfor %}
     </div>
 
-    <div class="container-white shadow-small my-3 w-33" style="max-height: 425px">
+    <div class="container-white shadow-small my-3 w-33 admin-user-files" style="max-height: 425px">
         <div class="form-files rounded">
             <p class="bold">Envoyer un fichier</p>
             <div>
@@ -84,14 +84,13 @@
         </div>
     </div>
 
-    <div class="container-white flex wrap just-around align-center my-3 w-100 shadow-small">
+    <div class="flex wrap just-around align-center my-3 w-100">
         {% for user in users %}
-        <div class="w-33 my-3">
+        <div class="container-white w-33 my-1 shadow-small admin-promo-users">
             <a href="#">
                 <div class="flexc just-around h-100 text-center ">
                     <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto">
                     <span class="bold">{{ user.fullname }}</span>
-                    <span>{{ user.email }}</span>
                     <div class="flex just-center">
                     {% for uskill in user.userSkills %}
                         <div
