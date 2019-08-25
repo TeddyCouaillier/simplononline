@@ -4,10 +4,6 @@
 
 {% block title %}Liens d'aide{% endblock %}
 
-{% block stylesheets %}
-<link rel="stylesheet" href="/css/help.css">
-{% endblock %}
-
 {% block body %}
     {{ template.checkMessage(form) }}
     <div class="flex just-between">
@@ -28,7 +24,7 @@
 
             <div class="flex just-between">
                 <div>
-                <a href="{{ help.link }}" target="_blank" class="link bold">{{ help.title }}</a>
+                <a href="{{ help.link }}" target="_blank" class="rhover bold">{{ help.title }}</a>
                 {% if help.language != null %}
                 <span class="badge-link-active">{{ help.language.label }}</span>
                 {% endif %}
@@ -45,7 +41,7 @@
                 {% endif %}
             </div>
 
-            <span>Posté par {{ help.publisher.fullname }} le {{ help.createdAt | date('d/m/Y à H:i') }}</span>
+            <span class="text-small text-grey">Posté par {{ help.publisher.fullname }} le {{ help.createdAt | date('d/m/Y à H:i') }}</span>
 
         </div>
         {% endfor %}

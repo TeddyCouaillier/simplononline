@@ -1,8 +1,0 @@
-.help-link > span{
-    font-size: .85em;
-    color: var(--greylight);
-}
-.help-link:hover .link{
-    color: var(--red);
-}
-
