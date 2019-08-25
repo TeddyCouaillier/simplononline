@@ -13,17 +13,17 @@
     <hr>
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
-            <div class="bg-white shadow-small text-center mb-3 p-1 all-promo">
+            <div class="bg-white shadow-small text-center mb-3 p-1 w-33 all-promo">
                 {% if promo.current %}
-                    <div class="" style="position: absolute; width: 100px">
-                        <div class="current">
+                    <div class="position-absolute">
+                        <div class="bg-red text-white text-uppercase bold py-2 px-3">
                             En cours
                         </div>
                     </div>
                 {% endif %}
-                <div class="promo-content mt-3 mb-1">
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="promo-url">
-                        <h2>{{ promo.label }}</h2>
+                <div class="mt-3 mb-1 p-4">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                        <h2 class="rhover">{{ promo.label }}</h2>
                         <ul>
                             <li>Formateur :
                                 <em>
@@ -52,7 +52,7 @@
         {% endfor %}
     </div>
     <div class="text-center">
-        <a href="{{ path('promo_other') }}" class="text-grey users-without-promo">Utilisateurs sans promotion <i class="fal fa-directions"></i></a>
+        <a href="{{ path('promo_other') }}" class="text-grey bhover">Utilisateurs sans promotion <i class="fal fa-directions"></i></a>
     </div>
 </div>
 {% endblock %}

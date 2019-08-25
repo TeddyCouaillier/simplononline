@@ -4,9 +4,9 @@
     {{ template.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
     {{ template.modal("modal-edit-"~task.id) }}
     <div class="mt-2 animated fadeIn">
-        <div class="container-white flex align-center task-container">
-            <div id="task-title">
-                <span class="bold">{{ task.title }}</span><br>
+        <div class="container-white flex align-center p-3">
+            <div class="w-100">
+                <span class="bold" id="task-title">{{ task.title }}</span><br>
                 <span class="text-grey">{{ task.interval }}</span>
             </div>
             <div class="text-right" id="task-users">

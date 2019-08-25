@@ -741,19 +741,19 @@ class User implements UserInterface
     {
         switch ($this->weather) {
             case self::SUN:
-                return '<img src="/img/weather/sun.svg" class="img-md">';
+                return '<img src="/img/weather/sun.svg" class="rounded-md">';
                 break;
             case self::RAIN:
-                return '<img src="/img/weather/rain.svg" class="img-md">';
+                return '<img src="/img/weather/rain.svg" class="rounded-md">';
                 break;
             case self::CLOUD:
-                return '<img src="/img/weather/clouds.svg" class="img-md">';
+                return '<img src="/img/weather/clouds.svg" class="rounded-md">';
                 break;
             case self::THUNDER:
-                return '<img src="/img/weather/thunder.svg" class="img-md">';
+                return '<img src="/img/weather/thunder.svg" class="rounded-md">';
                 break;
             case self::SUNCLOUD:
-                return '<img src="/img/weather/suncloud.svg" class="img-md">';
+                return '<img src="/img/weather/suncloud.svg" class="rounded-md">';
                 break;
             default:
                 return '<p class="icon-lg">?</p>';

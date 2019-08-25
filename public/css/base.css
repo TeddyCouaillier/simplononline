@@ -61,6 +61,7 @@ hr{
 .bg-red      { background: var(--red) !important; }
 .text-grey   { color: var(--greylight) !important; }
 .text-greyd  { color: rgba(0,0,0,.75) !important; }
+.text-greyl  { color: var(--greydark) !important; }
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
 .text-black  { color: var(--black) !important; }
@@ -70,7 +71,7 @@ hr{
 .text-large  { font-size: 1.6em; }
 .text-xlarge { font-size: 2em; }
 .rhover:hover{ color: var(--red) !important; cursor: pointer; }
-
+.bhover:hover{ color: var(--black) !important; cursor: pointer; }
 /*****************************************************
  ** DISPLAY
  ****************************************************/
@@ -118,20 +119,20 @@ hr{
 .icon-md{ font-size: 3em; }
 .icon-lg{ font-size: 4.5em; }
 .icon-xl{ font-size: 5em; }
-[class*="avatar-"]{ border-radius: 50%; border: 1px solid var(--greydark);}
-.avatar-xs, .img-xs{
+[class*="avatar-"]{ border-radius: 50%; }
+.avatar-xs, .rounded-xs{
     width: 30px;
     height: 30px;
 }
-.avatar-sm, .img-sm{
+.avatar-sm, .rounded-sm{
     width: 50px;
     height: 50px;
 }
-.avatar-md, .img-md{
+.avatar-md, .rounded-md{
     width: 75px;
     height: 75px;
 }
-.avatar-lg, .img-ld{
+.avatar-lg, .rounded-ld{
     width: 150px;
     height: 150px;
 }
@@ -178,6 +179,28 @@ hr{
 .btn:focus{
     box-shadow: 0 0 0 0.2rem rgba(0,0,0,.1)!important;
 }
+[class*="badge-link-"]{
+    padding: 3px 7px;
+    font-weight: bold;
+    font-size: .75em;
+    border-radius: 12px;
+}
+
+.badge-link-active{
+    background: var(--red);
+    color: white;
+}
+
+.badge-link-inactive{
+    background: white;
+    color: var(--red);
+    border: 1px solid var(--red);
+}
+.badge-link-inactive:hover{
+    background: var(--red);
+    color: white;
+    cursor: pointer;
+}
 /*****************************************************
 ** FORM
 ****************************************************/
@@ -191,6 +214,9 @@ input:focus,select:focus{
     -webkit-box-shadow: var(--shadow);
        -moz-box-shadow: var(--shadow);
             box-shadow: var(--shadow);
+}
+legend{
+    display: none;
 }
 .custom-file-label { opacity: 0; }
 .custom-file-input { opacity: 1; }

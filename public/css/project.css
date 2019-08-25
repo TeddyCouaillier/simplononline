@@ -1,29 +1,43 @@
-.add-task{
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
-}
+/****************************************************
+ ***** PROJECT
+ ***************************************************/
+.project-title h1{ width: 90%; }
 .progress{ height: 5px!important; }
-
-/* Panel */
-.project-nav{
-    cursor: pointer;
-    width: 33%;
-    padding: .5rem 0;
-    font-size: .9em;
-}
+.project-content:not(#task){ display: none; }
+.project-detail, .project-detail-user{ width: 49%; }
+.project-members img:not(:first-of-type){ margin-left: -7px; }
 .project-nav.active{
     background: var(--white);
     border-radius: 7px!important;
     font-weight: 600;
 }
-.project-content:not(#task){ display: none; }
 
+[class^="status-"], .status{
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}
+.status-yellow { background: yellow;     }
+.status-red    { background: red;        }
+.status-orange { background: orange;     }
+.status-green  { background: green;      }
+.status-blue   { background: dodgerblue; }
 
+.project-other-users{
+    background: var(--greydark);
+    opacity: .5;
+    line-height: 30px;
+}
 
-.task-container{ padding: 1em !important; }
-#task-title{ width: 100%; }
-#task-title p:first-child{
+ /****************************************************
+ ***** TASK
+ ***************************************************/
+.add-task{
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+#task-title{
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -32,60 +46,30 @@
 #task-users{ width: 45%; }
 #task-sub  { width: 25%; }
 
-[class^="status-"], .status{
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-}
-.status-yellow{     background: yellow; }
-.status-red{        background: red; }
-.status-orange{     background: orange; }
-.status-green{      background: green; }
-.status-blue{       background: dodgerblue; }
-
-[class*="badge-link-"]{
-    padding: 3px 7px;
-    font-weight: bold;
-    font-size: .75em;
-    border-radius: 12px;
-}
-
-.badge-link-active{
-    background: var(--red);
-    color: white;
-}
-
-.ms-choice{ height: 35px;}
-.ms-choice span{ line-height: 35px;}
-.ms-choice > div{ height: 35px;}
-
-.custom-control-label::before{
-    box-shadow: none!important;
-    outline: none!important;
-}
-
-.task-add-subtask div:nth-of-type(1){ width: 75%; }
+.task-add-subtask div:nth-of-type(1){ width: 65%; }
 .task-add-subtask div:nth-of-type(2){ width: 12%; text-align: center; }
-.task-add-subtask div:nth-of-type(3){ width: 13%; }
-.task-add-subtask-edit div:nth-of-type(1){ width: 60%; }
-.task-add-subtask-edit div:nth-of-type(2){ width: 10%; text-align: center; }
+.task-add-subtask div:nth-of-type(3){ width: 20%; }
+.task-add-subtask-edit div:nth-of-type(1){ width: 65%; }
+.task-add-subtask-edit div:nth-of-type(2){ width: 12%; text-align: center; }
 .task-add-subtask-edit div:nth-of-type(3){ width: 20%; }
 
-.button-see-task{
-    border-radius: 20px;
-    background: var(--white);
-    color: var(--red);
-    border-color: var(--red);
-    font-weight: 650;
+ /****************************************************
+ ***** ALL PROJECTS
+ ***************************************************/
+.new-project{ font-size: 5em; }
+
+.project-container{
+    width: 32%;
+    height: 125px;
 }
-.button-see-task:hover{
-    background: var(--red);
-    color: var(--white);
-}
-.button-see-task:focus{
-    box-shadow: var(--shadow);
+.project-container p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
+/* Fade other task */
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
@@ -116,43 +100,4 @@
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-}
-
-.all-add-project{
-    border-radius: 50%;
-    font-size: 5em;
-    color: #CCC;
-    cursor: pointer;
-    transition: all .3s linear;
-}
-.all-add-project:hover{
-    color: var(--red);
-}
-.project-container{
-    width: 32%;
-    height: 125px;
-}
-.project-container p{
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-.project-other-users{
-    background: var(--greydark);
-    opacity: .5;
-    line-height: 30px;
-}
-.project-members img:not(:first-of-type){
-    margin-left: -7px;
-}
-
-.project-detail, .project-detail-user{ width: 49%; }
-
-.project-title h1{ width: 90%; }
-
-@media (min-width: 992px){
-    .modal-task{
-        max-width: 80%;
-    }
 }

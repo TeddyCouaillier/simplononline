@@ -16,10 +16,8 @@
 {% block body %}
     <div class="flex wrap just-between align-center">
         <h1>
-            {% if user is not defined %}
-            Tous les projets
-            {% else %}
-            Tous mes projets
+            {% if user is not defined %} Tous les projets
+            {% else %} Tous mes projets
             {% endif %}
         </h1>
         {% if user is not defined %}
@@ -27,59 +25,62 @@
             <div class="btn-group dropleft" role="group">
                 <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
-                    <a href="{{ path('project_all') }}" class="dropdown-item">Tout</a>
-                    {% for language in languages %}
-                    <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
-                        {{ language.label }}
+                    <a href="{{ path('project_all') }}" class="dropdown-item">
+                        Tout
                     </a>
+                    {% for language in languages %}
+                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                            {{ language.label }}
+                        </a>
                     {% endfor %}
                 </div>
             </div>
             <span class="btn bg-white">
                 {% if language is defined %}
-                {{ language.label }}
+                    {{ language.label }}
                 {% else %}
-                Tout
+                    Tout
                 {% endif %}
             </span>
         </div>
         {% endif %}
     </div>
     <hr>
+
     {% if user is defined %}
     {% set projects = user.projects %}
     {% endif %}
 
     <div class="flex wrap just-center">
-    {% for project in projects %}
-        <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
-            <div>
-                <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
-                <div class="flex just-center align-center">
-                    {% for user in project.users|slice(0,4) %}
-                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                    {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
-                        {{ user.fullname }} <br>
-                    '>
-                    {% endfor %}
-                    {% if project.users|length > 4 %}
-                    <div class="avatar-xs my-2 bg-grey border-0 project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                        {% for user in project.users|slice(4, project.users|length) %}
-                        {{ user.fullname }}<br>
+        {% for project in projects %}
+            <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+                <div>
+                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                    <div class="flex just-center align-center">
+                        {% for user in project.users|slice(0,4) %}
+                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                            {{ user.fullname }} <br>
+                        '>
                         {% endfor %}
-                    '>+{{project.users|length - 4}}</div>
-                    {% endif %}
+                        {% if project.users|length > 4 %}
+                        <div class="avatar-xs my-2 bg-grey border-0 project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                            {% for user in project.users|slice(4, project.users|length) %}
+                            {{ user.fullname }}<br>
+                            {% endfor %}
+                        '>+{{project.users|length - 4}}</div>
+                        {% endif %}
+                    </div>
+                    <p class="text-small text-grey">
+                        {% for language in project.languages %}
+                            {{ language.label }}
+                        {% endfor %}
+                    </p>
                 </div>
-                <p class="text-small text-grey">
-                    {% for language in project.languages %}
-                        {{ language.label }}
-                    {% endfor %}
-                </p>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
         <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
-            <a href="{{ path('project_create') }}"><div class="all-add-project">+</div></a>
+            <a href="{{ path('project_create') }}"><div class="new-project text-greyl rhover">+</div></a>
         </div>
     </div>
 {% endblock %}

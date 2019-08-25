@@ -48,7 +48,6 @@ class EditProjectType extends ApplicationType
             ])
             ->add('completed',   CheckboxType::class, $this->getConfiguration('Terminé',null,[
                 'attr'       => array('class' => 'switch_base'),
-                // 'label_attr' => array('class' => 'custom-control-label'),
                 'required'   => false
             ]))
         ;

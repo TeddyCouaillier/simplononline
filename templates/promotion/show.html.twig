@@ -11,11 +11,11 @@
     <h1>{{ promo.label }}</h1>
     <span class="h5">{{ promo.nickname|capitalize }}</span>
     <hr>
-    <div class="flex wrap just-around promo">
+    <div class="flex wrap just-around">
         {% for user in promo.users %}
-        <div class="promo-users shadow-small">
+        <div class="bg-white mb-3 py-3 w-33 promo-users shadow-small">
             <a href="{{ path('user_show',{'slug': user.slug}) }}">
-            <div class="flex flexc just-around h-100 text-center">
+            <div class="flex flexc just-around text-center">
                 <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto">
                 <span class="bold">{{ user.fullname }}</span>
                 <span>{{ user.email }}</span>

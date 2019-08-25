@@ -11,9 +11,7 @@
         {% for correct in project.corrections|reverse %}
         <div class="container-white mb-3">
             <span class="text-small text-grey">Corrigé le {{ correct.createdAt|date('d/m/Y') }}</span>
-            <p>
-                {{ correct.content|raw }}
-            </p>
+            <p>{{ correct.content|raw }}</p>
         </div>
         {% else %}
         <div class="container-white text-center">

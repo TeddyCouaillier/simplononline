@@ -6,25 +6,3 @@
     color: var(--red);
 }
 
-[class*="badge-link-"]{
-    padding: 3px 7px;
-    font-weight: bold;
-    font-size: .75em;
-    border-radius: 12px;
-}
-
-.badge-link-active{
-    background: var(--red);
-    color: white;
-}
-
-.badge-link-inactive{
-    background: white;
-    color: var(--red);
-    border: 1px solid var(--red);
-}
-.badge-link-inactive:hover{
-    background: var(--red);
-    color: white;
-    cursor: pointer;
-}
