@@ -2,9 +2,14 @@
     /* Home */
     .dashboard{ width: 100%; }
     .admin-promo-users{ width: 49% !important; }
-    /* Users */
-    .admin-user{ display: none !important;}
-    .admin-user-responsive{ display: block; }
+    /* Table */
+    .admin-user,.admin-project{
+        display: none !important;
+    }
+    .admin-user-responsive,
+    .admin-project-responsive{
+        display: block;
+    }
 }
 
 @media screen and (max-width: 769px){
@@ -34,4 +39,8 @@
     .admin-uskill{ display: none !important; }
     /* Skills */
     .edit-skill-label{ width: 100% !important; }
+    /* Projects */
+    .admin-project-users{ display: none !important; }
+    .modal-correction{ width: 100% !important; }
+    .dropdown-menu{ margin-right: 50px; }
 }

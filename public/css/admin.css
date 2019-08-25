@@ -122,4 +122,7 @@ input[type="checkbox"].switch_base:checked:after {
     transform: translateY(12px);
 }
 
-.admin-user-responsive{ display: none; }
+.admin-user-responsive,
+.admin-project-responsive{
+    display: none;
+}

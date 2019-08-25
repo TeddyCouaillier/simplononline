@@ -11,12 +11,12 @@
 
 {% block body %}
 <div class="container px-5 my-4">
-    <div class="flex just-between align-center">
-        <h1>Liste des projets</h1>
+    <div class="flex wrap just-between align-center">
+        <h1 class="w-75">Liste des projets</h1>
         <a href="{{ path('project_create') }}" class="button-edit"><i class="fal fa-plus"></i></a>
     </div>
     <hr>
-    <table class="table table-hover text-center bg-white shadow-small">
+    <table class="table table-hover text-center bg-white shadow-small admin-project">
         <thead>
             <tr>
                 <th scope="col">Fini</th>
@@ -44,7 +44,7 @@
                     {% endif %}
                 <td>
                     <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">
-                        {{ project.title|truncate(25) }}
+                        {{ project.title|truncate(50) }}
                     </a>
                 </td>
                 <td>{{ project.interval }}</td>
@@ -99,6 +99,45 @@
         </tbody>
     </table>
 </div>
+
+<div class="w-100 admin-project-responsive">
+    {% for project in projects %}
+        <div class="container-white row mx-0 shadow-small">
+            <div class="col-sm-4 col-6">
+                <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">
+                    {{ project.title }}
+                </a>
+            </div>
+            <div class="col-sm-5 admin-project-users">
+                {% if project.users is not empty %}
+                {% for user in project.users %}
+                    {{ user.firstname }} &nbsp;
+                {% endfor %}
+                {% else %}
+                -
+                {% endif %}
+            </div>
+            <div class="col-sm-3 col-6 admin-project-buttons">
+                <div class="btn-group" role="group">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Modifier
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item rhover add-project-correction" data-url="{{path('admin_project_edit_correction',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-correction-{{project.id}}">Ajouter une correction</a>
+                            <a class="dropdown-item rhover">Ajouter un utilisateur</a>
+                            <a class="dropdown-item rhover">Retirer un utilisateur</a>
+                            <a class="dropdown-item rhover add-project-task" data-url="{{path('admin_project_add_task',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-task-{{project.id}}">Ajouter une tache</a>
+                            <a class="dropdown-item rhover edit-project" data-url="{{path('admin_project_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-{{project.id}}">Modifier</a>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{project.id}}"><i class="fal fa-times-circle"></i></button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
 
 {% block libraries %}
