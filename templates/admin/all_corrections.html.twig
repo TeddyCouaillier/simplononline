@@ -7,8 +7,8 @@
 {% block body %}
 <div class="container px-5 my-4">
   <div class="flex wrap just-between align-center">
-      <h1 class="w-75">Liste des corrections</h1>
-      <div class="button-edit ml-2" data-toggle="modal" data-target="#modal-new-correction"><i class="fal fa-plus"></i></div>
+    <h1 class="w-75">Liste des corrections</h1>
+    {{ template.add() }}
   </div>
   <hr>
   <table class="table table-hover text-center bg-white shadow-small admin-correction">
@@ -61,28 +61,18 @@
         </div>
     {% endfor %}
 </div>
+{% endblock %}
 
-<div class="modal fade" id="modal-new-correction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-{{ form_start(form) }}
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-body">
-            <div class="flex just-between align-center">
-                <h2>Ajouter une correction</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <hr>
-            <div class="my-2">
-                {{ form_label(form.content) }}
-                {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
-            </div>
-            <div class="my-2">
-                {{ form_widget(form.project) }}
-            </div>
-            {{ template.confirm() }}
-        </div>
+{% block modalTitle %}Corriger un projet{% endblock %}
+{% block modalBody %}
+  {{ form_start(form) }}
+    <div class="my-2">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
     </div>
-</div>
-{{ form_end(form) }}
-</div>
+    <div class="my-2">
+        {{ form_widget(form.project) }}
+    </div>
+    {{ template.confirm() }}
+  {{ form_end(form) }}
 {% endblock %}

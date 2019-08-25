@@ -13,7 +13,7 @@
     {{ template.checkMessage(form) }}
     <div class="flex wrap just-between align-center">
         <h1 class=-"w-75">Liste des compétences</h1>
-        <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-skill"><i class="fal fa-plus"></i></div>
+        {{ template.add() }}
     </div>
     <hr>
     <table class="table table-hover text-center bg-white shadow-small">
@@ -49,26 +49,16 @@
         </tbody>
     </table>
 </div>
-
-<div class="modal fade" id="modal-add-skill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-{{ form_start(form) }}
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-body px-4 pt-3 pb-0 mb-2">
-            <div class="flex just-between align-center">
-                <h2>Ajouter une compétence</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <hr>
-            {{ form_start(form) }}
-            {{ form_label(form.label) }}
-            {{ form_widget(form.label) }}
-            {{ form_label(form.description) }}
-            {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}
-            {{ template.confirm() }}
-        </div>
-    </div>
-</div>
-{{ form_end(form) }}
-</div>
 {% endblock %}
+
+{% block modalTitle %}Ajouter une compétence{% endblock %}
+{% block modalBody %}
+    {{ form_start(form) }}
+        {{ form_label(form.label) }}
+        {{ form_widget(form.label) }}
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}
+        {{ template.confirm() }}
+    {{ form_end(form) }}
+{% endblock %}
+

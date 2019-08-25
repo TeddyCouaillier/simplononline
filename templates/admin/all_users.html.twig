@@ -37,7 +37,7 @@
                     {% endif %}
                 </span>
             </div>
-            <a  class="button-edit" data-toggle="modal" data-target="#modal-add-user"><i class="fal fa-plus"></i></a>
+            {{ template.add() }}
         </div>
     </div>
     <hr>
@@ -144,47 +144,37 @@
         </div>
     {% endfor %}
 </div>
+{% endblock %}
 
-<div class="modal fade bd-example-modal-lg" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content p-5">
-            <div class="flex just-between align-center">
-                <h2>Ajouter un utilisateur</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+{% block modalTitle %}Ajouter un utilisateur{% endblock %}
+{% block modalBody %}
+    {{ form_start(form) }}
+        <div class="row p-2">
+            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
+                {{ form_label(form.firstname) }}<br>
+                {{ form_widget(form.firstname) }}
             </div>
-            <div class="modal-body p-0">
-                <hr>
-                {{ form_start(form) }}
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                        {{ form_label(form.firstname) }}<br>
-                        {{ form_widget(form.firstname) }}
-                    </div>
-                    <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                        {{ form_label(form.lastname) }}<br>
-                        {{ form_widget(form.lastname) }}
-                    </div>
-                    <div class="col-12 my-2 container-white shadow-small">
-                        {{ form_label(form.email) }}<br>
-                        {{ form_widget(form.email) }}
-                    </div>
-                    <div class="col-12 my-2 container-white shadow-small">
-                        {{ form_label(form.password) }}<br>
-                        {{ form_widget(form.password) }}
-                    </div>
-                    <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                        {{ form_label(form.promotion) }}<br>
-                        {{ form_widget(form.promotion) }}
-                    </div>
-                    <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                        {{ form_label(form.userRoles) }}<br>
-                        {{ form_widget(form.userRoles) }}
-                    </div>
-                </div>
-                {{ template.confirm() }}
-                {{ form_end(form) }}
+            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
+                {{ form_label(form.lastname) }}<br>
+                {{ form_widget(form.lastname) }}
+            </div>
+            <div class="col-12 my-2 container-white shadow-small">
+                {{ form_label(form.email) }}<br>
+                {{ form_widget(form.email) }}
+            </div>
+            <div class="col-12 my-2 container-white shadow-small">
+                {{ form_label(form.password) }}<br>
+                {{ form_widget(form.password) }}
+            </div>
+            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
+                {{ form_label(form.promotion) }}<br>
+                {{ form_widget(form.promotion) }}
+            </div>
+            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
+                {{ form_label(form.userRoles) }}<br>
+                {{ form_widget(form.userRoles) }}
             </div>
         </div>
-    </div>
-</div>
+        {{ template.confirm() }}
+    {{ form_end(form) }}
 {% endblock %}

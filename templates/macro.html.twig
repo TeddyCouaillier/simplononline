@@ -30,6 +30,11 @@
     </div>
 {% endmacro %}
 
+{# Button add #}
+{% macro add() %}
+    <a class="button-edit" data-toggle="modal" data-target="#modal"><i class="fal fa-plus"></i></a>
+{% endmacro %}
+
 {# Skill modal #}
 {% macro skillModal(skillUser) %}
     {% set skill = skillUser.skill %}
@@ -66,7 +71,7 @@
         <input type="hidden" id="task-counter" value="{{tasks|length}}">
         {% for task in tasks if task is not null %}
             {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
-            {{ _self.modal("modal-edit-"~task.id) }}
+            {{ _self.modal("modal-edit-"~task.id,'mw-66') }}
             <div class="container-white flex align-center mt-2 task-container">
                 <div id="task-title">
                     <p class="bold">{{ task.title }}</p>
@@ -135,9 +140,9 @@
 </div>
 {% endmacro %}
 
-{% macro modal(id) %}
+{% macro modal(id, width = '') %}
     <div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog {{ width }}" role="document">
             <div class="modal-content">
                 <div class="modal-body">
 

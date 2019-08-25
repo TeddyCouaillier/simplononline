@@ -12,7 +12,7 @@
 <div class="container px-5 my-4">
   <div class="flex just-between">
     <h1>Liste des données</h1>
-    <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-datas"><i class="fal fa-plus"></i></div>
+    {{ template.add() }}
   </div>
   <hr>
   <div class="flex just-around">
@@ -100,35 +100,24 @@
     </div>
   </div>
 </div>
+{% endblock %}
 
-<div class="modal fade" id="modal-add-datas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-body px-4 pt-3 pb-2">
-          <div class="flex just-between align-center">
-            <h2></h2>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <hr>
-          <div class="my-2">
-            <h3>Ajouter une donnée</h3>
-            {{ form_start(formData, {'attr': {'name' : 'language'}}) }}
-              {{ form_label(formData.label) }}
-              {{ form_widget(formData.label) }}
-              {{ template.confirm() }}
-            {{ form_end(formData) }}
-          </div>
-          <hr>
-          <div class="my-2">
-            <h3>Ajouter un langage</h3>
-            {{ form_start(formLanguage) }}
-              {{ form_label(formLanguage.label) }}
-              {{ form_widget(formLanguage.label) }}
-              {{ template.confirm() }}
-            {{ form_end(formLanguage) }}
-          </div>
-        </div>
-      </div>
-  </div>
+{% block modalBody %}
+<div class="my-2">
+  <h3>Ajouter une donnée</h3>
+  {{ form_start(formData, {'attr': {'name' : 'language'}}) }}
+    {{ form_label(formData.label) }}
+    {{ form_widget(formData.label) }}
+    {{ template.confirm() }}
+  {{ form_end(formData) }}
+</div>
+<hr>
+<div class="my-2">
+  <h3>Ajouter un langage</h3>
+  {{ form_start(formLanguage) }}
+    {{ form_label(formLanguage.label) }}
+    {{ form_widget(formLanguage.label) }}
+    {{ template.confirm() }}
+  {{ form_end(formLanguage) }}
 </div>
 {% endblock %}

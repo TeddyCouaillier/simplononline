@@ -127,6 +127,7 @@ input[type="checkbox"].switch_base:checked:after {
 .admin-user-responsive,
 .admin-project-responsive,
 .admin-promotion-responsive,
-.admin-help-responsive{
+.admin-help-responsive,
+.admin-correction-responsive{
     display: none;
 }

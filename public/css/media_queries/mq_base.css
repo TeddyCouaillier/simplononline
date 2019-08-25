@@ -104,7 +104,7 @@
     .user-header{ flex-wrap: wrap; }
     .user-header .user-edit{ display: none; }
     /*************** Task ***************/
-    #modal-add-task .modal-dialog{ max-width: 100%; }
+    .modal-dialog{ max-width: 100% !important; }
     .custom-control, .custom-switch{ padding-left: 10px; }
     .task-container{ flex-wrap: wrap; }
     #task-users { -ms-flex-pack: start!important; justify-content: start!important; width: 65%; }

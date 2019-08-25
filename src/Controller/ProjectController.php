@@ -288,6 +288,15 @@ class ProjectController extends AbstractController
 
             return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
         }
+        if($form->isSubmitted() && !$form->isValid())
+        {
+            $this->addFlash(
+                'warning',
+                'Un problème est survenu, vérifiez votre saisie.'
+            );
+
+            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
+        }
 
         // Ajax calling
         $render = $this->render('project/edit_task.html.twig',[

@@ -113,6 +113,23 @@
             {% block body %}{% endblock %}
         </div>
 
+        {% block modal %}
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog {% block modalWidth %}{% endblock %}" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="flex just-between align-center">
+                                <h2>{% block modalTitle %}{% endblock %}</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <hr>
+                            {% block modalBody %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
