@@ -10,21 +10,20 @@
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css'/>
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel">
         <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/login.css">
     </head>
     <body>
-        <div class="flex just-center align-center main">
-            <div class="flexc shadow-small text-center">
+        <div class="flex just-center align-center w-100 vh-100">
+            <div class="flexc shadow-small text-center bg-white py-3 rounded" style="width: 300px; height: 450px">
                 <div class="text-center">
                     <img src="img/logo.jpeg" class="w-50"></img>
                 </div>
                 <div class="flexc just-center align-center h-100">
                     {% if hasError %}
-                    <div class="message-danger text-red my-2">
+                    <div class="text-red m-2 p-2 border border-danger bold">
                         Une erreur est survenue. Le mail ou le mot de passe est invalide
                     </div>
                     {% endif %}
-                    <form action="{{ path('account_login') }}" method="post">
+                    <form action="{{ path('account_login') }}" method="post" class="w-100 px-4">
                         <div class="form-group">
                             <label for="email">Adresse mail</label>
                             <input type="text" name="_username" id="email" class="form-control" placeholder="Adresse mail" value="{{ username }}" required>
