@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             {% for skill in skills %}
-            {{ template.deleteConfirm(skill.id,path('skill_delete',{'id':skill.id})) }}
+            {{ template.deleteConfirm(skill.id,path('admin_skill_delete',{'id':skill.id})) }}
             {{ template.modal('edit-skill-'~skill.id)}}
             <tr>
                 <th scope="row">{{ skill.id }}</th>

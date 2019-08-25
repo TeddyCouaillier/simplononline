@@ -6,7 +6,6 @@ use App\Entity\UserSkills;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class UserSkillsType extends ApplicationType

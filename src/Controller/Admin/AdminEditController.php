@@ -72,7 +72,7 @@ class AdminEditController extends AbstractController
 
 
         $render = $this->render('admin/edit.html.twig', [
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'promo' => $promo
         ]);
 
@@ -192,6 +192,26 @@ class AdminEditController extends AbstractController
     }
 
     /**
+     * Delete a specific data
+     * @Route("/donnee/{id}/delete", name="data_delete")
+     * @param Data $data
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteData(Data $data, ObjectManager $manager)
+    {
+        $manager->remove($data);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La donnée a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('admin_all_datas');
+    }
+
+    /**
      * Edit a specific help link
      * @Route("/aide/{id}/edit", name="help_edit")
      * @param Help          $help
@@ -263,6 +283,21 @@ class AdminEditController extends AbstractController
         ];
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * Delete a skill
+     * @Route("/competence/{id}/delete", name="skill_delete")
+     * @param Skills        $skill
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteSkills(Skills $skill, ObjectManager $manager)
+    {
+        $manager->remove($skill);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_all_skills');
     }
 
     /**

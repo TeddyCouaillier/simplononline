@@ -193,7 +193,7 @@ class UserController extends AbstractController
                 'Les compétences ont bien été modifiées'
             );
 
-            return $this->redirectToRoute("admin_all_users");
+            return $this->redirectToRoute("admin_all_users", ['slug' => 'all']);
         }
         return $this->render('skill/edit_skills.html.twig', [
            'user' => $user,

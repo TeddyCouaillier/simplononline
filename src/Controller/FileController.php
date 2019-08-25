@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Files;
 use App\Entity\UserFiles;
 use App\Entity\UserNotif;
@@ -211,7 +210,7 @@ class FileController extends AbstractController
             return $response;
         } catch ( Exception $e ) {
             $array = array (
-                'status' => 0,
+                'status'  => 0,
                 'message' => 'Download error'
             );
             $response = new JsonResponse ( $array, 400 );

@@ -8,7 +8,6 @@ class ApplicationType extends AbstractType
 {
     /**
      * Base config for form type
-     *
      * @param string $label
      * @param string $placeholder
      * @param array $options

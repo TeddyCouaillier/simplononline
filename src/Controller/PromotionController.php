@@ -4,15 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Promotion;
 use App\Repository\UserRepository;
-use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
 use App\Form\Promotion\AddUsersPromotionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 

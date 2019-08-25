@@ -4,11 +4,8 @@ namespace App\Form\User;
 
 use App\Entity\Role;
 use App\Entity\Promotion;
-use App\Form\User\UserType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AdminEditUserType extends EditUserType
 {

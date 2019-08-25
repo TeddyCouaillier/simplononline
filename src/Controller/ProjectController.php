@@ -22,7 +22,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -331,13 +330,13 @@ class ProjectController extends AbstractController
 
         $render = $this->render('project/_task_content.html.twig',[
             'project' => $project,
-            'tasks' => $tasks
+            'tasks'   => $tasks
         ]);
 
         $response = [
-            "code" => 200,
+            "code"   => 200,
             "render" => $render->getContent(),
-            "size" => sizeof($tasks)
+            "size"   => sizeof($tasks)
         ];
         return new JsonResponse($response);
     }

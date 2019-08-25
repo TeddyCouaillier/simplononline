@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         {% for data in datas %}
-        {{ template.deleteConfirm('data-'~data.id,path('data_delete',{'id':data.id})) }}
+        {{ template.deleteConfirm('data-'~data.id,path('admin_data_delete',{'id':data.id})) }}
         {{ template.modal('edit-data-'~data.id)}}
         <tr>
           <th scope="row">{{ data.id }}</th>

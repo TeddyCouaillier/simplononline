@@ -9,15 +9,16 @@
         <link rel="icon" type="image/png" href="/img/favicon.png" />
         <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/libraries/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/main/base.css">
+        <link rel="stylesheet" href="/css/main/navs.css">
+        <link rel="stylesheet" href="/css/main/main.css">
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="/css/media_queries/mq_base.css">
     </head>
     <body>
-        {% include 'partials/header.html.twig' %}
-        {% include 'partials/subnav.html.twig' %}
+        {% include 'navs/header.html.twig' %}
+        {% include 'navs/subnav.html.twig' %}
 
         {{ render(controller(
             'App\\Controller\\BaseController::weather'
@@ -62,10 +63,10 @@
             <span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.
         </footer>
 
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/jquery.collection.js"></script>
+        <script src="/js/libraries/jquery.min.js"></script>
+        <script src="/js/libraries/popper.min.js"></script>
+        <script src="/js/libraries/bootstrap.min.js"></script>
+        <script src="/js/libraries/jquery.collection.js"></script>
         {% block libraries %}{% endblock %}
         <script src="/js/base.js"></script>
         <script src="/js/ajax.js"></script>
