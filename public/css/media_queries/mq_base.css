@@ -50,7 +50,7 @@
     .user-datas     { grid-area: 7 / 1 / 7 / 3; }
     .user-portfolio { grid-area: 8 / 1 / 8 / 3; }
     .user-secondary-info{ text-align: center; }
-    .hr-user{ display: block; }
+    .user hr{ display: block !important; }
     /*************** Task ***************/
     .task-info{ width: 100% !important; }
     .task-subtask{ width: 100% !important; }

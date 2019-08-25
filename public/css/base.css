@@ -7,7 +7,7 @@
     --grey:     #e8ecf1;
     --white:    #FFFFFF;
     --black:    #000000;
-    --greylight:#00000050;
+    --greylight:#00000075;
     --greydark: #00000025;
     --shadow: 0 2px 4px rgba(0,0,0,.20);
 }
@@ -69,7 +69,7 @@ hr{
 .text-medium { font-size: 1.2em; }
 .text-large  { font-size: 1.6em; }
 .text-xlarge { font-size: 2em; }
-.rhover:hover{ color: var(--red); cursor: pointer; }
+.rhover:hover{ color: var(--red) !important; cursor: pointer; }
 
 /*****************************************************
  ** DISPLAY
@@ -119,19 +119,19 @@ hr{
 .icon-lg{ font-size: 4.5em; }
 .icon-xl{ font-size: 5em; }
 [class*="avatar-"]{ border-radius: 50%; border: 1px solid var(--greydark);}
-.avatar-xs{
+.avatar-xs, .img-xs{
     width: 30px;
     height: 30px;
 }
-.avatar-sm{
+.avatar-sm, .img-sm{
     width: 50px;
     height: 50px;
 }
-.avatar-md{
+.avatar-md, .img-md{
     width: 75px;
     height: 75px;
 }
-.avatar-lg{
+.avatar-lg, .img-ld{
     width: 150px;
     height: 150px;
 }

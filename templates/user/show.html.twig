@@ -15,7 +15,7 @@
     {######################################
      #### USER INFO
      #####################################}
-    <div class="user-info flexc align-center just-around p-3">
+    <div class="container-white shadow-small user-info flexc align-center just-around p-3">
         {% if user.avatar is not null %}
         <img src="/img/avatar/{{user.avatar}}" class="avatar-lg mb-2">
         {% else %}
@@ -25,37 +25,37 @@
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
         {% endif %}
-        <div class="user-secondary-info mt-2 text-grey">
+        <div class="user-secondary-info mt-2 text-greyd">
         <ul>
-            <li><i class="fal fa-envelope"></i> {{user.email }}</li>
-            <li>
-                <i class="fal fa-mobile-android"></i>
+            <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{user.email }}</li>
+            <li class="mb-1">
+                <i class="fal fa-mobile-android text-center"></i>
                 {% if user.tel != null %}
                 {{ user.tel }}
                 {% else %}
                 <em>Pas de numéro de téléphone</em>
                 {% endif %}
             </li>
-            <li>
-                <i class="far fa-map-marker-alt"></i>
+            <li class="mb-1">
+                <i class="far fa-map-marker-alt text-center"></i>
                 {% if user.zipcode != null or user.city != null %}
                 {{ user.zipcode }} {{ user.city }}
                 {% else %}
                 <em>Pas d'adresse</em>
                 {% endif %}
             </li>
-            <li>
-                <i class="fal fa-globe"></i>
+            <li class="mb-1">
+                <i class="fal fa-globe text-center"></i>
                 {% if user.website != null %}
-                <a href="{{ user.website }}" target="_blank">Site internet</a>
+                <a href="{{ user.website }}" class="text-greyd rhover" target="_blank">Site internet</a>
                 {% else %}
                 <em>Pas de site internet</em>
                 {% endif %}
             </li>
-            <li>
-                <i class="fal fa-code-branch"></i>
+            <li class="mb-1">
+                <i class="fal fa-code-branch text-center"></i>
                 {% if user.github != null %}
-                <a href="{{ user.github }}" target="_blank">GitHub</a>
+                <a href="{{ user.github }}" class="text-greyd rhover" target="_blank">GitHub</a>
                 {% else %}
                 <em>Pas de lien github</em>
                 {% endif %}
@@ -67,7 +67,7 @@
     {######################################
      #### USER NAV
      #####################################}
-    <div class="user-header flex just-around align-center text-center p-3">
+    <div class="container-white shadow-small user-header flex just-around align-center text-center p-3">
         {% if app.user == user %}
         <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
             <i class="far fa-list-ul text-large"></i><br>
@@ -105,7 +105,7 @@
     {######################################
      #### USER FILES
      #####################################}
-    <div class="user-files">
+    <div class="container-white shadow-small user-files">
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
                 {% if app.user == user %}
@@ -132,11 +132,11 @@
     {######################################
      #### USER WEATHER
      #####################################}
-     <div class="user-weather flexc just-between">
+     <div class="bg-white rounded shadow-small user-weather flexc just-between">
         <div class="flex just-center align-center h-100">
             {{ user.weatherIcon|raw }}
         </div>
-        <div class="now text-center bold py-2">
+        <div class="now bg-grey text-center bold py-2">
             {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
         </div>
     </div>
@@ -144,12 +144,12 @@
     {######################################
      #### USER PROJECTS
      #####################################}
-    <div class="user-projects p-3">
+    <div class="container-white shadow-small user-projects p-3">
         {% if user.projects is not empty %}
             {% for project in user.projects|slice(0,4) %}
                 <div class="flex just-between align-baseline">
                     <span>{{ project.title }}</span>
-                    <a href="#" class="see-project"><i class="fal fa-arrow-circle-right"></i></a>
+                    <a href="#" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
                 </div>
                 <hr>
             {% endfor %}
@@ -169,7 +169,7 @@
     {######################################
      #### USER TRAINING COURSES
      #####################################}
-    <div class="user-trainings">
+    <div class="container-white shadow-small user-trainings">
         {% if user.trainingCourse is not empty %}
             <div class="p-2">
                 {% for training in user.trainingCourse|slice(0,5) %}
@@ -185,7 +185,7 @@
                             <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
                         </div>
                     </div>
-                    <hr class="hr-user">
+                    <hr class="d-none">
                 {% endfor %}
                 <div class="text-center my-2 mb-2">
                     <a href="#" class="user-see-more p-1">Voir tous</a>
@@ -204,17 +204,17 @@
     {######################################
      #### USER DATA
      #####################################}
-    <div class="user-datas flex wrap just-around align-center p-2 text-center bold">
+    <div class="container-white shadow-small user-datas flex wrap just-around align-center text-center bold">
         <div>
-            <div class="circle">{{ user.projects|length }}</div>
+            <div class="avatar-md text-xlarge text-red mb-1 circle">{{ user.projects|length }}</div>
             <span>Projets</span>
         </div>
         <div>
-            <div class="circle">{{ user.projectsCompleted|length }}</div>
+            <div class="avatar-md text-xlarge text-red mb-1 circle">{{ user.projectsCompleted|length }}</div>
             <span>Terminés</span>
         </div>
         <div>
-            <div class="circle">{{ user.helps|length }}</div>
+            <div class="avatar-md text-xlarge text-red mb-1 circle">{{ user.helps|length }}</div>
             <span>Aides</span>
         </div>
     </div>
@@ -222,7 +222,7 @@
     {######################################
      #### USER SKILLS
      #####################################}
-    <div class="user-skills py-1 px-3" id="skills">
+    <div class="container-white shadow-small user-skills py-1 px-3" id="skills">
         <div class="mt-2 rounded">
         {% for skill in user.userSkills %}
             {{ template.level(skill) }}
