@@ -1,45 +1,16 @@
-.show-files{ height: auto; }
 .received-files{
     width: calc(100% - 300px);
     max-height: 410px;
     overflow-y: scroll;
-    margin-right: 10px;
 }
 .received-files::-webkit-scrollbar-thumb{ background: #FFF; border: 1px solid #EEE; box-shadow: none; }
 .received-files::-webkit-scrollbar-track{ background: transparent; box-shadow: none; }
 .received-files::-webkit-scrollbar      { background: transparent; }
 
-.form-files{
-    width: 300px;
-    margin-bottom: 5px 30px;
-}
-.file-content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--white);
-    padding: 20px;
-}
+.form-files{ width: 300px; }
+.file-info{ width: 90%; }
 .file-state{
-    margin-right: 10px;
     height: 10px;
     width: 10px;
-    border-radius: 50%;
-    background: var(--white);
 }
 
-.file-info{ width: 90%; }
-.file-user{ font-size: .89em; }
-.no-file{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 1.5em;
-    height: 100%;
-}
-.no-file i{ font-size: 6em; }
-
-.files-delete i,
-.files-delete:hover{ color: var(--red) !important; }
-.files-delete{ font-size: 1em; }

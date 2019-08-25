@@ -2,10 +2,6 @@
 
 {% block title %}Données de {{ user.fullname }}{% endblock %}
 
-{% block stylesheets %}
-<link rel="stylesheet" href="/css/data.css">
-{% endblock %}
-
 {% block body %}
     <h1>Mes données</h1>
     <hr>
@@ -14,15 +10,15 @@
             <div class="col-md-6 bold">
                 {{ udata.data.label }}
             </div>
-            <div class="col-md-4 data-link-{{udata.id}}">
+            <div class="col-md-5 data-link-{{udata.id}}">
                 {% if udata.content != null %}
                 {{ udata.content }}
                 {% else %}
                 <em>Pas de données</em>
                 {% endif %}
             </div>
-            <div class="col-md-2">
-                <i class="fal fa-file-signature copy" onclick="copyToClipboard('.data-link-{{udata.id}}')"
+            <div class="col-md-1">
+                <i class="fal fa-file-signature bhover text-grey" onclick="copyToClipboard('.data-link-{{udata.id}}')"
                 data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
             </div>
         </div>

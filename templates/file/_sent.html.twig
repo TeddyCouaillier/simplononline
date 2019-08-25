@@ -3,7 +3,9 @@
 <div class="flex just-between align-baseline pt-1">
     <span class="bold ml-1">Mes fichiers envoyés</span>
     {% if sending is not empty %}
-        <div class="files-delete ml-2" data-toggle="modal" data-target="#modal-delete-all">Tout supprimer <i class="fal fa-times-circle"></i></div>
+        <div class="rhover text-small ml-2" data-toggle="modal" data-target="#modal-delete-all">
+            Tout supprimer <i class="fal fa-times-circle text-red"></i>
+        </div>
     {% endif %}
 </div>
 
@@ -11,11 +13,10 @@
     {% set file = usend.files %}
     {{ template.deleteConfirm(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
 
-    <div class="file-content rounded my-2 p-2 reveal">
-        <div class="file-state"></div>
+    <div class="flex just-center align-center bg-white p-3 rounded my-2 reveal">
         <div class="file-info">
             <p class="bold">{{ file.title }}</p>
-            <p class="file-user">
+            <p class="text-small">
                 <em>Envoyé
                 {% if usend.sender != null %}
                 à {{ usend.receiver.firstname }} {{ usend.receiver.lastname | upper }}
@@ -33,11 +34,10 @@
             </div>
         </div>
     </div>
-
 {% else %}
-    <div class="text-grey flex just-center align-center text-center no-file">
-        <p class="my-5">
-            <i class="far fa-times-circle"></i><br>
+    <div class="flex just-center align-center text-center text-large text-grey h-100 my-5">
+        <p>
+            <i class="fal fa-folder-open text-xlarge"></i><br>
             Aucun fichier envoyé
         </p>
     </div>

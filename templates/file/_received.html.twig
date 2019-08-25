@@ -1,15 +1,15 @@
-<div class="received-files">
+<div class="received-files mr-2">
     {% for ufiles in user.userFiles | reverse %}
         {% set file = ufiles.files %}
-        <div class="file-content rounded mb-2">
+        <div class="flex just-center align-center bg-white p-3 rounded mb-2">
             {% if ufiles.important == null %}
-            <div class="file-state"></div>
+            <div class="file-state rounded-circle mr-2 bg-white"></div>
             {% else %}
-            <div class="file-state bg-red"></div>
+            <div class="file-state rounded-circle mr-2 bg-red"></div>
             {% endif %}
             <div class="file-info">
                 <p class="bold">{{ file.title }}</p>
-                <p style="font-size: .89em;">
+                <p class="text-small">
                     <em>Envoyé
                     {% if ufiles.sender != null %}
                     par {{ ufiles.sender.firstname }} {{ ufiles.sender.lastname | upper }}
@@ -31,9 +31,9 @@
         </div>
     {% else %}
     <span class="bold">Mes fichiers reçus</span>
-    <div class="no-file text-grey">
+    <div class="flex just-center align-center text-center text-large text-grey h-100">
         <p>
-            <i class="fal fa-folder-open"></i><br>
+            <i class="fal fa-folder-open text-xlarge"></i><br>
             Aucun fichier reçu
         </p>
     </div>
