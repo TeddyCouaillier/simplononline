@@ -6,7 +6,6 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/user.css">
-<link rel="stylesheet" href="/css/skill.css">
 {% endblock %}
 
 {% form_theme form _self %}
@@ -34,12 +33,12 @@
 {% block _edit_user_skills_userSkills_entry_widget %}
     <div class="flex just-around align-center">
         <div class="flex mr-3">
-            <div class="circle-level level-0 mr-2" id="0"></div>
-            <div class="circle-level level-1 mr-2" id="1"></div>
-            <div class="circle-level level-2 mr-2" id="2"></div>
-            <div class="circle-level level-3 mr-2" id="3"></div>
+            <div class="circle-level rounded-circle pointer level-0 mr-2" id="0" style="height: 15px; width: 15px"></div>
+            <div class="circle-level rounded-circle pointer level-1 mr-2" id="1" style="height: 15px; width: 15px"></div>
+            <div class="circle-level rounded-circle pointer level-2 mr-2" id="2" style="height: 15px; width: 15px"></div>
+            <div class="circle-level rounded-circle pointer level-3 mr-2" id="3" style="height: 15px; width: 15px"></div>
         </div>
-        {{ form_widget(form.level, {'attr': {'class': 'level'}}) }}
+        {{ form_widget(form.level, {'attr': {'class': 'level p-0 rounded-circle text-white border-0 shadow-none'}}) }}
     </div>
 {% endblock %}
 

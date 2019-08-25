@@ -58,10 +58,10 @@
     {% set skill = skillUser.skill %}
     {{ template.skillModal(skillUser) }}
     <div
-    data-modalid="{{ skill.id }}" class="flex align-center skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-    data-content="{{ skill.label }}<hr><div class='modal-button skill-info'>Détails</div>">
-        <div class="skill-label">{{ skill.label }}</div>
-        <div class="level level-{{ skillUser.level }} ml-auto">{{ skillUser.level }}</div>
+    data-modalid="{{ skill.id }}" class="flex align-center my-1 skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+    data-content="{{ skill.label }}">
+        <div class="skill-label w-75">{{ skill.label }}</div>
+        <div class="level level-{{ skillUser.level }} ml-auto text-white">{{ skillUser.level }}</div>
     </div>
 {% endmacro %}
 

@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
-{% import 'macro.html.twig' as template %}
-{% block title %}Compétences{% endblock %}
 
-{% block stylesheets %}
-<link rel="stylesheet" href="/css/skill.css">
-{% endblock %}
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Compétences{% endblock %}
 
 {% block body %}
     {{ template.checkMessage(form) }}
