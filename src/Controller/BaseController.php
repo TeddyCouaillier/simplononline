@@ -63,7 +63,7 @@ class BaseController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
             }
 
             $render = [
