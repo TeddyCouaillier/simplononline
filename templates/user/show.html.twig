@@ -174,7 +174,7 @@
                 {% for training in user.trainingCourse|slice(0,5) %}
                     <div class="row flex align-baseline py-1 px-2">
                         <div class="col-md-1 col-sm-1">
-                            <i tabindex="0" class="fal fa-info-circle detail-icon" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
+                            <i tabindex="0" class="fal fa-info-circle detail-icon rhover" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
                             title="Détail" data-content=
                             'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
                             </i>

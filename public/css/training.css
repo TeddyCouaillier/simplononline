@@ -1,11 +1,3 @@
-.training-course > div{
-    width: 30%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.training-course > div:last-of-type{ width: auto; }
-
 [class^="status-"]{
     height: 8px;
     width: 8px;
@@ -17,12 +9,6 @@
 .status-green{      background: green; }
 .status-blue{       background: dodgerblue; }
 
-.detail-icon{ margin-right: .5rem; cursor: pointer; }
-.detail-icon:hover{ color: var(--red); }
-
-/* Edit training */
-legend{ display: none; }
-
 .edit-status-yellow{ border-left: 3px solid yellow !important; }
 .edit-status-red{    border-left: 3px solid red !important; }
 .edit-status-purple{ border-left: 3px solid purple !important; }
@@ -31,21 +17,8 @@ legend{ display: none; }
 
 .training_course_user_trainingCourse-collection-actions{ text-align: right; }
 
-.input-group input{
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-
-}
-.input-group-prepend{ height: 38px; }
-.input-group-text{
-    align-items: unset !important;
-    border-top-left-radius: 7px !important;
-    border-bottom-left-radius: 7px !important;
-}
+.input-group-text{ align-items: unset !important; }
 .training-project{ display: none; }
-.training-project-toggle{ cursor: pointer; }
-.training-project-toggle::after{ font-size: .85em; }
-
 .chevron{
     -moz-transition: all .5s linear;
     -webkit-transition: all .5s linear;
@@ -58,9 +31,3 @@ legend{ display: none; }
     -webkit-transform:rotate(-180deg);
     transform:rotate(-180deg);
 }
-
-/* Add training admin */
-.user-add-training-admin > div:nth-child(1){ width: 40%; }
-.user-add-training-admin > div:nth-child(2){ width: 40%; }
-.user-add-training-admin > div:nth-child(3){ width: 5%; }
-.admin_training_course_user_trainingCourse-collection-actions{ text-align: right;}

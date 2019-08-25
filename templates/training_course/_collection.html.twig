@@ -44,11 +44,10 @@
 
         <div class="col-md-4">{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
 
-        {# <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn"><i class="fal fa-times-circle"></i></button></div> #}
     </div>
     <div>
         <div class="text-center">
-            <span class="text-grey training-project-toggle">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
+            <span class="text-grey training-project-toggle pointer">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
         </div>
         <div class="p-2 training-project">
             {{ form_widget(form.project) }}

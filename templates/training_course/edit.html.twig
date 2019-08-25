@@ -58,11 +58,10 @@
         {% endif %}
 
         <div class="col-md-4 col-sm-12 my-1">{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
-
     </div>
     <div>
         <div class="text-center">
-            <span class="text-grey training-project-toggle">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
+            <span class="text-grey training-project-toggle pointer">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
         </div>
         <div class="p-2 training-project">
             {{ form_widget(form.project) }}
