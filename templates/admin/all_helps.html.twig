@@ -11,18 +11,17 @@
 {% block body %}
 {{ template.checkMessage(form) }}
 <div class="container px-5 my-4">
-  <div class="flex just-between">
-      <h1>Liste des aides</h1>
+  <div class="flex wrap just-between align-center">
+      <h1 class="w-75">Liste des aides</h1>
       <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
   </div>
   <hr>
-  <table class="table table-hover text-center bg-white shadow-small">
+  <table class="table table-hover text-center bg-white shadow-small admin-help">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Titre</th>
         <th scope="col">Lien</th>
-        <th scope="col">Description</th>
         <th scope="col">Langages</th>
         <th scope="col">Par</th>
         <th scope="col">Envoyé le</th>
@@ -37,12 +36,6 @@
         <th scope="row">{{ help.id }}</th>
         <td>{{ help.title|truncate(35) }}</td>
         <td><a href="{{ help.link }}" target="_blank"><i class="fal fa-link rhover"></i></a></td>
-        <td>
-          {% if help.description is not null %}
-            <i class="fal fa-info-circle rhover"
-            data-toggle="tooltip" data-placement="top" title="{{ help.description }}"></i>
-          {% endif %}
-        </td>
         <td>{{ help.language }}</td>
         <td>{{ help.publisher.fullname }}</td>
         <td>{{ help.interval }}</td>
@@ -62,6 +55,27 @@
   </table>
 </div>
 
+<div class="w-100 admin-help-responsive">
+    {% for help in helps %}
+        <div class="container-white row flex align-center mx-0 my-1 shadow-small">
+            <div class="col-7 col-sm-6">{{ help.title }}</div>
+            <div class="col-sm-2 flex just-center admin-help-language">
+                {{ help.language }}
+            </div>
+            <div class="col-5 col-sm-4">
+              <div class="btn-group" role="group">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-info edit-help" data-url="{{path('admin_help_edit',{'id': help.id}) }}" data-toggle="modal" data-target="#edit-help-{{help.id}}">
+                    Modifier
+                    </button>
+                </div>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{help.id}}"><i class="fal fa-times-circle"></i></button>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 <div class="modal fade" id="modal-add-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 {{ form_start(form) }}
 <div class="modal-dialog" role="document">
@@ -79,10 +93,6 @@
             <div class="my-2">
                 {{ form_label(form.title) }}
                 {{ form_widget(form.title) }}
-            </div>
-            <div class="my-2">
-                {{ form_label(form.description) }}
-                {{ form_widget(form.description) }}
             </div>
             <div class="my-2">
                 {{ form_label(form.language) }}

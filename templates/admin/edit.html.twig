@@ -55,15 +55,18 @@
 {% endif %}
 
 {% if correction is defined %}
-<h1>Modifier une correction</h1>
-<hr>
-<div class="container-white w-75 mx-auto">
-    {{ form_start(form, {'action': path('admin_correction_edit',{'id':correction.id})}) }}
-    {{ form_label(form.content) }}
-    {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
-    {{ template.confirm() }}
-    {{ form_end(form) }}
+<div class="flex just-between align-center">
+    <h2>Modifier une correction</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
+<hr>
+{{ form_start(form, {'action': path('admin_correction_edit',{'id':correction.id})}) }}
+    <div class="my-2">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'rows': '8'}}) }}
+    </div>
+    {{ template.confirm() }}
+{{ form_end(form) }}
 {% endif %}
 
 {% if help is defined %}

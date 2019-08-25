@@ -3,12 +3,18 @@
     .dashboard{ width: 100%; }
     .admin-promo-users{ width: 49% !important; }
     /* Table */
-    .admin-user,.admin-project,.admin-promotion{
+    .admin-user,
+    .admin-project,
+    .admin-promotion,
+    .admin-help,
+    .admin-correction{
         display: none !important;
     }
     .admin-user-responsive,
     .admin-project-responsive,
-    .admin-promotion-responsive{
+    .admin-promotion-responsive,
+    .admin-help-responsive,
+    .admin-correction-responsive{
         display: block;
     }
     /* Promotion */
@@ -47,5 +53,6 @@
     .modal-correction{ width: 100% !important; }
     .dropdown-menu{ margin-right: 50px; }
     /* Promotion */
-
+    /* Helps */
+    .admin-help-language{ display: none !important; }
 }
