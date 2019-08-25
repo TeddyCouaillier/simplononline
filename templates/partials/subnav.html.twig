@@ -1,6 +1,6 @@
 {% import 'macro.html.twig' as template %}
 
-<div class="user-notif">
+<div class="position-fixed user-notif">
     <div class="flexc">
         <div class="container-white flex align-center my-1 shadow w-100 text-center bg-red text-white notifs-header">
             <div class="">Vous avez <span class="text-white bold">{{ app.user.notifReceived|length }}</span> notifications</div>
@@ -41,25 +41,25 @@
     </div>
 </div>
 
-<div class="user-subnav">
+<div class="position-fixed pointer user-subnav">
     <div class="flexc justify-content-end align-center">
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Projets">
-            <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}"><i class="far fa-list-ul"></i></a>
+        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Projets">
+            <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}"><i class="far fa-list-ul text-white"></i></a>
         </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
-            <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope"></i></a>
+        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
+            <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope text-white"></i></a>
         </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
-            <a href="{{ path('user_show',{'slug': app.user.slug}) }}#skills"><i class="fal fa-star"></i></a>
+        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
+            <a href="{{ path('user_show',{'slug': app.user.slug}) }}#skills"><i class="fal fa-star text-white"></i></a>
         </div>
-        <div class="subnav-circle my-1" data-toggle="tooltip" data-placement="left" title="Stages">
-            <a href="{{ path('user_show_training',{'slug': app.user.slug}) }}"><i class="fal fa-handshake"></i></a>
+        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Stages">
+            <a href="{{ path('user_show_training',{'slug': app.user.slug}) }}"><i class="fal fa-handshake text-white"></i></a>
         </div>
     </div>
 </div>
 
-<div class="flex just-around align-center user-nav">
-    <i class="fas fa-bell notif {% if app.user.hasNotif %} active {% endif %}"></i>
-    <img src="/img/dot.svg" class="dots">
+<div class="position-fixed flex just-around align-center bg-white py-2 px-3 text-greyd user-nav">
+    <i class="fas fa-bell pointer notif {% if app.user.hasNotif %} active {% endif %}"></i>
+    <img src="/img/dot.svg" class="pointer dots">
     <a href="{{path('user_show',{'slug': app.user.slug }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
 </div>

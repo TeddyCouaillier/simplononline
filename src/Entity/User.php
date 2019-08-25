@@ -760,6 +760,29 @@ class User implements UserInterface
         }
     }
 
+    public function getWeatherIconXs()
+    {
+        switch ($this->weather) {
+            case self::SUN:
+                return '<img src="/img/weather/sun.svg" class="rounded-xs">';
+                break;
+            case self::RAIN:
+                return '<img src="/img/weather/rain.svg" class="rounded-xs">';
+                break;
+            case self::CLOUD:
+                return '<img src="/img/weather/clouds.svg" class="rounded-xs">';
+                break;
+            case self::THUNDER:
+                return '<img src="/img/weather/thunder.svg" class="rounded-xs">';
+                break;
+            case self::SUNCLOUD:
+                return '<img src="/img/weather/suncloud.svg" class="rounded-xs">';
+                break;
+            default:
+                return '<p class="icon-lg">?</p>';
+        }
+    }
+
     /**
      * @return Collection|Project[]
      */

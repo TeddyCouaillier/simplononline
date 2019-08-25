@@ -1,15 +1,15 @@
 {% for user in users %}
     <div class="flex just-between align-center users-weather w-100">
         <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
-        {{ user.weatherIcon|raw }}
+        {{ user.weatherIconXs|raw }}
     </div>
         <div class="flex just-between align-center users-weather w-100">
         <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
-        {{ user.weatherIcon|raw }}
+        {{ user.weatherIconXs|raw }}
     </div>
         <div class="flex just-between align-center users-weather w-100">
         <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
-        {{ user.weatherIcon|raw }}
+        {{ user.weatherIconXs|raw }}
     </div>
 {% else %}
     <div class="text-center text-grey">Pas de météo pour le moment...</div>

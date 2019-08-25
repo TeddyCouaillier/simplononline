@@ -23,7 +23,7 @@
             'App\\Controller\\BaseController::weather'
         )) }}
 
-        <div class="main">
+        <div class="main py-4 mx-auto">
 
             {% for class, messages in app.flashes %}
                 {% for message in messages %}
@@ -58,7 +58,9 @@
 
         </div>
 
-        <footer><span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.</footer>
+        <footer class="text-center text-small text-greyd">
+            <span class="text-danger">Simplon</span> - Copyright &copy; 2019. All rights reserved.
+        </footer>
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
