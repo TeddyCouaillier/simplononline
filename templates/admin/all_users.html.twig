@@ -12,7 +12,7 @@
 
 {% block body %}
 {{ template.checkMessage(form) }}
-<div class="container px-5 my-4">
+<div class="px-1 my-4">
     <div class="flex wrap just-between align-center">
         <h1>Liste des utilisateurs</h1>
         <div class="flex align-center">
@@ -116,7 +116,7 @@
 
 <div class="w-100 admin-user-responsive">
     {% for user in users %}
-        <div class="container-white row mx-0 shadow-small">
+        <div class="container-white row mx-0 my-1 shadow-small">
             <div class="col-sm-4 col-6">{{ user.fullname }}</div>
             <div class="col-sm-5 flex just-center admin-uskill">
                 {% for uskill in user.userSkills %}

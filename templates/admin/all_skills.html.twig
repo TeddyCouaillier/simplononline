@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block body %}
-<div class="container px-5 my-4">
+<div class="px-1 my-4">
     {{ template.checkMessage(form) }}
-    <div class="flex just-between">
-        <h1>Liste des compétences</h1>
+    <div class="flex wrap just-between align-center">
+        <h1 class=-"w-75">Liste des compétences</h1>
         <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-skill"><i class="fal fa-plus"></i></div>
     </div>
     <hr>
@@ -64,7 +64,7 @@
             {{ form_label(form.label) }}
             {{ form_widget(form.label) }}
             {{ form_label(form.description) }}
-            {{ form_widget(form.description) }}
+            {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}
             {{ template.confirm() }}
         </div>
     </div>

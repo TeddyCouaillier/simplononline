@@ -1,7 +1,10 @@
 {% import 'macro.html.twig' as template %}
 
 {% if promo is defined %}
-<h1>Modifier une promo</h1>
+<div class="flex just-between align-center">
+    <h2>Modifier une promotion</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
 <hr>
 <div class="container-white">
     {{ form_start(form, {'action': path('admin_promo_edit',{'id':promo.id})}) }}
@@ -86,9 +89,12 @@
 {% endif %}
 
 {% if skill is defined %}
-<h1>Modifier une compétence</h1>
+<div class="flex just-between align-center">
+    <h2>Modifier une compétence</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
 <hr>
-<div class="container-white w-75 mx-auto">
+<div class="container-white">
     {{ form_start(form, {'action': path('admin_skill_edit',{'id':skill.id})}) }}
         <div class="my-1">
         {{ form_label(form.label) }}

@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="container px-5 my-4">
+<div class="px-1 my-4">
     <div class="flex wrap just-between align-center">
         <h1 class="w-75">Liste des projets</h1>
         <a href="{{ path('project_create') }}" class="button-edit"><i class="fal fa-plus"></i></a>
@@ -102,7 +102,7 @@
 
 <div class="w-100 admin-project-responsive">
     {% for project in projects %}
-        <div class="container-white row mx-0 shadow-small">
+        <div class="container-white row flex align-center mx-0 my-1 shadow-small">
             <div class="col-sm-4 col-6">
                 <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">
                     {{ project.title }}
