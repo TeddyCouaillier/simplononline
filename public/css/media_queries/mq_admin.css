@@ -3,13 +3,16 @@
     .dashboard{ width: 100%; }
     .admin-promo-users{ width: 49% !important; }
     /* Table */
-    .admin-user,.admin-project{
+    .admin-user,.admin-project,.admin-promotion{
         display: none !important;
     }
     .admin-user-responsive,
-    .admin-project-responsive{
+    .admin-project-responsive,
+    .admin-promotion-responsive{
         display: block;
     }
+    /* Promotion */
+    .add_users_promotion_users-collection-actions{ display: none; }
 }
 
 @media screen and (max-width: 769px){
@@ -43,4 +46,6 @@
     .admin-project-users{ display: none !important; }
     .modal-correction{ width: 100% !important; }
     .dropdown-menu{ margin-right: 50px; }
+    /* Promotion */
+
 }

@@ -14,7 +14,8 @@
     {{ form_widget(form.nickname) }}
     </div>
     <div class="mt-3">
-        <div class="w-100">{{ form_widget(form.moderators, {'attr': {
+        <div class="w-100">
+        {{ form_widget(form.moderators, {'attr': {
             'class': 'promo-mod-selected selectpicker',
             'title': 'Formateur(s) et médiateur(s) de la promo',
             'data-live-search': 'true',

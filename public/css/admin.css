@@ -122,7 +122,10 @@ input[type="checkbox"].switch_base:checked:after {
     transform: translateY(12px);
 }
 
+.add_users_promotion_users-collection-actions{ width: 100%; text-align: right; }
+
 .admin-user-responsive,
-.admin-project-responsive{
+.admin-project-responsive,
+.admin-promotion-responsive{
     display: none;
 }

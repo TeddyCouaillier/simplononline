@@ -12,15 +12,12 @@
 
 {% block body %}
     <div class="container px-5 my-3">
-    <h1>{{ promo.label }}<em class="h4 ml-5">Gestion des simploniens</em></h1>
+    <h1>{{ promo.label }}</h1>
     <hr>
-    <div class="bg-grey rounded promo-add">
-        <span class="bold">Liste des simploniens</span>
-        {{ form_start(form) }}
-        {{ form_row(form.users) }}
-        {{ template.confirm() }}
-        {{ form_end(form) }}
-    </div>
+    {{ form_start(form) }}
+    {{ form_row(form.users) }}
+    {{ template.confirm() }}
+    {{ form_end(form) }}
     </div>
 {% endblock %}
 
@@ -29,10 +26,10 @@
 {% endblock %}
 
 {% block _add_users_promotion_users_entry_widget %}
-<div class="flex just-around align-center py-1 my-1 rounded promo-add-users">
-    <div>{{ form_widget(form.firstname) }}</div>
-    <div>{{ form_widget(form.lastname) }}</div>
-    <div>{{ form_widget(form.email) }}</div>
+<div class="container-white row shadow-small my-1">
+    <div class="col-12 col-md-3 col-sm-4 my-1">{{ form_widget(form.firstname) }}</div>
+    <div class="col-12 col-md-3 col-sm-4 my-1">{{ form_widget(form.lastname) }}</div>
+    <div class="col-12 col-md-6 col-sm-4 my-1">{{ form_widget(form.email) }}</div>
 </div>
 {% endblock %}
 
@@ -42,7 +39,7 @@
             'up': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-up"></i></a>',
             'down': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-down"></i></a>',
             'remove': '<a href="#" class="mx-1 text-red"><i class="fal fa-times-circle"></i></a>',
-            'add': '<button class="bg-white button-circle text-grey mx-auto d-block mt-4"><i class="fal fa-plus"></i></button>',
+            'add': '<button class="bg-white button-circle shadow-small text-grey mx-auto d-block mt-4"><i class="fal fa-plus"></i></button>',
             'add_at_the_end': true
         });
     </script>
