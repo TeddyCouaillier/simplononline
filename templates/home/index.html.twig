@@ -1,0 +1,112 @@
+{% import 'macro.html.twig' as template %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Simplon Charleville-Mézière - Simplon.co</title>
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
+        <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel">
+        <link rel="stylesheet" href="/css/libraries/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/main/base.css">
+        <link rel="stylesheet" href="/css/home.css">
+        {# <link rel="stylesheet" href="/css/media_queries/mq_base.css"> #}
+        <link rel="stylesheet" href="/css/media_queries/mq_home.css">
+    </head>
+    <body>
+
+        <header class="header w-100 px-4">
+            <div class="mx-auto header-container">
+                <nav class="flex wrap just-between align-center my-0 py-0 px-4 w-100 home-nav" id="header-title">
+                    <a class="text-xlarge bold text-uppercase p-2 text-white header-title" href="{{ path('home') }}">Simplon.co <span class="h5 charleville">Charleville-Mézières</span></a>
+                    <div class="text-right">
+                        <a href="{{ path('account_login') }}" class="btn btn-light px-3 text-red">
+                            <i class="fas fa-user-friends"></i> Se connecter
+                        </a>
+                    </div>
+                </nav>
+                <div class="text-center text-white header-body">
+                    <h1 class="h3 text-uppercase">Formation de développement web</h1>
+                    <h2 class="h5">Titre professionnel Développeur Web et Web mobile de niveau III</h2>
+                </div>
+                <div class="header-footer text-white">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link py-3 text-white" href="https://www.facebook.com/ecoledescodeurs/" target="_blank">
+                                <i class="fab fa-facebook"></i><span class="text-small social"> - Facebook</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-3 text-white" href="https://twitter.com/simplon08?lang=fr" target="_blank">
+                                <i class="fab fa-twitter"></i><span class="text-small social"> - Twitter</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-3 text-white" href="https://www.instagram.com/explore/locations/109669173/simplonco/" target="_blank">
+                                <i class="fab fa-instagram"></i><span class="text-small social"> - Instagram</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-3 text-white" href="https://www.linkedin.com/company/simplon-charleville/?originalSubdomain=fr" target="_blank">
+                                <i class="fab fa-linkedin"></i><span class="text-small social"> - LinkedIn</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main class="bg-white mx-auto p-5 main" >
+            <div class="row mx-0 h-75 mb-4 main-content">
+                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                    <div class="text-center w-75 main-section">
+                        <i class="fas fa-graduation-cap icon-md"></i>
+                        <p class="h3 my-4">Voulez-vous<br><b>apprendre ?</b></p>
+                    </div>
+                    <a class="btn btn-home rounded bold pointer w-75 my-2 learn">Cliquez ici</a>
+                </section>
+                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                    <div class="text-center w-75 main-section">
+                        <i class="fas fa-handshake icon-md"></i>
+                        <p class="h3 my-4">Voulez-vous<br><b>recruter ?</b></p>
+                    </div>
+                    <a class="btn btn-home rounded bold pointer w-75 my-2 hire">Cliquez ici</a>
+                </section>
+                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                    <div class="text-center w-75 main-section">
+                        <i class="fas fa-heart icon-md"></i>
+                        <p class="h3 my-4">Voulez-vous<br><b>aider ?</b></p>
+                    </div>
+                    <a class="btn btn-home rounded bold pointer w-75 my-2 heart">Cliquez ici</a>
+                </section>
+            </div>
+            <hr>
+            <section class="learn-container mt-4">
+                {% include 'home/_learn.html.twig' %}
+            </section>
+            <section class="hire-container mt-4">
+                {% include 'home/_hire.html.twig' %}
+            </section>
+            <section class="heart-container mt-4">
+                {% include 'home/_heart.html.twig' %}
+            </section>
+        </main>
+
+        <footer class="text-center py-5 text-white">
+            <p class="h1 text-uppercase bold text-white my-1">Simplon.co</p>
+            <p class="h5 my-1 font-italic subfooter">
+                Charleville-Mézières
+            </p>
+            <p class="my-1 font-italic subfooter">
+                &copy; 2019 - , Simplon-Charleville.fr
+            </p>
+        </footer>
+
+        <script src="/js/libraries/jquery.min.js" onload="window.$ = window.jQuery;"></script>
+        <script src="/js/libraries/popper.min.js"></script>
+        <script src="/js/libraries/bootstrap.min.js"></script>
+        <script src="/js/base.js"></script>
+    </body>
+</html>

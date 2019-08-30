@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Promotion;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+    public function home()
+    {
+        $prep = $this->getDoctrine()->getRepository(Promotion::class);
+        return $this->render('home/index.html.twig', [
+            'promos' => $prep->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/apprenant/{slug}", name="home_user")
+     *
+     * @param User $user
+     * @return void
+     */
+    public function homeUsers(User $user)
+    {
+        return $this->render('home/user.html.twig', [
+            'user' => $user
+        ]);
+    }
+
     /**
      * Show all users weather (only current promotion users)
      * @Route("/users/weather", name="users_weather")

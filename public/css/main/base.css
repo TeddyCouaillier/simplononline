@@ -1,10 +1,11 @@
 :root{
-    --red:      #f24848;
+    --red:      #dc3d24;
+    --redl:     #f24848 ;
     --grey:     #e8ecf1;
     --white:    #FFFFFF;
     --black:    #000000;
-    --greylight:#00000075;
-    --greydark: #00000025;
+    --greylight:rgba(0,0,0,.40);
+    --greydark: rgba(0,0,0,.25);
     --shadow: 0 2px 4px rgba(0,0,0,.20);
 }
 
@@ -98,6 +99,7 @@ input[type="number"] {
 .text-greyl  { color: var(--greydark) !important; }
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
+.text-redl   { color: var(--redl) !important; }
 .text-black  { color: var(--black) !important; }
 .bold        { font-weight: 600; }
 .text-small  { font-size: .85em; }
@@ -188,9 +190,17 @@ input[type="number"] {
     width: 75px;
     height: 75px;
 }
-.avatar-lg, .rounded-ld{
+.avatar-lg, .rounded-lg{
     width: 150px;
     height: 150px;
+}
+.avatar-xl, .rounded-xl{
+    width: 225px;
+    height: 225px;
+}
+.my-6{
+    margin-top: 6rem;
+    margin-bottom: 6rem;
 }
 
 /* Buttons */

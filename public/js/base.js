@@ -216,3 +216,49 @@ $(document).on('click','.nav-left-button', function() {
         $(this).addClass('active');
     }
 })
+
+$(document).on('click', '.learn', function() {
+    $('.hire-container').slideUp();
+    $('.heart-container').slideUp();
+    $('.learn-container').slideDown();
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $(".learn-container").offset().top
+    }, 1000);
+})
+$(document).on('click', '.hire', function() {
+    $('.learn-container').fadeOut(function(){
+        $('.heart-container').fadeOut();
+        $('.hire-container').fadeIn();
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(".hire-container").offset().top
+        }, 1000);
+
+    });
+})
+$(document).on('click', '.heart', function() {
+    $('.hire-container').slideUp();
+    $('.learn-container').slideUp();
+    $('.heart-container').slideDown();
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $(".heart-container").offset().top
+    }, 1000);
+})
+
+$(document).on('click', '.promo-show', function() {
+    $('.promo-show').each(function(){
+        let promos = $(this).data('promo');
+        let containers = $('body').find(promos);
+        $(this).removeClass('active');
+        $(containers).fadeOut();
+    });
+    const promo = $(this).data('promo');
+    const container = $('body').find(promo);
+    const promoid = $(container).attr('id');
+    console.log(promoid);
+    $(this).addClass('active');
+    $(container).fadeIn(function (){
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(`#${promoid}`).offset().top
+        }, 1000);
+    });
+})

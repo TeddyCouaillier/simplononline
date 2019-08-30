@@ -1,0 +1,94 @@
+<div class="w-50 mx-auto mb-4 hire-detail">
+    <p class="text-center">
+        <i class="fas fa-users-class icon-xl"></i>
+    </p>
+    <p class="text-center my-4">
+        They have been using github from day one. They have learnt (pedagogy based on practical projects) markdown, terminal, HTML, CSS, Javascript, PHP, MySQL, but most of all, they have learnt to learn, to find their way with Google, to always try and find a solution for their team.
+    </p>
+    <p class="text-center my-4">
+        For them, the internship is the opportunity to get a first experience as a coder, activating their new technical and soft skills. It also allows them to extend their learning by confronting what they have learnt at BeCode with the reality of business.
+    </p>
+</div>
+
+<div class="text-center my-5">
+    <h4 class="home-title"><span class="bg-white px-3">Nos promotions</span></h4>
+</div>
+
+<div class="flex wrap just-around my-5">
+    {% for promo in promos | reverse %}
+        <div class="bg-white shadow-small text-center mb-3 p-1 w-33 all-promo">
+            {% if promo.current %}
+            <div class="position-absolute">
+                <div class="bg-red text-white text-uppercase bold py-2 px-3">
+                    En cours
+                </div>
+            </div>
+            {% endif %}
+            <div class="mt-3 mb-1 p-4">
+                <h2>{{ promo.label }}</h2>
+                <ul>
+                    <li>Formateur :
+                        <em>
+                        {% for former in promo.formers %}
+                            {{ former.fullname }} &nbsp;
+                        {% else %}
+                            Aucun
+                        {% endfor %}
+                        </em>
+                    </li>
+                    <li>Médiateur :
+                        <em>
+                        {% for mediator in promo.mediators %}
+                            {{ mediator.fullname }} &nbsp;
+                        {% else %}
+                            Aucun
+                        {% endfor %}
+                        </em>
+                    </li>
+                </ul>
+                <hr>
+                {% if promo.startAt is null %}{% set start = 'Pas commencée' %}
+                {% else %}{% set start = promo.startAt|date('d/m/Y') %}
+                {% endif %}
+
+                {% if promo.endAt is null %}{% set end = 'Pas terminée' %}
+                {% else %}{% set end = promo.endAt|date('d/m/Y') %}
+                {% endif %}
+
+                <p class="text-grey">
+                    {% if promo.startAt is null and promo.endAt is null %}
+                        Dates non-définies
+                    {% else %}
+                        {{ start }} - {{ end }}
+                    {% endif %}
+                </p>
+
+                <div class="rhover bold mt-1 promo-show" data-promo="#promo-{{promo.id}}"><i class="fal fa-arrow-circle-right icon-sm"></i></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<hr class="mb-4">
+
+{% for promo in promos %}
+     <div class="promo-home" id="promo-{{promo.id}}">
+        <div class="flex wrap just-around">
+            {% for user in promo.users %}
+                <div class="bg-white mb-3 py-3 w-33 promo-users shadow-small">
+                    <a href="{{ path('home_user',{'slug': user.slug}) }}">
+                    <div class="flex flexc just-around text-center">
+                        {# <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto"> #}
+                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-sm mx-auto">
+                        <span class="bold">{{ user.fullname }}</span>
+                        <span>{{ user.email }}</span>
+                        <span class="bold rhover my-2">Portfolio <i class="fal fa-arrow-circle-right"></i></span>
+                    </div>
+                    </a>
+                </div>
+            {% else %}
+                <span>Il n'y a personne pour le moment ...</span>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
