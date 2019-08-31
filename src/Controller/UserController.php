@@ -454,7 +454,13 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->render('user/show.html.twig', [
+        if($user != $this->getUser()){
+            return $this->render('user/show.html.twig', [
+                'user' => $user
+            ]);
+        }
+
+        return $this->render('user/account.html.twig', [
             'user' => $user,
             'date' => new \DateTime()
         ]);

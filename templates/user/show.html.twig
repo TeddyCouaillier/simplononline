@@ -9,197 +9,84 @@
 {% endblock %}
 
 {% block body %}
-
-<div class="user">
-    {######################################
-     #### USER INFO
-     #####################################}
-    <div class="container-white shadow-small user-info flexc align-center just-around p-3">
-        <img src="/img/avatar/{{user.avatar}}" class="avatar-lg mb-2">
-        <span class="text-red bold">{{ user.fullname }}</span>
-        {% if user.promotion != null %}
-        <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
-        {% endif %}
-        <div class="user-secondary-info mt-2 text-greyd">
-        <ul>
-            <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{user.email }}</li>
-            <li class="mb-1">
-                <i class="fal fa-mobile-android text-center"></i>
-                {% if user.tel != null %}
-                {{ user.tel }}
-                {% else %}
-                <em>Pas de numéro de téléphone</em>
-                {% endif %}
-            </li>
-            <li class="mb-1">
-                <i class="far fa-map-marker-alt text-center"></i>
-                {% if user.zipcode != null or user.city != null %}
-                {{ user.zipcode }} {{ user.city }}
-                {% else %}
-                <em>Pas d'adresse</em>
-                {% endif %}
-            </li>
-            <li class="mb-1">
-                <i class="fal fa-globe text-center"></i>
-                {% if user.website != null %}
-                <a href="{{ user.website }}" class="text-greyd rhover" target="_blank">Site internet</a>
-                {% else %}
-                <em>Pas de site internet</em>
-                {% endif %}
-            </li>
-            <li class="mb-1">
-                <i class="fal fa-code-branch text-center"></i>
-                {% if user.github != null %}
-                <a href="{{ user.github }}" class="text-greyd rhover" target="_blank">GitHub</a>
-                {% else %}
-                <em>Pas de lien github</em>
-                {% endif %}
-            </li>
-        </ul>
-        </div>
-    </div>
-
-    {######################################
-     #### USER NAV
-     #####################################}
-    <div class="container-white shadow-small user-header flex just-around align-center text-center p-3">
-        {% if app.user == user %}
-        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="far fa-list-ul text-large"></i><br>
-            Projets
-        </a>
-        <a href="{{ path('file_user_show') }}" class="rhover mx-1">
-            <i class="fas fa-envelope text-large"></i><br>
-            Fichiers
-        </a>
-        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="fas fa-handshake text-large"></i><br>
-            Stages
-        </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="fas fa-key text-large"></i><br>
-            Données
-        </a>
-        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
-            <i class="fas fa-cog text-large"></i><br>
-            Modifier
-        </a>
-        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit">
-            <i class="fas fa-lock text-large"></i><br>
-            Password
-        </a>
-        {% else %}
-        <p class="text-grey">
-            {# En contrat avec <em>Médiatech</em> #}
-            {# Apprenant Promo 1.1 #}
-            Sans emploi
-        </p>
-        {% endif %}
-    </div>
-
-    {######################################
-     #### USER FILES
-     #####################################}
-    <div class="container-white shadow-small user-files">
-        <div class="flex just-center align-center h-100">
-            <div class="flex align-center text-center">
-                {% if app.user == user %}
-                    {% set filecount = user.importantFiles|length %}
-                    <p class="bold">
-                        {% if filecount == 0 %}
-                        {{ filecount }} fichier important.<br>
-                        <i class="fal fa-folder-times icon-sm mt-2"></i>
-                        {% elseif filecount == 1 %}
-                        <span class="text-red">{{ filecount }}</span> fichier important.<br>
-                        <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
+    <div class="flex wrap just-center w-100 my-2">
+        <div class="container-white row mx-0 shadow-small w-50 user-container">
+            <div class="col-lg-3 flexc just-around align-center text-center text-center">
+                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                <p>
+                    {% if user.website != null %}
+                    <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>
+                    {% else %}
+                    <em><i class="fal fa-globe text-center"></i></em>
+                    {% endif %}
+                    &nbsp;
+                    {% if user.github != null %}
+                    <a href="{{ user.github }}" class="text-red rhover" target="_blank"><i class="fal fa-code-branch text-center"></i></a>
+                    {% else %}
+                    <em><i class="fal fa-code-branch text-center"></i></em>
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col-lg-9 user-secondary-info">
+                <span class="bold h4">{{ user.fullname }}</span><br>
+                <ul>
+                    <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{ user.email }}</li>
+                    <li class="mb-1">
+                        <i class="fal fa-mobile-android text-center"></i>
+                        {% if user.tel != null %}
+                        {{ user.tel }}
                         {% else %}
-                        <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
-                        <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
+                        <em>Pas de numéro de téléphone</em>
                         {% endif %}
-                    </p>
-                {% else %}
-                    <i class="fab fa-symfony icon-lg"></i>
-                {% endif %}
+                    </li>
+                    <li class="mb-1">
+                        <i class="far fa-map-marker-alt text-center"></i>
+                        {% if user.zipcode != null or user.city != null %}
+                        {{ user.zipcode }} {{ user.city }}
+                        {% else %}
+                        <em>Pas d'adresse</em>
+                        {% endif %}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-
-    {######################################
-     #### USER WEATHER
-     #####################################}
-     <div class="bg-white rounded shadow-small user-weather flexc just-between">
-        <div class="flex just-center align-center h-100">
-            {{ user.weatherIcon|raw }}
-        </div>
-        <div class="now bg-grey text-center bold py-2">
-            {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
-        </div>
+    <div class=" flex just-center align-center">
+        <span class="rounded bg-red text-white px-2 py-1 bold mt-1 user-badge text-center">{{ user.promotion.label|default('Aucune promo') }}</span>
     </div>
-
-    {######################################
-     #### USER PROJECTS
-     #####################################}
-    <div class="container-white shadow-small user-projects p-3">
-        {% if user.projects is not empty %}
-            {% for project in user.projects|slice(0,4) %}
-                <div class="flex just-between align-baseline">
-                    <span>{{ project.title }}</span>
-                    <a href="#" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
-                </div>
-                <hr>
+    <div class="flex wrap just-around my-3">
+        <div class="container-white shadow-small py-1 px-3 my-2 w-flex user-account-info">
+            <div class="mt-2 rounded">
+            {% for skill in user.userSkills %}
+                {{ template.level(skill) }}
             {% endfor %}
-            <div class="text-center mt-4">
-                <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
             </div>
-        {% else %}
-            <div class="flex just-center align-center text-center bold h-100">
-                <p>
-                    <i class="fal fa-times-hexagon icon-lg mb-2"></i><br>
-                    Aucun projet en cours
-                </p>
-            </div>
-        {% endif %}
-    </div>
-
-    {######################################
-     #### USER TRAINING COURSES
-     #####################################}
-    <div class="container-white shadow-small user-trainings">
-        {% if user.trainingCourse is not empty %}
-            <div class="p-2">
-                {% for training in user.trainingCourse|slice(0,5) %}
-                    <div class="row flex align-baseline py-1 px-2">
-                        <div class="col-md-1 col-sm-1">
-                            <i tabindex="0" class="fal fa-info-circle detail-icon rhover" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
-                            title="Détail" data-content=
-                            'Envoyé le {{ training.sentAt|date("d/m/Y") }}<hr class="my-1">{{ training.project|default('<em>Pas de détail</em>') }}'>
-                            </i>
-                        </div>
-                        <div class="col-md-6 col-sm-11">{{ training.society }}</div>
-                        <div class="col-md-5 col-sm-12 flex align-center">
-                            <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
-                        </div>
+        </div>
+        <div class="container-white shadow-small p-3 my-2 w-flex user-account-info">
+            {% if user.projects is not empty %}
+                {% for project in user.projects|slice(0,6) %}
+                    <div class="flex just-between align-baseline">
+                        <span>{{ project.title }}</span>
+                        <a href="#" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
                     </div>
-                    <hr class="d-none">
+                    <hr>
                 {% endfor %}
-                <div class="text-center my-2 mb-2">
-                    <a href="#" class="user-see-more p-1">Voir tous</a>
+                {% if user.projects|length > 6 %}
+                <div class="text-center mt-4">
+                    <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
                 </div>
-            </div>
-        {% else %}
-            <div class="flex just-center align-center text-center bold h-100">
-                <p>
-                    <i class="fal fa-times-hexagon icon-lg mb-2"></i><br>
-                    Aucune proposition de stage
-                </p>
-            </div>
-        {% endif %}
+                {% endif %}
+            {% else %}
+                <div class="flex just-center align-center text-center bold h-100">
+                    <p>
+                        <i class="fal fa-times-hexagon icon-lg mb-2"></i><br>
+                        Aucun projet en cours
+                    </p>
+                </div>
+            {% endif %}
+        </div>
     </div>
-
-    {######################################
-     #### USER DATA
-     #####################################}
-    <div class="container-white shadow-small user-datas flex wrap just-around align-center text-center bold">
+    <div class="container-white shadow-small mx-2 user-datas flex wrap just-around align-center text-center bold">
         <div>
             <div class="avatar-md text-xlarge text-red mb-1 circle">{{ user.projects|length }}</div>
             <span>Projets</span>
@@ -213,23 +100,8 @@
             <span>Aides</span>
         </div>
     </div>
-
-    {######################################
-     #### USER SKILLS
-     #####################################}
-    <div class="container-white shadow-small user-skills py-1 px-3" id="skills">
-        <div class="mt-2 rounded">
-        {% for skill in user.userSkills %}
-            {{ template.level(skill) }}
-        {% endfor %}
-        </div>
-    </div>
-
-    {######################################
-     #### PORTFOLIO
-     #####################################}
-    <div class="user-portfolio">
-        <div class="text-center">
+    <div class="mt-4">
+        <div class="text-center mx-2">
             <span class="bold">Portfolio</span>
             <hr>
         </div>
@@ -254,5 +126,5 @@
                 </div>
             {% endfor %}
         </div>
-</div>
+    </div>
 {% endblock %}

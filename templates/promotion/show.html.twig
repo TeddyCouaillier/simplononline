@@ -2,29 +2,56 @@
 
 {% block title %}{{ promo.label }}{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+{% endblock %}
+
 {% block body %}
     <h1>{{ promo.label }}</h1>
     <span class="h5">{{ promo.nickname|capitalize }}</span>
     <hr>
     <div class="flex wrap just-around">
         {% for user in promo.users %}
-        <div class="bg-white mb-3 py-3 w-33 promo-users shadow-small">
-            <a href="{{ path('user_show',{'slug': user.slug}) }}">
-            <div class="flex flexc just-around text-center">
-                <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto">
-                <span class="bold">{{ user.fullname }}</span>
-                <span>{{ user.email }}</span>
-                <div class="flex just-center">
-                {% for uskill in user.userSkills %}
-                    <div
-                     class="level-xs level-{{ uskill.level }} m-1" data-toggle="tooltip"
-                     data-placement="top" title="{{ uskill.skill.label }}">
-                    </div>
-                {% endfor %}
+            <div class="container-white row shadow-small my-2 w-flex user-container">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                    <p class="users-promo-link">
+                        {% if user.website != null %}
+                        <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>
+                        {% else %}
+                        <em><i class="fal fa-globe text-center"></i></em>
+                        {% endif %}
+                        &nbsp;
+                        {% if user.github != null %}
+                        <a href="{{ user.github }}" class="text-red rhover" target="_blank"><i class="fal fa-code-branch text-center"></i></a>
+                        {% else %}
+                        <em><i class="fal fa-code-branch text-center"></i></em>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 user-secondary-info">
+                    <a href="{{ path('user_show',{'slug': user.slug}) }}" class="bold h4">{{ user.fullname }}</a><br>
+                    <ul>
+                        <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{ user.email }}</li>
+                        <li class="mb-1">
+                            <i class="fal fa-mobile-android text-center"></i>
+                            {% if user.tel != null %}
+                            {{ user.tel }}
+                            {% else %}
+                            <em>Pas de numéro de téléphone</em>
+                            {% endif %}
+                        </li>
+                        <li class="mb-1">
+                            <i class="far fa-map-marker-alt text-center"></i>
+                            {% if user.zipcode != null or user.city != null %}
+                            {{ user.zipcode }} {{ user.city }}
+                            {% else %}
+                            <em>Pas d'adresse</em>
+                            {% endif %}
+                        </li>
+                    </ul>
                 </div>
             </div>
-            </a>
-        </div>
         {% else %}
         <span>Il n'y a personne pour le moment ...</span>
         {% endfor %}

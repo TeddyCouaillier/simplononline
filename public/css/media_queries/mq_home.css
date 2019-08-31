@@ -1,19 +1,19 @@
 @media screen and (max-width: 993px){
-    .learn-section{ width: 48%; }
+    .order-md        { order: -1; }
+    .learn-section   { width: 48%; }
     .simplon-info img{ height: 150px; width: 150px;}
-    .order-md{ order: -1; }
 }
 
 @media screen and (max-width: 769px){
-    .social{ display: none; }
-    section{ padding: 0 !important;}
-    .main{ padding: 3rem 1.5rem !important; }
-    .simplon-info{ margin: 1.5rem 0; }
-    .charleville{font-size: .5em !important; }
-    .main-section p{ font-size: 1.2em!important; }
+    section          { padding: 0 !important;}
+    .main            { padding: 3rem 1.5rem !important; }
+    .social          { display: none; }
+    .user-title      { width: 65%; }
+    .hire-detail     { width: 100% !important; }
+    .charleville     { font-size: .5em !important; }
+    .simplon-info    { margin: 1.5rem 0; }
+    .main-section p  { font-size: 1.2em!important; }
     .simplon-info img{ height: 150px; width: 150px;}
-    .hire-detail{ width: 100% !important; }
-    .user-title{ width: 65%; }
     .project-content, .all-promo, .promo-users{ width: 48% !important; }
 }
 
@@ -22,9 +22,9 @@
 }
 
 @media screen and (max-width: 577px){
-    .home-nav, .user-card, .header{ padding: 0 !important; }
-    .header-title{ font-size: 1.8em !important;}
+    .header-title  { font-size: 1.8em !important;}
     .inscription h3{ display: none;}
+    .home-nav, .user-card, .header { padding: 0 !important; }
     .user-title, .main, .inscription p, .user-card{ width: 100% !important; }
     .project-content, .all-promo, .promo-users, .learn-section{ width: 90% !important; }
 }

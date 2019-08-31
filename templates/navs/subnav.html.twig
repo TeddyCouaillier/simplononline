@@ -28,11 +28,11 @@
                     <div><span class="text-small text-grey">{{ notif.interval }}</span></div>
                     <div>
                     {% if notif.type == 1 or notif.type == 2 %}
-                    <a href="{{ path('project_show',{'slug': notif.target}) }}?" class="btn btn-danger text-white"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('project_show',{'slug': notif.target}) }}?" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
                     {% elseif notif.type == 3 %}
-                    <a href="{{ path('user_show',{'id': notif.target}) }}#skills" class="btn btn-danger text-white"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('user_show',{'id': notif.target}) }}#skills" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
                     {% else %}
-                    <a href="{{ path('file_user_show') }}" class="btn btn-danger text-white"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('file_user_show') }}" class="btn button-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}
                     </div>
                 </div>

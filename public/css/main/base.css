@@ -1,6 +1,7 @@
 :root{
     --red:      #dc3d24;
-    --redl:     #f24848 ;
+    --redl:     #f24848;
+    --redd:     #be2811;
     --grey:     #e8ecf1;
     --white:    #FFFFFF;
     --black:    #000000;
@@ -17,7 +18,7 @@
 body{
     font-family: 'Abel', Verdana, sans-serif;
     color: #2a2d31 !important;
-    background: #f6f8f9;
+    background: #f4f6f7;
     font-weight: 400;
     margin: 0;
 }
@@ -166,6 +167,7 @@ input[type="number"] {
 .modal{ transform: none !important; }
 
 /* Sizing */
+.w-flex{ width: 48%; }
 .w-33{ width: 33% !important; }
 .w-66{ width: 66% !important; }
 .mw-50{ max-width: 50% !important; }
@@ -238,7 +240,15 @@ input[type="number"] {
        -moz-box-shadow: var(--shadow);
             box-shadow: var(--shadow);
 }
-
+.button-red{
+    cursor: pointer;
+    background: var(--red);
+    color: var(--white);
+}
+.button-red:hover{
+    background: var(--redd);
+    color: var(--white);
+}
 /* Scrollbar */
 *::-webkit-scrollbar-track
 {
