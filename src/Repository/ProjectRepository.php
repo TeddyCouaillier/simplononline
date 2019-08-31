@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Language;
+use App\Entity\User;
 use App\Entity\Project;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Language;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Project|null find($id, $lockMode = null, $lockVersion = null)
@@ -59,6 +60,42 @@ class ProjectRepository extends ServiceEntityRepository
             ->leftJoin('p.languages','l')
             ->andWhere('l = :language')
             ->setParameter('language', $language)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find a specific user's projects
+     * @param User $user
+     * @return Project[]
+     */
+    public function findAllByUser(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.users','u')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find a specific user's projects for pagination
+     * @param User    $user
+     * @param integer $limit
+     * @param integer $offset
+     * @return Project[]
+     */
+    public function findAllByUserLimit(User $user, int $limit, int $offset)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.users','u')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;

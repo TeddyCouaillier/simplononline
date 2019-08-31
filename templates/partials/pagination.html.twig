@@ -1,0 +1,17 @@
+<div class="flex just-center my-3">
+    <div class="pagination p1">
+      <ul class="text-center">
+        <a href="{{ path(route,{'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+            <li><i class="fal fa-arrow-circle-left"></i></li>
+        </a>
+        {% for i in 1..pages %}
+        <a href="{{ path(route,{'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+            <li>{{ i }}</li>
+        </a>
+        {% endfor %}
+        <a href="{{ path(route,{'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+            <li><i class="fal fa-arrow-circle-right"></i></li>
+        </a>
+      </ul>
+    </div>
+</div>

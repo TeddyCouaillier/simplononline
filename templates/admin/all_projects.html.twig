@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for project in projects %}
+            {% for project in pagination.data %}
             {{ template.deleteConfirm(project.id,path('project_delete',{'slug':project.slug})) }}
             {{ template.modal('add-project-correction-'~project.id)}}
             {{ template.modal('add-project-task-'~project.id)}}
@@ -101,7 +101,7 @@
 </div>
 
 <div class="w-100 admin-project-responsive">
-    {% for project in projects %}
+    {% for project in pagination.data %}
         <div class="container-white row flex align-center mx-0 my-1 shadow-small">
             <div class="col-sm-4 col-6">
                 <a href="{{ path('project_show',{'slug':project.slug}) }}" class="rhover">
@@ -137,6 +137,8 @@
         </div>
     {% endfor %}
 </div>
+
+{{ pagination.render }}
 
 {% endblock %}
 

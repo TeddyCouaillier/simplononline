@@ -47,11 +47,14 @@
     </div>
     <hr>
 
-    {% if user is defined %}
-    {% set projects = user.projects %}
+    {% if user is not defined %}
+    {% set projects = pagination.data %}
     {% endif %}
 
     <div class="flex wrap just-center">
+        <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
+            <a href="{{ path('project_create') }}"><div class="new-project text-greyl rhover">+</div></a>
+        </div>
         {% for project in projects %}
             <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                 <div>
@@ -79,8 +82,27 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
-            <a href="{{ path('project_create') }}"><div class="new-project text-greyl rhover">+</div></a>
+    </div>
+
+    {% if user is not defined %}
+        {{ pagination.render }}
+    {% else %}
+    <div class="flex just-center my-3">
+        <div class="pagination p1">
+            <ul class="text-center">
+            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                <li><i class="fal fa-arrow-circle-left"></i></li>
+            </a>
+            {% for i in 1..pages %}
+            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                <li>{{ i }}</li>
+            </a>
+            {% endfor %}
+            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                <li><i class="fal fa-arrow-circle-right"></i></li>
+            </a>
+            </ul>
         </div>
     </div>
+    {% endif %}
 {% endblock %}

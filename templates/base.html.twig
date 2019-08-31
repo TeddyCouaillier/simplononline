@@ -17,8 +17,8 @@
         <link rel="stylesheet" href="/css/media_queries/mq_base.css">
     </head>
     <body>
-        {% include 'navs/header.html.twig' %}
-        {% include 'navs/subnav.html.twig' %}
+        {% include 'partials/header.html.twig' %}
+        {% include 'partials/subnav.html.twig' %}
 
         {{ render(controller(
             'App\\Controller\\BaseController::weather'

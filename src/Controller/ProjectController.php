@@ -8,6 +8,7 @@ use App\Entity\Project;
 use App\Entity\Language;
 use App\Entity\UserNotif;
 use App\Entity\Correction;
+use App\Service\Pagination;
 use App\Entity\Notification;
 use App\Form\Project\TaskType;
 use App\Form\Project\ProjectType;
@@ -32,15 +33,20 @@ class ProjectController extends AbstractController
 {
     /**
      * Show all projects
-     * @Route("s/all", name="all")
-     * @param ProjectRepository $rep
+     * @Route("s/all/{page<\d+>?1}", name="all")
+     * @param integer    $page       current page
+     * @param Pagination $pagination pagination service
      * @return Response
      */
-    public function allProject(ProjectRepository $prep, LanguageRepository $lrep)
+    public function allProject(int $page, Pagination $pagination, LanguageRepository $lrep)
     {
+        $pagination->setEntity(Project::class)
+                   ->setPage($page)
+                   ->setLimit(20);
+
         return $this->render('project/all.html.twig', [
-            'projects'  => $prep->findAll(),
-            'languages' => $lrep->findAll()
+            'pagination' => $pagination,
+            'languages'  => $lrep->findAll()
         ]);
     }
 

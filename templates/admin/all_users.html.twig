@@ -52,7 +52,7 @@
             </tr>
         </thead>
         <tbody class="admin-all">
-            {% for user in users %}
+            {% for user in pagination.data %}
             {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}
             <tr>
                 <td class="flex just-center">
@@ -113,7 +113,7 @@
 </div>
 
 <div class="w-100 admin-user-responsive">
-    {% for user in users %}
+    {% for user in pagination.data %}
         <div class="container-white row mx-0 my-1 shadow-small">
             <div class="col-sm-4 col-6">{{ user.fullname }}</div>
             <div class="col-sm-5 flex just-center admin-uskill">
@@ -142,6 +142,25 @@
         </div>
     {% endfor %}
 </div>
+
+<div class="flex just-center my-3">
+    <div class="pagination p1">
+      <ul class="text-center">
+        <a href="{{ path(pagination.route,{'page': pagination.page - 1}) }}" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
+            <li><i class="fal fa-arrow-circle-left"></i></li>
+        </a>
+        {% for i in 1..pagination.pages %}
+        <a href="{{ path(pagination.route,{'page': i}) }}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
+            <li>{{ i }}</li>
+        </a>
+        {% endfor %}
+        <a href="{{ path(pagination.route,{'page': pagination.page + 1}) }}" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
+            <li><i class="fal fa-arrow-circle-right"></i></li>
+        </a>
+      </ul>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block modalTitle %}Ajouter un utilisateur{% endblock %}

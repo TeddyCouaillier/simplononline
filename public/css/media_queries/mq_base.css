@@ -17,7 +17,7 @@
     .user-datas    { grid-area: 6 / 4 / 7 / 1; }
     .user-portfolio{ grid-area: 7 / 4 / 8 / 1; }
     .users-promo   { width: 90%; }
-    .user-container{ width: 100% !important; }
+    .project-container, .user-container{ width: 100% !important; }
     .user-badge    { width: 75% !important; }
     .user-secondary-info{ text-align: center; }
     #modal-add-task .modal-dialog{ max-width: 75%; }

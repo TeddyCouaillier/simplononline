@@ -3,6 +3,15 @@
     width: 70%;
 }
 
+.pagination a{
+    display: inline-block;
+    line-height: 30px;
+}
+.pagination a.is-active{
+    background-color: var(--red);
+    color: var(--white);
+}
+
 /* Weather */
 .weather-content fieldset{ text-align: left; }
 .form-check{ margin: 10px 0; }

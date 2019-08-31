@@ -12,6 +12,7 @@ use App\Entity\TrainingCourse;
 use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Form\Data\EditUserDataType;
+use App\Repository\ProjectRepository;
 use App\Form\Skill\EditUserSkillsType;
 use App\Repository\TrainingCourseRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +21,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\TrainingCourse\TrainingCourseUserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -362,14 +363,25 @@ class UserController extends AbstractController
 
     /**
      * Show the user's projects
-     * @Route("/{slug}/projets", name="show_projects")
-     * @param User $user
+     * @Route("/{slug}/projets/{page<\d+>?1}", name="show_projects")
+     * @param integer           $page
+     * @param User              $user
+     * @param ProjectRepository $rep
      * @return Response
      */
-    public function showUserProjects(User $user)
+    public function showUserProjects(int $page, User $user, ProjectRepository $rep)
     {
+        $limit = 20;
+        $offset = $page * $limit - $limit;
+        $projects = $rep->findAllByUserLimit($user, $limit, $offset);
+        $total = count($rep->findAllByUser($user));
+        $pages = ceil($total / $limit);
+
         return $this->render('project/all.html.twig', [
-            'user' => $user
+            'user'     => $user,
+            'page'     => $page,
+            'pages'    => $pages,
+            'projects' => $projects
         ]);
     }
 

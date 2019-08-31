@@ -17,10 +17,10 @@
             <span class="badge-link-inactive mx-2 my-1" data-badge="{{ language.label }}">{{ language.label }}</span>
         {% endfor %}
     </div>
-    <div class="bg-grey rounded p-2 flexc help-all">
+    <div class="flexc help-all">
         {% for help in helps %}
         {{ template.deleteConfirm(help.id,path('help_delete',{'id': help.id})) }}
-        <div class="bg-white rounded p-2 my-1 help-link reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
+        <div class="container-white shadow-small my-1 help-link reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
 
             <div class="flex just-between">
                 <div>

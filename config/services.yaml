@@ -35,3 +35,7 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+
+    App\Service\Pagination:
+        arguments:
+            $template: 'partials/pagination.html.twig'

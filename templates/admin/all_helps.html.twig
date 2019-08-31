@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for help in helps %}
+      {% for help in pagination.data %}
       {{ template.deleteConfirm(help.id,path('help_delete',{'id':help.id})) }}
       {{ template.modal('edit-help-'~help.id)}}
       <tr>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="w-100 admin-help-responsive">
-    {% for help in helps %}
+    {% for help in pagination.data %}
         <div class="container-white row flex align-center mx-0 my-1 shadow-small">
             <div class="col-7 col-sm-6">{{ help.title }}</div>
             <div class="col-sm-2 flex just-center admin-help-language">
@@ -71,6 +71,9 @@
         </div>
     {% endfor %}
 </div>
+
+{{ pagination.render }}
+
 {% endblock %}
 
 {% block modalTitle %}Partager un lien{% endblock %}
