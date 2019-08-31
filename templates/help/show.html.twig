@@ -8,7 +8,7 @@
     {{ template.checkMessage(form) }}
     <div class="flex just-between">
         <h1>Liens d'aide</h1>
-        <div class="button-edit add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
+        <div class="button-edit bhover add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
     </div>
     <hr>
     <div class="flex wrap just-center mx-2 my-1 help-all_cats">
@@ -48,10 +48,10 @@
     </div>
 
     <div class="modal fade" id="modal-add-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    {{ form_start(form) }}
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body px-4 pt-3 pb-0">
+                {{ form_start(form) }}
                 <div class="flex just-between align-center">
                     <h2>Partager un lien</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -73,8 +73,8 @@
                     {{ template.confirm() }}
                 </div>
             </div>
+            {{ form_end(form) }}
         </div>
     </div>
-    {{ form_end(form) }}
     </div>
 {% endblock %}

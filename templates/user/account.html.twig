@@ -132,7 +132,7 @@
             {% for project in user.projects|slice(0,4) %}
                 <div class="flex just-between align-baseline">
                     <span>{{ project.title }}</span>
-                    <a href="#" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('project_show',{'slug': project.slug}) }}" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
                 </div>
                 <hr>
             {% endfor %}

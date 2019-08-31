@@ -45,10 +45,10 @@
 </div>
 
 <div class="modal fade" id="modal-add-task" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    {{ form_start(form) }}
     <div class="modal-dialog mw-66" role="document">
         <div class="modal-content">
             <div class="modal-body">
+                {{ form_start(form) }}
                 <div class="flex just-between align-center">
                     <h2>Ajouter une tache</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -79,9 +79,9 @@
                     </div>
                 </div>
                 <div class="my-3">{{ template.confirm() }}</div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
-    {{ form_end(form) }}
 </div>
 

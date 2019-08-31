@@ -108,7 +108,7 @@ input[type="number"] {
 .text-large  { font-size: 1.6em; }
 .text-xlarge { font-size: 2em; }
 .rhover:hover{ color: var(--red) !important; cursor: pointer; }
-.bhover:hover{ color: var(--black) !important; cursor: pointer; }
+.bhover:hover{ color: var(--black) !important; cursor: pointer !important; }
 
 /* Display & container */
 .flex{
