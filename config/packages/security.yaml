@@ -17,6 +17,8 @@ security:
         main:
             anonymous: true
 
+            user_checker: App\Security\UserChecker
+
             provider: in_database
 
             form_login:
@@ -31,6 +33,7 @@ security:
                 lifetime: 86400
                 path: /
                 always_remember_me: true
+
 
     access_control:
         - { path: ^/admin, roles: [ROLE_FORMER, ROLE_MEDIATEUR]}

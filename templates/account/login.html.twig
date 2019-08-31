@@ -18,9 +18,10 @@
                     <img src="img/logo.jpeg" class="w-50"></img>
                 </div>
                 <div class="flexc just-center align-center h-100">
-                    {% if hasError %}
-                    <div class="text-red m-2 p-2 border border-danger bold">
-                        Une erreur est survenue. Le mail ou le mot de passe est invalide
+                    {% if error %}
+                    <div class="text-red m-2 p-2 w-75 border border-danger bold">
+                        Une erreur est survenue. <br>
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
                     </div>
                     {% endif %}
                     <form action="{{ path('account_login') }}" method="post" class="w-100 px-4">
