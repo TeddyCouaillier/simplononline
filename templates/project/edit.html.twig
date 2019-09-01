@@ -12,51 +12,58 @@
 {% block body %}
     <h1>Modifier le projet</h1>
     <hr>
-    <div class="container-grey flex just-around">
-        <div class="rounded p-2 mx-1" style="width: 50%">
-            <span class="bold">Informations du projet</span>
-            {{ form_start(form) }}
-            <div class="bg-white rounded p-2 my-2">
-                <div class="mb-1">{{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}</div>
-                <div class="mb-1">{{ form_widget(form.description) }}</div>
-                <div class="mb-1">{{ form_widget(form.github) }}</div>
-                <div class="mb-1">{{ form_widget(form.website) }}</div>
-                <div class="mb-1">{{ form_widget(form.users, {'attr': {
-                    'class': 'project-selected selectpicker',
-                    'title': 'Ajouter des contributeurs',
-                    'data-live-search': 'true',
-                    'multiple': '',
-                    'data-selected-text-format': 'count > 2',
-                    'data-style': 'bg-white',
-                    'data-size': '6'
-                }})}}
+    {{ form_start(form) }}
+        <div class="project-new row mx-0">
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="container-white shadow-small my-3 px-1 flex align-center project-new-title">
+                    {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
+                    <div class="text-small text-grey w-25 carac">(60 carac. max)</div>
                 </div>
-                <div class="mb-1">{{ form_widget(form.languages, {'attr': {
-                    'class': 'language-selected selectpicker',
-                    'title': 'Langage du projet',
-                    'data-live-search': 'true',
-                    'multiple': '',
-                    'data-selected-text-format': 'count > 2',
-                    'data-style': 'bg-white',
-                    'data-size': '6'
-                }})}}
+                <div class="container-white shadow-small my-3">
+                    {{ form_widget(form.users, {'attr': {
+                        'class': 'project-user-selected selectpicker',
+                        'title': 'Personne(s) liée(s) au projet',
+                        'data-live-search': 'true',
+                        'multiple': '',
+                        'data-selected-text-format': 'count > 5',
+                        'data-style': 'bg-white',
+                        'data-size': '6'
+                    }}) }}
                 </div>
-                <div class="flex just-center mb-1">{{ form_widget(form.completed) }}</div>
-            {{ template.confirm()}}
-            {{ form_end(form) }}
+                <div class="container-white shadow-small px-1 my-3">
+                    {{ form_widget(form.github) }}
+                </div>
+                <div class="container-white shadow-small px-1 my-3">
+                    {{ form_widget(form.website) }}
+                </div>
+                <div class="container-white shadow-small px-1 my-3">
+                    {{ form_widget(form.languages, {'attr': {
+                        'class': 'language-selected selectpicker',
+                        'title': 'Langage(s) du projet',
+                        'data-live-search': 'true',
+                        'multiple': '',
+                        'data-selected-text-format': 'count > 2',
+                        'data-style': 'bg-white',
+                        'data-size': '6'
+                    }}) }}
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <div class="container-white shadow-small my-2 mt-3">
+                    {{ form_widget(form.description, {'attr': {'maxlength': 500, 'rows': 12} }) }}
+                    <div class="text-small text-grey carac">500 caractères max.</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="custom-control custom-switch text-center mt-4">
+                    {{ form_widget(form.completed) }}
+                </div>
+            </div>
+            <div class="col-12 text-center my-2">
+                {{ template.confirm()}}
             </div>
         </div>
-        <div class="p-2 mx-1" style="width: 50%">
-            <span class="bold">Liste des apprenants</span>
-            {% for user in project.users %}
-            <div class="container-white flex align-center mb-1 mt-2">
-                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
-                <div class="flex-fill">{{ user.fullname }} {% if loop.index == 1 %}<i class="fal fa-star text-red bold ml-1" style="font-size: .85em"></i>{% endif %}</div>
-                <div style="width: 10%"><button type="button" class="btn"><i class="fal fa-times-circle"></i></button></div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block libraries %}

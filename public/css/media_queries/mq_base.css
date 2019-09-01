@@ -42,12 +42,13 @@
     .user-portfolio { grid-area: 8 / 1 / 8 / 3; }
     .user-notif     { width: 300px; }
     .project        { padding: 0 !important;}
-    .show-files     { flex-wrap: wrap; }
     .user hr        { display: block !important; }
     .task-icon      { display: none; }
     [class^="messages-"]    { width: 75%!important; }
-    .user-account-info      { width: 100% !important; }
     .all-promo, .promo-users{ width: 48% !important; }
+    .user-account-info, .carac { width: 100% !important; }
+    .carac{ text-align: right; }
+    .show-files, .project-new-title  { flex-wrap: wrap; }
     .users-promo .user-secondary-info{ text-align: left; }
     .project-detail, .project-detail-user, .project-container,
     .form-files, .received-files, .task-info, .task-subtask,

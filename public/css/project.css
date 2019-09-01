@@ -29,6 +29,16 @@
     line-height: 30px;
 }
 
+.project-new input, .project-new textarea{
+    border: none;
+}
+.project-new input:focus, .project-new textarea:focus{
+    box-shadow: none;
+}
+.project-new .project-user-selected input:focus,
+.project-new .language-selected input:focus{
+    outline: 1px solid rgba(0,0,0,.75);
+}
  /****************************************************
  ***** TASK
  ***************************************************/

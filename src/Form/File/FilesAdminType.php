@@ -33,7 +33,6 @@ class FilesAdminType extends ApplicationType
             ])
             ->add('important', CheckboxType::class, [
                 'mapped'        => false,
-                'attr'          => array('class' => "test"),
                 'attr'          => array('class' => "custom-control-input"),
                 'label_attr'    => array('class' => 'custom-control-label'),
                 'required'      => false
