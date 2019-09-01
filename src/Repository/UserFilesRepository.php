@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Files;
+use App\Entity\User;
 use App\Entity\UserFiles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;

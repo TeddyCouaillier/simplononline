@@ -250,3 +250,18 @@ $(document).on('click','.remove-language',function(){
         }
     });
 })
+
+$(document).on('click','.remove-file', function() {
+    const file = $(this).parent().parent();
+    // $(file).fadeOut();
+    console.log(file);
+    // const url = $(this).data('url');
+    // $.ajax({
+    //     url: url,
+    //     type: "POST",
+
+    //     success: function(response){
+    //         $(check).prop("checked",true);
+    //     }
+    // });
+})

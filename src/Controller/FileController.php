@@ -8,6 +8,7 @@ use App\Entity\UserNotif;
 use App\Entity\Notification;
 use App\Form\File\FilesType;
 use App\Form\File\FilesAdminType;
+use App\Repository\UserFilesRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,6 +118,27 @@ class FileController extends AbstractController
         $ufile->setImportant(false);
         $manager->persist($ufile);
         $manager->flush();
+        return $this->redirectToRoute('file_user_show');
+    }
+
+    /**
+     * @Route("/{id}/remove", name="received_remove")
+     *
+     * @param Files $file
+     * @param ObjectManager $manager
+     * @param UserFilesRepository $rep
+     * @return void
+     */
+    public function removeReceivedFile(Files $file, ObjectManager $manager, UserFilesRepository $rep)
+    {
+        $user = $this->getUser();
+        $ufile = $rep->findOneBy([
+            'receiver' => $user,
+            'files'    => $file
+        ]);
+        $manager->remove($ufile);
+        $manager->flush();
+
         return $this->redirectToRoute('file_user_show');
     }
 

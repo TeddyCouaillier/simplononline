@@ -14,3 +14,9 @@
     width: 10px;
 }
 
+.tooltip-file,.tooltip-file-important{
+    left: -200px;
+    width: 200px;
+}
+.tooltip-file{ margin-bottom: -40px; }
+.tooltip-file-important{ margin-bottom: -51px; }

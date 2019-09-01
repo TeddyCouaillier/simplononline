@@ -17,17 +17,29 @@
                     le {{ ufiles.dateSend | date('d/m/Y à H:i') }}</em>
                 </p>
             </div>
-            <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
+            {# <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
             data-modalid="{{ ufiles.id }}"
             {% if ufiles.important %}
             data-content='
             <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-            <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a>'
+            <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a><br>
+            <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>'
             {% else %}
             data-content='
             <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+            <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
             {% endif %}
-            '></i>
+            '></i> #}
+            <div class="subnav">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="subnav-tooltip tooltip-file{% if ufiles.important %}-important{% endif %}">
+                    <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                    {% if ufiles.important %}
+                    <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a><br>
+                    {% endif %}
+                    <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
+                </div>
+            </div>
         </div>
     {% else %}
     <span class="bold">Mes fichiers reçus</span>
