@@ -252,16 +252,40 @@ $(document).on('click','.remove-language',function(){
 })
 
 $(document).on('click','.remove-file', function() {
-    const file = $(this).parent().parent();
-    // $(file).fadeOut();
-    console.log(file);
-    // const url = $(this).data('url');
-    // $.ajax({
-    //     url: url,
-    //     type: "POST",
+    const url = $(this).data('url');
+    const file = $(this).parent().parent().parent().parent();
+    const nofiles = $('.no-files');
+    let counterContainer = $('.file-counter');
+    let counter = $('.file-counter').data('counter');
 
-    //     success: function(response){
-    //         $(check).prop("checked",true);
-    //     }
-    // });
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            let counterFinal = counter - 1;
+            $(counterContainer).data('counter',counterFinal);
+            $(file).fadeOut();
+            if($('.file-counter').data('counter') <= 0){
+                setTimeout(function(){
+                    $(nofiles).fadeIn();
+                },300);
+            }
+        }
+    });
+})
+
+$(document).on('click','.remove-important', function() {
+    const url = $(this).data('url');
+    const classe = $(this).data('target');
+    let filestate = $(`.${classe}`);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            $(filestate).removeClass('bg-red');
+        }
+    });
 })

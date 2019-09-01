@@ -1,43 +1,33 @@
 <div class="received-files mr-2">
+    <input type="hidden" class="file-counter" data-counter="{{user.userFiles|length}}">
     {% for ufiles in user.userFiles | reverse %}
         {% set file = ufiles.files %}
-        <div class="flex just-center align-center bg-white p-3 rounded mb-2">
-            {% if ufiles.important == null %}
-            <div class="file-state rounded-circle mr-2 bg-white"></div>
-            {% else %}
-            <div class="file-state rounded-circle mr-2 bg-red"></div>
-            {% endif %}
-            <div class="file-info">
-                <p class="bold">{{ file.title }}</p>
-                <p class="text-small">
-                    <em>Envoyé
-                    {% if ufiles.sender != null %}
-                    par {{ ufiles.sender.firstname }} {{ ufiles.sender.lastname | upper }}
-                    {% endif %}
-                    le {{ ufiles.dateSend | date('d/m/Y à H:i') }}</em>
-                </p>
-            </div>
-            {# <i tabindex="0" class="fas fa-ellipsis-v subnav ml-2" data-toggle="popover" data-html="true" data-trigger="focus" data-placement="top"
-            data-modalid="{{ ufiles.id }}"
-            {% if ufiles.important %}
-            data-content='
-            <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-            <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a><br>
-            <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>'
-            {% else %}
-            data-content='
-            <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-            <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
-            {% endif %}
-            '></i> #}
-            <div class="subnav">
-                <i class="fas fa-ellipsis-v"></i>
-                <div class="subnav-tooltip tooltip-file{% if ufiles.important %}-important{% endif %}">
-                    <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-                    {% if ufiles.important %}
-                    <a href="{{ path('file_edit_status',{'id': ufiles.id}) }}" class="subnav-link">Marquer comme gérer</a><br>
-                    {% endif %}
-                    <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
+        <div>
+            <div class="flex just-center align-center bg-white p-3 rounded mb-2">
+                {% if ufiles.important == null %}
+                <div class="file-state rounded-circle mr-2 bg-white"></div>
+                {% else %}
+                <div class="file-state rounded-circle mr-2 bg-red ufile-{{ufiles.id}}"></div>
+                {% endif %}
+                <div class="file-info">
+                    <p class="bold">{{ file.title }}</p>
+                    <p class="text-small">
+                        <em>Envoyé
+                        {% if ufiles.sender != null %}
+                        par {{ ufiles.sender.firstname }} {{ ufiles.sender.lastname | upper }}
+                        {% endif %}
+                        le {{ ufiles.dateSend | date('d/m/Y à H:i') }}</em>
+                    </p>
+                </div>
+                <div class="subnav">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="subnav-tooltip tooltip-file{% if ufiles.important %}-important{% endif %}">
+                        <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                        {% if ufiles.important %}
+                        <a data-url="{{ path('file_edit_status',{'id': ufiles.id}) }}" data-target="ufile-{{ufiles.id}}" class="subnav-link remove-important">Marquer comme gérer</a><br>
+                        {% endif %}
+                        <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,4 +40,12 @@
         </p>
     </div>
     {% endfor %}
+    <div class="no-files h-100">
+        <div class="flex just-center align-center text-center text-large text-grey h-100">
+            <p>
+                <i class="fal fa-folder-open text-xlarge"></i><br>
+                Aucun fichier reçu
+            </p>
+        </div>
+    </div>
 </div>

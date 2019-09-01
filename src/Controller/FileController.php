@@ -118,7 +118,8 @@ class FileController extends AbstractController
         $ufile->setImportant(false);
         $manager->persist($ufile);
         $manager->flush();
-        return $this->redirectToRoute('file_user_show');
+
+        return new JsonResponse();
     }
 
     /**
@@ -139,7 +140,7 @@ class FileController extends AbstractController
         $manager->remove($ufile);
         $manager->flush();
 
-        return $this->redirectToRoute('file_user_show');
+        return new JsonResponse();
     }
 
     /**
