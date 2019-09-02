@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * ORM\HasLifecycleCallbacks()
  * @UniqueEntity("email", message="Cette adresse mail est déjà utilisée")
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     const USER      = 'ROLE_USER';
     const ADMIN     = 'ROLE_ADMIN';
@@ -997,5 +997,30 @@ class User implements UserInterface
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+    public function supportsRememberMe()
+    {
+        return true;
     }
 }

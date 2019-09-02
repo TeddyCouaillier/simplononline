@@ -62,6 +62,16 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllModeratorByCurrentPromo()
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.promotionmod', 'pm')
+            ->andWhere('pm.current = true')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /**
      * Find all users in a specific project
      * @param Project $project

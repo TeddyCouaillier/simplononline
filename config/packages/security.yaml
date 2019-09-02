@@ -17,8 +17,6 @@ security:
         main:
             anonymous: true
 
-            user_checker: App\Security\UserChecker
-
             provider: in_database
 
             form_login:

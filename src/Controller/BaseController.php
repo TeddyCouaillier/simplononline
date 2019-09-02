@@ -46,7 +46,8 @@ class BaseController extends AbstractController
     public function usersWeather(UserRepository $rep)
     {
         return $this->render('weather/all.html.twig', [
-            'users' => $rep->findAllByCurrentPromo()
+            'formers' => $rep->findAllModeratorByCurrentPromo(),
+            'users'   => $rep->findAllByCurrentPromo()
         ]);
     }
 

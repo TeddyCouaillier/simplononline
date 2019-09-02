@@ -223,7 +223,7 @@
         </div>
         <div class="flex wrap just-center">
             {% for project in user.projects %}
-                <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+                <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container reveal">
                     <div>
                         <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
                         <p class="text-small text-grey">

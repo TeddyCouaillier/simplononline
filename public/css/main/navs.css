@@ -56,7 +56,7 @@
 .nav-left.active{ margin-left: 0px; }
 .nav-left .content{ height: 250px; }
 .nav-left .all-weather{
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 250px);
     overflow-y: auto;
 }
 

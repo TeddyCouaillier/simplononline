@@ -17,7 +17,7 @@
     width: 8px;
     border-radius: 50%;
 }
-.status-yellow { background: yellow;     }
+.status-yellow { background: rgb(255, 200, 0); }
 .status-red    { background: red;        }
 .status-orange { background: orange;     }
 .status-green  { background: green;      }
