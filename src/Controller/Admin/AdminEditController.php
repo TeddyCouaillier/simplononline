@@ -25,6 +25,7 @@ use App\Form\User\AdminEditUserType;
 use App\Form\Project\EditProjectType;
 use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
+use App\Form\Project\EditProjectUserType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -342,6 +343,47 @@ class AdminEditController extends AbstractController
         return new JsonResponse($response);
     }
 
+    /**
+     * Edit a specific project
+     * @Route("/projet/{id}/user_edit", name="project_user_edit")
+     * @param Project       $project
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response/JsonResponse
+     */
+    public function editProjectUser(Project $project, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(EditProjectUserType::class, $project);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            // if($project->getCompleted() && $project->getEndAt() == null){
+            //     $project->setEndAt(new \DateTime());
+            // }
+            // if(!$project->getCompleted() && $project->getEndAt() != null){
+            //     $project->setEndAt(null);
+            // }
+            // $manager->persist($project);
+            // $manager->flush();
+
+            // $this->addFlash(
+            //     'success',
+            //     'Le projet a bien été modifié.'
+            // );
+            // return $this->redirectToRoute('admin_all_projects');
+        }
+
+        $render = $this->render('admin/edit.html.twig', [
+            'form'        => $form->createView(),
+            'projectUser' => $project
+        ]);
+
+        $response = [
+            "code"   => 200,
+            "render" => $render->getContent()
+        ];
+
+        return new JsonResponse($response);
+    }
 
     /**
      * Delete a specific language

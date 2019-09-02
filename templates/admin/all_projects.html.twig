@@ -34,6 +34,7 @@
             {{ template.deleteConfirm(project.id,path('project_delete',{'slug':project.slug})) }}
             {{ template.modal('add-project-correction-'~project.id)}}
             {{ template.modal('add-project-task-'~project.id)}}
+            {{ template.modal('edit-project-user-'~project.id)}}
             {{ template.modal('edit-project-'~project.id)}}
             <tr>
                 <td class="flex just-center">
@@ -85,7 +86,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item rhover add-project-correction" data-url="{{path('admin_project_edit_correction',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-correction-{{project.id}}">Ajouter une correction</a>
-                                <a class="dropdown-item rhover">Ajouter un utilisateur</a>
+                                <a class="dropdown-item rhover edit-project-user" data-url="{{path('admin_project_user_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-user-{{project.id}}">Ajouter un utilisateur</a>
                                 <a class="dropdown-item rhover">Retirer un utilisateur</a>
                                 <a class="dropdown-item rhover add-project-task" data-url="{{path('admin_project_add_task',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-task-{{project.id}}">Ajouter une tache</a>
                                 <a class="dropdown-item rhover edit-project" data-url="{{path('admin_project_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-{{project.id}}">Modifier</a>
@@ -125,7 +126,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item rhover add-project-correction" data-url="{{path('admin_project_edit_correction',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-correction-{{project.id}}">Ajouter une correction</a>
-                            <a class="dropdown-item rhover">Ajouter un utilisateur</a>
+                            <a class="dropdown-item rhover edit-project-user" data-url="{{path('admin_project_user_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-user-{{project.id}}">Ajouter un utilisateur</a>
                             <a class="dropdown-item rhover">Retirer un utilisateur</a>
                             <a class="dropdown-item rhover add-project-task" data-url="{{path('admin_project_add_task',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-task-{{project.id}}">Ajouter une tache</a>
                             <a class="dropdown-item rhover edit-project" data-url="{{path('admin_project_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-{{project.id}}">Modifier</a>

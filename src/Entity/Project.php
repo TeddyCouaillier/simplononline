@@ -293,6 +293,15 @@ class Project
         return $this;
     }
 
+    public function clearProject()
+    {
+        if(!empty($this->users)){
+            foreach($this->users as $user){
+                $this->removeUser($user);
+            }
+        }
+    }
+
     public function getWebsite(): ?string
     {
         return $this->website;

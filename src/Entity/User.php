@@ -820,6 +820,16 @@ class User implements AdvancedUserInterface
         return $projects;
     }
 
+    public function hasProject(Project $project)
+    {
+        foreach($this->projects as $uproject){
+            if($project == $uproject){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @return Collection|Task[]
      */

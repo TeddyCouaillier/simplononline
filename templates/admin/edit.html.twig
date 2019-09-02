@@ -209,3 +209,30 @@
     </div>
     {% endblock %}
 {% endif %}
+
+{% if projectUser is defined %}
+<h1>Modifier un projet</h1>
+<hr>
+<div class="container-white w-75 mx-auto">
+    {# <h2>{{ project.title }}</h2>
+    {{ form_start(form, {'action': path('admin_project_edit',{'id':project.id})}) }}
+        <div class="mb-1">
+            {{ form_label(form.title)}}
+            {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.description)}}
+            {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.github) }}{{ form_widget(form.github) }}</div>
+        <div class="mb-1">
+            {{ form_label(form.website) }}
+            {{ form_widget(form.website) }}
+        </div>
+        <div class="flex just-center mb-1">
+            {{ form_widget(form.completed) }}
+        </div>
+    {{ template.confirm()}}
+    {{ form_end(form) }} #}
+    {{ form(form) }}
+</div>
+{% endif %}

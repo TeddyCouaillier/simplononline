@@ -176,12 +176,25 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             if(isset($request->request->get('edit_project')['users'])){
-                $users_id     = $request->request->get('edit_project')['users'];
-                foreach($users_id as $id){
-                    $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+                $users_id = $request->request->get('edit_project')['users'];
+                $moderatorCheck = false;
+                $project->clearProject();
+                for($i = 0 ; $i < sizeof($users_id) ; $i++){
+                    $user = $this->getDoctrine()->getRepository(User::class)->find($users_id[$i]);
                     $project->addUser($user);
+                    if($user == $project->getModerator()){
+                        $moderatorCheck = true;
+                    }
+                }
+
+                if(!$moderatorCheck && !empty($project->getUsers())){
+                    foreach($project->getUsers() as $user){
+                        $project->setModerator($user);
+                        break;
+                    }
                 }
             }
+
             if(isset($request->request->get('edit_project')['languages'])){
                 $languages_id = $request->request->get('edit_project')['languages'];
                 foreach($languages_id as $id){
@@ -193,9 +206,11 @@ class ProjectController extends AbstractController
             if($project->getCompleted() && $project->getEndAt() == null){
                 $project->setEndAt(new \DateTime());
             }
+
             if(!$project->getCompleted() && $project->getEndAt() != null){
                 $project->setEndAt(null);
             }
+
             $manager->persist($project);
             $manager->flush();
 
@@ -208,6 +223,7 @@ class ProjectController extends AbstractController
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
+            'users'   => $this->getDoctrine()->getRepository(User::class)->findAllByCurrentPromo(),
             'form'    => $form->createView()
         ]);
     }
