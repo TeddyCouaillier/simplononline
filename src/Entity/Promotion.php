@@ -220,6 +220,29 @@ class Promotion
     }
 
     /**
+     * Check if the promo has a specific moderator
+     * @param User $moderator
+     * @return boolean
+     */
+    public function hasModerator(User $moderator)
+    {
+        return $this->moderators->contains($moderator);
+    }
+
+    /**
+     * Remove all promo's moderators
+     * @return void
+     */
+    public function clearModerator()
+    {
+        if(!empty($this->moderators)){
+            foreach($this->moderators as $moderator){
+                $this->removeModerator($moderator);
+            }
+        }
+    }
+
+    /**
      * Get promotion's mediators
      * @return User[]
      */

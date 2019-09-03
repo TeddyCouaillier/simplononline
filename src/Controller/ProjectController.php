@@ -182,6 +182,9 @@ class ProjectController extends AbstractController
             throw new AccessDeniedException();
         }
 
+        $lrep = $this->getDoctrine()->getRepository(Language::class);
+        $urep = $this->getDoctrine()->getRepository(User::class);
+
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -190,7 +193,7 @@ class ProjectController extends AbstractController
                 $moderatorCheck = false;
                 $project->clearProject();
                 for($i = 0 ; $i < sizeof($users_id) ; $i++){
-                    $user = $this->getDoctrine()->getRepository(User::class)->find($users_id[$i]);
+                    $user = $urep->find($users_id[$i]);
                     $project->addUser($user);
                     if($user == $project->getModerator()){
                         $moderatorCheck = true;
@@ -209,7 +212,7 @@ class ProjectController extends AbstractController
                 $languages_id = $request->request->get('edit_project')['languages'];
                 $project->clearLanguages();
                 foreach($languages_id as $id){
-                    $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
+                    $language = $lrep->find($id);
                     $project->addLanguage($language);
                 }
             }
@@ -234,8 +237,8 @@ class ProjectController extends AbstractController
 
         return $this->render('project/edit.html.twig', [
             'project'   => $project,
-            'users'     => $this->getDoctrine()->getRepository(User::class)->findAllByCurrentPromo(),
-            'languages' => $this->getDoctrine()->getRepository(Language::class)->findAll(),
+            'users'     => $urep->findAllByCurrentPromo(),
+            'languages' => $lrep->findAll(),
             'form'      => $form->createView()
         ]);
     }

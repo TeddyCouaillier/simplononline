@@ -18,15 +18,14 @@
     </div>
     <div class="mt-3">
         <div class="w-100">
-        {{ form_widget(form.moderators, {'attr': {
-            'class': 'promo-mod-selected selectpicker',
-            'title': 'Formateur(s) et médiateur(s) de la promo',
-            'data-live-search': 'true',
-            'multiple': '',
-            'data-selected-text-format': 'count > 2',
-            'data-style': 'bg-white',
-            'data-size': '6'
-        }}) }}
+            <select id="edit_promotion_moderators" name="edit_promotion[moderators][]" class="form-control shadow-small my-2 promo-mod-selected selectpicker"
+            title="Formateur(s) et médiateur(s)" data-live-search="true" multiple data-selected-text-format="count > 2" data-style="bg-white" data-size="6">
+            {% for moderator in moderators %}
+                <option value="{{ moderator.id }}" {% if promo.hasModerator(moderator) %}selected{% endif %}>
+                    {{ moderator.fullname }}
+                </option>
+                {% endfor %}
+            </select>
         </div>
         <div class="row my-1">
             <div class="col-5">{{ form_label(form.startAt) }}</div>
@@ -115,25 +114,57 @@
 {% if project is defined %}
 <h1>Modifier un projet</h1>
 <hr>
-<div class="container-white w-75 mx-auto">
+<div class="container-white mx-auto">
     <h2>{{ project.title }}</h2>
     {{ form_start(form, {'action': path('admin_project_edit',{'id':project.id})}) }}
-        <div class="mb-1">
-            {{ form_label(form.title)}}
-            {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}</div>
-        <div class="mb-1">
-            {{ form_label(form.description)}}
-            {{ form_widget(form.description, {'attr': {'rows': '5'}}) }}</div>
-        <div class="mb-1">
-            {{ form_label(form.github) }}{{ form_widget(form.github) }}</div>
-        <div class="mb-1">
-            {{ form_label(form.website) }}
-            {{ form_widget(form.website) }}
+<div class="project-new row mx-0">
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="container-white shadow-small my-3 px-1 flex align-center project-new-title">
+                    {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
+                    <div class="text-small text-grey w-25 carac">(60 carac. max)</div>
+                </div>
+                <div class="container-white shadow-small my-3">
+                    <select id="edit_project_users" name="edit_project[users][]" class="form-control project-user-selected selectpicker" 
+                    title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 5" data-style="bg-white">
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {% if user.hasProject(project) %}selected{% endif %}>
+                            {{ user.fullname }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="container-white shadow-small px-1 my-3">
+                    {{ form_widget(form.github) }}
+                </div>
+                <div class="container-white shadow-small px-1 my-3">
+                    {{ form_widget(form.website) }}
+                </div>
+                <div class="container-white shadow-small my-3">
+                    <select id="edit_project_languages" name="edit_project[languages][]" class="form-control language-selected selectpicker"
+                    title="Ajouter des langages" data-live-search="true" multiple data-selected-text-format="count > 4" data-style="bg-white" data-size="6">
+                    {% for language in languages %}
+                        <option value="{{ language.id }}" {% if project.hasLanguage(language) %}selected{% endif %}>
+                            {{ language.label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <div class="container-white shadow-small my-2 mt-3">
+                    {{ form_widget(form.description, {'attr': {'maxlength': 500, 'rows': 12} }) }}
+                    <div class="text-small text-grey carac">500 caractères max.</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="custom-control custom-switch text-center mt-4">
+                    {{ form_widget(form.completed) }}
+                </div>
+            </div>
+            <div class="col-12 text-center my-2">
+                {{ template.confirm()}}
+            </div>
         </div>
-        <div class="flex just-center mb-1">
-            {{ form_widget(form.completed) }}
-        </div>
-    {{ template.confirm()}}
     {{ form_end(form) }}
 </div>
 {% endif %}

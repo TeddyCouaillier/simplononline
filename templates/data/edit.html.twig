@@ -11,9 +11,9 @@
     <hr>
     {{ form_start(form) }}
     {% for form in form.userData %}
-        <div class="container-white row mx-0 pb-0 flex align-baseline shadow-small my-1 w-100 data-edit">
-            <div class="col-md-6 col-sm-6">{{ user.userData[loop.index-1].data.label }}</div>
-            <div class="col-md-6 col-sm-6">{{ form_widget(form) }}</div>
+        <div class="bg-white rounded row shadow-small flex align-center my-1">
+            <div class="col-lg-6 col-md-6 col-sm-6">{{ user.userData[loop.index-1].data.label }}</div>
+            <div class="col-lg-6 col-md-6 col-sm-6">{{ form_widget(form) }}</div>
         </div>
     {% endfor %}
     {{ template.confirm() }}

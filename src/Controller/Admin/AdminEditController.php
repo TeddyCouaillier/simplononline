@@ -23,9 +23,8 @@ use App\Repository\UserRepository;
 use App\Form\Project\CorrectionType;
 use App\Form\User\AdminEditUserType;
 use App\Form\Project\EditProjectType;
-use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
-use App\Form\Project\EditProjectUserType;
+use App\Form\Promotion\EditPromotionType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,14 +47,16 @@ class AdminEditController extends AbstractController
      */
     public function editPromo(Promotion $promo, Request $request, ObjectManager $manager)
     {
-        $form = $this->createForm(PromotionType::class, $promo);
+        $rep = $this->getDoctrine()->getRepository(User::class);
+        $form = $this->createForm(EditPromotionType::class, $promo);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             if($form->isValid()){
-                if(isset($request->request->get('promotion')['moderators'])){
-                    $moderators = $request->request->get('promotion')['moderators'];
-                    foreach($moderators as $mod_id){
-                        $moderator = $this->getDoctrine()->getRepository(User::class)->find($mod_id);
+                $promo->clearModerator();
+                if(isset($request->request->get('edit_promotion')['moderators'])){
+                    $moderators = $request->request->get('edit_promotion')['moderators'];
+                    for($i = 0 ; $i < sizeof($moderators) ; $i++){
+                        $moderator = $this->getDoctrine()->getRepository(User::class)->find($moderators[$i]);
                         $promo->addModerator($moderator);
                     }
                 }
@@ -73,8 +74,9 @@ class AdminEditController extends AbstractController
 
 
         $render = $this->render('admin/edit.html.twig', [
-            'form'  => $form->createView(),
-            'promo' => $promo
+            'form'       => $form->createView(),
+            'promo'      => $promo,
+            'moderators' => $rep->findAllUserByRole()
         ]);
 
         $response = [
@@ -311,9 +313,40 @@ class AdminEditController extends AbstractController
      */
     public function editProject(Project $project, Request $request, ObjectManager $manager)
     {
+        $urep = $this->getDoctrine()->getRepository(User::class);
+        $lrep = $this->getDoctrine()->getRepository(Language::class);
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            if(isset($request->request->get('edit_project')['users'])){
+                $users_id = $request->request->get('edit_project')['users'];
+                $moderatorCheck = false;
+                $project->clearProject();
+                for($i = 0 ; $i < sizeof($users_id) ; $i++){
+                    $user = $urep->find($users_id[$i]);
+                    $project->addUser($user);
+                    if($user == $project->getModerator()){
+                        $moderatorCheck = true;
+                    }
+                }
+
+                if(!$moderatorCheck && !empty($project->getUsers())){
+                    foreach($project->getUsers() as $user){
+                        $project->setModerator($user);
+                        break;
+                    }
+                }
+            }
+
+            if(isset($request->request->get('edit_project')['languages'])){
+                $languages_id = $request->request->get('edit_project')['languages'];
+                $project->clearLanguages();
+                foreach($languages_id as $id){
+                    $language = $lrep->find($id);
+                    $project->addLanguage($language);
+                }
+            }
+
             if($project->getCompleted() && $project->getEndAt() == null){
                 $project->setEndAt(new \DateTime());
             }
@@ -331,50 +364,10 @@ class AdminEditController extends AbstractController
         }
 
         $render = $this->render('admin/edit.html.twig', [
-            'form'    => $form->createView(),
-            'project' => $project
-        ]);
-
-        $response = [
-            "code"   => 200,
-            "render" => $render->getContent()
-        ];
-
-        return new JsonResponse($response);
-    }
-
-    /**
-     * Edit a specific project
-     * @Route("/projet/{id}/user_edit", name="project_user_edit")
-     * @param Project       $project
-     * @param Request       $request
-     * @param ObjectManager $manager
-     * @return Response/JsonResponse
-     */
-    public function editProjectUser(Project $project, Request $request, ObjectManager $manager)
-    {
-        $form = $this->createForm(EditProjectUserType::class, $project);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            // if($project->getCompleted() && $project->getEndAt() == null){
-            //     $project->setEndAt(new \DateTime());
-            // }
-            // if(!$project->getCompleted() && $project->getEndAt() != null){
-            //     $project->setEndAt(null);
-            // }
-            // $manager->persist($project);
-            // $manager->flush();
-
-            // $this->addFlash(
-            //     'success',
-            //     'Le projet a bien été modifié.'
-            // );
-            // return $this->redirectToRoute('admin_all_projects');
-        }
-
-        $render = $this->render('admin/edit.html.twig', [
-            'form'        => $form->createView(),
-            'projectUser' => $project
+            'form'      => $form->createView(),
+            'project'   => $project,
+            'users'     => $urep->findAllByCurrentPromo(),
+            'languages' => $lrep->findAll()
         ]);
 
         $response = [
@@ -448,6 +441,29 @@ class AdminEditController extends AbstractController
         }
         $promo->setCurrent(true);
         $manager->persist($promo);
+        $manager->flush();
+
+        $response = [
+            "code" => 200
+        ];
+        return new JsonResponse($response);
+    }
+
+    /**
+     * Complete a specific project
+     * @Route("/project/{id}/completed", name="project_complete")
+     * @param Project             $project
+     * @param ObjectManager       $manager
+     * @return JsonResponse
+     */
+    public function completeProject(Project $project, ObjectManager $manager)
+    {
+        if($project->getCompleted()){
+            $project->setCompleted(false);
+        } else {
+            $project->setCompleted(true);
+        }
+        $manager->persist($project);
         $manager->flush();
 
         $response = [

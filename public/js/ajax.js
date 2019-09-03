@@ -98,7 +98,24 @@ $(document).on('click','.active-user', function() {
         type: "POST",
 
         success: function(response){
-            // if($(check).)
+            if($(check).is(':checked')){
+                $(check).prop("checked",true);
+            } else {
+                $(check).prop("checked",false);
+            }
+        }
+    });
+})
+
+$(document).on('click','.project-completed', function() {
+    const check = $(this);
+
+    const url = $(this).data('projecturl');
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
             if($(check).is(':checked')){
                 $(check).prop("checked",true);
             } else {
@@ -215,26 +232,12 @@ $(document).on('click','.edit-project',function(){
             if (url !== undefined)
             {
                 $('.modal[id*="edit-project"] .modal-body').html("");
-                $(modal).find('.modal-body').append(response.render);
-            }
-        }
-    });
-})
-
-$(document).on('click','.edit-project-user',function(){
-    const url = $(this).data('url');
-    modal = $(this).data('target');
-    console.log('ok');
-    $.ajax({
-        url: url,
-        type: "POST",
-
-        success: function(response){
-            if (url !== undefined)
-            {
-                console.log('ok2');
-                $('.modal[id*="edit-project-user"] .modal-body').html("");
-                $(modal).find('.modal-body').append(response.render);
+                $(modal).find('.modal-body').append(response.render + `
+                    <script>
+                    $('.project-user-selected').selectpicker();
+                    $('.language-selected').selectpicker();
+                    </script>
+                `);
             }
         }
     });
