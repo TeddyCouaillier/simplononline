@@ -79,7 +79,7 @@ class AdminShowController extends AbstractController
         $pagination->setEntity(User::class)
                    ->setPage($page);
 
-        if($slug == 'other'){
+        if($slug == 'other'){ 
             $pagination->setCriteria(['promotion' => null]);
         } else if($slug == 'all') {
             $pagination->setCriteria([]);
