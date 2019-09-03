@@ -11,20 +11,20 @@
         <hr>
         <div class="flex wrap">
             <div class="w-33 task-info">
-                <div class="container-grey" >
+                <div class="container-grey">
                     <span class="bold">Info</span>
                     <div class="my-3">{{ form_widget(form.type) }}</div>
                     <div class="my-3">{{ form_widget(form.title, {'attr': {'maxlength': '50'}}) }}</div>
                     <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '8'}}) }}</div>
-                    <div class="my-3">{{ form_widget(form.users, {'attr': {
-                        'class': 'task-user-selected selectpicker',
-                        'title': 'Apprenant(s) lié(s)',
-                        'data-live-search': 'true',
-                        'multiple': '',
-                        'data-selected-text-format': 'count > 2',
-                        'data-style': 'bg-white',
-                        'data-size': '6'
-                        }})  }}
+                    <div class="my-3">
+                        <select id="edit_task_users" name="edit_task[users][]" class="shadow-small task-user-selected selectpicker form-control" 
+                        title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 2" data-style="bg-white" data-size="6">
+                            {% for user in contributors %}
+                                <option value="{{ user.id }}" {% if user.hasTask(task) %}selected{% endif %}>
+                                    {{ user.fullname }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>

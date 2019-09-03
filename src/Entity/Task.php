@@ -286,4 +286,17 @@ class Task
 
         return $this;
     }
+
+    /**
+     * Remove all users in the specific task
+     * @return void
+     */
+    public function clearTask()
+    {
+        if(!empty($this->users)){
+            foreach($this->users as $user){
+                $this->removeUser($user);
+            }
+        }
+    }
 }

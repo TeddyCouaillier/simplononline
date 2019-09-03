@@ -19,17 +19,6 @@
                     {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
                     <div class="text-small text-grey w-25 carac">(60 carac. max)</div>
                 </div>
-                {# <div class="container-white shadow-small my-3">
-                    {{ form_widget(form.users, {'attr': {
-                        'class': 'project-user-selected selectpicker',
-                        'title': 'Ajouter des apprenants',
-                        'data-live-search': 'true',
-                        'multiple': '',
-                        'data-selected-text-format': 'count > 5',
-                        'data-style': 'bg-white',
-                        'data-size': '6'
-                    }}) }}
-                </div> #}
                 <div class="container-white shadow-small my-3">
                     <select id="edit_project_users" name="edit_project[users][]" class="form-control project-user-selected selectpicker" 
                     title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 5" data-style="bg-white">
@@ -46,16 +35,15 @@
                 <div class="container-white shadow-small px-1 my-3">
                     {{ form_widget(form.website) }}
                 </div>
-                <div class="container-white shadow-small px-1 my-3">
-                    {{ form_widget(form.languages, {'attr': {
-                        'class': 'language-selected selectpicker',
-                        'title': 'Ajouter des langages',
-                        'data-live-search': 'true',
-                        'multiple': '',
-                        'data-selected-text-format': 'count > 2',
-                        'data-style': 'bg-white',
-                        'data-size': '6'
-                    }}) }}
+                <div class="container-white shadow-small my-3">
+                    <select id="edit_project_languages" name="edit_project[languages][]" class="form-control language-selected selectpicker"
+                    title="Ajouter des langages" data-live-search="true" multiple data-selected-text-format="count > 4" data-style="bg-white" data-size="6">
+                    {% for language in languages %}
+                        <option value="{{ language.id }}" {% if project.hasLanguage(language) %}selected{% endif %}>
+                            {{ language.label }}
+                        </option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="col-md-5 col-sm-12 col-xs-12">

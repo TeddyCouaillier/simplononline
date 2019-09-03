@@ -74,8 +74,9 @@ input{
     padding: 2px 7px ;
 }
 
-input:focus,select:focus{
+input:focus,select:focus, textarea:focus{
     border: none;
+    outline: 1px solid var(--greydark) !important;
     -webkit-box-shadow: var(--shadow);
        -moz-box-shadow: var(--shadow);
             box-shadow: var(--shadow);

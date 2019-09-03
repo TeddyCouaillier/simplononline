@@ -18,6 +18,7 @@ use App\Form\Project\CorrectionType;
 use App\Form\Project\EditProjectType;
 use App\Repository\ProjectRepository;
 use App\Repository\LanguageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,18 +53,27 @@ class ProjectController extends AbstractController
 
     /**
      * Show all projects by language
-     * @Route("s/{slug}", name="all_by_language")
+     * @Route("s/{slug}/{page<\d+>?1}", name="all_by_language")
+     * @param integer            $page
      * @param Language           $language
      * @param ProjectRepository  $prep
      * @param LanguageRepository $lrep
      * @return Response
      */
-    public function allProjectByLanguage(Language $language, ProjectRepository $prep, LanguageRepository $lrep)
+    public function allProjectByLanguage(int $page, Language $language, ProjectRepository $prep, LanguageRepository $lrep)
     {
+        $limit = 20;
+        $offset = $page * $limit - $limit;
+        $projects = $prep->findAllByLanguageLimit($language, $limit, $offset);
+        $total = count($prep->findAllByLanguage($language));
+        $pages = ceil($total / $limit);
+
         return $this->render('project/all.html.twig', [
-            'projects'  => $prep->findAllByLanguage($language),
-            'languages' => $lrep->findAll(),
-            'language'  => $language
+            'page'       => $page,
+            'pages'      => $pages,
+            'projects'   => $projects,
+            'languages'  => $lrep->findAll(),
+            'language'   => $language
         ]);
     }
 
@@ -197,6 +207,7 @@ class ProjectController extends AbstractController
 
             if(isset($request->request->get('edit_project')['languages'])){
                 $languages_id = $request->request->get('edit_project')['languages'];
+                $project->clearLanguages();
                 foreach($languages_id as $id){
                     $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
                     $project->addLanguage($language);
@@ -222,9 +233,10 @@ class ProjectController extends AbstractController
         }
 
         return $this->render('project/edit.html.twig', [
-            'project' => $project,
-            'users'   => $this->getDoctrine()->getRepository(User::class)->findAllByCurrentPromo(),
-            'form'    => $form->createView()
+            'project'   => $project,
+            'users'     => $this->getDoctrine()->getRepository(User::class)->findAllByCurrentPromo(),
+            'languages' => $this->getDoctrine()->getRepository(Language::class)->findAll(),
+            'form'      => $form->createView()
         ]);
     }
 
@@ -282,8 +294,9 @@ class ProjectController extends AbstractController
      * Ajax calling for task edit
      * @Route("/{slug}/task/{id_task}/edit", name="edit_task")
      * @Entity("task", expr="repository.find(id_task)")
-     * @param Porject       $project
+     * @param Project       $project
      * @param Task          $task
+     * @param Request       $request
      * @param ObjectManager $manager
      * @return Response/JsonResponse
      */
@@ -293,11 +306,21 @@ class ProjectController extends AbstractController
             throw new AccessDeniedException();
         }
 
+        $rep = $this->getDoctrine()->getRepository(User::class);
         $form = $this->createForm(EditTaskType::class, $task);
-
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            $task->clearTask();
+            if(isset($request->request->get('edit_task')['users'])){
+                $users_id = $request->request->get('edit_task')['users'];
+
+                for($i = 0 ; $i < sizeof($users_id) ; $i++){
+                    $user = $rep->find($users_id[$i]);
+                    $task->addUser($user);
+                }
+            }
+
             $task->checkType();
             $manager->persist($task);
             $manager->flush();
@@ -319,11 +342,23 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()]);
         }
 
+        $users = $rep->findAllByTask($task);
+        /**
+         * @var $contributors all task contributors (within/without the project)
+         */
+        $contributors = new ArrayCollection($users);
+        foreach($project->getUsers() as $user){
+            if (!$contributors->contains($user)) {
+                $contributors[] = $user;
+            }
+        }
+
         // Ajax calling
         $render = $this->render('project/edit_task.html.twig',[
             'form'    => $form->createView(),
             'project' => $project,
-            'task'    => $task
+            'task'    => $task,
+            'contributors' => $contributors
         ]);
         $response = [
             "code"   => 200,

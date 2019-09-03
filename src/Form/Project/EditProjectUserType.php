@@ -27,12 +27,11 @@ class EditProjectUserType extends ApplicationType
                 'placeholder'   => 'Liste des apprenants du projet',
                 'multiple'      => true,
                 'expanded'      => true,
-                // 'mapped'        => false,
+                'mapped'        => false,
                 'required'      => false,
                 'query_builder' => function(UserRepository $rep) {
                     return $rep->findCurrentPromoType();
                 }
-                // 'data' => $em->()
             ])
         ;
     }

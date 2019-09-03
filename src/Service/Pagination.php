@@ -67,14 +67,16 @@ class Pagination{
 
     /**
      * Display the pagination template
+     * @var boolean $empty data empty or not
      * @return Environment
      */
-    public function render()
+    public function render($empty = true)
     {
         $this->twig->display($this->template, [
             'page'  => $this->page,
             'pages' => $this->getPages(),
             'route' => $this->route,
+            'empty' => $empty
         ]);
     }
 

@@ -383,6 +383,29 @@ class Project
         return $this;
     }
 
+    /**
+     * Remove all languages in the specific project
+     * @return void
+     */
+    public function clearLanguages()
+    {
+        if(!empty($this->languages)){
+            foreach($this->languages as $language){
+                $this->removeLanguage($language);
+            }
+        }
+    }
+
+    /**
+     * Check if the project has a specific language
+     * @param Language $language
+     * @return boolean
+     */
+    public function hasLanguage(Language $language)
+    {
+        return $this->languages->contains($language);
+    }
+
     public function getModerator(): ?User
     {
         return $this->moderator;

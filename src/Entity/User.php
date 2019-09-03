@@ -857,6 +857,21 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * Check if user has a specific task
+     * @param Task $task
+     * @return boolean
+     */
+    public function hasTask(Task $task)
+    {
+        foreach($this->tasks as $utask){
+            if($task == $utask){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return Collection|Project[]
      */
     public function getProjectmod(): Collection

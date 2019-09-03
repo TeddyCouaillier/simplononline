@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Project;
+use App\Entity\Task;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -62,6 +63,10 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Find all moderators for the current promotion
+     * @return User[]
+     */
     public function findAllModeratorByCurrentPromo()
     {
         return $this->createQueryBuilder('u')
@@ -117,10 +122,26 @@ class UserRepository extends ServiceEntityRepository
     public function getAllUserRoleByCurrentPromo()
     {
         return $this->createQueryBuilder('u')
-        ->join('u.userRoles', 'ur')
-        ->join('u.promotionmod', 'p')
-        ->andWhere('ur is not null')
-        ->andWhere('p.current = true')
+            ->join('u.userRoles', 'ur')
+            ->join('u.promotionmod', 'p')
+            ->andWhere('ur is not null')
+            ->andWhere('p.current = true')
+        ;
+    }
+
+    /**
+     * Find all task's users
+     * @param Task $task
+     * @return User[]
+     */
+    public function findAllByTask(Task $task)
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.tasks', 't')
+            ->andWhere('t = :task')
+            ->setParameter('task',$task)
+            ->getQuery()
+            ->getResult()
         ;
     }
 }

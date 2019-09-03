@@ -72,42 +72,42 @@
         {% for task in tasks if task is not null %}
             {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
             {{ _self.modal("modal-edit-"~task.id,'mw-66') }}
-            <div class="container-white flex align-center mt-2 p-3">
-                <div class="w-100">
+            <div class="container-white row mx-0 flex align-center mt-2 p-3 task-container">
+                <div class="col-lg-6 col-md-5 col-sm-6 col-12">
                     <p class="bold" id="task-title">{{ task.title }}</p>
                     <p class="text-grey">{{ task.interval }}</p>
                 </div>
-                <div class="flex align-center justify-content-end mt-1 mb-2 project-members" id="task-users">
+                <div class="col-lg-3 col-md-4 col-sm-5 col-11 flex align-center justify-content-end mt-1 mb-2 project-members" id="task-users">
                     {% for user in task.users|slice(0,4) %}
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                     {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                         {{ user.fullname }} <br>
                     '>
                     {% endfor %}
-                    {% if project.users|length > 4 %}
+                    {% if task.users|length > 4 %}
                     <div class="avatar-xs my-2 ml-1 border-0 text-center text-small project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                        {% for user in project.users|slice(4, project.users|length) %}
+                        {% for user in task.users|slice(4, task.users|length) %}
                         {{ user.fullname }}<br>
                         {% endfor %}
-                    '>+{{project.users|length - 4}}</div>
+                    '>+{{task.users|length - 4}}</div>
                     {% endif %}
                 </div>
-                <div class="text-center text-grey" id="task-sub">
+                <div class="col-lg-2 col-md-2 text-center text-grey" id="task-sub">
                     <i class="fal fa-tasks task-icon mr-2"></i>
                     <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
                 </div>
-            <div>
-            {% if project.completed == false %}
-            <div class="subnav">
-                <i class="fas fa-ellipsis-v"></i>
-                <div class="subnav-tooltip">
-                    <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
-                    <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-1">
+                    {% if project.completed == false %}
+                    <div class="subnav">
+                        <i class="fas fa-ellipsis-v"></i>
+                        <div class="subnav-tooltip">
+                            <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                            <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
-            </div>
-        </div>
         {% endfor %}
     </div>
     {% if tasks|length >= 5 %}

@@ -62,7 +62,7 @@
     {% endfor %}
 </div>
 
-{{ pagination.render }}
+{{ pagination.render(pagination.data is empty) }}
 
 {% endblock %}
 

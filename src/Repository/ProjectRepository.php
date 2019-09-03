@@ -100,4 +100,24 @@ class ProjectRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Find all project by language for the pagination
+     * @param Language $language
+     * @param integer $limit
+     * @param integer $offset
+     * @return Project[]
+     */
+    public function findAllByLanguageLimit(Language $language, int $limit, int $offset)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.languages','l')
+            ->andWhere('l = :language')
+            ->setParameter('language', $language)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

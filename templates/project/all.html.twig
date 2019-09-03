@@ -47,7 +47,7 @@
     </div>
     <hr>
 
-    {% if user is not defined %}
+    {% if user is not defined and language is not defined %}
     {% set projects = pagination.data %}
     {% endif %}
 
@@ -84,25 +84,47 @@
         {% endfor %}
     </div>
 
-    {% if user is not defined %}
-        {{ pagination.render }}
-    {% else %}
-    <div class="flex just-center my-3">
-        <div class="pagination p1">
-            <ul class="text-center">
-            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
-                <li><i class="fal fa-arrow-circle-left"></i></li>
-            </a>
-            {% for i in 1..pages %}
-            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
-                <li>{{ i }}</li>
-            </a>
-            {% endfor %}
-            <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
-                <li><i class="fal fa-arrow-circle-right"></i></li>
-            </a>
-            </ul>
+    {% if user is not defined and language is not defined %}
+        {{ pagination.render(project is empty) }}
+    {% elseif language is defined %}
+        {% if projects is not empty %}
+        <div class="flex just-center my-3">
+            <div class="pagination p1">
+                <ul class="text-center">
+                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                    <li><i class="fal fa-arrow-circle-left"></i></li>
+                </a>
+                {% for i in 1..pages %}
+                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                    <li>{{ i }}</li>
+                </a>
+                {% endfor %}
+                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                    <li><i class="fal fa-arrow-circle-right"></i></li>
+                </a>
+                </ul>
+            </div>
         </div>
-    </div>
+        {% endif %}
+    {% else %}
+        {% if projects is not empty %}
+        <div class="flex just-center my-3">
+            <div class="pagination p1">
+                <ul class="text-center">
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                    <li><i class="fal fa-arrow-circle-left"></i></li>
+                </a>
+                {% for i in 1..pages %}
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                    <li>{{ i }}</li>
+                </a>
+                {% endfor %}
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                    <li><i class="fal fa-arrow-circle-right"></i></li>
+                </a>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
     {% endif %}
 {% endblock %}
