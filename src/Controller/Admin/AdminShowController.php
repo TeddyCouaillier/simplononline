@@ -81,6 +81,8 @@ class AdminShowController extends AbstractController
 
         if($slug == 'other'){
             $pagination->setCriteria(['promotion' => null]);
+        } else if($slug == 'all') {
+            $pagination->setCriteria([]);
         } else {
             $pagination->setCriteria(['promotion' => $promo]);
         }
