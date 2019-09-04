@@ -1,101 +1,62 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
 {% block title %}Liste des données{% endblock %}
 
 {% block body %}
-<div class="container px-5 my-4">
   <div class="flex just-between">
     <h1>Liste des données</h1>
     {{ template.add() }}
   </div>
   <hr>
-  <div class="flex just-around">
-    <table class="table table-hover text-center w-50 bg-white shadow-small">
-      <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Label</th>
-            <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for data in datas %}
+  <div>
+    <p class="text-center h5 my-3 bold">Données</p>
+    <div class="flex wrap just-around">
+      {% for data in datas %}
         {{ template.deleteConfirm('data-'~data.id,path('admin_data_delete',{'id':data.id})) }}
         {{ template.modal('edit-data-'~data.id)}}
-        <tr>
-          <th scope="row">{{ data.id }}</th>
-          <td class="w-100">
-            <span class="bold">{{ data.label }}</span>
-          </td>
-          <td>
-            <div class="btn-group" role="group">
-              <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-info edit-data" data-url="{{path('admin_data_edit',{'id': data.id}) }}" data-toggle="modal" data-target="#edit-data-{{data.id}}">
+        <div class="container-white shadow-small w-flex flexc text-center my-1">
+          <span class="bold">{{ data.label }}</span>
+          <div class="text-center mt-auto">
+              <button class="btn text-grey bhover shadow-small w-33 edit-data"
+              data-url="{{path('admin_data_edit',{'id': data.id}) }}" data-toggle="modal" data-target="#edit-data-{{data.id}}">
                   Modifier
-                  </button>
-              </div>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-data-{{data.id}}"><i class="fal fa-times-circle"></i></button>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    <div class="w-33">
-      <table class="table table-hover text-center bg-white shadow-small">
-        <thead>
-          <tr>
-              <th scope="col">#</th>
-              <th scope="col">Label</th>
-              <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for language in languages %}
-          {{ template.deleteConfirm('language-'~language.id,path('admin_language_delete',{'id':language.id})) }}
-          <tr>
-            <th scope="row">{{ language.id }}</th>
-            <td class="w-100">
-              <span class="bold">{{ language.label }}</span>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger" data-toggle="modal"
-              data-target="#modal-language-{{language.id}}"><i class="fal fa-times-circle"></i></button>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
-      <table class="table table-hover text-center bg-white shadow-small">
-        <thead>
-          <tr>
-              <th scope="col"></th>
-              <th scope="col">Label</th>
-              <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for role in roles %}
-            {% for urole in role.userroles %}
-            {{ template.deleteConfirm('role-'~role.id,path('admin_role_remove',{'id':role.id, 'id_role': urole.id})) }}
-            <tr>
-              <td class="text-left">{{ role.fullname }}</td>
-              <td>{{ urole }}</td>
-              <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-role-{{role.id}}"><i class="fal fa-times-circle"></i></button>
-              </td>
-            </tr>
-            {% endfor %}
-          {% endfor %}
-        </tbody>
-      </table>
+              </button>
+              <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-data-{{data.id}}"><i class="fal fa-times-circle"></i></button>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
-</div>
+  <hr>
+  <div>
+    <p class="text-center h5 my-3 bold">Langages</p>
+    <div class="flex wrap just-center">
+      {% for language in languages %}
+        {{ template.deleteConfirm('language-'~language.id,path('admin_language_delete',{'id':language.id})) }}
+        <div class="outline-black" data-toggle="modal" data-target="#modal-language-{{language.id}}">
+          {{ language.label }}
+          <i class="fal fa-times-circle"></i>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr>
+  <div>
+    <p class="text-center h5 my-3 bold">Roles</p>
+    <div class="flex wrap just-around">
+      {% for role in roles %}
+        {% for urole in role.userroles %}
+          {{ template.deleteConfirm('role-'~role.id,path('admin_role_remove',{'id':role.id, 'id_role': urole.id})) }}
+          <div class="container-white shadow-small bold rhover" data-toggle="modal" data-target="#modal-role-{{role.id}}">
+            <span>{{ role.fullname }}</span> - <span class="text-red">{{ urole }}</span>
+            <i class="fal fa-times-circle ml-2"></i>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
 
 {% block modalBody %}

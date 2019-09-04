@@ -44,13 +44,11 @@
 {% if data is defined %}
 <h1>Modifier une donnée</h1>
 <hr>
-<div class="container-grey">
-    {{ form_start(form, {'action': path('admin_data_edit',{'id':data.id})}) }}
-    {{ form_label(form.label) }}
-    {{ form_widget(form.label) }}
-    {{ template.confirm() }}
-    {{ form_end(form) }}
-</div>
+{{ form_start(form, {'action': path('admin_data_edit',{'id':data.id})}) }}
+{{ form_label(form.label) }}
+{{ form_widget(form.label) }}
+{{ template.confirm() }}
+{{ form_end(form) }}
 {% endif %}
 
 {% if correction is defined %}
