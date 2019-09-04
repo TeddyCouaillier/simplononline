@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
@@ -11,23 +11,19 @@
 {% form_theme form _self %}
 
 {% block body %}
-    <div class="container px-5 my-3">
     {{ template.checkMessage(form, "Les niveaux doivent être compris entre 0 et 3") }}
     <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
+    <span class="text-grey">{{ user.fullname }}</span>
     <hr>
     {{ form_start(form) }}
-    <div class="container-grey edit-skill-users">
         {% for form in form.userSkills %}
-            <div class="flex wrap just-between align-center bg-white rounded mb-2 p-2">
+            <div class="container-white shadow-small flex wrap just-between align-center mb-2">
                 <div class="w-75 edit-skill-label">{{ user.userSkills[loop.index-1].skill.label }}</div>
                 <div>{{ form_widget(form) }}</div>
             </div>
         {% endfor %}
         {{ template.confirm() }}
-    </div>
-
     {{ form_end(form) }}
-    </div>
 {% endblock %}
 
 {% block _edit_user_skills_userSkills_entry_widget %}

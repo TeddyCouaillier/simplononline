@@ -131,3 +131,8 @@
         -webkit-box-orient: vertical;
     }
 }
+
+@media screen and (max-width: 400px){
+    .user-option{ display: none; }
+    .user-option-resp{ display: block !important; }
+}

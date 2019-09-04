@@ -177,3 +177,9 @@ label{ cursor:pointer; }
     transform: translateY(0);
     transition: 1s cubic-bezier(.6,0,0,1);
 }
+
+.main-title {
+    border-bottom: 1px solid rgba(25,25,25,.1);
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+  }
