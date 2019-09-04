@@ -2,13 +2,14 @@
 
 namespace App\Form\Project;
 
+use App\Entity\Project;
+use App\Entity\Correction;
 use App\Form\ApplicationType;
+use App\Repository\ProjectRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use App\Entity\Correction;
-use App\Entity\Project;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AddCorrectionType extends ApplicationType
 {
@@ -19,7 +20,10 @@ class AddCorrectionType extends ApplicationType
             ->add('project', EntityType::class, [
                 'class'        => Project::class,
                 'choice_label' => 'title',
-                'placeholder'  => 'Choisir le projet à corriger'
+                'placeholder'  => 'Choisir le projet à corriger (promo actuelle)',
+                'query_builder' => function(ProjectRepository $rep) {
+                    return $rep->getAllProjectByCurrentPromo();
+                }
             ])
         ;
     }

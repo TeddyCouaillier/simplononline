@@ -1,66 +1,34 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
 {% block title %}Liste des corrections{% endblock %}
 
 {% block body %}
-<div class="container px-5 my-4">
   <div class="flex wrap just-between align-center">
     <h1 class="w-75">Liste des corrections</h1>
     {{ template.add() }}
   </div>
   <hr>
-  <table class="table table-hover text-center bg-white shadow-small admin-correction">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col" class="w-50">Contenu</th>
-        <th scope="col" class="w-25">Projet</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for correction in pagination.data %}
+  <div class="w-100">
+    {% for correction in pagination.data %}
       {{ template.deleteConfirm(correction.id,path('admin_correction_delete',{'id':correction.id})) }}
       {{ template.modal('edit-correction-'~correction.id)}}
-      <tr>
-        <th scope="row">{{ correction.id }}</th>
-        <td>{{ correction.content }}</td>
-        <td><a href="{{ path('project_show',{'slug':correction.project.slug}) }}" target="_blank">{{ correction.project.title|truncate(35) }}</a></td>
-        <td>
-          <div class="btn-group" role="group">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-info edit-correction" data-url="{{path('admin_correction_edit',{'id': correction.id}) }}" data-toggle="modal" data-target="#edit-correction-{{correction.id}}">
-                Modifier
-                </button>
-            </div>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{correction.id}}"><i class="fal fa-times-circle"></i></button>
+      <div class="container-white flexc my-1 shadow-small">
+          <p><span class="bold">Projet</span> - {{ correction.project.title }}</p>
+          <p class="my-2">{{ correction.content }}</p>
+          <div class="text-center mt-auto">
+              <button class="btn text-grey bhover shadow-small w-33 edit-correction" data-url="{{path('admin_correction_edit',{'id': correction.id}) }}"
+              data-toggle="modal" data-target="#edit-correction-{{correction.id}}">
+                  Modifier
+              </button>
+              <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-{{correction.id}}"><i class="fal fa-times-circle"></i></button>
           </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<div class="w-100 admin-correction-responsive">
-    {% for correction in pagination.data %}
-        <div class="container-white row flex align-center mx-0 my-1 shadow-small">
-            <div class="col-sm-8 text-justify">{{ correction.content }}</div>
-            <div class="col-sm-4">
-              <div class="btn-group" role="group">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-info edit-correction" data-url="{{path('admin_correction_edit',{'id': correction.id}) }}" data-toggle="modal" data-target="#edit-correction-{{correction.id}}">
-                    Modifier
-                    </button>
-                </div>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{correction.id}}"><i class="fal fa-times-circle"></i></button>
-              </div>
-            </div>
-        </div>
+      </div>
+    {% else %}
+      <p class="text-center bold">Aucune correction</p>
     {% endfor %}
-</div>
+  </div>
 
 {{ pagination.render(pagination.data is empty) }}
 

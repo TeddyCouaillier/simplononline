@@ -138,4 +138,17 @@ class ProjectRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Get all projects in the current promo
+     */
+    public function getAllProjectByCurrentPromo()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.users','u')
+            ->join('u.promotion', 'pr')
+            ->andWhere('pr.current = true')
+            ->andWhere('p.completed = false')
+        ;
+    }
 }
