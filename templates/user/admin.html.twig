@@ -1,0 +1,200 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="user-admin mb-4">
+    {######################################
+     #### USER NAV
+     #####################################}
+    <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
+        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
+            <i class="far fa-list-ul text-large"></i><br>
+            Projets
+        </a>
+        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
+            <i class="fas fa-user-friends text-large"></i><br>
+            Utilisateurs
+        </a>
+        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
+            <i class="fas fa-users-class text-large mt-1"></i><br>
+            Promotions
+        </a>
+        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit">
+            <i class="fas fa-tasks text-large"></i><br>
+            Compétences
+        </a>
+        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1">
+            <i class="fas fa-handshake text-large"></i><br>
+            Stages
+        </a>
+        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
+            <i class="fas fa-pencil-alt text-large"></i><br>
+            Corrections
+        </a>
+        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
+            <i class="fas fa-question-circle text-large"></i><br>
+            Aides
+        </a>
+        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
+            <i class="fas fa-cog text-large"></i><br>
+            Autres
+        </a>
+    </div>
+
+    {######################################
+     #### PROMO INFO
+     #####################################}
+    <div class="container-white shadow-small px-3 user-promo-info">
+        <div class="flex just-between align-baseline my-1">
+            <span>Promo actuelle</span>
+            {% if promo != null %}
+                <span class="badge badge-pill badge-danger mt-1">{{ promo.label }}</span>
+            {% else %}
+                <em>Aucune</em>
+            {% endif %}
+        </div>
+        <div class="flex just-between my-1">
+            <span>Moyenne météo du jour</span>
+            <b>{{ template.weather(weather) }}</b>
+        </div>
+        <hr>
+        <div class="flex just-between my-1">
+            <span>Nombre de projets</span>
+            <b>{{ projects|length }}</b>
+        </div>
+        <div class="flex just-between my-1">
+            <span>Projets complétés</span>
+            <b>{{ completed }}</b>
+        </div>
+        <div class="flex just-between my-1">
+            <span>Nombre d'utilisateurs</span>
+            <b>{{ users }}</b>
+        </div>
+        <div class="flex just-between my-1">
+            <span>Nombre de lien d'aides</span>
+            <b>{{ helps }}</b>
+        </div>
+        <div class="flex just-between my-1">
+            <span>Nombre de corrections</span>
+            <b>{{ corrections }}</b>
+        </div>
+    </div>
+
+    {######################################
+     #### USER INFO
+     #####################################}
+    <div class="container-white shadow-small user-info flexc align-center just-between p-3">
+        <img src="/img/avatar/{{user.avatar}}" class="avatar-lg my-3">
+        <div class="text-center">
+            <span class="text-red bold">{{ user.fullname }}</span><br>
+            <span class="badge badge-pill badge-danger mt-1">
+                {% for role in user.userRoles%} {{ role }}{% endfor %}
+            </span>
+        </div>
+    </div>
+
+    {######################################
+     #### USER SEND FILES
+     #####################################}
+    <div class="container-white shadow-small user-send-files p-3">
+        <div class="form-files rounded">
+            <p class="bold">Envoyer un fichier</p>
+            <div>
+                {{ form_start(form) }}
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}
+                    <hr>
+                    {{ form_label(form.receiver) }}
+                    {{ form_widget(form.receiver, {'attr': {
+                        'class': 'files-selected selectpicker',
+                        'title': 'Choisir les utilisateurs',
+                        'data-live-search': 'true',
+                        'multiple': '',
+                        'data-selected-text-format': 'count > 2',
+                        'data-style': 'bg-grey',
+                        'data-size': '6'
+                    }}) }}
+                    <hr>
+                    {{ form_widget(form.name) }}
+                    <div class="custom-control custom-switch text-center mt-4">
+                    {{ form_widget(form.important) }}
+                    </div>
+                    {{ template.confirm()}}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    {######################################
+     #### USER FILES
+     #####################################}
+    <div class="container-white shadow-small user-files">
+        <div class="flex just-center align-center h-100">
+            <div class="flex align-center text-center">
+                {% set filecount = user.importantFiles|length %}
+                <p class="bold">
+                    {% if filecount == 0 %}
+                    {{ filecount }} fichier important.<br>
+                    <i class="fal fa-folder-times icon-sm mt-2"></i>
+                    {% elseif filecount == 1 %}
+                    <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                    <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
+                    {% else %}
+                    <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                    <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {######################################
+     #### USER WEATHER
+     #####################################}
+     <div class="bg-white rounded shadow-small user-weather flexc just-between">
+        <div class="flex just-center align-center h-100">
+            {{ user.weatherIcon|raw }}
+        </div>
+        <div class="now bg-grey text-center bold py-2">
+            {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
+        </div>
+    </div>
+
+    {######################################
+     #### LAST PROJECTS
+     #####################################}
+    <div class="user-last-projects">
+        <p class="text-center bold">Derniers projets en cours</p>
+        <hr>
+        <div class="flex wrap just-center">
+        {% for project in projects|reverse|slice(0,15) %}
+            <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+                <div>
+                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                    <div class="flex just-center align-center">
+                        {% for user in project.users|slice(0,4) %}
+                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                            {{ user.fullname }} <br>
+                        '>
+                        {% endfor %}
+                        {% if project.users|length > 4 %}
+                        <div class="avatar-xs my-2 bg-grey border-0 project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                            {% for user in project.users|slice(4, project.users|length) %}
+                            {{ user.fullname }}<br>
+                            {% endfor %}
+                        '>+{{project.users|length - 4}}</div>
+                        {% endif %}
+                    </div>
+                    <p class="text-small text-grey">
+                        {% for language in project.languages %}
+                            {{ language.label }}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="text-center my-4">
+            <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
+        </div>
+    </div>
+</div>

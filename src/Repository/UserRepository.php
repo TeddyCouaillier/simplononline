@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Project;
+use App\Entity\Promotion;
 use App\Entity\Task;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -143,5 +144,23 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * Get the weather average in the specific promo
+     * @param Promotion $promo
+     * @return double
+     */
+    public function findWeatherAvgByPromo(Promotion $promo)
+    {
+        $query = $this->getEntityManager()->createQuery('
+                SELECT AVG(u.weather)
+                FROM App\Entity\User u
+                WHERE u.promotion = :promo
+            ')
+            ->setParameter('promo',$promo)
+        ;
+
+        return $query->getSingleScalarResult();
     }
 }

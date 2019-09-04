@@ -163,3 +163,17 @@
         </div>
     </div>
 {% endmacro %}
+
+{% macro weather(type) %}
+    {% if type == 0 %}
+        <img src="/img/weather/sun.svg" class="rounded-xs">
+    {% elseif type == 1 %}
+        <img src="/img/weather/rain.svg" class="rounded-xs">
+    {% elseif type == 2 %}
+        <img src="/img/weather/clouds.svg" class="rounded-xs">
+    {% elseif type == 3 %}
+        <img src="/img/weather/thunder.svg" class="rounded-xs">
+    {% else %}
+        <img src="/img/weather/suncloud.svg" class="rounded-xs">
+    {% endif %}
+{% endmacro %}

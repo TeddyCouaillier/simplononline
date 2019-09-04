@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Promotion;
 use App\Entity\Correction;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Correction|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,20 @@ class CorrectionRepository extends ServiceEntityRepository
         parent::__construct($registry, Correction::class);
     }
 
-    // /**
-    //  * @return Correction[] Returns an array of Correction objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Find all projects corrections with an user in the specific promo
+     * @param Promotion $promo
+     * @return Correction[]
+     */
+    public function findAllCorrectionByPromo(Promotion $promo)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('c.project','p')
+            ->join('p.users', 'u')
+            ->andWhere('u.promotion = :promo')
+            ->setParameter('promo', $promo)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Correction
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

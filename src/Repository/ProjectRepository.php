@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use App\Entity\Project;
 use App\Entity\Language;
+use App\Entity\Promotion;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -116,6 +117,23 @@ class ProjectRepository extends ServiceEntityRepository
             ->setParameter('language', $language)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find all projects incompleted in the specific promo
+     * @param Promotion $promo
+     * @return Project[]
+     */
+    public function findAllProjectByPromo(Promotion $promo)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.users','u')
+            ->andWhere('u.promotion = :promo')
+            ->andWhere('p.completed = false')
+            ->setParameter('promo', $promo)
             ->getQuery()
             ->getResult()
         ;

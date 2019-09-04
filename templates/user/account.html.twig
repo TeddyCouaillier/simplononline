@@ -3,6 +3,7 @@
 {% block title %}{{ user.fullname }}{% endblock %}
 
 {% block stylesheets %}
+<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
 <link rel="stylesheet" href="/css/user.css">
 <link rel="stylesheet" href="/css/training.css">
 <link rel="stylesheet" href="/css/project.css">
@@ -10,6 +11,9 @@
 
 {% block body %}
 
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}
+{% include 'user/admin.html.twig' %}
+{% else %}
 <div class="user">
     {######################################
      #### USER INFO
@@ -244,4 +248,9 @@
         </div>
     </div>
 </div>
+{% endif %}
+{% endblock %}
+
+{% block libraries %}
+<script src="/js/libraries/bootstrap-select.min.js"></script>
 {% endblock %}
