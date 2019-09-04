@@ -2,45 +2,32 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Liste des simploniens{% endblock %}
+{% block title %}
+    {% if users is not defined %}
+    {{ promo.label }}
+    {% else %}
+    Autres
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
 {% endblock %}
 
 {% block body %}
-{{ template.checkMessage(form) }}
-    <div class="flex wrap just-between align-center">
-        <h1>Liste des utilisateurs</h1>
-        <div class="flex align-center">
-            <div class="btn-group shadow-small mr-4">
-                <div class="btn-group dropleft" role="group">
-                    <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                    <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
-                        <a href="{{ path('admin_all_users',{'slug': 'all'}) }}" class="dropdown-item">Tout</a>
-                        {% for promotion in promotions %}
-                        <a href="{{ path('admin_all_users',{'slug': promotion.slug}) }}" class="dropdown-item">
-                            {{ promotion.label }}
-                        </a>
-                        {% endfor %}
-                        <a href="{{ path('admin_all_users',{'slug': 'other'}) }}" class="dropdown-item">Autres</a>
-                    </div>
-                </div>
-                <span class="btn bg-white">
-                    {% if promo is not empty and promo is not null %}
-                    {{ promo.label }}
-                    {% else %}
-                    Tout
-                    {% endif %}
-                </span>
-            </div>
-            {{ template.add() }}
-        </div>
-    </div>
+    {% if users is not defined %}
+    <h1>{{ promo.label }}</h1>
+    <span class="h5">{{ promo.nickname|capitalize }}</span>
+    {% else %}
+    <h1>Aucune promotion</h1>
+    {% endif %}
     <hr>
+    {% if users is not defined %}
+    {% set users = promo.users %}
+    {% endif %}
     <div class="flex wrap just-around">
-        {% for user in pagination.data %}
-            {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}
+    {% for user in users %}
+        {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
@@ -118,7 +105,7 @@
                     <div class="col-2">
                         <a class="text-grey bhover" href="{{ path('user_show',{'slug': user.slug}) }}" data-toggle="tooltip"
                         data-placement="top" title="Afficher l'utilisateur">
-                            <i class="far fa-eye text-medium text-grey bhover"></i>
+                           {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}         <i class="far fa-eye text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
@@ -129,58 +116,12 @@
                     </div>
                 </div>
             </div>
-        {% else %}
+    {% else %}
         <span>Il n'y a personne pour le moment ...</span>
-        {% endfor %}
-    </div>
-    <div class="flex just-center my-3">
-        <div class="pagination p1">
-            <ul class="text-center">
-                <a href="{{ path(pagination.route,{'page': pagination.page - 1}) }}" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
-                    <li><i class="fal fa-arrow-circle-left"></i></li>
-                </a>
-                {% for i in 1..pagination.pages %}
-                <a href="{{ path(pagination.route,{'page': i}) }}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
-                    <li>{{ i }}</li>
-                </a>
-                {% endfor %}
-                <a href="{{ path(pagination.route,{'page': pagination.page + 1}) }}" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
-                    <li><i class="fal fa-arrow-circle-right"></i></li>
-                </a>
-            </ul>
-        </div>
+    {% endfor %}
     </div>
 {% endblock %}
 
-{% block modalTitle %}Ajouter un utilisateur{% endblock %}
-{% block modalBody %}
-    {{ form_start(form) }}
-        <div class="row p-2">
-            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                {{ form_label(form.firstname) }}<br>
-                {{ form_widget(form.firstname) }}
-            </div>
-            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                {{ form_label(form.lastname) }}<br>
-                {{ form_widget(form.lastname) }}
-            </div>
-            <div class="col-12 my-2 container-white shadow-small">
-                {{ form_label(form.email) }}<br>
-                {{ form_widget(form.email) }}
-            </div>
-            <div class="col-12 my-2 container-white shadow-small">
-                {{ form_label(form.password) }}<br>
-                {{ form_widget(form.password) }}
-            </div>
-            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                {{ form_label(form.promotion) }}<br>
-                {{ form_widget(form.promotion) }}
-            </div>
-            <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-                {{ form_label(form.userRoles) }}<br>
-                {{ form_widget(form.userRoles) }}
-            </div>
-        </div>
-        {{ template.confirm() }}
-    {{ form_end(form) }}
+{% block libraries %}
+<script src="/js/libraries/bootstrap-select.min.js"></script>
 {% endblock %}

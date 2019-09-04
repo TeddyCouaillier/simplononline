@@ -19,7 +19,7 @@
                 </div>
                 <div class="flexc just-center align-center h-100">
                     {% if error %}
-                    <div class="text-red m-2 p-2 w-75 border border-danger bold">
+                    <div class="text-red m-2 p-2 w-75 border shadow-small bold">
                         Une erreur est survenue. <br>
                         {{ error.messageKey|trans(error.messageData, 'security') }}
                     </div>

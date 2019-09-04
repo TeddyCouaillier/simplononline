@@ -76,15 +76,24 @@ function seeMore(el){
 
 $(document).on('click','.promocurrent', function() {
     const check = $(this);
-    $('.promocurrent').prop("checked",false);
+    $('.promocurrent').each(function(){
+        $(this).html('activer');
+        $(this).removeClass('bg-red');
+        $(this).removeClass('text-white');
+        $(this).addClass('text-grey');
+    });
 
     const url = $(this).data('promourl');
+
     $.ajax({
         url: url,
         type: "POST",
 
-        success: function(response){
-            $(check).prop("checked",true);
+        success: function(){
+            $(check).html('en cours');
+            $(check).removeClass('text-grey');
+            $(check).addClass('bg-red');
+            $(check).addClass('text-white');
         }
     });
 })

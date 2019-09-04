@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
@@ -7,14 +7,12 @@
 {% form_theme form _self 'jquery.collection.html.twig' %}
 
 {% block body %}
-    <div class="container px-5 my-3">
     <h1>{{ promo.label }}</h1>
     <hr>
     {{ form_start(form) }}
     {{ form_row(form.users) }}
     {{ template.confirm() }}
     {{ form_end(form) }}
-    </div>
 {% endblock %}
 
 {% block _add_users_promotion_users_entry_row %}

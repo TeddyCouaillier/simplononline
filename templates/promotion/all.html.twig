@@ -4,21 +4,49 @@
 
 {% block title %}Toutes les promotions{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
+{% endblock %}
+
 {% block body %}
-    <h1>Liste des promotions</h1>
+    {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
+
+    <div class="flex just-between align-center">
+        <h1 class="w-75">Liste des promotions</h1>
+        {% if access %}{{ template.add() }}{% endif %}
+    </div>
     <hr>
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
-            <div class="bg-white shadow-small text-center mb-3 p-1 w-33 all-promo">
+            {% if access %}
+                {{ template.deleteConfirm(promo.id,path('promo_delete',{'id':promo.id})) }}
+                {{ template.modalPromotion('modal-promo-edit-'~promo.id) }}
+            {% endif %}
+
+            <div class="bg-white shadow-small flexc text-center mb-3 p-1 all-promo {% if access %}w-flex{% else %}w-33{% endif %}">
                 {% if promo.current %}
                     <div class="position-absolute">
-                        <div class="bg-red text-white text-uppercase bold py-2 px-3">
+                        <div class="bg-red text-white shadow-small text-uppercase bold py-2 px-3
+                        {% if access %}pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}{% endif %}">
                             En cours
                         </div>
                     </div>
+                {% else %}
+                    {% if access %}
+                        <div class="position-absolute">
+                            <div class="shadow-small text-grey text-uppercase bold py-2 px-3 pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">
+                                Activer
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
-                <div class="mt-3 mb-1 p-4">
+
+                <div class="mt-4 mb-1 p-4">
+                    {% if access %}
+                    <a href="{{ path('admin_show_promo',{'slug': promo.slug}) }}">
+                    {% else %}
                     <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                    {% endif %}
                         <h2 class="rhover">{{ promo.label }}</h2>
                         <ul>
                             <li>Formateur :
@@ -40,15 +68,114 @@
                                 </em>
                             </li>
                         </ul>
+                        {% if admin is not defined %}
                         <hr>
                         <span class="text-grey">{{ promo.nickname | capitalize }}</span>
+                        {% endif %}
                     </a>
                 </div>
+
+                {% if access %}
+                    <div class="mt-auto">
+                        {% set startAt = promo.startAt|date('d/m/Y') %}
+                        {% set endAt   = promo.endAt|date('d/m/Y') %}
+                        {% if promo.startAt is null %}
+                        {% set startAt = '--/--/----' %}
+                        {% endif %}
+                        {% if promo.endAt is null %}
+                        {% set endAt = '--/--/----' %}
+                        {% endif %}
+
+                        <p class="text-grey">{{startAt}} &nbsp; {{endAt}}</p>
+                        <p class="text-center text-grey">Apprenants : {{ promo.users|length}}</p>
+                        <div class="text-center my-3">
+                            <p class="main-title"><span class="bg-white px-3">Modifier</span></p>
+                        </div>
+                        <div class="row mx-auto text-center mb-2">
+                            <div class="col-3">
+                                <a class="text-grey bhover" href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" data-toggle="tooltip"
+                                data-placement="top" title="Ajouter des apprenants">
+                                    <i class="fal fa-user-plus text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" data-toggle="modal" 
+                                data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
+                                    <i class="fas fa-pencil text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover promo-edit" href="{{ path('admin_show_promo',{'slug': promo.slug }) }}" data-toggle="tooltip"
+                                    data-placement="top" title="Afficher les apprenants">
+                                    <i class="far fa-eye text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{promo.id}}" data-toggle="tooltip"
+                                    data-placement="top" title="Supprimer">
+                                    <i class="fal fa-times-circle text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
+
     <div class="text-center">
-        <a href="{{ path('promo_other') }}" class="text-grey bhover">Utilisateurs sans promotion <i class="fal fa-directions"></i></a>
+        {% if access %}
+        <a href="{{ path('admin_show_promo_others') }}" class="text-grey bhover">
+        {% else %}
+        <a href="{{ path('promo_other') }}" class="text-grey bhover">
+        {% endif %}
+            Utilisateurs sans promotion <i class="fal fa-directions"></i>
+        </a>
     </div>
+
 </div>
+{% endblock %}
+
+{% block modalTitle %}Ajouter une promotion{% endblock %}
+{% block modalBody %}
+    {% if admin is defined and is_granted('ROLE_ADMIN') %}
+    <div class="container-white">
+        {{ form_start(form) }}
+            <div class="mb-3">
+            {{ form_label(form.label) }}
+            {{ form_widget(form.label) }}
+            </div>
+            <div class="mt-3">
+            {{ form_label(form.nickname) }}
+            {{ form_widget(form.nickname) }}
+            </div>
+            <div class="mt-3">
+                <div class="w-100">
+                {{ form_widget(form.moderators, {'attr': {
+                    'class': 'promo-mod-selected selectpicker',
+                    'title': 'Formateur(s) et médiateur(s) de la promo',
+                    'data-live-search': 'true',
+                    'multiple': '',
+                    'data-selected-text-format': 'count > 2',
+                    'data-style': 'bg-white',
+                    'data-size': '6'
+                }}) }}
+                </div>
+                <div class="row my-1">
+                    <div class="col-5">{{ form_label(form.startAt) }}</div>
+                    <div class="col-7">{{ form_widget(form.startAt) }}</div>
+                </div>
+                <div class="row my-1">
+                    <div class="col-5">{{ form_label(form.endAt) }}</div>
+                    <div class="col-7">{{ form_widget(form.endAt) }}</div>
+                </div>
+            </div>
+            {{ template.confirm() }}
+        {{ form_end(form) }}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block libraries %}
+<script src="/js/libraries/bootstrap-select.min.js"></script>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 <div class="user-admin mb-4">
     {######################################
-     #### USER NAV
+     #### ADMIN NAV
      #####################################}
     <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
         <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
@@ -13,7 +13,7 @@
             <i class="fas fa-user-friends text-large"></i><br>
             Utilisateurs
         </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
+        <a href="{{ path('admin_all_promo') }}" class="rhover mx-1">
             <i class="fas fa-users-class text-large mt-1"></i><br>
             Promotions
         </a>
@@ -79,7 +79,7 @@
     </div>
 
     {######################################
-     #### USER INFO
+     #### ADMIN INFO
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-between p-3">
         <img src="/img/avatar/{{user.avatar}}" class="avatar-lg my-3">
@@ -92,7 +92,7 @@
     </div>
 
     {######################################
-     #### USER SEND FILES
+     #### SEND FILES
      #####################################}
     <div class="container-white shadow-small user-send-files p-3">
         <div class="form-files rounded">
@@ -124,30 +124,32 @@
     </div>
 
     {######################################
-     #### USER FILES
+     #### ADMIN FILES
      #####################################}
     <div class="container-white shadow-small user-files">
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
                 {% set filecount = user.importantFiles|length %}
-                <p class="bold">
-                    {% if filecount == 0 %}
-                    {{ filecount }} fichier important.<br>
-                    <i class="fal fa-folder-times icon-sm mt-2"></i>
-                    {% elseif filecount == 1 %}
-                    <span class="text-red">{{ filecount }}</span> fichier important.<br>
-                    <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
-                    {% else %}
-                    <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
-                    <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
-                    {% endif %}
-                </p>
+                <a class="bold" href="{{ path('file_user_show') }}">
+                    <p>
+                        {% if filecount == 0 %}
+                        {{ filecount }} fichier important.<br>
+                        <i class="fal fa-folder-times icon-sm mt-2"></i>
+                        {% elseif filecount == 1 %}
+                        <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                        <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
+                        {% else %}
+                        <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                        <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
+                        {% endif %}
+                    </p>
+                </a>
             </div>
         </div>
     </div>
 
     {######################################
-     #### USER WEATHER
+     #### ADMIN WEATHER
      #####################################}
      <div class="bg-white rounded shadow-small user-weather flexc just-between">
         <div class="flex just-center align-center h-100">
@@ -159,7 +161,7 @@
     </div>
 
     {######################################
-     #### LAST PROJECTS
+     #### LAST PROJECTS UNCOMPLETED
      #####################################}
     <div class="user-last-projects">
         <p class="text-center bold">Derniers projets en cours</p>

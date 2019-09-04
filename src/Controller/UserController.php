@@ -457,6 +457,9 @@ class UserController extends AbstractController
         if($user == null){
             $user = $this->getUser();
         }
+        if($user == $this->getUser() && ($this->isGranted(User::ADMIN) || $this->isGranted(User::MEDIATEUR))){
+            return $this->redirectToRoute('admin_account');
+        }
         if($request->query->get('seen') != null){
             $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
             if($unotif != null){

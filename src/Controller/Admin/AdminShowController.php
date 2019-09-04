@@ -153,9 +153,43 @@ class AdminShowController extends AbstractController
             );
         }
 
-        return $this->render('admin/all_promo.html.twig', [
-            'promotions' => $rep->findAll(),
-            'form'       => $form->createView()
+        return $this->render('promotion/all.html.twig', [
+            'promos'     => $rep->findAll(),
+            'form'       => $form->createView(),
+            'admin'      => true
+        ]);
+    }
+
+    /**
+     * Show users without a promo
+     * @Route("/promotions/autres", name="show_promo_others")
+     * @param UserRepository $rep
+     * @return Response
+     */
+    public function showPromotionOther(UserRepository $rep)
+    {
+        $others = $rep->findBy(['promotion'=> null]);
+        $users = [];
+        foreach($others as $other){
+            if(sizeof($other->getRoles()) <= 1){
+                $users[] = $other;
+            }
+        }
+        return $this->render('admin/show_promo.html.twig', [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * Show a specific promo
+     * @Route("/promotions/{slug}", name="show_promo")
+     * @param Promotion $promo
+     * @return void
+     */
+    public function showPromotion(Promotion $promo)
+    {
+        return $this->render('admin/show_promo.html.twig', [
+            'promo' => $promo,
         ]);
     }
 

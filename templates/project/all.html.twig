@@ -85,7 +85,7 @@
     </div>
 
     {% if user is not defined and language is not defined %}
-        {{ pagination.render(project is empty) }}
+        {{ pagination.render(pagination.data is empty) }}
     {% elseif language is defined %}
         {% if projects is not empty %}
         <div class="flex just-center my-3">
