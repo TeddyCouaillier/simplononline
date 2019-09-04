@@ -114,9 +114,6 @@
                     }}) }}
                     <hr>
                     {{ form_widget(form.name) }}
-                    <div class="custom-control custom-switch text-center mt-4">
-                    {{ form_widget(form.important) }}
-                    </div>
                     {{ template.confirm()}}
                 {{ form_end(form) }}
             </div>
@@ -129,17 +126,17 @@
     <div class="container-white shadow-small user-files">
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
-                {% set filecount = user.importantFiles|length %}
+                {% set filecount = user.notSeenFiles|length %}
                 <a class="bold" href="{{ path('file_user_show') }}">
                     <p>
                         {% if filecount == 0 %}
                         {{ filecount }} fichier important.<br>
                         <i class="fal fa-folder-times icon-sm mt-2"></i>
                         {% elseif filecount == 1 %}
-                        <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                        <span class="text-red">{{ filecount }}</span> fichier non-vu.<br>
                         <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
                         {% else %}
-                        <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                        <span class="text-red">{{ filecount }}</span> fichiers non-vus.<br>
                         <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
                         {% endif %}
                     </p>

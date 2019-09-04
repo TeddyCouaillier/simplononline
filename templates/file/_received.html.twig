@@ -4,7 +4,7 @@
         {% set file = ufiles.files %}
         <div>
             <div class="flex just-center align-center bg-white p-3 rounded mb-2">
-                {% if ufiles.important == null %}
+                {% if ufiles.seen == true %}
                 <div class="file-state rounded-circle mr-2 bg-white"></div>
                 {% else %}
                 <div class="file-state rounded-circle mr-2 bg-red ufile-{{ufiles.id}}"></div>
@@ -21,10 +21,10 @@
                 </div>
                 <div class="subnav">
                     <i class="fas fa-ellipsis-v"></i>
-                    <div class="subnav-tooltip tooltip-file{% if ufiles.important %}-important{% endif %}">
+                    <div class="subnav-tooltip tooltip-file{% if ufiles.seen == false %}-important{% endif %}">
                         <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
-                        {% if ufiles.important %}
-                        <a data-url="{{ path('file_edit_status',{'id': ufiles.id}) }}" data-target="ufile-{{ufiles.id}}" class="subnav-link remove-important">Marquer comme gérer</a><br>
+                        {% if ufiles.seen == false %}
+                        <a data-url="{{ path('file_edit_status',{'id': ufiles.id}) }}" data-target="ufile-{{ufiles.id}}" class="subnav-link remove-important">Marquer comme vu</a><br>
                         {% endif %}
                         <a data-url="{{ path('file_received_remove',{'id': file.id}) }}" class="subnav-link text-red bold remove-file">Supprimer</a>
                     </div>

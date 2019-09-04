@@ -20,12 +20,6 @@ class FilesType extends ApplicationType
         $builder
             ->add('name',      FileType::class,['data_class' => null])
             ->add('title',     TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
-            ->add('important', CheckboxType::class, [
-                'mapped'     => false,
-                'attr'       => array('class' => "custom-control-input"),
-                'label_attr' => array('class' => 'custom-control-label'),
-                'required'   => false
-            ])
             ->add('receiver',  EntityType::class, [
                 'class'         => User::class,
                 'choice_label'  => 'fullname',

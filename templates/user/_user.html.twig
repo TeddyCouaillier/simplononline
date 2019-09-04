@@ -85,7 +85,7 @@
     <div class="container-white shadow-small user-files">
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
-                {% set filecount = user.importantFiles|length %}
+                {% set filecount = user.notSeenFiles|length %}
                 <p class="bold">
                     {% if filecount == 0 %}
                     {{ filecount }} fichier important.<br>

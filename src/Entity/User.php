@@ -531,13 +531,12 @@ class User implements AdvancedUserInterface
         return $files;
     }
 
-    public function getImportantFiles()
+    public function getNotSeenFiles()
     {
         $ufiles = [];
-        $i = 0;
         foreach($this->userFiles as $ufile){
-            if($ufile->getImportant()){
-                $ufiles[$i++] = $ufile;
+            if(!$ufile->getSeen()){
+                $ufiles[] = $ufile;
             }
         }
         return $ufiles;
@@ -588,11 +587,10 @@ class User implements AdvancedUserInterface
     }
 
 
-    public function createUserFile($sender, $file, $important)
+    public function createUserFile($sender, $file)
     {
         $ufile = new UserFiles();
-        $ufile->setImportant($important)
-              ->setReceiver($this)
+        $ufile->setReceiver($this)
               ->setSender($sender)
               ->setFiles($file);
         $this->addUserFile($ufile);

@@ -42,12 +42,13 @@ class UserFiles
     /**
      * @ORM\Column(type="boolean")
      */
-    private $important;
+    private $seen;
 
 
     public function __construct()
     {
         $this->date_send = new \DateTime();
+        $this->seen      = false;
     }
 
     public function getId(): ?int
@@ -91,14 +92,14 @@ class UserFiles
         return $this;
     }
 
-    public function getImportant(): ?bool
+    public function getSeen(): ?bool
     {
-        return $this->important;
+        return $this->seen;
     }
 
-    public function setImportant(bool $important): self
+    public function setSeen(bool $seen): self
     {
-        $this->important = $important;
+        $this->seen = $seen;
 
         return $this;
     }

@@ -21,7 +21,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("user/fichiers", name="file_")
+ * @Route("/fichiers", name="file_")
  */
 class FileController extends AbstractController
 {
@@ -65,19 +65,17 @@ class FileController extends AbstractController
 
             if($access){
                 $data = $request->request->get('files_admin');
-                $important = isset($data['important']) ? true : false;
                 foreach($data['receiver'] as $receiver_id){
                     $receiver = $rep->find($receiver_id);
-                    $receiver->createUserFile($this->getUser(), $file, $important);
+                    $receiver->createUserFile($this->getUser(), $file);
                     $receiver->createUserNotif($notif);
                     $manager->persist($receiver);
                 }
             } else {
                 $data = $request->request->get('files');
-                $important = isset($data['important']) ? true : false;
                 foreach($data['receiver'] as $sup_user_id){
                     $sup_user = $rep->find($sup_user_id);
-                    $sup_user->createUserFile($this->getUser(), $file, $important);
+                    $sup_user->createUserFile($this->getUser(), $file);
                     $sup_user->createUserNotif($notif);
                     $manager->persist($sup_user);
                 }
@@ -103,7 +101,7 @@ class FileController extends AbstractController
     }
 
     /**
-     * Change status to a specific file (not "important")
+     * Change status to a specific file (not "seen")
      * @Route("/{id}/editStatus", name="edit_status")
      * @param FileUser      $file
      * @param ObjectManager $manager
@@ -115,7 +113,7 @@ class FileController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $ufile->setImportant(false);
+        $ufile->setSeen(true);
         $manager->persist($ufile);
         $manager->flush();
 
