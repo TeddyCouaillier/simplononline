@@ -74,7 +74,7 @@
     .received-files { margin-bottom: .75rem; margin-right: 0px; }
     .user-account-info, .carac,
     .project-detail-user > .container-white, .project-detail-user,
-    .task-info, .task-subtask, .project-detail { width: 100% !important; }
+    .task-info, .task-subtask, .project-detail, .admin-all-skills { width: 100% !important; }
 }
 
 @media screen and (max-width: 577px){

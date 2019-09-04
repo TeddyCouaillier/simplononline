@@ -3,8 +3,6 @@ $(function () {
     $('[data-toggle="popover"]').popover()
 })
 
-$('select').selectpicker();
-
 $('.popover-dismiss').popover({
     trigger: 'focus'
 })

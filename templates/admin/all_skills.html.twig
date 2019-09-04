@@ -1,52 +1,40 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
 {% block title %}Liste des compétences{% endblock %}
 
 {% block body %}
-<div class="px-1 my-4">
     {{ template.checkMessage(form) }}
     <div class="flex wrap just-between align-center">
-        <h1 class=-"w-75">Liste des compétences</h1>
+        <h1 class="w-75">Liste des compétences</h1>
         {{ template.add() }}
     </div>
     <hr>
-    <table class="table table-hover text-center bg-white shadow-small">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Label + description</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for skill in skills %}
+    <div class="flex wrap just-around">
+        {% for skill in skills %}
             {{ template.deleteConfirm(skill.id,path('admin_skill_delete',{'id':skill.id})) }}
             {{ template.modal('edit-skill-'~skill.id)}}
-            <tr>
-                <th scope="row">{{ skill.id }}</th>
-                <td>
-                    <span class="bold">{{ skill.label }}</span><br>
-                    {{ skill.description }}
-                </td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-info edit-skill" data-url="{{path('admin_skill_edit',{'id': skill.id}) }}" data-toggle="modal" data-target="#edit-skill-{{skill.id}}">
+            <div class="container-white shadow-small flexc w-flex text-center my-2 admin-all-skills">
+                <span class="bold">{{ skill.label }}</span>
+                <p class="my-2">{{ skill.description }}</p>
+                <div class="text-center mt-auto">
+                    <button class="btn text-grey bhover shadow-small edit-skill w-33" data-url="{{path('admin_skill_edit',{'id': skill.id}) }}" 
+                    data-toggle="modal" data-target="#edit-skill-{{skill.id}}">
+                        Modifier
+                    </button>
+                    <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-{{skill.id}}"><i class="fal fa-times-circle"></i></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+                            {# <button class="btn btn-info edit-skill" data-url="{{path('admin_skill_edit',{'id': skill.id}) }}" data-toggle="modal" data-target="#edit-skill-{{skill.id}}">
                             Modifier
                             </button>
                         </div>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{skill.id}}"><i class="fal fa-times-circle"></i></button>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endblock %}
-
+                         #}
 {% block modalTitle %}Ajouter une compétence{% endblock %}
 {% block modalBody %}
     {{ form_start(form) }}
