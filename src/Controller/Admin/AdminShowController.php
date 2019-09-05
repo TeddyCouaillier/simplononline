@@ -28,6 +28,7 @@ use App\Repository\ProjectRepository;
 use App\Form\Project\AddCorrectionType;
 use App\Repository\PromotionRepository;
 use App\Repository\CorrectionRepository;
+use App\Repository\LanguageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
@@ -237,13 +238,43 @@ class AdminShowController extends AbstractController
      * @param ProjectRepository $rep
      * @return Response
      */
-    public function allProjects(Pagination $pagination, $page)
+    public function allProjects(Pagination $pagination, $page, LanguageRepository $rep)
     {
         $pagination->setEntity(Project::class)
+                   ->setLimit(20)
                    ->setPage($page);
 
-        return $this->render('admin/all_projects.html.twig', [
-            'pagination' => $pagination
+        return $this->render('project/all.html.twig', [
+            'pagination' => $pagination,
+            'languages'  => $rep->findAll(),
+            'admin'      => true
+        ]);
+    }
+
+    /**
+     * Show all projects by language
+     * @Route("/projets/{slug}/{page<\d+>?1}", name="all_projects_by_language")
+     * @param integer            $page
+     * @param Language           $language
+     * @param ProjectRepository  $prep
+     * @param LanguageRepository $lrep
+     * @return Response
+     */
+    public function allProjectByLanguage(int $page, Language $language, ProjectRepository $prep, LanguageRepository $lrep)
+    {
+        $limit = 20;
+        $offset = $page * $limit - $limit;
+        $projects = $prep->findAllByLanguageLimit($language, $limit, $offset);
+        $total = count($prep->findAllByLanguage($language));
+        $pages = ceil($total / $limit);
+
+        return $this->render('project/all.html.twig', [
+            'page'       => $page,
+            'pages'      => $pages,
+            'projects'   => $projects,
+            'languages'  => $lrep->findAll(),
+            'language'   => $language,
+            'admin'      => true
         ]);
     }
 

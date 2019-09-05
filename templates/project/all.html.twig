@@ -10,10 +10,15 @@
 {% endblock %}
 
 {% block stylesheets %}
+{% if admin is defined and is_granted('ROLE_ADMIN') %}
+<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
+{% endif %}
 <link rel="stylesheet" href="/css/project.css">
 {% endblock %}
 
 {% block body %}
+    {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
+
     <div class="flex wrap just-between align-center">
         <h1>
             {% if user is not defined %} Tous les projets
@@ -25,11 +30,19 @@
             <div class="btn-group dropleft" role="group">
                 <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
+                    {% if access %}
+                    <a href="{{ path('admin_all_projects')}}" class="dropdown-item">
+                    {% else %}
                     <a href="{{ path('project_all') }}" class="dropdown-item">
+                    {% endif %}
                         Tout
                     </a>
                     {% for language in languages %}
+                        {% if access %}
+                        <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                        {% else %}
                         <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                        {% endif %}
                             {{ language.label }}
                         </a>
                     {% endfor %}
@@ -52,11 +65,18 @@
     {% endif %}
 
     <div class="flex wrap just-center">
-        <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container">
+        <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container {% if access %}h-auto{% endif %}">
             <a href="{{ path('project_create') }}"><div class="new-project text-greyl rhover">+</div></a>
         </div>
         {% for project in projects %}
-            <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
+            {% if access %}
+            {{ template.deleteConfirm(project.id,path('project_delete',{'slug':project.slug})) }}
+            {{ template.modal('add-project-correction-'~project.id)}}
+            {{ template.modal('add-project-task-'~project.id,'mw-66')}}
+            {{ template.modal('edit-project-user-'~project.id)}}
+            {{ template.modal('edit-project-'~project.id,'mw-66')}}
+            {% endif %}
+            <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container {% if access %}h-auto py-2{% endif %}">
                 <div>
                     <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
                     <div class="flex just-center align-center">
@@ -79,6 +99,41 @@
                             {{ language.label }}
                         {% endfor %}
                     </p>
+                    {% if access %}
+                        <div class="text-small">
+                            Mod. : {{ project.moderator.fullname }}
+                        </div>
+                        <div class="text-center my-3">
+                            <div class="main-title"><span class="bg-white px-3">Modifier</span></div>
+                        </div>
+                        <div class="row mx-auto text-center mb-2">
+                            <div class="col-3">
+                                <a class="text-grey bhover add-project-correction" data-url="{{path('admin_project_edit_correction',{'id': project.id}) }}"
+                                data-toggle="modal" data-target="#add-project-correction-{{project.id}}" data-toggle="tooltip"
+                                data-placement="top" title="Ajouter une correction">
+                                    <i class="fal fa-plus-square text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover add-project-task" data-url="{{path('admin_project_add_task',{'id': project.id}) }}" data-toggle="modal" data-target="#add-project-task-{{project.id}}"
+                                data-toggle="tooltip" data-placement="top" title="Ajouter une tâche">
+                                    <i class="fal fa-tasks text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover edit-project" data-url="{{path('admin_project_edit',{'id': project.id}) }}" data-toggle="modal" data-target="#edit-project-{{project.id}}" data-toggle="tooltip"
+                                    data-placement="top" title="Modifier le projet">
+                                    <i class="fal fa-pen-square text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{project.id}}" data-toggle="tooltip"
+                                    data-placement="top" title="Supprimer">
+                                    <i class="fal fa-times-circle text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
@@ -88,23 +143,43 @@
         {{ pagination.render(pagination.data is empty) }}
     {% elseif language is defined %}
         {% if projects is not empty %}
-        <div class="flex just-center my-3">
-            <div class="pagination p1">
-                <ul class="text-center">
-                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
-                    <li><i class="fal fa-arrow-circle-left"></i></li>
-                </a>
-                {% for i in 1..pages %}
-                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
-                    <li>{{ i }}</li>
-                </a>
-                {% endfor %}
-                <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
-                    <li><i class="fal fa-arrow-circle-right"></i></li>
-                </a>
-                </ul>
+            {% if access %}
+            <div class="flex just-center my-3">
+                <div class="pagination p1">
+                    <ul class="text-center">
+                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                        <li><i class="fal fa-arrow-circle-left"></i></li>
+                    </a>
+                    {% for i in 1..pages %}
+                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                        <li>{{ i }}</li>
+                    </a>
+                    {% endfor %}
+                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                        <li><i class="fal fa-arrow-circle-right"></i></li>
+                    </a>
+                    </ul>
+                </div>
             </div>
-        </div>
+            {% else %}
+            <div class="flex just-center my-3">
+                <div class="pagination p1">
+                    <ul class="text-center">
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                        <li><i class="fal fa-arrow-circle-left"></i></li>
+                    </a>
+                    {% for i in 1..pages %}
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                        <li>{{ i }}</li>
+                    </a>
+                    {% endfor %}
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                        <li><i class="fal fa-arrow-circle-right"></i></li>
+                    </a>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
         {% endif %}
     {% else %}
         {% if projects is not empty %}
@@ -127,4 +202,10 @@
         </div>
         {% endif %}
     {% endif %}
+{% endblock %}
+
+{% block libraries %}
+{% if admin is defined and is_granted('ROLE_ADMIN') %}
+<script src="/js/libraries/bootstrap-select.min.js"></script>
+{% endif %}
 {% endblock %}

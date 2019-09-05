@@ -33,7 +33,7 @@
             {% for project in pagination.data %}
             {{ template.deleteConfirm(project.id,path('project_delete',{'slug':project.slug})) }}
             {{ template.modal('add-project-correction-'~project.id)}}
-            {{ template.modal('add-project-task-'~project.id)}}
+            {{ template.modal('add-project-task-'~project.id,'mw-66')}}
             {{ template.modal('edit-project-user-'~project.id)}}
             {{ template.modal('edit-project-'~project.id,'mw-66')}}
             <tr>

@@ -5,7 +5,7 @@
      #### ADMIN NAV
      #####################################}
     <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
-        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
+        <a href="{{ path('admin_all_projects') }}" class="rhover mx-1">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
         </a>
@@ -133,10 +133,10 @@
                         {{ filecount }} fichier important.<br>
                         <i class="fal fa-folder-times icon-sm mt-2"></i>
                         {% elseif filecount == 1 %}
-                        <span class="text-red">{{ filecount }}</span> fichier non-vu.<br>
+                        <span class="text-red">{{ filecount }}</span> nouveau fichier.<br>
                         <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
                         {% else %}
-                        <span class="text-red">{{ filecount }}</span> fichiers non-vus.<br>
+                        <span class="text-red">{{ filecount }}</span> nouveaux fichiers.<br>
                         <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
                         {% endif %}
                     </p>
