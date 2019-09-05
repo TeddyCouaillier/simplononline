@@ -35,7 +35,7 @@ class Notification
     private $sender;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", mappedBy="notification")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", mappedBy="notification", orphanRemoval=true)
      */
     private $notifReceived;
 

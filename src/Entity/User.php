@@ -131,7 +131,7 @@ class User implements AdvancedUserInterface
     private $userFiles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="sender")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFiles", mappedBy="sender", orphanRemoval=true)
      */
     private $senderFiles;
 
@@ -181,12 +181,12 @@ class User implements AdvancedUserInterface
     private $promotionmod;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Notification", cascade={"persist"}, mappedBy="sender", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Notification", cascade={"persist","remove"}, mappedBy="sender", orphanRemoval=true)
      */
     private $notifSent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", cascade={"persist"}, mappedBy="receiver")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserNotif", cascade={"persist","remove"}, mappedBy="receiver", orphanRemoval=true)
      */
     private $notifReceived;
 

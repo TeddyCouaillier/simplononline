@@ -24,7 +24,7 @@ class EditProjectType extends ApplicationType
     {
         $builder
             ->add('title',       TextType::class,     $this->getConfiguration("Titre du projet"))
-            ->add('description', TextareaType::class, $this->getConfiguration("Description"))
+            ->add('description', TextareaType::class, $this->getConfiguration("Description", null, ['required'=> false]))
             ->add('github',      TextType::class,     $this->getConfiguration("Lien GitHub",null,['required'=> false]))
             ->add('website',     TextType::class,     $this->getConfiguration("Site internet",null,['required'=> false]))
             ->add('completed',   CheckboxType::class, $this->getConfiguration('Terminé',null,[

@@ -46,7 +46,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-small text-uppercase text-small p-0 m-0 admin_nav">
             <a class="navbar-brand bold text-medium p-2" href="{{ path('admin_home') }}"><span class="text-red">Simplon</span>Online</a>
             <p class="bg-red text-white p-2 role">Formateur</p>
-            <a class="text-red p-2 simplon" href="{{ path('user_account_show') }}">Voir le site</a>
+            <a class="text-red p-2 simplon" href="{{ path('account_show') }}">Voir le site</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminnav" aria-controls="adminnav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,7 +54,7 @@
             <div class="collapse navbar-collapse" id="adminnav">
             <ul class="navbar-nav mr-auto ml-2">
                 <li class="nav-item">
-                <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users',{'slug': 'all'}) }}">Utilisateurs</a>
+                <a class="nav-link {{ active_users }}" href="{{ path('admin_all_users',{'slug': 'tout'}) }}">Utilisateurs</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link {{ active_projects }}" href="{{ path('admin_all_projects') }}">Projets</a>

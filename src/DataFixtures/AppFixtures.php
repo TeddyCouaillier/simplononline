@@ -108,6 +108,9 @@ class AppFixtures extends Fixture
             $promo->setLabel('Promo 1.'.$i);
             $promo->setNickname($faker->word.' '.$faker->word);
             $promo->setCurrent(false);
+            if($i == 1){
+                $promo->setCurrent(true);
+            }
             $promos[$i] = $promo;
             $manager->persist($promo);
         }

@@ -69,7 +69,7 @@
             <i class="fas fa-key text-large"></i><br>
             Données
         </a>
-        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('account_edit') }}" class="rhover mx-1 user-edit">
             <i class="fas fa-cog text-large"></i><br>
             Modifier
         </a>
@@ -100,36 +100,6 @@
                 </p>
             </div>
         </div>
-    </div>
-
-    {######################################
-     #### USER NAV
-     #####################################}
-    <div class="container-white shadow-small user-header flex just-around align-center text-center p-3">
-        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="far fa-list-ul text-large"></i><br>
-            Projets
-        </a>
-        <a href="{{ path('file_user_show') }}" class="rhover mx-1">
-            <i class="fas fa-envelope text-large"></i><br>
-            Fichiers
-        </a>
-        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="fas fa-handshake text-large"></i><br>
-            Stages
-        </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
-            <i class="fas fa-key text-large"></i><br>
-            Données
-        </a>
-        <a href="{{ path('user_edit',{'slug':user.slug}) }}" class="rhover mx-1 user-edit">
-            <i class="fas fa-cog text-large"></i><br>
-            Modifier
-        </a>
-        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit">
-            <i class="fas fa-lock text-large"></i><br>
-            Password
-        </a>
     </div>
 
     {######################################

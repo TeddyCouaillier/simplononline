@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\UserNotif;
 use App\Entity\PasswordUpdate;
+use App\Form\User\EditUserType;
 use App\Form\User\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -33,10 +37,65 @@ class AccountController extends AbstractController
 
     /**
      * User log out
-     * @Route("/logout", name="logout")
+     * @Route("/deconnexion", name="logout")
      * @return void
      */
     public function logout() {}
+
+    /**
+     * Edit the current user
+     * @Route("/account/modifier", name="edit")
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editAccount(Request $request, ObjectManager $manager){
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() == null){
+            throw new AccessDeniedHttpException();
+        }
+        $user = $this->getUser();
+        $imageName = "";
+
+        $currentAvatar = $user->getAvatar();
+        if(!empty($currentAvatar)){
+            $imageName = $user->getAvatar();
+        }
+        $form = $this->createForm(EditUserType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            if(!$form->isValid()){
+                $user->setAvatar($imageName);
+            } else {
+                $image = $form->get('avatar')->getData();
+                if($image != NULL)
+                {
+                    $imageName = $user->getAvatarName().'.'.$image->guessExtension();
+                    $image->move(
+                        $this->getParameter('image_directory'),
+                        $imageName
+                    );
+                    $user->setAvatar($imageName);
+                } else {
+                    $user->setAvatar($imageName);
+                }
+
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'L\'utilisateur a bien été mis à jour.'
+                );
+                return $this->redirectToRoute('account_show', ['slug'=> $user->getSlug()]);
+            }
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
 
     /**
      * Edit the current user's password
@@ -69,12 +128,103 @@ class AccountController extends AbstractController
                     'Votre mot de passe a bien été modifié'
                 );
 
-                return $this->redirectToRoute('user_show',['id' => $user->getId()]);
+                return $this->redirectToRoute('account_show',['id' => $user->getId()]);
             }
         }
 
         return $this->render('user/update_password.html.twig',[
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * Delete a specific user's notification
+     * @Route("/notification/{id}/supprimer", name="delete_notif")
+     * @param UserNotif     $unotif
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteUserNotif(UserNotif $unotif, ObjectManager $manager)
+    {
+        $manager->remove($unotif);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'La notification a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('account_show_notif',['slug' => $this->getUser()->getSlug()]);
+    }
+
+    /**
+     * Show all user's notifications
+     * @Route("/notification", name="show_notif")
+     * @return Response
+     */
+    public function showUserNotif()
+    {
+        return $this->render('notification/show.html.twig',[
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * Delete all user's notifications
+     * @Route("/notification/supprimer", name="delete_all_notif")
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteAllNotif(ObjectManager $manager)
+    {
+        foreach($this->getUser()->getNotifReceived() as $unotif){
+            $manager->remove($unotif);
+        }
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Les notifications ont bien été supprimées.'
+        );
+
+        return $this->redirectToRoute('account_show_notif',['slug' => $this->getUser()->getSlug()]);
+    }
+
+    /**
+     * Show a specific user
+     * @Route("/account", name="show")
+     * @Route("/{slug}", name="user_show")
+     * @param User          $user
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function showUser(User $user = null, Request $request, ObjectManager $manager)
+    {
+        if($user == null){
+            $user = $this->getUser();
+        }
+        if($user == $this->getUser() && ($this->isGranted(User::ADMIN) || $this->isGranted(User::MEDIATEUR))){
+            return $this->redirectToRoute('admin_account');
+        }
+        if($request->query->get('seen') != null){
+            $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
+            if($unotif != null){
+                $unotif->setSeen(true);
+                $manager->persist($unotif);
+                $manager->flush();
+            }
+        }
+
+        if($user != $this->getUser()){
+            return $this->render('user/show.html.twig', [
+                'user' => $user
+            ]);
+        }
+
+        return $this->render('user/account.html.twig', [
+            'user' => $user,
+            'date' => new \DateTime()
         ]);
     }
 }

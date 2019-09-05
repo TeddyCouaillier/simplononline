@@ -31,7 +31,7 @@ class FileController extends AbstractController
      *  - Show the files sent
      *  - Form to send a file to the mediators by the current user
      *  - Form to send a file to an user by the mediators
-     * @Route("", name="user_show")
+     * @Route("/index", name="user_show")
      * @param Request        $request
      * @param ObjectManager  $manager
      * @param UserRepository $rep
@@ -102,7 +102,7 @@ class FileController extends AbstractController
 
     /**
      * Change status to a specific file (not "seen")
-     * @Route("/{id}/editStatus", name="edit_status")
+     * @Route("/{id}/changer_status", name="edit_status")
      * @param FileUser      $file
      * @param ObjectManager $manager
      * @return Response
@@ -121,7 +121,7 @@ class FileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/remove", name="received_remove")
+     * @Route("/{id}/enlever", name="received_remove")
      *
      * @param Files $file
      * @param ObjectManager $manager
@@ -143,7 +143,7 @@ class FileController extends AbstractController
 
     /**
      * Delete all current user's files (sent)
-     * @Route("/delete_all", name="delete_all")
+     * @Route("/tout_supprimer", name="delete_all")
      * @param ObjectManager $manager
      * @return Response
      */
@@ -173,7 +173,7 @@ class FileController extends AbstractController
 
     /**
      * Delete a file by a sender only
-     * @Route("/{id}/delete", name="delete")
+     * @Route("/{id}/supprimer", name="delete")
      * @param Files         $file
      * @param ObjectManager $manager
      * @return Response

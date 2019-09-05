@@ -4,7 +4,7 @@
     <div class="flexc">
         <div class="container-white flex align-center my-1 shadow w-100 text-center bg-red text-white notifs-header">
             <div class="">Vous avez <span class="text-white bold">{{ app.user.notifReceived|length }}</span> notifications</div>
-            <div><a href="{{ path('user_show_notif',{'slug':app.user.slug}) }}" class="text-white bold"><i class="far fa-arrow-circle-right"></i></a></div>
+            <div><a href="{{ path('account_show_notif',{'slug':app.user.slug}) }}" class="text-white bold"><i class="far fa-arrow-circle-right"></i></a></div>
         </div>
         {% for unotif in app.user.notifReceived|slice(0,4) %}
             {% set notif = unotif.notification %}
@@ -16,7 +16,7 @@
                     {% if notif.type == 1 or notif.type == 2 %}
                     <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% elseif notif.type == 3 %}
-                    <a href="{{ path('user_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('account_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% else %}
                     <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}
@@ -30,7 +30,7 @@
                     {% if notif.type == 1 or notif.type == 2 %}
                     <a href="{{ path('project_show',{'slug': notif.target}) }}?" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
                     {% elseif notif.type == 3 %}
-                    <a href="{{ path('user_show',{'id': notif.target}) }}#skills" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('account_show') }}#skills" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
                     {% else %}
                     <a href="{{ path('file_user_show') }}" class="btn button-red"><i class="far fa-arrow-circle-right"></i></a>
                     {% endif %}
@@ -50,7 +50,7 @@
             <a href="{{ path('file_user_show') }}"><i class="fal fa-envelope text-white"></i></a>
         </div>
         <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
-            <a href="{{ path('user_show',{'slug': app.user.slug}) }}#skills"><i class="fal fa-star text-white"></i></a>
+            <a href="{{ path('account_show') }}#skills"><i class="fal fa-star text-white"></i></a>
         </div>
         <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Stages">
             <a href="{{ path('user_show_training',{'slug': app.user.slug}) }}"><i class="fal fa-handshake text-white"></i></a>
@@ -64,5 +64,5 @@
 <div class="position-fixed flex just-around align-center bg-white py-2 px-3 text-greyd user-nav">
     <i class="fas fa-bell pointer notif {% if app.user.hasNotif %} active {% endif %}"></i>
     <img src="/img/dot.svg" class="pointer dots">
-    <a href="{{path('user_show',{'slug': app.user.slug }) }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
+    <a href="{{path('account_show') }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
 </div>

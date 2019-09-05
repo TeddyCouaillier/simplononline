@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Promotion;
+use App\Entity\Help;
 use App\Entity\User;
+use App\Entity\Language;
+use App\Entity\Promotion;
+use App\Form\Help\HelpType;
+use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BaseController extends AbstractController
 {
@@ -38,8 +43,64 @@ class BaseController extends AbstractController
     }
 
     /**
+     * Delete a specific help link
+     * @Route("aides/{id}/supprimer", name="help_delete")
+     * @param Help          $help
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteHelp(Help $help, ObjectManager $manager)
+    {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $help->getPublisher()){
+            throw new AccessDeniedException();
+        }
+        $manager->remove($help);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Le lien a bien été supprimé.'
+        );
+
+        return $this->redirectToRoute('help_show');
+    }
+
+    /**
+     * Show all help links and adding form
+     * @Route("aides/liens", name="help_show")
+     * @param ObjectManager  $manager
+     * @param Request        $request
+     * @param HelpRepository $rep
+     * @return Response
+     */
+    public function showHelp(ObjectManager $manager, Request $request, HelpRepository $rep)
+    {
+        $help = new Help();
+        $form = $this->createForm(HelpType::class, $help);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getUser()->addHelp($help);
+            $manager->persist($this->getUser());
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le lien a bien été ajouté.'
+            );
+        }
+
+        $languages = $this->getDoctrine()->getRepository(Language::class)->findAll();
+
+        return $this->render('help/show.html.twig', [
+            'form'      => $form->createView(),
+            'helps'     => $rep->findAll(),
+            'languages' => $languages
+        ]);
+    }
+
+    /**
      * Show all users weather (only current promotion users)
-     * @Route("/users/weather", name="users_weather")
+     * @Route("/utilisateurs/meteo", name="users_weather")
      * @param UserRepository $rep
      * @return Response
      */
@@ -53,7 +114,7 @@ class BaseController extends AbstractController
 
     /**
      * Show a weather modal every day with random questions and persist the "user weather"
-     * @Route("weather", name="weather")
+     * @Route("meteo", name="weather")
      * @param Request       $req
      * @param ObjectManager $manager
      * @return Response
@@ -89,7 +150,7 @@ class BaseController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
-                return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
+                return $this->redirectToRoute('account_show', ['slug' => $user->getSlug()]);
             }
 
             $render = [

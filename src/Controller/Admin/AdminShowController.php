@@ -3,197 +3,28 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Data;
-use App\Entity\Help;
-use App\Entity\Role;
 use App\Entity\User;
-use App\Entity\Files;
 use App\Entity\Skills;
-use App\Entity\Project;
 use App\Entity\Language;
 use App\Entity\UserData;
-use App\Entity\Promotion;
 use App\Entity\Correction;
 use App\Entity\UserSkills;
 use App\Form\Data\DataType;
-use App\Form\Help\HelpType;
 use App\Service\Pagination;
 use App\Form\Skill\SkillType;
-use App\Form\File\FilesAdminType;
-use App\Form\User\CreateUserType;
-use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
 use App\Repository\SkillsRepository;
-use App\Form\Promotion\PromotionType;
-use App\Repository\ProjectRepository;
 use App\Form\Project\AddCorrectionType;
-use App\Repository\PromotionRepository;
-use App\Repository\CorrectionRepository;
-use App\Repository\LanguageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
-use Exception;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/admin", name="admin_")
  */
 class AdminShowController extends AbstractController
 {
-    /**
-     * Admin home page
-     * @Route("/home", name="home")
-     * @param UserRepository $rep
-     * @return Response
-     */
-    public function adminHome(UserRepository $rep)
-    {
-        $file = new Files();
-        $form = $this->createForm(FilesAdminType::class, $file);
-        return $this->render('admin/index.html.twig', [
-            'users' => $rep->findAllByCurrentPromo(),
-            'form'  => $form->createView()
-        ]);
-    }
-
-    /**
-     * Show all users (all or by promotion) + adding user form
-     * @Route("/users/{slug}/{page<\d+>?1}", name="all_users")
-     * @param string     $slug promo search (all, other, specific promo)
-     * @param integer    $page       current page
-     * @param Request    $request
-     * @param Pagination $pagination pagination service
-     * @param UserPasswordEncoderInterface $encoder
-     * @return Response
-     */
-    public function allUsers(string $slug = "all", int $page, Request $request, Pagination $pagination, UserPasswordEncoderInterface $encoder)
-    {
-        $manager = $this->getDoctrine()->getManager();
-        $prep    = $this->getDoctrine()->getRepository(Promotion::class);
-
-        $promo = $prep->findOneBy(['slug' => $slug]);
-        if($slug != "all" && $slug != "other" && $promo == null){
-            throw new Exception("Route problem");
-        }
-
-        $pagination->setEntity(User::class)
-                   ->setLimit(26)
-                   ->setPage($page);
-
-        if($slug == 'other'){
-            $pagination->setCriteria(['promotion' => null]);
-        } else if($slug == 'all') {
-            $pagination->setCriteria([]);
-        } else {
-            $pagination->setCriteria(['promotion' => $promo]);
-        }
-
-        $user = new User();
-        $form = $this->createForm(CreateUserType::class, $user);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $role_id = $request->request->get('create_user')['userRoles'];
-            if($role_id !== null){
-                $rrole = $this->getDoctrine()->getRepository(Role::Class);
-                $role = $rrole->find($role_id);
-                if($role != null){
-                    $role->addUser($user);
-                    $user->setPromotion(null);
-                }
-            }
-
-            $user->setPassword($encoder->encodePassword($user, 'test'));
-            $user->setAvatar('avatar.png');
-
-            $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
-            $datas  = $this->getDoctrine()->getRepository(Data::class)->findAll();
-
-            $user->initializeSkills($skills);
-            $user->initializeDatas($datas);
-
-            $manager->persist($user);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'L\'utilisateur a bien été créé.'
-            );
-        }
-
-        return $this->render('admin/all_users.html.twig', [
-            'pagination' => $pagination,
-            'promo'      => $promo,
-            'slug'       => $slug,
-            'promotions' => $prep->findAll(),
-            'form'       => $form->createView()
-        ]);
-    }
-
-    /**
-     * Show all promotions + adding promo form
-     * @Route("/promotions", name="all_promo")
-     * @param Request             $request
-     * @param ObjectManager       $manager
-     * @param PromotionRepository $rep
-     * @return Response
-     */
-    public function allPromotions(Request $request, ObjectManager $manager, PromotionRepository $rep)
-    {
-        $promo = new Promotion();
-        $form = $this->createForm(PromotionType::class, $promo);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($promo);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'La promotion a bien été ajoutée.'
-            );
-        }
-
-        return $this->render('promotion/all.html.twig', [
-            'promos'     => $rep->findAll(),
-            'form'       => $form->createView(),
-            'admin'      => true
-        ]);
-    }
-
-    /**
-     * Show users without a promo
-     * @Route("/promotions/autres", name="show_promo_others")
-     * @param UserRepository $rep
-     * @return Response
-     */
-    public function showPromotionOther(UserRepository $rep)
-    {
-        $others = $rep->findBy(['promotion'=> null]);
-        $users = [];
-        foreach($others as $other){
-            if(sizeof($other->getRoles()) <= 1){
-                $users[] = $other;
-            }
-        }
-        return $this->render('admin/show_promo.html.twig', [
-            'users' => $users
-        ]);
-    }
-
-    /**
-     * Show a specific promo
-     * @Route("/promotions/{slug}", name="show_promo")
-     * @param Promotion $promo
-     * @return void
-     */
-    public function showPromotion(Promotion $promo)
-    {
-        return $this->render('admin/show_promo.html.twig', [
-            'promo' => $promo,
-        ]);
-    }
-
     /**
      * Show all skills + adding skill form
      * @Route("/competences", name="all_skills")
@@ -229,52 +60,6 @@ class AdminShowController extends AbstractController
         return $this->render('admin/all_skills.html.twig',[
             'skills' => $rep->findAll(),
             'form'   => $form->createView()
-        ]);
-    }
-
-    /**
-     * Show all projects
-     * @Route("/projets/{page<\d+>?1}", name="all_projects")
-     * @param ProjectRepository $rep
-     * @return Response
-     */
-    public function allProjects(Pagination $pagination, $page, LanguageRepository $rep)
-    {
-        $pagination->setEntity(Project::class)
-                   ->setLimit(20)
-                   ->setPage($page);
-
-        return $this->render('project/all.html.twig', [
-            'pagination' => $pagination,
-            'languages'  => $rep->findAll(),
-            'admin'      => true
-        ]);
-    }
-
-    /**
-     * Show all projects by language
-     * @Route("/projets/{slug}/{page<\d+>?1}", name="all_projects_by_language")
-     * @param integer            $page
-     * @param Language           $language
-     * @param ProjectRepository  $prep
-     * @param LanguageRepository $lrep
-     * @return Response
-     */
-    public function allProjectByLanguage(int $page, Language $language, ProjectRepository $prep, LanguageRepository $lrep)
-    {
-        $limit = 20;
-        $offset = $page * $limit - $limit;
-        $projects = $prep->findAllByLanguageLimit($language, $limit, $offset);
-        $total = count($prep->findAllByLanguage($language));
-        $pages = ceil($total / $limit);
-
-        return $this->render('project/all.html.twig', [
-            'page'       => $page,
-            'pages'      => $pages,
-            'projects'   => $projects,
-            'languages'  => $lrep->findAll(),
-            'language'   => $language,
-            'admin'      => true
         ]);
     }
 
@@ -349,45 +134,15 @@ class AdminShowController extends AbstractController
     }
 
     /**
-     * Show all helps + adding help form
-     * @Route("/aides/{page<\d+>?1}", name="all_helps")
-     * @param Request        $request
-     * @param ObjectManager  $manager
-     * @param HelpRepository $rep
+     * Show all corrections
+     * @Route("/corrections/{page<\d+>?1}", name="all_corrections")
+     * @param integer       $page
+     * @param Pagination    $pagination
+     * @param Request       $request
+     * @param ObjectManager $manager
      * @return Response
      */
-    public function allHelps(Request $request, ObjectManager $manager, Pagination $pagination, int $page)
-    {
-        $pagination->setEntity(Help::class)
-                   ->setPage($page);
-
-        $help = new Help();
-        $form = $this->createForm(HelpType::class, $help);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $this->getUser()->addHelp($help);
-            $manager->persist($this->getUser());
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'Le lien a bien été ajouté.'
-            );
-        }
-
-        return $this->render('admin/all_helps.html.twig', [
-            'pagination' => $pagination,
-            'form'  => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/corrections/{page<\d+>?1}", name="all_corrections")
-     *
-     * @param CorrectionRepository $rep
-     * @return void
-     */
-    public function allCorrections(Pagination $pagination, Request $request, ObjectManager $manager, int $page)
+    public function allCorrections(int $page, Pagination $pagination, Request $request, ObjectManager $manager)
     {
         $pagination->setEntity(Correction::class)
                    ->setPage($page);

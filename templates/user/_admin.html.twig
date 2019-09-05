@@ -5,11 +5,11 @@
      #### ADMIN NAV
      #####################################}
     <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
-        <a href="{{ path('admin_all_projects') }}" class="rhover mx-1">
+        <a href="{{ path('project_all') }}" class="rhover mx-1">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
         </a>
-        <a href="{{ path('admin_all_users',{'slug':'all'}) }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('admin_all_users',{'slug':'tout'}) }}" class="rhover mx-1 user-edit">
             <i class="fas fa-user-friends text-large"></i><br>
             Utilisateurs
         </a>
@@ -53,7 +53,13 @@
         </div>
         <div class="flex just-between my-1">
             <span>Moyenne météo du jour</span>
-            <b>{{ template.weather(weather) }}</b>
+            <b>
+                {% if weather == -1 %}
+                -
+                {% else %}
+                {{ template.weather(weather) }}
+                {% endif %}
+            </b>
         </div>
         <hr>
         <div class="flex just-between my-1">
@@ -193,7 +199,7 @@
         {% endfor %}
         </div>
         <div class="text-center my-4">
-            <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
+            <a href="{{ path('project_all') }}" class="user-see-more p-1">Voir tous</a>
         </div>
     </div>
 </div>

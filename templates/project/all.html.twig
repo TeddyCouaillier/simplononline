@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block stylesheets %}
-{% if admin is defined and is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN') %}
 <link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
 {% endif %}
 <link rel="stylesheet" href="/css/project.css">
 {% endblock %}
 
 {% block body %}
-    {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
+    {% set access = is_granted('ROLE_ADMIN') %}
 
     <div class="flex wrap just-between align-center">
         <h1>
@@ -31,7 +31,7 @@
                 <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
                     {% if access %}
-                    <a href="{{ path('admin_all_projects')}}" class="dropdown-item">
+                    <a href="{{ path('project_all')}}" class="dropdown-item">
                     {% else %}
                     <a href="{{ path('project_all') }}" class="dropdown-item">
                     {% endif %}
@@ -39,7 +39,7 @@
                     </a>
                     {% for language in languages %}
                         {% if access %}
-                        <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
                         {% else %}
                         <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
                         {% endif %}
@@ -143,25 +143,6 @@
         {{ pagination.render(pagination.data is empty) }}
     {% elseif language is defined %}
         {% if projects is not empty %}
-            {% if access %}
-            <div class="flex just-center my-3">
-                <div class="pagination p1">
-                    <ul class="text-center">
-                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
-                        <li><i class="fal fa-arrow-circle-left"></i></li>
-                    </a>
-                    {% for i in 1..pages %}
-                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
-                        <li>{{ i }}</li>
-                    </a>
-                    {% endfor %}
-                    <a href="{{ path('admin_all_projects_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
-                        <li><i class="fal fa-arrow-circle-right"></i></li>
-                    </a>
-                    </ul>
-                </div>
-            </div>
-            {% else %}
             <div class="flex just-center my-3">
                 <div class="pagination p1">
                     <ul class="text-center">
@@ -179,7 +160,6 @@
                     </ul>
                 </div>
             </div>
-            {% endif %}
         {% endif %}
     {% else %}
         {% if projects is not empty %}
@@ -205,7 +185,7 @@
 {% endblock %}
 
 {% block libraries %}
-{% if admin is defined and is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN') %}
 <script src="/js/libraries/bootstrap-select.min.js"></script>
 {% endif %}
 {% endblock %}

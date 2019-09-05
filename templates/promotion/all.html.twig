@@ -19,7 +19,7 @@
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
             {% if access %}
-                {{ template.deleteConfirm(promo.id,path('promo_delete',{'id':promo.id})) }}
+                {{ template.deleteConfirm(promo.id,path('admin_promo_delete',{'id':promo.id})) }}
                 {{ template.modalPromotion('modal-promo-edit-'~promo.id) }}
             {% endif %}
 
@@ -43,7 +43,7 @@
 
                 <div class="mt-4 mb-1 p-4">
                     {% if access %}
-                    <a href="{{ path('admin_show_promo',{'slug': promo.slug}) }}">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
                     {% else %}
                     <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
                     {% endif %}
@@ -93,7 +93,7 @@
                         </div>
                         <div class="row mx-auto text-center mb-2">
                             <div class="col-3">
-                                <a class="text-grey bhover" href="{{ path('promo_edit_users',{'slug': promo.slug}) }}" data-toggle="tooltip"
+                                <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" data-toggle="tooltip"
                                 data-placement="top" title="Ajouter des apprenants">
                                     <i class="fal fa-user-plus text-grey text-medium bhover"></i>
                                 </a>
@@ -105,7 +105,7 @@
                                 </a>
                             </div>
                             <div class="col-3">
-                                <a class="text-grey bhover promo-edit" href="{{ path('admin_show_promo',{'slug': promo.slug }) }}" data-toggle="tooltip"
+                                <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" data-toggle="tooltip"
                                     data-placement="top" title="Afficher les apprenants">
                                     <i class="far fa-eye text-grey text-medium bhover"></i>
                                 </a>
@@ -124,11 +124,7 @@
     </div>
 
     <div class="text-center">
-        {% if access %}
-        <a href="{{ path('admin_show_promo_others') }}" class="text-grey bhover">
-        {% else %}
         <a href="{{ path('promo_other') }}" class="text-grey bhover">
-        {% endif %}
             Utilisateurs sans promotion <i class="fal fa-directions"></i>
         </a>
     </div>

@@ -27,7 +27,7 @@
     {% endif %}
     <div class="flex wrap just-around">
     {% for user in users %}
-        {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}
+        {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
@@ -46,7 +46,7 @@
                     </p>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 user-secondary-info">
-                    <a href="{{ path('user_show',{'slug': user.slug}) }}" class="bold h5">{{ user.fullname }}</a><br>
+                    <a href="{{ path('account_user_show',{'slug': user.slug}) }}" class="bold h5">{{ user.fullname }}</a><br>
                     <ul>
                         <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{ user.email }}</li>
                         <li class="mb-1">
@@ -79,13 +79,13 @@
                 </div>
                 <div class="col-12 row text-center mx-auto my-1">
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_edit_skills',{'slug': user.slug }) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_edit_skills',{'slug': user.slug }) }}" data-toggle="tooltip"
                         data-placement="top" title="Modifier les compétences">
                             <i class="fal fa-tasks text-grey text-medium bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_data_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
                         data-placement="top" title="Modifier les données">
                             <i class="fal fa-key text-grey text-medium bhover"></i>
                         </a>
@@ -103,9 +103,9 @@
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_show',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('account_user_show',{'slug': user.slug}) }}" data-toggle="tooltip"
                         data-placement="top" title="Afficher l'utilisateur">
-                           {{ template.deleteConfirm(user.id,path('user_delete',{'slug':user.slug})) }}         <i class="far fa-eye text-medium text-grey bhover"></i>
+                           {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}         <i class="far fa-eye text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">

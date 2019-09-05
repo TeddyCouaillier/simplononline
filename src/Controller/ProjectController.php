@@ -34,7 +34,7 @@ class ProjectController extends AbstractController
 {
     /**
      * Show all projects
-     * @Route("s/all/{page<\d+>?1}", name="all")
+     * @Route("s/tout/{page<\d+>?1}", name="all")
      * @param integer    $page       current page
      * @param Pagination $pagination pagination service
      * @return Response
@@ -79,7 +79,7 @@ class ProjectController extends AbstractController
 
     /**
      * Create a project
-     * @Route("/create", name="create")
+     * @Route("/nouveau", name="create")
      * @param Request        $request
      * @param ObjectManager  $manager
      * @param UserRepository $rep
@@ -92,16 +92,19 @@ class ProjectController extends AbstractController
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            // Get form datas
-            $users_id     = $request->request->get('project')['users'];
-            $languages_id = $request->request->get('project')['languages'];
-            foreach($users_id as $id){
-                $user = $rep->find($id);
-                $project->addUser($user);
+            if(isset($request->request->get('project')['users'])){
+                $users_id     = $request->request->get('project')['users'];
+                foreach($users_id as $id){
+                    $user = $rep->find($id);
+                    $project->addUser($user);
+                }
             }
-            foreach($languages_id as $id){
-                $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
-                $project->addLanguage($language);
+            if(isset($request->request->get('project')['languages'])){
+                $languages_id = $request->request->get('project')['languages'];
+                foreach($languages_id as $id){
+                    $language = $this->getDoctrine()->getRepository(Language::class)->find($id);
+                    $project->addLanguage($language);
+                }
             }
 
             // Publisher
@@ -136,8 +139,9 @@ class ProjectController extends AbstractController
 
     /**
      * Remove a project's specific user
-     * @Route("/{slug}/remove", name="remove_user")
+     * @Route("/{slug}/retirer", name="remove_user")
      * @param Project       $project
+     * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager
      * @return Response
@@ -150,6 +154,23 @@ class ProjectController extends AbstractController
 
         $id = $request->query->get('id');
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        if($project->getModerator() == $user){
+            $i = 0;
+            foreach($project->getUsers() as $member){
+                if($i++ == 1){
+                    $project->setModerator($member);
+                    break;
+                }
+            }
+            if($project->getModerator() == $user){
+                $this->addFlash(
+                    'warning',
+                    'Suppression impossible (dernier membre).'
+                );
+                return $this->redirectToRoute('project_show', ['slug'=> $project->getSlug()]);
+            }
+        }
 
         foreach($project->getTasks() as $task){
             $user->removeTask($task);
@@ -170,7 +191,7 @@ class ProjectController extends AbstractController
 
     /**
      * Edit a specific project
-     * @Route("/{slug}/edit", name="edit")
+     * @Route("/{slug}/modifier", name="edit")
      * @param Project       $project
      * @param Request       $request
      * @param ObjectManager $manager
@@ -245,7 +266,7 @@ class ProjectController extends AbstractController
 
     /**
      * Delete a specific project
-     * @Route("/{slug}/delete", name="delete")
+     * @Route("/{slug}/supprimer", name="delete")
      * @param Project       $project
      * @param ObjectManager $manager
      * @return Response
@@ -263,13 +284,13 @@ class ProjectController extends AbstractController
             'success',
             'Le projet a bien été supprimé.'
         );
-        $path = $this->getUser()->checkRole(User::ADMIN) ? 'admin_all_projects' : 'project_all';
-        return $this->redirectToRoute($path);
+
+        return $this->redirectToRoute('project_all');
     }
 
     /**
      * Delete a specific task in a specific project
-     * @Route("/{slug}/task/{id_task}/delete", name="delete_task")
+     * @Route("/{slug}/tache/{id_task}/supprimer", name="delete_task")
      * @Entity("task", expr="repository.find(id_task)")
      * @param Project       $project
      * @param Task          $task
@@ -295,7 +316,7 @@ class ProjectController extends AbstractController
 
     /**
      * Ajax calling for task edit
-     * @Route("/{slug}/task/{id_task}/edit", name="edit_task")
+     * @Route("/{slug}/tache/{id_task}/modifier", name="edit_task")
      * @Entity("task", expr="repository.find(id_task)")
      * @param Project       $project
      * @param Task          $task
@@ -372,7 +393,7 @@ class ProjectController extends AbstractController
 
     /**
      * Ajax calling to see more task (by type)
-     * @Route("/{slug}/seemore", name="seemore")
+     * @Route("/{slug}/voirplus", name="seemore")
      * @param Project           $project
      * @param Request           $request
      * @param ProjectRepository $rep
@@ -402,7 +423,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id_project}/{id}/remove", name="remove_language")
+     * @Route("/{id_project}/{id}/supprimer", name="remove_language")
      * @Entity("project", expr="repository.find(id_project)")
      * @Entity("language", expr="repository.find(id)")
      * @param Project $project

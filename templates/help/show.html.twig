@@ -12,9 +12,9 @@
     </div>
     <hr>
     <div class="flex wrap just-center mx-2 my-1 help-all_cats">
-        <span class="badge-link-active mx-2 my-1" data-badge="Tout">Tout</span>
+        <span class="badge-link-active mx-2 my-1 px-3 shadow-small" data-badge="Tout">Tout</span>
         {% for language in languages %}
-            <span class="badge-link-inactive mx-2 my-1" data-badge="{{ language.label }}">{{ language.label }}</span>
+            <span class="badge-link-inactive mx-2 my-1 px-3 shadow-small" data-badge="{{ language.label }}">{{ language.label }}</span>
         {% endfor %}
     </div>
     <div class="flex wrap just-around help-all">
@@ -22,7 +22,7 @@
         {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') or app.user == help.publisher %}
         {{ template.deleteConfirm(help.id,path('help_delete',{'id': help.id})) }}
         {% endif %}
-        <div class="container-white shadow-small my-1 help-link w-flex reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
+        <div class="container-white shadow-small my-1 pl-3 help-link w-flex reveal" data-badge="{% if help.language != null %}{{ help.language.label }}{% endif %}">
 
             <div class="flex just-between">
                 <div>
