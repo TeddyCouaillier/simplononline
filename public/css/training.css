@@ -31,3 +31,5 @@
     -webkit-transform:rotate(-180deg);
     transform:rotate(-180deg);
 }
+
+.project-info-container{ display: none; }

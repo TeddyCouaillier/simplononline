@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% import 'macro.html.twig' as template %}
 
@@ -9,50 +9,33 @@
 {% endblock %}
 
 {% block body %}
-<div class="container px-5 my-4">
-    <h1>Liste des stages</h1>
-    <hr>
-    <table class="table table-hover text-center bg-white shadow-small table-trainings">
-      <thead>
-        <tr>
-          <th scope="col">Société</th>
-          <th scope="col">Lieu</th>
-          <th scope="col">Statut</th>
-          <th scope="col">Projet</th>
-          <th scope="col">Envoyé</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-          <tr>
-            <td colspan="4" class="bg-grey pointer see-trainings" data-id="{{user.id}}">
-              <span class="ml-5 pl-5">{{ user.fullname }}</span> <i class="fal fa-chevron-circle-down ml-2"></i>
-            </td>
-            <td class="bg-grey">
-              <div class="shadow-small bold bg-white mx-auto training-length">{{ user.trainingCourse|length}}</div>
-            </td>
-          </tr>
+  <h1>Liste des stages</h1>
+  <span>Promotion actuelle</span>
+  <hr>
+  <div class="flex wrap just-around">
+    {% for user in users %}
+      <div class="container-white shadow-small flexc my-1 w-33 users-trainings">
+        <p class="text-center bold">{{ user.fullname }}</p>
+        <div class="flexc my-2" style="height: 200px; overflow: auto;">
           {% for training in user.trainingCourse %}
-          <tr data-training="{{user.id}}" class="user-training-see">
-            <td class="text-left"><span class="bold">{{ training.society }}</span></td>
-            <td class="text-left">{{ training.place }}</td>
-            <td class="flex align-center">
-              <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
-            </td>
-            <td>
-              {% if training.project is not null %}
-              <i class="fal fa-info-circle rhover" data-toggle="tooltip" data-placement="top" title="{{ training.project }}"></i>
-              {% endif %}
-            </td>
-            <td>{{ training.interval }}</td>
-          </tr>
+            <span><i class="fas fa-user-tie"></i> {{ training.society}}</span>
+            <span><i class="fas fa-map-marker-alt"></i> {{ training.place }} </span>
+            <div class="flex align-center"><div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span></div>
+            {% if training.project is not null %}
+            <p class="text-center"><i class="fal fa-info-circle rhover project-info"></i></p>
+            <p class="text-justify text-grey project-info-container">{{ training.project }}
+            </p>{% endif %}
+            <hr class="my-1 w-100">
           {% else %}
-          <tr data-training="{{user.id}}" class="user-training-see">
-              <td colspan="4" class="text-small"><p class="ml-5 pl-5">Aucun stage proposé</p></td>
-          </tr>
+            <div class="flex just-center align-center text-center text-grey h-100">
+              <p>
+                  <i class="fal fa-times-hexagon text-xlarge"></i><br>
+                  Aucune demande de stage
+              </p>
+            </div>
           {% endfor %}
-        {% endfor %}
-      </tbody>
-    </table>
-</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

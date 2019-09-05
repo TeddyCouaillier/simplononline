@@ -66,9 +66,9 @@
     .task-container { padding: .5rem !important; }
     .task-icon, #task-sub   { display: none; }
     [class^="messages-"]    { width: 75%!important; }
-    .all-promo, .promo-users{ width: 48% !important; }
     .show-files, .project-new-title  { flex-wrap: wrap; }
     .users-promo .user-secondary-info{ text-align: left; }
+    .all-promo, .promo-users, .users-trainings{ width: 48% !important; }
     .project-detail, .project-detail-user, .project-container,
     .form-files, .received-files, .task-info, .task-subtask,
     .received-files { margin-bottom: .75rem; margin-right: 0px; }
@@ -108,7 +108,7 @@
     .users-promo, .user-badge { width: 98% !important; }
     .custom-control, .custom-switch{ padding-left: 10px; }
     .user .user-header .user-edit, .users-promo-link{ display: none; }
-    [class^="messages-"], .all-promo, .promo-users{ width: 100%!important; }
+    [class^="messages-"], .all-promo, .promo-users, .users-trainings{ width: 100%!important; }
     #task-users { -ms-flex-pack: start!important; justify-content: start!important; }
     .button-edit{
         width: 30px;

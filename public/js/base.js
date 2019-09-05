@@ -262,3 +262,7 @@ $(document).on('click', '.promo-show', function() {
         }, 1000);
     });
 })
+
+$(document).on('click','.project-info', function() {
+    $('.project-info-container').fadeToggle();
+})
