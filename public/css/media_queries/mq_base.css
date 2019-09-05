@@ -108,7 +108,8 @@
     .users-promo, .user-badge { width: 98% !important; }
     .custom-control, .custom-switch{ padding-left: 10px; }
     .user .user-header .user-edit, .users-promo-link{ display: none; }
-    [class^="messages-"], .all-promo, .promo-users, .users-trainings{ width: 100%!important; }
+    [class^="messages-"], .all-promo, .promo-users,
+    .users-trainings, .help-link{ width: 100%!important; }
     #task-users { -ms-flex-pack: start!important; justify-content: start!important; }
     .button-edit{
         width: 30px;
