@@ -266,3 +266,14 @@ $(document).on('click', '.promo-show', function() {
 $(document).on('click','.project-info', function() {
     $('.project-info-container').fadeToggle();
 })
+
+$(document).on('click','.navleft-toggle', function() {
+    $('.navleft-container').slideToggle(750);
+    if($(this).hasClass('shadow-small')){
+        $(this).removeClass('shadow-small');
+        $(this).html('<i class="fal fa-times text-xlarge"></i>');
+    } else {
+        $(this).addClass('shadow-small');
+        $(this).html('<i class="fal fa-bars text-large"></i>');
+    }
+})

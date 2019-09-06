@@ -6,11 +6,18 @@
             <span>{{ former.firstname }} {{ former.lastname|first}}.</span>
             {{ former.weatherIconXs|raw }}
         </div>
+                <div class="flex just-between align-center users-weather w-100">
+            <span>{{ former.firstname }} {{ former.lastname|first}}.</span>
+            {{ former.weatherIconXs|raw }}
+        </div>
     {% else %}
     {% endfor %}
-    <div class="bg-grey w-100 my-2" style="height: 2px;"></div>
     {% for user in users %}
         <div class="flex just-between align-center users-weather w-100">
+            <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
+            {{ user.weatherIconXs|raw }}
+        </div>
+                <div class="flex just-between align-center users-weather w-100">
             <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
             {{ user.weatherIconXs|raw }}
         </div>

@@ -114,7 +114,7 @@ class BaseController extends AbstractController
 
     /**
      * Show a weather modal every day with random questions and persist the "user weather"
-     * @Route("meteo", name="weather")
+     * @Route("/meteo/edit", name="weather")
      * @param Request       $req
      * @param ObjectManager $manager
      * @return Response

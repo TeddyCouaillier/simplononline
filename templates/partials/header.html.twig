@@ -1,34 +1,27 @@
-<div class="position-fixed flexc nav-left vh-100 py-2 px-3 shadow inactive bg-white">
-    <div class="flexc content">
-        <div class="text-center">
-            <img src="/img/logo.jpeg" class="w-50"></img>
-            <hr class="my-2">
-        </div>
-        <div class="bold">
-            <a href="{{ path('project_all') }}" class="text-greyd rhover">Tous les projets</a>
-            <hr class="my-2">
-        </div>
-        <div class="bold">
-            <a href="{{ path('promo_all') }}" class="text-greyd rhover">Toutes les promotions</a>
-            <hr class="my-2">
-        </div>
-        <div class="bold">
-            <a href="{{ path('help_show') }}" class="text-greyd rhover">Liens d'aide</a>
-            <hr class="my-2">
-        </div>
-    </div>
-    <div>
-        <span class="bold">Météo du jour</span>
-        <div class="flex wrap bg-white mt-2 all-weather">
+<div class="position-fixed text-center text-greyl bhover navleft-toggle rounded-circle shadow-small bg-white">
+    <i class="fal fa-bars text-large"></i>
+</div>
+<div class="position-fixed container-white shadow-small navleft-container">
+    <div class="mt-5 w-100">
+        <div class="w-100 flex wrap all-weather h-75 overflow-auto">
         {{ render(controller(
             'App\\Controller\\BaseController::usersWeather'
         )) }}
         </div>
-    </div>
-</div>
-
-<div class="position-fixed flex align-center vh-100 text-greyl pointer inactive nav-left-button">
-    <div class="text-left bg-white">
-        <img src="/img/navleft.png" class="w-auto">
+        <hr class="my-1">
+        <div class="w-100 py-1 flex just-around text-center navleft-header">
+            <a href="{{ path('project_all') }}" class="text-greyl bhover">
+                <div class="rounded-circle bg-white shadow-small"><i class="far fa-list-ul"></i></div>
+            </a>
+            <a href="{{ path('promo_all') }}" class="text-greyl bhover">
+                <div class="rounded-circle bg-white shadow-small"><i class="fal fa-users-class"></i></div>
+            </a>
+            <a href="{{ path('help_show') }}" class="text-greyl bhover">
+                <div class="rounded-circle bg-white shadow-small"><i class="fal fa-link"></i></div>
+            </a>
+            <a href="{{ path('account_logout') }}" class="text-greyl bhover">
+                <div class="rounded-circle bg-white shadow-small"><i class="far fa-sign-out"></i></div>
+            </a>
+        </div>
     </div>
 </div>
