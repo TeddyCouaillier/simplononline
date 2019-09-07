@@ -2,18 +2,13 @@
 
 namespace App\Form\Project;
 
-use App\Entity\Language;
-use App\Entity\Project;
 use App\Entity\User;
+use App\Entity\Project;
 use App\Form\ApplicationType;
-use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EditProjectUserType extends ApplicationType
 {

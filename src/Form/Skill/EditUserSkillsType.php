@@ -3,7 +3,6 @@
 namespace App\Form\Skill;
 
 use App\Entity\User;
-use App\Entity\UserSkills;
 use App\Form\ApplicationType;
 use App\Form\Skill\UserSkillsType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -2,12 +2,9 @@
 
 namespace App\Form\Promotion;
 
-use App\Entity\User;
 use App\Entity\Promotion;
 use App\Form\ApplicationType;
-use App\Repository\UserRepository;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

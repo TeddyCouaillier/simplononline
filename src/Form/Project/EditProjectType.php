@@ -2,16 +2,9 @@
 
 namespace App\Form\Project;
 
-use App\Entity\User;
 use App\Entity\Project;
-use App\Entity\Language;
 use App\Form\ApplicationType;
-use App\Repository\UserRepository;
-use Symfony\Component\Form\FormEvent;
-use App\Repository\LanguageRepository;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
