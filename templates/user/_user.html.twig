@@ -105,7 +105,7 @@
     {######################################
      #### USER WEATHER
      #####################################}
-     <div class="bg-white rounded shadow-small user-weather flexc just-between">
+     <div class="container-white p-0 shadow-small user-weather flexc just-between">
         <div class="flex just-center align-center h-100">
             {{ user.weatherIcon|raw }}
         </div>
@@ -213,7 +213,7 @@
         </div>
         <div class="flex wrap just-center">
             {% for project in user.projects %}
-                <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container reveal">
+                <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                     <div>
                         <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
                         <p class="text-small text-grey">

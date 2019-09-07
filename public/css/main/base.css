@@ -1,7 +1,5 @@
 :root{
     --red:      #dc3d24;
-    --redl:     #f24848;
-    --redd:     #be2811;
     --grey:     #e8ecf1;
     --white:    #FFFFFF;
     --black:    #000000;
@@ -101,7 +99,6 @@ input[type="number"] {
 .text-greyl  { color: var(--greydark) !important; }
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
-.text-redl   { color: var(--redl) !important; }
 .text-black  { color: var(--black) !important; }
 .bold        { font-weight: 600; }
 .text-small  { font-size: .85em; }
@@ -173,7 +170,6 @@ input[type="number"] {
 .w-flex{ width: 48%; }
 .w-33{ width: 33% !important; }
 .w-66{ width: 66% !important; }
-.mw-50{ max-width: 50% !important; }
 .mw-66{ max-width: 66% !important; }
 
 .icon-xs{ font-size: .85em; }
@@ -183,29 +179,25 @@ input[type="number"] {
 .icon-xl{ font-size: 5em;   }
 
 [class*="avatar-"]{ border-radius: 50%; }
-.avatar-xs, .rounded-xs{
+.avatar-xs, .img-xs{
     width: 30px;
     height: 30px;
 }
-.avatar-sm, .rounded-sm{
+.avatar-sm, .img-sm{
     width: 50px;
     height: 50px;
 }
-.avatar-md, .rounded-md{
+.avatar-md, .img-md{
     width: 75px;
     height: 75px;
 }
-.avatar-lg, .rounded-lg{
+.avatar-lg, .img-lg{
     width: 150px;
     height: 150px;
 }
-.avatar-xl, .rounded-xl{
+.avatar-xl, .img-xl{
     width: 225px;
     height: 225px;
-}
-.my-6{
-    margin-top: 6rem;
-    margin-bottom: 6rem;
 }
 
 /* Buttons */
@@ -250,9 +242,10 @@ input[type="number"] {
     color: var(--white);
 }
 .button-red:hover{
-    background: var(--redd);
+    background: #be2811;
     color: var(--white);
 }
+
 /* Scrollbar */
 *::-webkit-scrollbar-track
 {
@@ -262,12 +255,14 @@ input[type="number"] {
 
 *::-webkit-scrollbar
 {
-	width: 10px;
+	width: 12px;
 	background-color: #F5F5F5;
 }
 
 *::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	background-color: rgba(0,0,0,75);
+    background-color: white;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--greydark);
 }

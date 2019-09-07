@@ -739,19 +739,19 @@ class User implements AdvancedUserInterface
     {
         switch ($this->weather) {
             case self::SUN:
-                return '<img src="/img/weather/sun.svg" class="rounded-md">';
+                return '<img src="/img/weather/sun.svg" class="img-md">';
                 break;
             case self::RAIN:
-                return '<img src="/img/weather/rain.svg" class="rounded-md">';
+                return '<img src="/img/weather/rain.svg" class="img-md">';
                 break;
             case self::CLOUD:
-                return '<img src="/img/weather/clouds.svg" class="rounded-md">';
+                return '<img src="/img/weather/clouds.svg" class="img-md">';
                 break;
             case self::THUNDER:
-                return '<img src="/img/weather/thunder.svg" class="rounded-md">';
+                return '<img src="/img/weather/thunder.svg" class="img-md">';
                 break;
             case self::SUNCLOUD:
-                return '<img src="/img/weather/suncloud.svg" class="rounded-md">';
+                return '<img src="/img/weather/suncloud.svg" class="img-md">';
                 break;
             default:
                 return '<p class="icon-lg">?</p>';
@@ -762,19 +762,19 @@ class User implements AdvancedUserInterface
     {
         switch ($this->weather) {
             case self::SUN:
-                return '<img src="/img/weather/sun.svg" class="rounded-xs">';
+                return '<img src="/img/weather/sun.svg" class="img-xs">';
                 break;
             case self::RAIN:
-                return '<img src="/img/weather/rain.svg" class="rounded-xs">';
+                return '<img src="/img/weather/rain.svg" class="img-xs">';
                 break;
             case self::CLOUD:
-                return '<img src="/img/weather/clouds.svg" class="rounded-xs">';
+                return '<img src="/img/weather/clouds.svg" class="img-xs">';
                 break;
             case self::THUNDER:
-                return '<img src="/img/weather/thunder.svg" class="rounded-xs">';
+                return '<img src="/img/weather/thunder.svg" class="img-xs">';
                 break;
             case self::SUNCLOUD:
-                return '<img src="/img/weather/suncloud.svg" class="rounded-xs">';
+                return '<img src="/img/weather/suncloud.svg" class="img-xs">';
                 break;
             default:
                 return '<p class="icon-lg">?</p>';

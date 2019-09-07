@@ -13,7 +13,7 @@
     {% set file = usend.files %}
     {{ template.deleteConfirm(file.id, path('file_delete',{'id': file.id}), "Ce fichier sera supprimé définitivement et ne sera plus accessible par les autres utilisateurs.") }}
 
-    <div class="flex just-center align-center bg-white p-3 rounded my-2 reveal">
+    <div class="container-white flex just-center align-center p-3 my-2">
         <div class="file-info">
             <p class="bold">{{ file.title }}</p>
             <p class="text-small">
@@ -25,10 +25,10 @@
             </p>
         </div>
         <div>
-            <div class="subnav">
+            <div class="subnav position-relative text-center rhover px-1 text-greyl">
                 <i class="fas fa-ellipsis-v"></i>
-                <div class="subnav-tooltip">
-                    <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link">Télécharger</a><br>
+                <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1">
+                    <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link rhover">Télécharger</a><br>
                     <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{file.id}}">Supprimer</a>
                 </div>
             </div>

@@ -13,12 +13,12 @@
     {{ template.checkMessage(form)}}
     <h1>Gestion des fichiers</h1>
     <hr>
-    <div class="bg-grey rounded mt-2 p-2 flex show-files">
+    <div class="container-grey mt-2 flex show-files">
         {{ include('file/_received.html.twig', {'user':user}) }}
         {{ include('file/_form.html.twig', {'form':form}) }}
     </div>
     <hr>
-    <div class="bg-grey rounded mt-2 p-2">
+    <div class="container-grey mt-2">
         {{ include('file/_sent.html.twig', {'sending':sending}) }}
     </div>
 {% endblock %}

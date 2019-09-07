@@ -60,8 +60,8 @@
     <div
     data-modalid="{{ skill.id }}" class="flex align-center my-1 skill-user" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
     data-content="{{ skill.label }}">
-        <div class="skill-label w-75">{{ skill.label }}</div>
-        <div class="level level-{{ skillUser.level }} ml-auto text-white">{{ skillUser.level }}</div>
+        <div class="skill-label w-75 pointer">{{ skill.label }}</div>
+        <div class="level level-{{ skillUser.level }} ml-auto text-white pointer">{{ skillUser.level }}</div>
     </div>
 {% endmacro %}
 
@@ -98,10 +98,10 @@
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-1">
                     {% if project.completed == false %}
-                    <div class="subnav">
+                    <div class="subnav position-relative text-center rhover px-1 text-greyl">
                         <i class="fas fa-ellipsis-v"></i>
-                        <div class="subnav-tooltip">
-                            <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                        <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1">
+                            <a class="subnav-link rhover edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
                             <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
                         </div>
                     </div>
@@ -166,14 +166,14 @@
 
 {% macro weather(type) %}
     {% if type == 0 %}
-        <img src="/img/weather/sun.svg" class="rounded-xs">
+        <img src="/img/weather/sun.svg" class="img-xs">
     {% elseif type == 1 %}
-        <img src="/img/weather/rain.svg" class="rounded-xs">
+        <img src="/img/weather/rain.svg" class="img-xs">
     {% elseif type == 2 %}
-        <img src="/img/weather/clouds.svg" class="rounded-xs">
+        <img src="/img/weather/clouds.svg" class="img-xs">
     {% elseif type == 3 %}
-        <img src="/img/weather/thunder.svg" class="rounded-xs">
+        <img src="/img/weather/thunder.svg" class="img-xs">
     {% else %}
-        <img src="/img/weather/suncloud.svg" class="rounded-xs">
+        <img src="/img/weather/suncloud.svg" class="img-xs">
     {% endif %}
 {% endmacro %}

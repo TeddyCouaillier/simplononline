@@ -19,10 +19,10 @@
                 <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
             </div>
             <div>
-                <div class="subnav">
+                <div class="subnav position-relative text-center rhover px-1 text-greyl">
                     <i class="fas fa-ellipsis-v"></i>
-                    <div class="subnav-tooltip">
-                        <a class="subnav-link edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
+                    <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1">
+                        <a class="subnav-link rhover edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
                         <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
                     </div>
                 </div>

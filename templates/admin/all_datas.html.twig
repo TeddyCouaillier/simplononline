@@ -35,7 +35,7 @@
     <div class="flex wrap just-center">
       {% for language in languages %}
         {{ template.deleteConfirm('language-'~language.id,path('admin_language_delete',{'id':language.id})) }}
-        <div class="outline-black" data-toggle="modal" data-target="#modal-language-{{language.id}}">
+        <div class="outline-black p-2 m-1 rounded rhover" data-toggle="modal" data-target="#modal-language-{{language.id}}">
           {{ language.label }}
           <i class="fal fa-times-circle"></i>
         </div>

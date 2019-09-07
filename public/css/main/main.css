@@ -51,17 +51,16 @@ label{ cursor:pointer; }
 
 .badge-link-active{
     background: var(--red);
-    color: white;
+    color: var(--white);
 }
 
 .badge-link-inactive{
-    background: white;
+    background: var(--white);
     color: var(--red);
-    /* border: 2px solid var(--red); */
 }
 .badge-link-inactive:hover{
     background: var(--red);
-    color: white;
+    color: var(--white);
     cursor: pointer;
 }
 
@@ -89,10 +88,7 @@ label{ cursor:pointer; }
 .border-level-2{ border-top: 2px solid #FFFB00; }
 .border-level-3{ border-top: 2px solid #0E9E53; }
 .skill-user > div { line-height: 30px; }
-.skill-user:hover{
-    background: rgba(244,244,244);
-    cursor: pointer;
-}
+.skill-user:hover{ background: rgba(244,244,244); }
 .skill-label {
     overflow: hidden;
     display: -webkit-box;
@@ -120,42 +116,18 @@ label{ cursor:pointer; }
 .form-check input{ margin-right: 10px !important; }
 
 /* Tooltip */
-.subnav {
-    font-size: 1.1em;
-    position: relative;
-    text-align: center;
-    cursor: pointer;
-    color: #b5bac0 !important;
-    padding: 0px 8px;
-}
-.subnav:hover{
-    color: var(--red) !important;
-}
 .subnav:focus{
     color: var(--red) !important;
     outline: none;
 }
-.subnav-link:hover{
-    color: var(--red)!important;
-}
 .subnav-tooltip {
     display: none;
-    background: #fff;
-    text-align: center;
-    font-size: .85em;
-    font-weight: bold;
     width: 85px;
     bottom: 100%;
-    color: #333;
     left: -60px;
     margin-bottom: 10px;
-    padding: 5px;
     pointer-events: auto;
-    position: absolute;
     z-index: 9999;
-    -webkit-box-shadow: var(--shadow);
-       -moz-box-shadow: var(--shadow);
-            box-shadow: var(--shadow);
 }
 .subnav .subnav-tooltip:before {
     bottom: -20px;
@@ -167,31 +139,22 @@ label{ cursor:pointer; }
     width: 100%;
 }
 
-/* Js */
-.reveal{
-    opacity: 0;
-    transform: translateY(-30px);
-}
-.reveal-visible{
-    opacity: 1;
-    transform: translateY(0);
-    transition: 1s cubic-bezier(.6,0,0,1);
-}
-
 .main-title {
     border-bottom: 1px solid rgba(25,25,25,.1);
     line-height: 0.1em;
     margin: 10px 0 20px;
 }
 
-.outline-black{
-    border: 1px solid black;
-    padding: .5rem;
-    border-radius: 7px;
-    margin: .25rem;
-}
-.outline-black:hover{
-    border-color: var(--red);
-    color: var(--red);
-    cursor: pointer;
-}
+.outline-black{ border: 1px solid black; }
+.outline-black:hover{ border-color: var(--red); }
+
+.main-section{
+    width:80%;
+    padding: 0px 5px;
+    }
+
+.users-weather .weather-svg{ max-height: 30px; }
+
+.circle{ width: 75px; height: 75px; border-radius: 50%; line-height: 75px;}
+
+.add_users_promotion_users-collection-actions{ width: 100%; text-align: right; }

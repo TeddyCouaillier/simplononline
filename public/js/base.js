@@ -70,26 +70,6 @@ $(".close-message").click(function() {
     $(this).parent().parent().fadeOut(500);
 });
 
-/* --------------- REVEAL CONTENTS -------------- */
-const ratio = .1
-const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: ratio
-  }
-const handleIntersect = function (entries, observer) {
-    entries.forEach(function (entry) {
-        if(entry.intersectionRatio > ratio) {
-            entry.target.classList.add('reveal-visible')
-            observer.unobserve(entry.target)
-        }
-    })
-}
-const observer = new IntersectionObserver(handleIntersect, options);
-document.querySelectorAll('.reveal').forEach(function (r) {
-    observer.observe(r)
-})
-
 /* ----------------- COPY LINKS ----------------- */
 function copyToClipboard(element) {
     var $temp = $("<input>");
@@ -198,11 +178,6 @@ $(document).on('click','.dots',function() {
         $(this).parent().parent().find('.user-subnav').fadeOut();
         $(this).removeClass('active');
     }
-})
-
-$(document).on('click', '.see-trainings', function() {
-    var id = $(this).data('id');
-    $('tbody').find(`[data-training=${id}]`).fadeToggle();
 })
 
 
