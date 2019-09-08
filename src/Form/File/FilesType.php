@@ -22,7 +22,6 @@ class FilesType extends ApplicationType
             ->add('title',     TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
             ->add('receiver',  EntityType::class, [
                 'class'         => User::class,
-                'choice_label'  => 'fullname',
                 'label'         => 'Destinataire',
                 'multiple'      => true,
                 'mapped'        => false,

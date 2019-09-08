@@ -15,7 +15,7 @@
   <div class="flex wrap just-around">
     {% for user in users %}
       <div class="container-white shadow-small flexc my-1 w-33 users-trainings">
-        <p class="text-center bold">{{ user.fullname }}</p>
+        <p class="text-center bold">{{ user }}</p>
         <div class="flexc my-2" style="height: 200px; overflow: auto;">
           {% for training in user.trainingCourse %}
             <span><i class="fas fa-user-tie"></i> {{ training.society}}</span>

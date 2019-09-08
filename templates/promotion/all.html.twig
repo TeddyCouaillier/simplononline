@@ -52,7 +52,7 @@
                             <li>Formateur :
                                 <em>
                                 {% for former in promo.formers %}
-                                    {{ former.fullname }} &nbsp;
+                                    {{ former }} &nbsp;
                                 {% else %}
                                     Aucun
                                 {% endfor %}
@@ -61,7 +61,7 @@
                             <li>Médiateur :
                                 <em>
                                 {% for mediator in promo.mediators %}
-                                    {{ mediator.fullname }} &nbsp;
+                                    {{ mediator }} &nbsp;
                                 {% else %}
                                     Aucun
                                 {% endfor %}

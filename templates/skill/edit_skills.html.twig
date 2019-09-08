@@ -13,7 +13,7 @@
 {% block body %}
     {{ template.checkMessage(form, "Les niveaux doivent être compris entre 0 et 3") }}
     <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
-    <span class="text-grey">{{ user.fullname }}</span>
+    <span class="text-grey">{{ user }}</span>
     <hr>
     {{ form_start(form) }}
         {% for form in form.userSkills %}

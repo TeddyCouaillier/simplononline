@@ -33,7 +33,6 @@ class TaskType extends ApplicationType
                 $task = $event->getData();
                 $event->getForm()->add('users', EntityType::class, [
                     'class'         => User::class,
-                    'choice_label'  => 'fullname',
                     'multiple'      => true,
                     'mapped'        => false,
                     'query_builder' => function (UserRepository $rep) use ($task) {

@@ -31,7 +31,6 @@ class PromotionType extends ApplicationType
             ])
             ->add('moderators',EntityType::class, [
                 'class'         => User::class,
-                'choice_label'  => 'fullname',
                 'placeholder'   => 'Liste des modérateurs de la promotion',
                 'required'      => false,
                 'multiple'      => true,

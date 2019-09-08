@@ -18,7 +18,6 @@ class EditProjectUserType extends ApplicationType
         $builder
             ->add('users',       EntityType::class, [
                 'class'         => User::class,
-                'choice_label'  => 'fullname',
                 'placeholder'   => 'Liste des apprenants du projet',
                 'multiple'      => true,
                 'expanded'      => true,

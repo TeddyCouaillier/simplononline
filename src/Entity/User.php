@@ -222,6 +222,11 @@ class User implements AdvancedUserInterface
         $this->promotionmod = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return ucfirst(strtolower($this->firstname)).' '.strtoupper($this->lastname);
+    }
+
     /**
      * Add all skills to the user
      * @param Skills[] $skills
@@ -406,11 +411,6 @@ class User implements AdvancedUserInterface
         $this->avatar = $avatar;
 
         return $this;
-    }
-
-    public function getFullname(): ?string
-    {
-        return strtoupper($this->lastname).' '.ucfirst($this->firstname);
     }
 
     public function getInitial()

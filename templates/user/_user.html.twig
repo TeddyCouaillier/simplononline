@@ -6,7 +6,7 @@
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-around p-3">
         <img src="/img/avatar/{{user.avatar}}" class="avatar-lg mb-2">
-        <span class="text-red bold">{{ user.fullname }}</span>
+        <span class="text-red bold">{{ user }}</span>
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
         {% endif %}

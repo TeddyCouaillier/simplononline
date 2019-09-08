@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'macro.html.twig' as template %}
-{% block title %}{{ user.fullname }}{% endblock %}
+{% block title %}{{ user }}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/css/user.css">
@@ -12,7 +12,7 @@
     <div class="flex wrap just-center w-100 my-2">
         <div class="container-white row mx-0 shadow-small w-50 user-container">
             <div class="col-lg-3 flexc just-around align-center text-center text-center">
-                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md" alt="avatar de {{ user }}">
                 <p>
                     {% if user.website != null %}
                     <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>
@@ -28,7 +28,7 @@
                 </p>
             </div>
             <div class="col-lg-9 user-secondary-info">
-                <span class="bold h4">{{ user.fullname }}</span><br>
+                <span class="bold h4">{{ user }}</span><br>
                 <ul>
                     <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{ user.email }}</li>
                     <li class="mb-1">

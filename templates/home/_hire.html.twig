@@ -30,7 +30,7 @@
                     <li>Formateur :
                         <em>
                         {% for former in promo.formers %}
-                            {{ former.fullname }} &nbsp;
+                            {{ former }} &nbsp;
                         {% else %}
                             Aucun
                         {% endfor %}
@@ -39,7 +39,7 @@
                     <li>Médiateur :
                         <em>
                         {% for mediator in promo.mediators %}
-                            {{ mediator.fullname }} &nbsp;
+                            {{ mediator }} &nbsp;
                         {% else %}
                             Aucun
                         {% endfor %}
@@ -80,7 +80,7 @@
                     <div class="flex flexc just-around text-center">
                         {# <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto"> #}
                         <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-sm mx-auto">
-                        <span class="bold">{{ user.fullname }}</span>
+                        <span class="bold">{{ user }}</span>
                         <span>{{ user.email }}</span>
                         <span class="bold rhover my-2">Portfolio <i class="fal fa-arrow-circle-right"></i></span>
                     </div>

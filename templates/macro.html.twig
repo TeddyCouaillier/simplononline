@@ -81,13 +81,13 @@
                     {% for user in task.users|slice(0,4) %}
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                     {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
-                        {{ user.fullname }} <br>
+                        {{ user }} <br>
                     '>
                     {% endfor %}
                     {% if task.users|length > 4 %}
                     <div class="avatar-xs my-2 ml-1 border-0 text-center text-small project-other-users" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                         {% for user in task.users|slice(4, task.users|length) %}
-                        {{ user.fullname }}<br>
+                        {{ user }}<br>
                         {% endfor %}
                     '>+{{task.users|length - 4}}</div>
                     {% endif %}

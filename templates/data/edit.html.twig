@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Modification des données de {{ user.fullname }}{% endblock %}
+{% block title %}Modification des données de {{ user }}{% endblock %}
 
 {% form_theme form _self %}
 
 {% block body %}
     <h1>Modification des données</h1>
-    <span class="text-grey">{{ user.fullname }}</span>
+    <span class="text-grey">{{ user }}</span>
     <hr>
     {{ form_start(form) }}
     {% for form in form.userData %}

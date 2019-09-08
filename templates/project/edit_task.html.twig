@@ -21,7 +21,7 @@
                         title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 2" data-style="bg-white" data-size="6">
                             {% for user in contributors %}
                                 <option value="{{ user.id }}" {% if user.hasTask(task) %}selected{% endif %}>
-                                    {{ user.fullname }}
+                                    {{ user }}
                                 </option>
                             {% endfor %}
                         </select>

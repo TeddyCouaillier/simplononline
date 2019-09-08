@@ -11,7 +11,7 @@
             </div>
             <div class="text-right" id="task-users">
                 {% for user in task.users %}
-                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user.fullname}}">
+                    <img src="/img/avatar/{{user.avatar}}" class="avatar-xs" data-toggle="tooltip" data-placement="top" title="{{user}}">
                 {% endfor %}
             </div>
             <div class="text-center text-grey" id="task-sub">

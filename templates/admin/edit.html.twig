@@ -22,7 +22,7 @@
             title="Formateur(s) et médiateur(s)" data-live-search="true" multiple data-selected-text-format="count > 2" data-style="bg-white" data-size="6">
             {% for moderator in moderators %}
                 <option value="{{ moderator.id }}" {% if promo.hasModerator(moderator) %}selected{% endif %}>
-                    {{ moderator.fullname }}
+                    {{ moderator }}
                 </option>
                 {% endfor %}
             </select>
@@ -126,7 +126,7 @@
                     title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 5" data-style="bg-white">
                     {% for user in users %}
                         <option value="{{ user.id }}" {% if user.hasProject(project) %}selected{% endif %}>
-                            {{ user.fullname }}
+                            {{ user }}
                         </option>
                         {% endfor %}
                     </select>

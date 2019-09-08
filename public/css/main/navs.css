@@ -10,7 +10,7 @@
 .user-subnav { z-index: 9999; }
 .dots{ opacity: .3; width: 15px;}
 .dots:hover{ opacity: 1; }
-.notif:hover{ color: rgba(0,0,0,0.75); }
+.notif:hover{ color: rgba(0,0,0,0.75) !important; }
 .user-nav > *{ margin: 0 10px; }
 
 .dots.active{ opacity: 1; }

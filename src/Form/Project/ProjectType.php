@@ -25,7 +25,6 @@ class ProjectType extends ApplicationType
             ->add('website',     TextType::class,     $this->getConfiguration(null,"Site internet du projet",['required'=> false]))
             ->add('users',       EntityType::class, [
                 'class'         => User::class,
-                'choice_label'  => 'fullname',
                 'placeholder'   => 'Liste des apprenants du projet',
                 'multiple'      => true,
                 'mapped'        => false,

@@ -40,7 +40,7 @@
             <div class="container-white flex align-center shadow-small mb-1">
                 <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
                 <div class="flex-fill">
-                    {{ user.fullname }}
+                    {{ user }}
                     {% if project.moderator == user %}
                         <i class="fal fa-star text-small text-red bold ml-1"></i>
                     {% endif %}
