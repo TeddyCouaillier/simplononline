@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("", name="account_")
+ * @Route("/", name="account_")
  */
 class AccountController extends AbstractController
 {
@@ -193,7 +193,7 @@ class AccountController extends AbstractController
     /**
      * Show a specific user
      * @Route("/account", name="show")
-     * @Route("/{slug}", name="user_show")
+     * @Route("/account/{slug}", name="user_show")
      * @param User          $user
      * @param Request       $request
      * @param ObjectManager $manager

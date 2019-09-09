@@ -1,0 +1,29 @@
+{% import 'macro.html.twig' as template %}
+
+{{ form_start(form) }}
+    <div class="my-3">
+        {{ form_label(form.beginAt) }}
+        {{ form_widget(form.beginAt) }}
+    </div>
+    <div class="my-3">
+        {{ form_label(form.endAt) }}
+        {{ form_widget(form.endAt) }}
+    </div>
+    <div class="my-3">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="my-3">
+        <div class="custom-control custom-switch text-center mt-4">
+            {{ form_label(form.important) }}
+            {{ form_widget(form.important) }}
+        </div>
+    </div>
+    {{ template.confirm() }}
+{{ form_end(form) }}
+
+{% if schedule is defined %}
+    <div class="text-right text-grey text-small">
+        <a href="{{ path('schedule_delete', {'id': schedule.id}) }}">Supprimer <i class="fal fa-times-circle text-red"></i></a>
+    </div>
+{% endif %}

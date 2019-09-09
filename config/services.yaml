@@ -39,3 +39,7 @@ services:
     App\Service\Pagination:
         arguments:
             $template: 'partials/pagination.html.twig'
+
+    App\EventListener\CalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'calendar.set_data', method: load }

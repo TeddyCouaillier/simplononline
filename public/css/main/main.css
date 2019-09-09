@@ -158,3 +158,20 @@ label{ cursor:pointer; }
 .circle{ width: 75px; height: 75px; border-radius: 50%; line-height: 75px;}
 
 .add_users_promotion_users-collection-actions{ width: 100%; text-align: right; }
+
+.fc-now-indicator{ border-color: #2a2d31 !important; }
+.fc-ltr .fc-time-grid .fc-now-indicator-arrow{
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+.fc-button:focus{
+    box-shadow: none !important;
+}
+.fc-button-primary:not(:disabled).fc-button-active, .fc-button-primary:not(:disabled):active{
+    background-color: #be2811 !important;
+}
+.fc-button-primary{
+    background-color: var(--red) !important;
+    border-color: #be2811 !important;
+}
