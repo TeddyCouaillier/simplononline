@@ -28,17 +28,23 @@ class ScheduleController extends AbstractController
     }
 
     /**
-     * @Route("/calendar", name="booking_calendar")
+     * Calendar view
+     * @Route("/calendar", name="schedule_calendar")
+     * @return Response
      */
-    public function calendar(): Response
+    public function calendar()
     {
         return $this->render('calendar.html.twig');
     }
 
     /**
+     * Create a new schedule
      * @Route("/new", name="schedule_new")
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return JsonResponse/Response
      */
-    public function new(Request $request)
+    public function new(Request $request, ObjectManager $manager)
     {
         $schedule = new Schedule();
         $form = $this->createForm(ScheduleType::class, $schedule,  array(
@@ -47,11 +53,10 @@ class ScheduleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($schedule);
-            $entityManager->flush();
+            $manager->persist($schedule);
+            $manager->flush();
 
-            return $this->redirectToRoute('booking_calendar');
+            return $this->redirectToRoute('schedule_calendar');
         }
 
         if($request->isXmlHttpRequest()){
@@ -59,9 +64,7 @@ class ScheduleController extends AbstractController
                 'form' => $form->createView()
             ]);
 
-            $response = [
-                "render" => $render->getContent(),
-            ];
+            $response = [ "render" => $render->getContent() ];
 
             return new JsonResponse($response);
         }
@@ -73,7 +76,12 @@ class ScheduleController extends AbstractController
     }
 
     /**
-     * @Route("/move", name="schedule_move", methods={"POST"})
+     * Edit schedule when the user moves schedule
+     * @Route("/move", name="schedule_move")
+     * @param Request            $request
+     * @param ObjectManager      $manager
+     * @param ScheduleRepository $rep
+     * @return JsonResponse
      */
     public function move(Request $request, ObjectManager $manager, ScheduleRepository $rep)
     {
@@ -92,29 +100,54 @@ class ScheduleController extends AbstractController
     }
 
     /**
-     * @Route("/editAjax", name="edit_ajax")
-     *
-     * @param Request $request
+     * Create schedule when user selects timezone
+     * @Route("/createAjax", name="create_ajax")
+     * @param Request       $request
      * @param ObjectManager $manager
-     * @return void
+     * @return JsonResponse
+     */
+    public function createAjax(Request $request, ObjectManager $manager)
+    {
+        $start    = new \DateTime($request->request->get('start'));
+        $end      = new \DateTime($request->request->get('end'));
+        $schedule = new Schedule();
+
+        $schedule->setBeginAt($start)
+                 ->setEndAt($end)
+                 ->setTitle('');
+
+        $manager->persist($schedule);
+        $manager->flush();
+
+        $response = [ "id" => $schedule->getId() ];
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * Edit a specific schedule in the calendar
+     * @Route("/editAjax", name="edit_ajax")
+     * @param Request            $request
+     * @param ObjectManager      $manager
+     * @param ScheduleRepository $rep
+     * @return JsonResponse/Response
      */
     public function editAjax(Request $request, ObjectManager $manager, ScheduleRepository $rep)
     {
-        if($request->isXmlHttpRequest()){
-            $id = $request->request->get('id');
-        } else {
-            $id = $request->query->get('id');
-        }
+        $id = $request->isXmlHttpRequest() ? $request->request->get('id') : $request->query->get('id');
         $schedule = $rep->find($id);
+
         $form = $this->createForm(ScheduleType::class, $schedule, array(
             'action' => $this->generateUrl('edit_ajax',['id' => $schedule->getId()])
         ));
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($schedule);
             $manager->flush();
 
-            return $this->redirectToRoute('booking_calendar');
+            return $this->redirectToRoute('schedule_calendar');
         }
 
         $render = $this->render('schedule/_form.html.twig', [
@@ -122,9 +155,7 @@ class ScheduleController extends AbstractController
             'schedule' => $schedule
         ]);
 
-        $response = [
-            "render" => $render->getContent(),
-        ];
+        $response = [ "render" => $render->getContent() ];
 
         return new JsonResponse($response);
     }
@@ -160,14 +191,17 @@ class ScheduleController extends AbstractController
     }
 
     /**
+     * Delete a specific schedule
      * @Route("/delete/{id}", name="schedule_delete")
+     * @param Schedule      $schedule
+     * @param ObjectManager $manager
+     * @return Response
      */
-    public function delete(Request $request, Schedule $schedule): Response
+    public function delete(Schedule $schedule, ObjectManager $manager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($schedule);
-        $entityManager->flush();
+        $manager->remove($schedule);
+        $manager->flush();
 
-        return $this->redirectToRoute('booking_calendar');
+        return $this->redirectToRoute('schedule_calendar');
     }
 }

@@ -44,7 +44,7 @@ class CalendarListener
                 'backgroundColor' => $color,
                 'borderColor'     => 'rgba(0,0,0,.25)',
                 'textColor'       => $textColor,
-                'classNames'      => 'shadow-small rounded p-2',
+                'classNames'      => 'shadow-small rounded p-2 schedule',
                 'id'              => $schedule->getId()
             ]);
 

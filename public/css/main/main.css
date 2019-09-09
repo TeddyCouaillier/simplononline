@@ -175,3 +175,15 @@ label{ cursor:pointer; }
     background-color: var(--red) !important;
     border-color: #be2811 !important;
 }
+.edit-event{
+    bottom: 0;
+    left: 5px;
+    display: none;
+    z-index: 5000;
+}
+.delete-event{
+    top: 0;
+    right: 5px;
+    display: none;
+    z-index: 5000;
+}

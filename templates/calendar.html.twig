@@ -5,164 +5,171 @@
 {% block title %}Planning{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+    <link rel="stylesheet" href="/css/libraries/fc-core.min.css">
+    <link rel="stylesheet" href="/css/libraries/fc-daygrid.min.css">
+    <link rel="stylesheet" href="/css/libraries/fc-timegrid.min.css">
 {% endblock %}
 
 {% block body %}
     <div class="container-white shadow-small mt-n3">
-    {% include '@Calendar/calendar.html' %}
+        {% include '@Calendar/calendar.html' %}
     </div>
-    <a>Create new booking</a>
 {% endblock %}
 
 {% block modalTitle %}Modifier le planning{% endblock %}
 {% block modalBody %}{% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    <script src="/js/libraries/fc-core.min.js"></script>
+    <script src="/js/libraries/fc-interaction.min.js"></script>
+    <script src="/js/libraries/fc-daygrid.min.js"></script>
+    <script src="/js/libraries/fc-timegrid.min.js"></script>
     <script>
-           jQuery(document).ready(function() {
-            $('.js-datepicker').datetimepicker({
-            format: 'yyyy-mm-dd'
-        });
-        });
-document.addEventListener('DOMContentLoaded', () => {
-    var calendarEl = document.getElementById('calendar-holder');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        height: "auto",
-        defaultView: 'timeGridWeek',
-        nowIndicator: true,
-        editable: true,
-        selectable: true,
-        minTime: "08:00:00",
-        maxTime: "19:00:00",
-        allDaySlot: false,
-        hiddenDays: [0,6],
-        customButtons: {
-            addBtn: {
-                text: 'Ajouter',
-                click: function(){
-                    $.ajax({
-                        url: '/schedule/new',
-                        type: "POST",
+    document.addEventListener('DOMContentLoaded', () => {
+        var calendarEl = document.getElementById('calendar-holder');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            defaultView: 'timeGridWeek',
+            height: "auto",
+            nowIndicator: true,
+            editable: true,
+            selectable: true,
+            allDaySlot: false,
+            hiddenDays: [0,6],
+            minTime: "08:00:00",
+            maxTime: "19:00:00",
+            plugins: ['interaction', 'dayGrid', 'timeGrid'],
+            timeZone: 'Europe/Luxembourg',
+            locale: 'fr',
+            eventSources: [{
+                url: "{{ path('fc_load_events') }}",
+                method: "POST",
+                extraParams: {
+                    filters: JSON.stringify({})
+                },
+                failure: () => {
+                    console.log('error fullcalendar');
+                },
+            }, ],
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,addBtn',
+            },
+            footer: {
+                center: 'prev,next'
+            },
+            buttonText: {
+                today:    'Aujourd\'hui',
+                month:    'Mois',
+                week:     'Semaine',
+                day:      'Jour',
+                list:     'Liste'
+            },
+            customButtons: {
+                addBtn: {
+                    text: 'Ajouter',
+                    click: function(){
+                        $.ajax({
+                            url: '/schedule/new',
+                            type: "POST",
 
-                        success: function(response){
-                            $('#modal').modal();
-                            $('#modal').find('.modal-main').html(response.render);
-                        }
-                    });
+                            success: function(response){
+                                $('#modal').modal();
+                                $('#modal').find('.modal-main').html(response.render);
+                            }
+                        });
+                    }
                 }
+            },
+            select: function(event) {
+                $.ajax({
+                    url: '/schedule/createAjax',
+                    data: {
+                        start : event.startStr,
+                        end : event.endStr
+                    },
+                    type: "POST",
+
+                    success: function(response){
+                        var test = {
+                            id: response.id,
+                            title: '',
+                            start: event.startStr,
+                            end: event.endStr,
+                            backgroundColor: 'white',
+                            classNames: 'shadow-small rounded p-2 schedule',
+                            borderColor: 'rgba(0,0,0,.25)'
+                        };
+                        console.log('ok');
+                        calendar.addEvent(test);
+                    }
+                });
+            },
+            eventDrop: function(event) {
+                var startString = new Date(event.event.start.toUTCString());
+                var endString   = new Date(event.event.end.toUTCString());
+                var start = startString.toISOString().replace('T',' ').replace('Z','');
+                var end   = endString.toISOString().replace('T',' ').replace('Z','');
+                var id    = parseInt(event.event.id);
+                console.log(id);
+                console.log(start);
+                console.log(end);
+
+                $.ajax({
+                    url: '/schedule/move',
+                    data: {
+                        id : id,
+                        start : start,
+                        end : end
+                    },
+                    type: "POST",
+
+                    success: function(response){
+                        console.log(response.id);
+                    }
+                });
+            },
+            eventResize: function(event) {
+                var startString = new Date(event.event.start.toUTCString());
+                var endString   = new Date(event.event.end.toUTCString());
+                var start = startString.toISOString().replace('T',' ').replace('Z','');
+                var end   = endString.toISOString().replace('T',' ').replace('Z','');
+                var id    = parseInt(event.event.id);
+                console.log(id);
+                console.log(start);
+                console.log(end);
+
+                $.ajax({
+                    url: '/schedule/move',
+                    data: {
+                        id : id,
+                        start : start,
+                        end : end
+                    },
+                    type: "POST",
+
+                    success: function(response){
+                        console.log(response.id);
+                    }
+                });
+            },
+            eventClick: function(event) {
+                var id = parseInt(event.event.id);
+                $.ajax({
+                    url: '/schedule/editAjax',
+                    data: {
+                        id : id
+                    },
+                    type: "POST",
+
+                    success: function(response){
+                        $('#modal').modal();
+                        $('#modal').find('.modal-main').html(response.render);
+                    }
+                });
             }
-        },
-        buttonText: {
-            today:    'Aujourd\'hui',
-            month:    'Mois',
-            week:     'Semaine',
-            day:      'Jour',
-            list:     'Liste'
-        },
-        eventSources: [{
-            url: "{{ path('fc_load_events') }}",
-            method: "POST",
-            extraParams: {
-                filters: JSON.stringify({})
-            },
-            failure: () => {
-                console.log('error fullcalendar');
-                // alert("There was an error while fetching FullCalendar!");
-            },
-        }, ],
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,addBtn',
-        },
-        footer: {
-            center: 'prev,next'
-        },
-
-
-        plugins: ['interaction', 'dayGrid', 'timeGrid',
-            'list'
-        ],
-        // https://fullcalendar.io/docs/plugin-index
-        timeZone: 'Europe/Luxembourg',
-        locale: 'fr',
-        eventDrop: function(event) {
-            var startString = new Date(event.event.start.toUTCString());
-            var endString   = new Date(event.event.end.toUTCString());
-            var start = startString.toISOString().replace('T',' ').replace('Z','');
-            var end   = endString.toISOString().replace('T',' ').replace('Z','');
-            var id    = parseInt(event.event.id);
-            console.log(id);
-            console.log(start);
-            console.log(end);
-
-            $.ajax({
-                url: '/schedule/move',
-                data: {
-                    id : id,
-                    start : start,
-                    end : end
-                },
-                type: "POST",
-
-                success: function(response){
-                    console.log(response.id);
-                }
-            });
-        },
-        eventResize: function(event) {
-            var startString = new Date(event.event.start.toUTCString());
-            var endString   = new Date(event.event.end.toUTCString());
-            var start = startString.toISOString().replace('T',' ').replace('Z','');
-            var end   = endString.toISOString().replace('T',' ').replace('Z','');
-            var id    = parseInt(event.event.id);
-            console.log(id);
-            console.log(start);
-            console.log(end);
-
-            $.ajax({
-                url: '/schedule/move',
-                data: {
-                    id : id,
-                    start : start,
-                    end : end
-                },
-                type: "POST",
-
-                success: function(response){
-                    console.log(response.id);
-                }
-            });
-        },
-        eventClick: function(event) {
-            /*console.log('Event: ' + info.event.title);
-            console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            console.log('View: ' + info.view.type);
-    */
-            var id = parseInt(event.event.id);
-            $.ajax({
-                url: '/schedule/editAjax',
-                data: {
-                    id : id
-                },
-                type: "POST",
-
-                success: function(response){
-                    $('#modal').modal();
-                    $('#modal').find('.modal-main').html(response.render);
-                }
-            });
-
-        }
+        });
+        calendar.render();
     });
-    calendar.render();
-});
 </script>
 {% endblock %}
