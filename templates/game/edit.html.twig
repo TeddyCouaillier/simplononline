@@ -1,0 +1,28 @@
+{% import 'macro.html.twig' as template %}
+
+<div class="flex just-between align-center">
+    <h2>Modifier le jeu</h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<hr>
+<div class="modal-main">
+    {{ form_start(form, {'action': path('user_game_edit',{'id':game.id})}) }}
+        <div class="my-2">
+            {{ form_widget(form.title) }}
+        </div>
+        <hr>
+        <div class="my-2">
+            {{ form_widget(form.link) }}
+        </div>
+        <hr>
+        <div class="my-2">
+            {{ form_widget(form.github) }}
+        </div>
+        <hr>
+        <div class="my-2">
+            {{ form_widget(form.language) }}
+        </div>
+        <hr>
+        {{ template.confirm() }}
+    {{ form_end(form) }}
+</div>

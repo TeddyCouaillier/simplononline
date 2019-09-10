@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des jeux créés par les apprenants{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/other.css">
+{% endblock %}
+
+{% block body %}
+    <div class="flex just-between align-center">
+        <h1 class="w-75">Liste des jeux créés par les apprenants</h1>
+        {{ template.add() }}
+    </div>
+    <hr>
+    <div class="flex wrap just-around align-content-stretch">
+    {% for game in games|reverse %}
+        {% if game.publisher == app.user %}
+        {{ template.deleteConfirm(game.id,path('user_game_delete',{'id': game.id})) }}
+        {{ template.modal("modal-edit-"~game.id) }}
+        {% endif %}
+        <div class="container-white shadow-small flexc my-1 w-33 h-auto">
+            <p class="bold game-title">{{ game.title }}</p>
+            <p class="text-grey text-small">
+                Publié par {{ game.publisher }} le {{ game.publishedAt | date('d/m/Y') }}
+            </p>
+            <p>
+                <span class="badge badge-pill badge-danger my-1">{{ game.language.label }}</span>
+            </p>
+            <div class="mt-auto flex just-between align-center text-grey text-small" style="bottom: 0; right: 0">
+                {% if game.publisher == app.user %}
+                    <p class="mt-1">
+                        <span class="mx-1">
+                            <i class="fal fa-times-circle rhover" data-toggle="modal" data-target="#modal-{{game.id}}"></i>
+                        </span>
+                        <span class="mx-1">
+                            <i class="fal fa-pen bhover game-edit" data-toggle="modal" data-target="#modal-edit-{{game.id}}" data-url="{{ path('user_game_edit',{'id': game.id}) }}"></i>
+                        </span>
+                    </p>
+                {% endif %}
+                <p class="ml-auto">
+                    <span class="mx-1">
+                        <i class="fal fa-thumbs-up bhover"></i>
+                        15
+                    </span>
+                    <span class="mx-1">
+                        <i class="fal fa-thumbs-down bhover"></i>
+                        4
+                    </span>
+                    <span class="mx-1">
+                        <i class="fal fa-unlink bhover"></i>
+                        0
+                    </span>
+                </p>
+            </div>
+        </div>
+    {% else %}
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block modalTitle %}Ajouter un jeu{% endblock %}
+{% block modalBody %}
+    {{ form_start(form) }}
+    <div class="my-2">
+        {{ form_widget(form.title) }}
+    </div>
+    <hr>
+    <div class="my-2">
+        {{ form_widget(form.link) }}
+    </div>
+    <hr>
+    <div class="my-2">
+        {{ form_widget(form.github) }}
+    </div>
+    <hr>
+    <div class="my-2">
+        {{ form_widget(form.language) }}
+    </div>
+    <hr>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+{% endblock %}

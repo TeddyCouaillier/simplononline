@@ -203,8 +203,9 @@ input[type="number"] {
 /* Buttons */
 .btn:focus{ box-shadow: 0 0 0 0.2rem rgba(0,0,0,.1)!important; }
 .button-edit{
-    background: var(--grey);
-    color: var(--greydark);
+    background: var(--white);
+    color: var(--greydark) !important;
+    box-shadow: var(--shadow);
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -215,10 +216,7 @@ input[type="number"] {
     cursor: pointer;
 }
 .button-edit:hover{
-    color: rgba(0,0,0,.9);
-    -webkit-box-shadow: var(--shadow);
-       -moz-box-shadow: var(--shadow);
-            box-shadow: var(--shadow);
+    color: rgba(0,0,0,.9) !important;
 }
 .button-circle{
     border-radius: 50%;

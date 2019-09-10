@@ -115,7 +115,7 @@
 <div class="container-white mx-auto">
     <h2>{{ project.title }}</h2>
     {{ form_start(form, {'action': path('admin_project_edit',{'id':project.id})}) }}
-<div class="project-new row mx-0">
+        <div class="project-new row mx-0">
             <div class="col-md-7 col-sm-12 col-xs-12">
                 <div class="container-white shadow-small my-3 px-1 flex align-center project-new-title">
                     {{ form_widget(form.title, { 'attr': { 'maxlength' : 60 } }) }}

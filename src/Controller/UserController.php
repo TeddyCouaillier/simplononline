@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use App\Entity\User;
+use App\Form\GameType;
 use App\Entity\TrainingCourse;
+use App\Repository\GameRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TrainingCourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\TrainingCourse\TrainingCourseUserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -169,5 +173,92 @@ class UserController extends AbstractController
         return $this->render('data/show.html.twig', [
             'user' => $user
         ]);
+    }
+
+    // -----------------------------------------------------
+    // -- Game section
+    // -----------------------------------------------------
+    /**
+     * Show all games + adding form
+     * @Route("/games/all", name="game")
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @param GameRepository $rep
+     * @return Response
+     */
+    public function showGames(Request $request, ObjectManager $manager, GameRepository $rep)
+    {
+        $game = new Game($this->getUser());
+        $form = $this->createForm(GameType::class, $game);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($game);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le jeu a bien été ajouté.'
+            );
+        }
+
+        return $this->render('game/all.html.twig', [
+            'games' => $rep->findAll(),
+            'form'  => $form->createView()
+        ]);
+    }
+
+    /**
+     * Delete a specific game
+     * @Route("/games/{id}/delete", name="game_delete")
+     * @param Game          $game
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function deleteGame(Game $game, ObjectManager $manager)
+    {
+        $manager->remove($game);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Le jeu a bien été supprimé.'
+        );
+
+        return $this->redirectToRoute('user_game');
+    }
+
+    /**
+     * Edit a specific game
+     * @Route("/games/{id}/edit", name="game_edit")
+     * @param Game          $game
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return JsonResponse/Response
+     */
+    public function editGame(Game $game, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(GameType::class, $game);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($game);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le jeu a bien été modifié.'
+            );
+
+            return $this->redirectToRoute('user_game');
+        }
+
+        $render = $this->render('game/edit.html.twig', [
+            'form'      => $form->createView(),
+            'game'      => $game
+        ]);
+
+        $response = [ "render" => $render->getContent() ];
+
+        return new JsonResponse($response);
     }
 }
