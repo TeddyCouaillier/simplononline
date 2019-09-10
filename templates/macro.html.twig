@@ -177,3 +177,7 @@
         <img src="/img/weather/suncloud.svg" class="img-xs">
     {% endif %}
 {% endmacro %}
+
+{% macro img(src, class = '', default = '/img/avatar/avatar.png') %}
+    <img src="{{ src }}" class="{{ class }}" onerror="this.onerror=null;this.src='{{ default }}';">
+{% endmacro %}

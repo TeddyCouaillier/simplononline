@@ -58,6 +58,12 @@ class ScheduleController extends AbstractController
 
             return $this->redirectToRoute('schedule_calendar');
         }
+        if ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash(
+                'warning',
+                'Erreur dans la saisie du formulaire, vérifiez les dates'
+            );
+        }
 
         if($request->isXmlHttpRequest()){
             $render = $this->render('schedule/_form.html.twig', [
@@ -69,10 +75,7 @@ class ScheduleController extends AbstractController
             return new JsonResponse($response);
         }
 
-        return $this->render('schedule/new.html.twig', [
-            'schedule' => $schedule,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('schedule_calendar');
     }
 
     /**

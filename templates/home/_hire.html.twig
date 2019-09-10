@@ -78,7 +78,7 @@
                 <div class="bg-white mb-3 py-3 w-33 promo-users shadow-small">
                     <a href="{{ path('home_user',{'slug': user.slug}) }}">
                     <div class="flex flexc just-around text-center">
-                        {# <img src="/img/avatar/{{ user.avatar }}" class="avatar-sm mx-auto"> #}
+                        {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-sm mx-auto") }} #}
                         <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-sm mx-auto">
                         <span class="bold">{{ user }}</span>
                         <span>{{ user.email }}</span>

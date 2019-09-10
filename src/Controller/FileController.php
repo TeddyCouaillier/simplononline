@@ -56,7 +56,7 @@ class FileController extends AbstractController
         $form = $access ? $this->createForm(FilesAdminType::class, $file) : $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData());
+            $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData(), $rep);
             $file->setName($filename);
 
             // New notification
@@ -242,17 +242,18 @@ class FileController extends AbstractController
 
     /**
      * Move the file upload to the file directory
-     * @param string $name  the upload file name
-     * @param string $title the title given by the user
+     * @param string         $name  the upload file name
+     * @param string         $title the title given by the user
+     * @param UserRepository $rep
      * @return string
      */
-    public function moveFile($name, $title)
+    public function moveFile($name, $title, $rep)
     {
         $file = $name;
         $fileName = "";
         if($file != NULL)
         {
-            $lastUserFile = $this->getDoctrine()->getRepository(UserFiles::class)->findOneBy([], ['id' => 'desc']);
+            $lastUserFile = $rep->findOneBy([], ['id' => 'desc']);
             $id = $lastUserFile !== null ? $lastUserFile->getId()+1 : 1;
             $fileName = str_replace(" ","-",$title);
             $fileName .= $id.'.'.$file->guessExtension();

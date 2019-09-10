@@ -98,42 +98,6 @@ $(document).on('click','.promocurrent', function() {
     });
 })
 
-$(document).on('click','.active-user', function() {
-    const check = $(this);
-
-    const url = $(this).data('userurl');
-    $.ajax({
-        url: url,
-        type: "POST",
-
-        success: function(response){
-            if($(check).is(':checked')){
-                $(check).prop("checked",true);
-            } else {
-                $(check).prop("checked",false);
-            }
-        }
-    });
-})
-
-$(document).on('click','.project-completed', function() {
-    const check = $(this);
-
-    const url = $(this).data('projecturl');
-    $.ajax({
-        url: url,
-        type: "POST",
-
-        success: function(){
-            if($(check).is(':checked')){
-                $(check).prop("checked",true);
-            } else {
-                $(check).prop("checked",false);
-            }
-        }
-    });
-})
-
 $(document).on('click','.edit-data',function(){
     const url = $(this).data('url');
     modal = $(this).data('target');
@@ -145,23 +109,6 @@ $(document).on('click','.edit-data',function(){
             if (url !== undefined)
             {
                 $('.modal[id*="edit-data-"] .modal-body').html("");
-                $(modal).find('.modal-body').append(response.render);
-            }
-        }
-    });
-})
-
-$(document).on('click','.edit-help',function(){
-    const url = $(this).data('url');
-    modal = $(this).data('target');
-    $.ajax({
-        url: url,
-        type: "POST",
-
-        success: function(response){
-            if (url !== undefined)
-            {
-                $('.modal[id*="edit-help-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
         }

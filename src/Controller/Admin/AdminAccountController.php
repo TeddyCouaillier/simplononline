@@ -6,10 +6,11 @@ use App\Entity\Help;
 use App\Entity\User;
 use App\Entity\Files;
 use App\Entity\Project;
+use App\Entity\Schedule;
 use App\Entity\Promotion;
 use App\Entity\UserNotif;
 use App\Entity\Correction;
-use App\Entity\Schedule;
+use App\Entity\Notification;
 use App\Form\File\FilesAdminType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -39,6 +40,30 @@ class AdminAccountController extends AbstractController
         $srep = $this->getDoctrine()->getRepository(Schedule::class);
 
         $form = $this->createForm(FilesAdminType::class, $file);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData(), $urep);
+            $file->setName($filename);
+
+            // New notification
+            $notif = $user->createSenderNotif(Notification::FILE);
+            $manager->persist($user);
+
+            $data = $request->request->get('files_admin');
+            foreach($data['receiver'] as $receiver_id){
+                $receiver = $urep->find($receiver_id);
+                $receiver->createUserFile($user, $file);
+                $receiver->createUserNotif($notif);
+                $manager->persist($receiver);
+            }
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le fichier a bien été envoyé.'
+            );
+        }
 
         if($request->query->get('seen') != null){
             $unotif = $this->getDoctrine()->getRepository(UserNotif::class)->find($request->query->get('seen'));
@@ -65,5 +90,31 @@ class AdminAccountController extends AbstractController
             'schedules'   => $srep->findAllNow(),
             'schedulesT'  => $srep->findAllFutures()
         ]);
+    }
+
+    /**
+     * Move the file upload to the file directory
+     * @param string         $name  the upload file name
+     * @param string         $title the title given by the user
+     * @param UserRepository $rep
+     * @return string
+     */
+    public function moveFile($name, $title, $rep)
+    {
+        $file = $name;
+        $fileName = "";
+        if($file != NULL)
+        {
+            $lastUserFile = $rep->findOneBy([], ['id' => 'desc']);
+            $id = $lastUserFile !== null ? $lastUserFile->getId()+1 : 1;
+            $fileName = str_replace(" ","-",$title);
+            $fileName .= $id.'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('file_directory'),
+                $fileName
+            );
+        }
+        return $fileName;
     }
 }

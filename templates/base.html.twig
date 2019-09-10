@@ -15,8 +15,21 @@
         <link rel="stylesheet" href="/css/main/main.css">
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="/css/media_queries/mq_base.css">
+        <script src="/js/libraries/jquery.min.js"></script>
+        <script>
+            $(window).ready(function() {
+                $(".loader").fadeOut("1000");
+            })
+        </script>
     </head>
     <body>
+        <div class="position-fixed bg-white loader">
+            <div class="flex just-center align-center h-100 w-100">
+                <span class="whirly">Loading…</span>
+            </div>
+        </div>
+
+
         {% include 'partials/header.html.twig' %}
         {% include 'partials/subnav.html.twig' %}
 
@@ -81,7 +94,7 @@
             <span class="text-red">Simplon</span> - Copyright &copy; 2019. All rights reserved.
         </footer>
 
-        <script src="/js/libraries/jquery.min.js" onload="window.$ = window.jQuery;"></script>
+
         <script src="/js/libraries/popper.min.js"></script>
         <script src="/js/libraries/bootstrap.min.js"></script>
         <script src="/js/libraries/jquery.collection.js"></script>

@@ -14,7 +14,7 @@
     <div class="flex wrap just-center w-100 my-2">
         <div class="container-white row mx-0 shadow-small w-50 user-container">
             <div class="col-lg-3 flexc just-around align-center text-center text-center">
-                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md" alt="avatar de {{ user }}">
+                {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md") }}
                 <p>
                     {% if user.website != null %}
                     <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>

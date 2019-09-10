@@ -64,5 +64,7 @@
 <div class="position-fixed flex just-around align-center bg-white py-2 px-3 text-greyd user-nav">
     <i class="fas fa-bell pointer notif text-greyl {% if app.user.hasNotif %} active {% endif %}"></i>
     <img src="/img/dot.svg" class="pointer dots">
-    <a href="{{path('account_show') }}"><img src="/img/avatar/{{ app.user.avatar }}" class="avatar-xs"></a>
+    <a href="{{path('account_show') }}">
+        {{ template.img("/img/avatar/{{app.user.avatar}}", "avatar-xs") }}
+    </a>
 </div>

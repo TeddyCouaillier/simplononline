@@ -1,5 +1,5 @@
 {% import 'macro.html.twig' as template %}
-
+{{ template.checkMessage(form) }}
 <div class="user-admin mb-4">
     {######################################
      #### ADMIN NAV
@@ -88,7 +88,7 @@
      #### ADMIN INFO
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-between p-3">
-        <img src="/img/avatar/{{user.avatar}}" class="avatar-lg my-3">
+        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg my-3") }}
         <div class="text-center">
             <span class="text-red bold">{{ user }}</span><br>
             <span class="badge badge-pill badge-danger mt-1">
@@ -164,7 +164,7 @@
     </div>
 
     {######################################
-     #### ADMIN WEATHER
+     #### ADMIN SCHEDULE
      #####################################}
     <div class="container-white shadow-small user-schedule flexc just-between">
         <div class="row no-gutters" style="height: 325px; overflow: auto">

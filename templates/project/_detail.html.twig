@@ -38,7 +38,7 @@
             {% for user in project.users if user is not null %}
             {{ template.deleteConfirm('remove-user-'~user.id,path('project_remove_user',{'slug': project.slug,'id': user.id}))}}
             <div class="container-white flex align-center shadow-small mb-1">
-                <img src="/img/avatar/{{user.avatar}}" class="avatar-xs mr-2">
+                {{ template.img("/img/avatar/{{user.avatar}}", "avatar-xs mr-2") }}
                 <div class="flex-fill">
                     {{ user }}
                     {% if project.moderator == user %}

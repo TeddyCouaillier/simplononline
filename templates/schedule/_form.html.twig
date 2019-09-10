@@ -11,7 +11,7 @@
     </div>
     <div class="my-3">
         {{ form_label(form.title) }}
-        {{ form_widget(form.title) }}
+        {{ form_widget(form.title, { 'attr': { 'maxlength' : 150 }}) }}
     </div>
     <div class="my-3">
         <div class="custom-control custom-switch text-center mt-4">

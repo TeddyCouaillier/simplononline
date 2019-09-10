@@ -15,8 +15,8 @@ class ScheduleType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('beginAt',   DateTimeType::class, $this->getConfiguration('Date de début',null, ['widget'   => 'single_text']))
-            ->add('endAt',     DateTimeType::class, $this->getConfiguration('Date de début',null, ['widget'   => 'single_text']))
+            ->add('beginAt',   DateTimeType::class, $this->getConfiguration('Date de début', null, ['widget'   => 'single_text']))
+            ->add('endAt',     DateTimeType::class, $this->getConfiguration('Date de fin',   null, ['widget'   => 'single_text']))
             ->add('title',     TextareaType::class, $this->getConfiguration('Description', 'Ex. Aller à la piscine, coder sans les mains, etc.'))
             ->add('important', CheckboxType::class, $this->getConfiguration(' ',null,[
                 'attr'       => array('class' => 'custom-control-input'),
