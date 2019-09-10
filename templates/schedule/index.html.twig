@@ -3,37 +3,19 @@
 {% block title %}Schedule index{% endblock %}
 
 {% block body %}
-    <h1>Schedule index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>BeginAt</th>
-                <th>EndAt</th>
-                <th>Title</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for schedule in schedules %}
-            <tr>
-                <td>{{ schedule.id }}</td>
-                <td>{{ schedule.beginAt ? schedule.beginAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ schedule.endAt ? schedule.endAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ schedule.title }}</td>
-                <td>
-                    <a href="{{ path('schedule_show', {'id': schedule.id}) }}">show</a>
-                    <a href="{{ path('schedule_edit', {'id': schedule.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('schedule_new') }}">Create new</a>
+    <h1>Liste des plannings</h1>
+    <hr>
+    <div class="flex wrap just-around align-center">
+    {% for schedule in schedules %}
+        <div class="container-white shadow-small my-2 w-flex">
+            <p class="text-grey text-small">
+                {{ schedule.beginAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }} -
+                {{ schedule.endAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }}
+            </p>
+            <p>
+                {{ schedule.title }}
+            </p>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}

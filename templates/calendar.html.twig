@@ -14,6 +14,9 @@
     <div class="container-white shadow-small mt-n3">
         {% include '@Calendar/calendar.html' %}
     </div>
+    <div class="my-5 text-center">
+        <a href="{{ path('schedule_all') }}" class="text-grey bhover">Voir tous les plannings</a>
+    </div>
 {% endblock %}
 
 {% block modalTitle %}Modifier le planning{% endblock %}
@@ -70,7 +73,7 @@
                     text: 'Ajouter',
                     click: function(){
                         $.ajax({
-                            url: '/schedule/new',
+                            url: '/admin/schedule/new',
                             type: "POST",
 
                             success: function(response){
@@ -83,7 +86,7 @@
             },
             select: function(event) {
                 $.ajax({
-                    url: '/schedule/createAjax',
+                    url: '/admin/schedule/createAjax',
                     data: {
                         start : event.startStr,
                         end : event.endStr
@@ -116,7 +119,7 @@
                 console.log(end);
 
                 $.ajax({
-                    url: '/schedule/move',
+                    url: '/admin/schedule/move',
                     data: {
                         id : id,
                         start : start,
@@ -156,7 +159,7 @@
             eventClick: function(event) {
                 var id = parseInt(event.event.id);
                 $.ajax({
-                    url: '/schedule/editAjax',
+                    url: '/admin/schedule/editAjax',
                     data: {
                         id : id
                     },

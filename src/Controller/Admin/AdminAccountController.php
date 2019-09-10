@@ -9,6 +9,7 @@ use App\Entity\Project;
 use App\Entity\Promotion;
 use App\Entity\UserNotif;
 use App\Entity\Correction;
+use App\Entity\Schedule;
 use App\Form\File\FilesAdminType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -35,6 +36,7 @@ class AdminAccountController extends AbstractController
         $urep = $this->getDoctrine()->getRepository(User::class);
         $pjrp = $this->getDoctrine()->getRepository(Promotion::class);
         $crep = $this->getDoctrine()->getRepository(Correction::class);
+        $srep = $this->getDoctrine()->getRepository(Schedule::class);
 
         $form = $this->createForm(FilesAdminType::class, $file);
 
@@ -59,8 +61,9 @@ class AdminAccountController extends AbstractController
             'helps'       => $promo == null ? 0 : count($hrep->findAllHelpByPromo($promo)),
             'users'       => $promo == null ? 0 : count($urep->findBy(['promotion' => $promo])),
             'corrections' => $promo == null ? 0 : count($crep->findAllCorrectionByPromo($promo)),
-            'promo'       => $promo
-
+            'promo'       => $promo,
+            'schedules'   => $srep->findAllNow(),
+            'schedulesT'  => $srep->findAllFutures()
         ]);
     }
 }

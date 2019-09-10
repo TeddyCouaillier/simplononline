@@ -18,4 +18,28 @@ class ScheduleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Schedule::class);
     }
+
+    public function findAllNow()
+    {
+        $time = new \DateTime();
+        $query = $this->getEntityManager()->createQuery('
+            SELECT s FROM App\Entity\Schedule s
+            WHERE s.beginAt between CURRENT_DATE() and :end  ORDER BY s.beginAt
+        ')
+        ->setParameter('end', $time->setTime(23,59));
+
+        return $query->getResult();
+    }
+
+    public function findAllFutures()
+    {
+        $time = new \DateTime('+1 days');
+        $query = $this->getEntityManager()->createQuery('
+            SELECT s FROM App\Entity\Schedule s
+            WHERE s.beginAt >= :tomorrow  ORDER BY s.beginAt
+        ')
+        ->setParameter('tomorrow', $time->setTime(00,00));
+
+        return $query->getResult();
+    }
 }

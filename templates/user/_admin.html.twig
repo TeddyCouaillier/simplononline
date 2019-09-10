@@ -5,6 +5,10 @@
      #### ADMIN NAV
      #####################################}
     <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
+        <a href="{{ path('schedule_calendar') }}" class="rhover mx-1">
+            <i class="fal fa-calendar-alt text-large"></i><br>
+            Agenda
+        </a>
         <a href="{{ path('project_all') }}" class="rhover mx-1">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
@@ -24,10 +28,6 @@
         <a href="{{ path('admin_all_trainings') }}" class="rhover mx-1">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
-        </a>
-        <a href="{{ path('admin_all_corrections') }}" class="rhover mx-1">
-            <i class="fas fa-pencil-alt text-large"></i><br>
-            Corrections
         </a>
         <a href="{{ path('help_show') }}" class="rhover mx-1">
             <i class="fas fa-question-circle text-large"></i><br>
@@ -154,12 +154,44 @@
     {######################################
      #### ADMIN WEATHER
      #####################################}
-     <div class="container-white p-0 shadow-small user-weather flexc just-between">
+    <div class="container-white p-0 shadow-small user-weather flexc just-between">
         <div class="flex just-center align-center h-100">
             {{ user.weatherIcon|raw }}
         </div>
         <div class="now bg-grey text-center bold py-2">
             {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
+        </div>
+    </div>
+
+    {######################################
+     #### ADMIN WEATHER
+     #####################################}
+    <div class="container-white shadow-small user-schedule flexc just-between">
+        <div class="row no-gutters" style="height: 325px; overflow: auto">
+            <div class="col">
+                <p class="bold mb-2" style="border-bottom: 2px solid rgba(200,200,200,.25);">Aujourd'hui</p>
+                {% for schedule in schedules %}
+                    <p class="my-2" style="border-bottom: 1px solid rgba(200,200,200,.25);">
+                        <span class="text-small text-grey">
+                        {{ schedule.beginAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }} -
+                        {{ schedule.endAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }}
+                        </span><br>
+                        {{ schedule.title }}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <p class="bold mb-2" style="border-bottom: 2px solid rgba(200,200,200,.25);">Prochainement</p>
+                {% for schedule in schedulesT|slice(0,5) %}
+                    <p class="my-2" style="border-bottom: 1px solid rgba(200,200,200,.25);">
+                        <span class="text-small text-grey">
+                        {{ schedule.beginAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }} -
+                        {{ schedule.endAt | localizeddate('none', 'none', null, null, 'EEEE d MMMM HH:mm') }}
+                        </span><br>
+                        {{ schedule.title }}
+                    </p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

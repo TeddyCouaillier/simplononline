@@ -13,17 +13,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/schedule")
+ * @Route("/admin/schedule")
  */
 class ScheduleController extends AbstractController
 {
     /**
-     * @Route("/test", name="schedule_index", methods={"GET"})
+     * @Route("/all", name="schedule_all")
      */
-    public function index(ScheduleRepository $scheduleRepository): Response
+    public function index(ScheduleRepository $scheduleRepository)
     {
         return $this->render('schedule/index.html.twig', [
-            'schedules' => $scheduleRepository->findAll(),
+            'schedules' => $scheduleRepository->findBy([],['beginAt' => 'DESC']),
         ]);
     }
 
@@ -158,16 +158,6 @@ class ScheduleController extends AbstractController
         $response = [ "render" => $render->getContent() ];
 
         return new JsonResponse($response);
-    }
-
-    /**
-     * @Route("/{id}", name="schedule_show", methods={"GET"})
-     */
-    public function show(Schedule $schedule): Response
-    {
-        return $this->render('schedule/show.html.twig', [
-            'schedule' => $schedule,
-        ]);
     }
 
     /**

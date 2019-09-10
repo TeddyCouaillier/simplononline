@@ -21,8 +21,10 @@
 
     <div class="flex wrap just-between align-center">
         <h1>
-            {% if user is not defined %} Tous les projets
-            {% else %} Tous mes projets
+            {% if user is not defined %}
+                Tous les projets
+            {% else %}
+                Tous mes projets
             {% endif %}
         </h1>
         {% if user is not defined %}
@@ -58,6 +60,9 @@
         </div>
         {% endif %}
     </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_all_corrections') }}" class="text-medium text-grey px-1">Voir les corrections</a>
+    {% endif %}
     <hr>
 
     {% if user is not defined and language is not defined %}
