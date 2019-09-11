@@ -9,27 +9,35 @@
 {% endblock %}
 
 {% block body %}
-    <div class="flex just-between align-center">
+    <div class="flex just-between align-center games-title">
         <h1 class="w-75">Liste des jeux créés par les apprenants</h1>
         {{ template.add() }}
     </div>
     <hr>
-    <div class="flex wrap just-around align-content-stretch">
-    {% for game in games|reverse %}
-        {% if game.publisher == app.user %}
+    <div class="flex wrap just-center align-content-stretch games">
+    {% for game in pagination.data|reverse %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') or game.publisher == app.user %}
         {{ template.deleteConfirm(game.id,path('user_game_delete',{'id': game.id})) }}
         {{ template.modal("modal-edit-"~game.id) }}
         {% endif %}
-        <div class="container-white shadow-small flexc my-1 w-33 h-auto">
-            <p class="bold game-title">{{ game.title }}</p>
+        <div class="container-white shadow-small flexc m-1 h-auto games-container" style="width: 32%">
+            <a href="{{ game.link }}" class="bold game-title" target="_blank">{{ game.title }}</a>
             <p class="text-grey text-small">
                 Publié par {{ game.publisher }} le {{ game.publishedAt | date('d/m/Y') }}
             </p>
-            <p>
+            <p class="flex align-center">
                 <span class="badge badge-pill badge-danger my-1">{{ game.language.label }}</span>
+                {% if game.github is not null %}
+                <a href="{{ game.github }}" class="text-small text-grey ml-2 mr-1" target="_blank">
+                    <i class="fal fa-code-branch"></i>
+                </a>
+                {% endif %}
+                <a href="{{ game.link }}" class="text-small text-grey mx-1" target="_blank">
+                    <i class="fal fa-link"></i>
+                </a>
             </p>
             <div class="mt-auto flex just-between align-center text-grey text-small" style="bottom: 0; right: 0">
-                {% if game.publisher == app.user %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') or game.publisher == app.user %}
                     <p class="mt-1">
                         <span class="mx-1">
                             <i class="fal fa-times-circle rhover" data-toggle="modal" data-target="#modal-{{game.id}}"></i>
@@ -40,24 +48,23 @@
                     </p>
                 {% endif %}
                 <p class="ml-auto">
-                    <span class="mx-1">
-                        <i class="fal fa-thumbs-up bhover"></i>
-                        15
+                    <span class="mx-1 pointer vote {% if app.user.like(game) %}text-like{% endif %}" data-content="like" data-url="{{ path('user_game_vote', {'id': game.id}) }}">
+                        <i class="fal fa-thumbs-up"></i>
+                        <span class="count">{{ game.voteLikes }}</span>
                     </span>
-                    <span class="mx-1">
-                        <i class="fal fa-thumbs-down bhover"></i>
-                        4
-                    </span>
-                    <span class="mx-1">
-                        <i class="fal fa-unlink bhover"></i>
-                        0
+                    <span class="mx-1 pointer vote {% if app.user.dislike(game) %}text-dislike{% endif %}" data-content="dislike" data-url="{{ path('user_game_vote', {'id': game.id}) }}">
+                        <i class="fal fa-thumbs-down"></i>
+                        <span class="count">{{ game.voteDislikes }}</span>
                     </span>
                 </p>
             </div>
         </div>
     {% else %}
+        <span class="bold">Aucun jeu pour le moment</span>
     {% endfor %}
     </div>
+
+    {{ pagination.render(pagination.data is empty) }}
 {% endblock %}
 
 {% block modalTitle %}Ajouter un jeu{% endblock %}

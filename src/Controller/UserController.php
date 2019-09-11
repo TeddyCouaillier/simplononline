@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\User;
+use App\Entity\Vote;
 use App\Form\GameType;
+use App\Service\Pagination;
 use App\Entity\TrainingCourse;
 use App\Repository\GameRepository;
+use App\Repository\VoteRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TrainingCourseRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -180,14 +183,19 @@ class UserController extends AbstractController
     // -----------------------------------------------------
     /**
      * Show all games + adding form
-     * @Route("/games/all", name="game")
-     * @param Request        $request
-     * @param ObjectManager  $manager
-     * @param GameRepository $rep
+     * @Route("/games/{page<\d+>?1}", name="game")
+     * @param integer       $page
+     * @param Pagination    $pagination
+     * @param Request       $request
+     * @param ObjectManager $manager
      * @return Response
      */
-    public function showGames(Request $request, ObjectManager $manager, GameRepository $rep)
+    public function showGames(int $page, Pagination $pagination, Request $request, ObjectManager $manager)
     {
+        $pagination->setEntity(Game::class)
+                   ->setLimit(60)
+                   ->setPage($page);
+
         $game = new Game($this->getUser());
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
@@ -203,8 +211,8 @@ class UserController extends AbstractController
         }
 
         return $this->render('game/all.html.twig', [
-            'games' => $rep->findAll(),
-            'form'  => $form->createView()
+            'pagination' => $pagination,
+            'form'       => $form->createView()
         ]);
     }
 
@@ -258,6 +266,45 @@ class UserController extends AbstractController
         ]);
 
         $response = [ "render" => $render->getContent() ];
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * Like/Dislike a game
+     * @Route("/games/{id}/vote", name="game_vote")
+     * @param Game           $game
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @param VoteRepository $rep
+     * @return JsonResponse
+     */
+    public function editVote(Game $game, Request $request, ObjectManager $manager, VoteRepository $rep)
+    {
+        $content = ($request->request->get('content') == 'like');
+        $user = $this->getUser();
+        $vote = $rep->findOneBy(['game' => $game, 'user' => $user]);
+
+        if($vote == null){
+            $vote = new Vote($user,$game, $content);
+            $manager->persist($vote);
+        } else {
+            if($content)
+            {
+                 $vote->getLikeType() ? $manager->remove($vote) : $vote->setLikeType($content);
+            }
+            else
+            {
+                !$vote->getLikeType() ? $manager->remove($vote) : $vote->setLikeType($content);
+            }
+        }
+
+        $manager->flush();
+
+        $response = [
+            'countLike'    => $rep->findByLike($game),
+            'countDislike' => $rep->findByDislike($game),
+        ];
 
         return new JsonResponse($response);
     }

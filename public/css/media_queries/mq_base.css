@@ -30,6 +30,7 @@
 
 @media screen and (max-width: 850px){
     .user-container{ width: 100% !important; }
+    .games-container{ width: 48% !important; }
 }
 
 @media screen and (max-width: 769px){
@@ -56,14 +57,14 @@
     .user-notif     { width: 300px; }
     .received-files { height: 300px; }
     .project        { padding: 0 !important;}
-    .user hr        { display: block !important; }
     .task-container { padding: .5rem !important; }
-    .task-icon, #task-sub   { display: none; }
+    .user hr, .calendar-resp{ display: block !important; }
     .navleft-container      { top: 5px; }
     .navleft-toggle         { left: 10px; top: 10px; }
     [class^="messages-"]    { width: 75%!important; }
     .show-files, .project-new-title  { flex-wrap: wrap; }
     .users-promo .user-secondary-info{ text-align: left; }
+    .task-icon, #task-sub, .calendar-view { display: none; }
     .all-promo, .promo-users, .users-trainings{ width: 48% !important; }
     .project-detail, .project-detail-user, .project-container,
     .form-files, .received-files, .task-info, .task-subtask,
@@ -106,8 +107,9 @@
     .custom-control, .custom-switch{ padding-left: 10px; }
     .user .user-header .user-edit, .users-promo-link{ display: none; }
     [class^="messages-"], .all-promo, .promo-users,
-    .users-trainings, .help-link{ width: 100%!important; }
+    .users-trainings, .help-link, .games-container{ width: 100%!important; }
     #task-users { -ms-flex-pack: start!important; justify-content: start!important; }
+    .games-title h1{ font-size: 1.5em; }
     .button-edit{
         width: 30px;
         height: 30px;

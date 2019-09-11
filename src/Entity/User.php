@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Game;
 use App\Entity\Skills;
 use App\Entity\UserData;
 use App\Entity\UserNotif;
@@ -12,8 +13,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -206,6 +207,11 @@ class User implements AdvancedUserInterface
      */
     private $games;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="user", orphanRemoval=true)
+     */
+    private $vote;
+
 
     public function __construct()
     {
@@ -226,6 +232,7 @@ class User implements AdvancedUserInterface
         $this->isActive       = true;
         $this->promotionmod = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->vote = new ArrayCollection();
     }
 
     public function __toString()
@@ -1082,5 +1089,66 @@ class User implements AdvancedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVote(): Collection
+    {
+        return $this->vote;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->vote->contains($vote)) {
+            $this->vote[] = $vote;
+            $vote->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->vote->contains($vote)) {
+            $this->vote->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getUser() === $this) {
+                $vote->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if the user likes a game
+     * @param Game $game
+     * @return boolean
+     */
+    public function getLike(Game $game)
+    {
+        foreach($this->vote as $vote){
+            if($vote->getGame() == $game && $vote->getLikeType()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if the user dislikes a game
+     * @param Game $game
+     * @return boolean
+     */
+    public function getDislike(Game $game)
+    {
+        foreach($this->vote as $vote){
+            if($vote->getGame() == $game && !$vote->getLikeType()){
+                return true;
+            }
+        }
+        return false;
     }
 }

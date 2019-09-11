@@ -300,3 +300,5 @@ label{ cursor:pointer; }
     transform-origin: 50% 50%;
 }
 
+.text-dislike{ color: rgb(255, 150, 0); font-weight: bold; }
+.text-like{ color: rgb(20, 130, 150); font-weight: bold; }

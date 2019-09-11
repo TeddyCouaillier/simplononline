@@ -284,3 +284,56 @@ $(document).on('click','.game-edit',function(){
         }
     });
 })
+
+$(document).on('click','.vote',function(){
+    const button  = $(this);
+    const url     = $(this).data('url');
+    const content = $(this).data('content');
+    const likeBtn    = $(this).parent().find('[data-content=like]');
+    const dislikeBtn = $(this).parent().find('[data-content=dislike]');
+
+    if(content == 'like'){
+        if($(button).hasClass('text-like')){
+            $(this).removeClass('text-like');
+        } else {
+            $(button).addClass('text-like');
+        }
+
+        if ($(dislikeBtn).hasClass('text-dislike'))
+        {
+            $(dislikeBtn).removeClass('text-dislike');
+        }
+    } else {
+        if(!($(button).hasClass('text-dislike'))){
+            $(button).addClass('text-dislike');
+        } else {
+            $(this).removeClass('text-dislike');
+        }
+
+        if ($(likeBtn).hasClass('text-like'))
+        {
+            $(likeBtn).removeClass('text-like');
+        }
+    }
+
+    $.ajax({
+        url: url,
+        data : {
+            content: content
+        },
+        type: "POST",
+
+        success: function(response){
+            if(content == 'like'){
+                $(button).find('.count').html(response.countLike);
+                $(dislikeBtn).find('.count').html(response.countDislike);
+            } else {
+                $(button).find('.count').html(response.countDislike);
+                $(likeBtn).find('.count').html(response.countLike);
+            }
+        },
+        error: function(){
+            console.log('Ah non !');
+        }
+    });
+})

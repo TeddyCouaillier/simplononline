@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -56,10 +58,16 @@ class Game
      */
     private $language;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="game", orphanRemoval=true)
+     */
+    private $vote;
+
     public function __construct(User $user)
     {
         $this->publishedAt = new \DateTime();
         $this->publisher   = $user;
+        $this->vote = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,5 +145,66 @@ class Game
         $this->language = $language;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVote(): Collection
+    {
+        return $this->vote;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->vote->contains($vote)) {
+            $this->vote[] = $vote;
+            $vote->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->vote->contains($vote)) {
+            $this->vote->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getGame() === $this) {
+                $vote->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get a specific vote's like number
+     * @return boolean
+     */
+    public function getVoteLikes()
+    {
+        $countLike = 0;
+        foreach($this->vote as $vote){
+            if($vote->getLikeType()){
+                $countLike++;
+            }
+        }
+        return $countLike;
+    }
+
+    /**
+     * Get a specific vote's dislike number
+     * @return boolean
+     */
+    public function getVoteDislikes()
+    {
+        $countDislike = 0;
+        foreach($this->vote as $vote){
+            if(!$vote->getLikeType()){
+                $countDislike++;
+            }
+        }
+        return $countDislike;
     }
 }

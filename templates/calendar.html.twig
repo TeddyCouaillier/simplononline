@@ -11,8 +11,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-white shadow-small mt-n3">
+    <div class="container-white shadow-small mt-n3 calendar-view">
         {% include '@Calendar/calendar.html' %}
+    </div>
+    <div class="d-none container-white shadow-small p-5 calendar-resp text-center bold">
+        Agenda inaccessible sur tablette et mobile.
     </div>
     <div class="my-5 text-center">
         <a href="{{ path('schedule_all') }}" class="text-grey bhover">Voir tous les plannings</a>
