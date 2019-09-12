@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des simploniens{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/user.css">
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+    <hr>
+    <div class="flex wrap just-around align-center my-1">
+        {% for user in pagination.data %}
+            <div class="container-white shadow-small flex align-center my-1 w-33 user-active-container">
+                <input class="switch_base active-user mr-3" data-userurl="{{path('admin_user_active',{'slug':user.slug}) }}"
+                type="checkbox" {% if user.isActive %} checked {% endif %}>
+                {{ user }}
+            </div>
+        {% else %}
+            Aucun utilisateur
+        {% endfor %}
+    </div>
+
+    {{ pagination.render(pagination.data is empty) }}
+{% endblock %}
+

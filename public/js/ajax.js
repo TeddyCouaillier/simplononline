@@ -337,3 +337,90 @@ $(document).on('click','.vote',function(){
         }
     });
 })
+
+$(document).on('click','.active-deadline',function(){
+    const url = $(this).data('url');
+    const container = $(this).parent();
+    let counter = parseInt($('.deadline-counter').html());
+
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            $(container).fadeOut(750);
+            counter -= 1;
+            $('.deadline-counter').html(counter);
+            if(counter == 0){
+                setTimeout(function(){
+                    $(container).parent().html('<p class="text-center text-grey">Aucune deadline</p>');
+                }, 750);
+            }
+        }
+    });
+})
+
+$(document).on('click','.deadline-state',function(){
+    const url = $(this).data('url');
+    let validate = 0;
+    if($(this).find('span').hasClass('text-red')){
+        validate = 1;
+    }
+    const icon = $(this).find('span');
+
+    $.ajax({
+        url: url,
+        data : {
+            validate: validate
+        },
+        type: "POST",
+
+        success: function(){
+            if(validate){
+                $(icon).removeClass('text-red');
+            } else {
+                $(icon).addClass('text-red');
+            }
+        }
+    });
+})
+
+$(document).on('click','.deadline-delete',function(){
+    const url = $(this).data('url');
+    const container = $(this).parent().parent().parent();
+    let counter = parseInt($('.deadline-counter').html());
+
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            $(container).fadeOut(500);
+            counter -= 1;
+            $('.deadline-counter').html(counter);
+            if(counter == 0){
+                setTimeout(function(){
+                    $(container).parent().html('<div class="flex just-center align-center text-center text-medium text-greyl" style="height: 100px"><p><i class="fal fa-times-hexagon text-large"></i><br>Aucune deadline</p></div>');
+                }, 500);
+            }
+        }
+    });
+})
+
+$(document).on('click','.active-user', function() {
+    const check = $(this);
+
+    const url = $(this).data('userurl');
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(response){
+            if($(check).is(':checked')){
+                $(check).prop("checked",true);
+            } else {
+                $(check).prop("checked",false);
+            }
+        }
+    });
+})

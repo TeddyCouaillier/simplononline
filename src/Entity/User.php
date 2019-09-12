@@ -212,6 +212,11 @@ class User implements AdvancedUserInterface
      */
     private $vote;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserDeadline", mappedBy="user", orphanRemoval=true)
+     */
+    private $userDeadline;
+
 
     public function __construct()
     {
@@ -233,6 +238,7 @@ class User implements AdvancedUserInterface
         $this->promotionmod = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->vote = new ArrayCollection();
+        $this->userDeadline = new ArrayCollection();
     }
 
     public function __toString()
@@ -1150,5 +1156,36 @@ class User implements AdvancedUserInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @return Collection|UserDeadline[]
+     */
+    public function getUserDeadline(): Collection
+    {
+        return $this->userDeadline;
+    }
+
+    public function addUserDeadline(UserDeadline $userDeadline): self
+    {
+        if (!$this->userDeadline->contains($userDeadline)) {
+            $this->userDeadline[] = $userDeadline;
+            $userDeadline->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserDeadline(UserDeadline $userDeadline): self
+    {
+        if ($this->userDeadline->contains($userDeadline)) {
+            $this->userDeadline->removeElement($userDeadline);
+            // set the owning side to null (unless already changed)
+            if ($userDeadline->getUser() === $this) {
+                $userDeadline->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des deadlines{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="flex wrap just-between align-center">
+        <h1 class="w-75">Liste des deadlines</h1>
+        {{ template.add() }}
+    </div>
+    <hr>
+    <div class="flex wrap just-between align-around">
+        {% for user in users %}
+            <div class="container-white shadow-small flexc w-flex my-3">
+                <div class="text-center my-1">
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                    {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md") }} #}
+                </div>
+                <p class="text-center bold">{{ user }}</p>
+                <div><hr class="my-1"></div>
+                <div style="max-height: 100px; overflow: auto">
+                    {% set counter = 0 %}
+                    {% for udeadline in user.userDeadline|reverse %}
+                        {% set counter = counter + 1 %}
+                        <div>
+                            <div class="row no-gutters flex align-center deadline-row">
+                                <div class="col-1">
+                                    <i class="fal fa-times-circle text-small rhover deadline-delete"
+                                    data-url="{{ path('admin_deadlines_delete', {'id': udeadline.id}) }}"
+                                    ></i>
+                                </div>
+                                <div class="col-8 deadline-task">
+                                    {{ udeadline.deadline }}
+                                </div>
+                                <div class="col-2 bold">
+                                    {{ udeadline.deadline.endAt|date('d/m') }}
+                                </div>
+                                <div class="col-1 deadline-state pointer"
+                                data-url="{{ path('admin_deadlines_edit_state', {'id': udeadline.id}) }}">
+                                    <span class="{% if udeadline.validate %} text-red {% endif %} text-medium">
+                                        &#10004;
+                                    </span>
+                                </div>
+                            </div>
+                            <hr class="my-1">
+                        </div>
+                    {% else %}
+                        <div class="flex just-center align-center text-center text-medium text-greyl" style="height: 100px">
+                            <p>
+                                <i class="fal fa-times-hexagon text-large"></i><br>
+                                Aucune deadline
+                            </p>
+                        </div>
+                    {% endfor %}
+                    <div class="position-absolute invisible deadline-counter">{{ counter }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block modalTitle %}Ajouter une deadline{% endblock %}
+{% block modalBody %}
+    {{ form_start(form) }}
+    <div class="my-3">
+        {{ form_label(form.endAt) }}
+        {{ form_widget(form.endAt) }}
+    </div>
+    <div class="my-3">
+        {{ form_label(form.task) }}
+        {{ form_widget(form.task) }}
+    </div>
+    <div class="my-3">
+        <select id="user_deadline_user" name="user_deadline[user][]" class="form-control shadow-small deadline-user-selected selectpicker"
+        title="Choisir les apprenants" data-live-search="true" multiple data-selected-text-format="count > 3" data-style="bg-white" data-size="6">
+            {% for user in users %}
+                <option value="{{ user.id }}">
+                    {{ user }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="my-3 text-center">
+        <input type="checkbox" id="all" name="user_deadline[all]" value="1">
+        <label for="all">Tous</label>
+    </div>
+    {{ template.confirm() }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block libraries %}
+<script src="/js/libraries/bootstrap-select.min.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$('.deadline-user-selected').selectpicker();
+</script>
+{% endblock %}

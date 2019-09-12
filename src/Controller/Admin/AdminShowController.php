@@ -5,12 +5,15 @@ namespace App\Controller\Admin;
 use App\Entity\Data;
 use App\Entity\User;
 use App\Entity\Skills;
+use App\Entity\Deadline;
 use App\Entity\Language;
 use App\Entity\UserData;
 use App\Entity\Correction;
 use App\Entity\UserSkills;
+use App\Form\DeadlineType;
 use App\Form\Data\DataType;
 use App\Service\Pagination;
+use App\Entity\UserDeadline;
 use App\Form\Skill\SkillType;
 use App\Repository\UserRepository;
 use App\Repository\SkillsRepository;
@@ -128,6 +131,7 @@ class AdminShowController extends AbstractController
             'datas'     => $drep->findAll(),
             'languages' => $lrep->findAll(),
             'roles'     => $urep->findAllUserByRole(),
+            'users'     => $urep->findAll(),
             'formLanguage' => $formLanguage->createView(),
             'formData'     => $formData->createView()
         ]);
@@ -162,6 +166,62 @@ class AdminShowController extends AbstractController
         return $this->render('admin/all_corrections.html.twig', [
             'form'        => $form->createView(),
             'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * Show all deadlines + adding form
+     * @Route("/deadlines", name="all_deadlines")
+     * @param UserRepository $rep
+     * @param Request        $request
+     * @param ObjectManager  $manager
+     * @return Response
+     */
+    public function allDeadlines(UserRepository $rep, Request $request, ObjectManager $manager)
+    {
+        $users = $rep->findAllByCurrentPromo();
+        $deadline = new Deadline();
+        $form = $this->createForm(DeadlineType::class, $deadline);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if(isset($request->request->get('user_deadline')['all'])){
+                foreach($users as $user){
+                    $udeadline = new UserDeadline();
+                    $udeadline->setUser($user)
+                              ->setDeadline($deadline);
+                    $manager->persist($udeadline);
+                }
+                $manager->flush();
+                $this->addFlash(
+                    'success',
+                    'La deadline a bien été ajoutée.'
+                );
+            } else if(isset($request->request->get('user_deadline')['user'])){
+                $usersId = $request->request->get('user_deadline')['user'];
+                for($i = 0 ; $i < sizeof($usersId) ; $i++){
+                    $user = $rep->find($usersId[$i]);
+                    $udeadline = new UserDeadline();
+                    $udeadline->setUser($user)
+                              ->setDeadline($deadline);
+                    $manager->persist($udeadline);
+                }
+                $manager->flush();
+                $this->addFlash(
+                    'success',
+                    'La deadline a bien été ajoutée.'
+                );
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'Veuillez choisir au moins un apprenant.'
+                );
+            }
+        }
+
+        return $this->render('admin/all_deadlines.html.twig', [
+            'users' => $users,
+            'form'  => $form->createView()
         ]);
     }
 }

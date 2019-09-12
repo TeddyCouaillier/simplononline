@@ -115,6 +115,46 @@ label{ cursor:pointer; }
 .form-check label{ transform: translateY(-5px) !important; }
 .form-check input{ margin-right: 10px !important; }
 
+input[type="checkbox"].switch_base {
+    font-size: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5em;
+    height: .75em;
+    background: #ddd;
+    border-radius: 3em;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_base:checked {
+    background: #E74C3C;
+}
+
+input[type="checkbox"].switch_base:after {
+    position: absolute;
+    content: "";
+    width: .75em;
+    height: .75em;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+    box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+    -webkit-transform: scale(.7);
+    transform: scale(.7);
+    left: 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_base:checked:after {
+    left: calc(100% - .80em);
+}
+
 /* Tooltip */
 .subnav:focus{
     color: var(--red) !important;
@@ -302,3 +342,22 @@ label{ cursor:pointer; }
 
 .text-dislike{ color: rgb(255, 150, 0); font-weight: bold; }
 .text-like{ color: rgb(20, 130, 150); font-weight: bold; }
+
+.deadline-task{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.active-deadline{
+    top: -10px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: none;
+}
+.user-deadline-container:hover .active-deadline{ display: block; }
+.deadline-state{ color: white; }
+.deadline-state:hover span{ color: rgba(0,0,0,.25) }
+.deadline-row:hover{ background-color: rgba(249,249,249); }

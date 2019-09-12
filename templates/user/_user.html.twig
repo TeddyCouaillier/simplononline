@@ -140,6 +140,31 @@
     </div>
 
     {######################################
+     #### USER DEADLINE
+     #####################################}
+    <div class="container-white position-relative shadow-small user-deadline p-3">
+        {% set counter = 0 %}
+        {% for udeadline in app.user.userDeadline %}
+            {% set deadline = udeadline.deadline %}
+            {% if udeadline.validate == false %}
+                {% set counter = counter + 1 %}
+                <div class="text-center position-relative user-deadline-container my-3">
+                    <p>Avant le <b>{{ udeadline.deadline.endAt|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</b></p>
+                    <p class="text-grey deadline-task">{{ udeadline.deadline }}</p>
+                    <button class="position-absolute bg-white shadow-small text-greyl bhover button-circle active-deadline"
+                    data-url="{{ path('user_deadline_active', {'id': udeadline.id}) }}">
+                        &#10004;
+                    </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% if app.user.userDeadline is empty or counter == 0 %}
+            <p class="text-center text-grey">Aucune deadline</p>
+        {% endif %}
+        <div class="position-absolute invisible deadline-counter">{{ counter }}</div>
+    </div>
+
+    {######################################
      #### USER TRAINING COURSES
      #####################################}
     <div class="container-white shadow-small user-trainings">

@@ -7,8 +7,8 @@ use App\Entity\User;
 use App\Entity\Vote;
 use App\Form\GameType;
 use App\Service\Pagination;
+use App\Entity\UserDeadline;
 use App\Entity\TrainingCourse;
-use App\Repository\GameRepository;
 use App\Repository\VoteRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TrainingCourseRepository;
@@ -307,5 +307,24 @@ class UserController extends AbstractController
         ];
 
         return new JsonResponse($response);
+    }
+
+    // -----------------------------------------------------
+    // -- Deadline section
+    // -----------------------------------------------------
+    /**
+     * Valide a specific deadline
+     * @Route("deadline/{id}/active", name="deadline_active")
+     * @param UserDeadline  $udeadline
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function valideDeadline(UserDeadline $udeadline, ObjectManager $manager)
+    {
+        $udeadline->setValidate(true);
+        $manager->persist($udeadline);
+        $manager->flush();
+
+        return new JsonResponse();
     }
 }

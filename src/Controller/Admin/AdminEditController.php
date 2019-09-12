@@ -9,6 +9,7 @@ use App\Entity\Project;
 use App\Entity\Language;
 use App\Entity\UserData;
 use App\Entity\Correction;
+use App\Entity\UserDeadline;
 use App\Form\Data\DataType;
 use App\Form\Help\HelpType;
 use App\Form\Skill\SkillType;
@@ -297,5 +298,39 @@ class AdminEditController extends AbstractController
         );
 
         return $this->redirectToRoute('admin_all_corrections');
+    }
+
+    /**
+     * Valide/Invalide a specific deadline
+     * @route("/deadlines/{id}/edit-state", name="deadlines_edit_state")
+     * @param UserDeadline  $udeadline
+     * @param Request       $request
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function editDeadlineState(UserDeadline $udeadline, Request $request, ObjectManager $manager)
+    {
+        $validate = (bool)$request->request->get('validate');
+        $udeadline->setValidate(!$validate);
+
+        $manager->persist($udeadline);
+        $manager->flush();
+
+        return new JsonResponse();
+    }
+
+    /**
+     * Delete a specific deadline
+     * @Route("/deadlines/{id}/delete", name="deadlines_delete")
+     * @param UserDeadline  $udeadline
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function deleteDeadline(UserDeadline $udeadline, ObjectManager $manager)
+    {
+        $manager->remove($udeadline);
+        $manager->flush();
+
+        return new JsonResponse();
     }
 }

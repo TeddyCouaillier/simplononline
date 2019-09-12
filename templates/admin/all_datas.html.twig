@@ -2,14 +2,49 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Liste des données{% endblock %}
+{% block title %}Autres{% endblock %}
 
 {% block body %}
   <div class="flex just-between">
-    <h1>Liste des données</h1>
+    <h1>Autres</h1>
     {{ template.add() }}
   </div>
   <hr>
+  <div class="text-center">
+    <p class="h5 my-3 bold">Autres liens</p>
+    <div class="flex wrap align-center other-link">
+      <a href="{{ path('user_game') }}" class="rhover">
+        <div class="container-white shadow-small m-1">
+            <i class="fal fa-gamepad text-large"></i><br>
+            <span>Jeux des apprenants</span>
+        </div>
+      </a>
+      <a href="{{ path('admin_all_users_active') }}" class="rhover">
+        <div class="container-white shadow-small m-1">
+          <i class="fal fa-user-friends text-large"></i><br>
+          <span>Utilisateurs actifs</span>
+        </div>
+      </a>
+      <a class="rhover" data-toggle="modal" data-target="#modal-users">
+        <div class="container-white shadow-small m-1">
+          <i class="fal fa-users-cog text-large"></i><br>
+          <span>Modifier mot de passe</span>
+        </div>
+      </a>
+      <a href="{{ path('account_password') }}" class="rhover">
+        <div class="container-white shadow-small m-1">
+          <i class="fal fa-lock text-large"></i><br>
+          <span>Mon mot de passe</span>
+        </div>
+      </a>
+      <a href="{{ path('account_edit') }}" class="rhover">
+        <div class="container-white shadow-small m-1">
+          <i class="fal fa-user-edit text-large"></i><br>
+          <span>Mon compte</span>
+        </div>
+      </a>
+    </div>
+  </div>
   <div>
     <p class="text-center h5 my-3 bold">Données</p>
     <div class="flex wrap just-around">
@@ -55,6 +90,33 @@
           </div>
         {% endfor %}
       {% endfor %}
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-users" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="flex just-between align-center">
+                    <h2>Choisir un utilisateur</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <hr>
+                <div class="modal-main">
+                  <div class="row no-gutters">
+                    {% for user in users %}
+                      <div class="col-md-4 col-sm-6 col-xs-12 my-1">
+                        <a href="{{ path('admin_user_password', {'slug': user.slug}) }}" class="text-grey bhover">
+                          {{ user }}
+                        </a>
+                      </div>
+                    {% else %}
+                      <div class="col-12 text-center bold">Aucun utilisateur</div>
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 {% endblock %}

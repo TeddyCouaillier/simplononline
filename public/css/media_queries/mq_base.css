@@ -6,9 +6,10 @@
     .user .user-files    { grid-area: 3 / 3 / 4 / 3; }
     .user .user-trainings{ grid-area: 3 / 1 / 5 / 3; }
     .user .user-weather  { grid-area: 4 / 3 / 5 / 3; }
-    .user .user-skills   { grid-area: 5 / 1 / 6 / 4; }
-    .user .user-datas    { grid-area: 6 / 4 / 7 / 1; }
-    .user .user-portfolio{ grid-area: 7 / 4 / 8 / 1; }
+    .user .user-deadline { grid-area: 5 / 4 / 6 / 1; }
+    .user .user-skills   { grid-area: 6 / 1 / 7 / 4; }
+    .user .user-datas    { grid-area: 7 / 4 / 8 / 1; }
+    .user .user-portfolio{ grid-area: 8 / 4 / 9 / 1; }
     .user .users-promo   { width: 90%; }
 
     .user-admin { padding: 0; grid-template-columns: 50%; }
@@ -40,11 +41,12 @@
     .user .user-info      { grid-area: 2 / 1 / 2 / 3; }
     .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
     .user .user-weather   { grid-area: 3 / 2 / 3 / 3; }
-    .user .user-projects  { grid-area: 4 / 1 / 4 / 3; }
-    .user .user-skills    { grid-area: 5 / 1 / 5 / 3; }
-    .user .user-trainings { grid-area: 6 / 1 / 6 / 3; }
-    .user .user-datas     { grid-area: 7 / 1 / 7 / 3; }
-    .user .user-portfolio { grid-area: 8 / 1 / 8 / 3; }
+    .user .user-deadline  { grid-area: 4 / 1 / 4 / 3; }
+    .user .user-projects  { grid-area: 5 / 1 / 5 / 3; }
+    .user .user-skills    { grid-area: 6 / 1 / 6 / 3; }
+    .user .user-trainings { grid-area: 7 / 1 / 7 / 3; }
+    .user .user-datas     { grid-area: 8 / 1 / 8 / 3; }
+    .user .user-portfolio { grid-area: 9 / 1 / 9 / 3; }
 
     .user-admin .user-header        { grid-area: 1 / 1 / 2 / 3; }
     .user-admin .user-promo-info    { grid-area: 2 / 2 / 3 / 2; }
@@ -65,14 +67,15 @@
     .show-files, .project-new-title  { flex-wrap: wrap; }
     .users-promo .user-secondary-info{ text-align: left; }
     .task-icon, #task-sub, .calendar-view { display: none; }
-    .all-promo, .promo-users, .users-trainings{ width: 48% !important; }
+    .all-promo, .promo-users, .users-trainings,
+    .user-active-container { width: 48% !important; }
     .project-detail, .project-detail-user, .project-container,
     .form-files, .received-files, .task-info, .task-subtask,
     .received-files { margin-bottom: .75rem; margin-right: 0px; }
     .user-account-info, .carac,
     .project-detail-user > .container-white, .project-detail-user,
     .task-info, .task-subtask, .project-detail, .admin-all-skills,
-    .form-files, .received-files { width: 100% !important; }
+    .form-files, .received-files, .other-link a { width: 100% !important; }
 }
 
 @media screen and (max-width: 577px){
@@ -81,11 +84,12 @@
     .user .user-info      { grid-area: 2 / 1 / 2 / 2; }
     .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
     .user .user-weather   { grid-area: 4 / 1 / 4 / 2; }
-    .user .user-projects  { grid-area: 5 / 1 / 5 / 2; }
-    .user .user-skills    { grid-area: 6 / 1 / 6 / 2; }
-    .user .user-trainings { grid-area: 7 / 1 / 7 / 2; }
-    .user .user-datas     { grid-area: 8 / 1 / 8 / 2; }
-    .user .user-portfolio { grid-area: 9 / 1 / 9 / 2; }
+    .user .user-deadline  { grid-area: 5 / 1 / 5 / 2; }
+    .user .user-projects  { grid-area: 6 / 1 / 6 / 2; }
+    .user .user-skills    { grid-area: 7 / 1 / 7 / 2; }
+    .user .user-trainings { grid-area: 8 / 1 / 8 / 2; }
+    .user .user-datas     { grid-area: 9 / 1 / 9 / 2; }
+    .user .user-portfolio { grid-area: 10 / 1 / 10 / 2; }
     .user .user-header    { flex-wrap: wrap; }
 
     .user-admin { grid-template-columns: 100%; }
@@ -107,7 +111,8 @@
     .custom-control, .custom-switch{ padding-left: 10px; }
     .user .user-header .user-edit, .users-promo-link{ display: none; }
     [class^="messages-"], .all-promo, .promo-users,
-    .users-trainings, .help-link, .games-container{ width: 100%!important; }
+    .users-trainings, .help-link, .games-container,
+    .user-active-container { width: 100%!important; }
     #task-users { -ms-flex-pack: start!important; justify-content: start!important; }
     .games-title h1{ font-size: 1.5em; }
     .button-edit{

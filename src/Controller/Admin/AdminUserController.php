@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -30,7 +31,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminUserController extends AbstractController
 {
     /**
-     * Edit the current user
+     * Edit a specific account
      * @Route("/utilisateur/{slug}/modifier", name="user_edit")
      * @param User          $user
      * @param Request       $request
@@ -95,6 +96,50 @@ class AdminUserController extends AbstractController
     }
 
     /**
+     * Edit a specific user's password
+     * @Route("/utilisateur/{slug}/password-update", name="user_password")
+     * @param User                         $user
+     * @param Request                      $request
+     * @param ObjectManager                $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function editPassword(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
+        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR')){
+            throw new AccessDeniedHttpException();
+        }
+
+        $user = $this->getUser();
+
+        $form = $this->createFormBuilder($user)
+                ->add('password',PasswordType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $user->setPassword($encoder->encodePassword($user,$user->getPassword()));
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le mot de passe a bien été modifié'
+            );
+
+            return $this->redirectToRoute('admin_all_datas');
+        }
+
+        return $this->render('user/_form_password.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
      * Delete a specific user
      * @Route("/utilisateurs/{slug}/supprimer", name="delete_user")
      * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
@@ -144,6 +189,24 @@ class AdminUserController extends AbstractController
         );
 
         return $this->redirectToRoute('account_logout');
+    }
+
+    /**
+     * Show all users with his status (active/inactive)
+     * @Route("/utilisateurs/activate/{page<\d+>?1}", name="all_users_active")
+     * @param integer    $page
+     * @param Pagination $pagination
+     * @return Response
+     */
+    public function allUsersActive(int $page, Pagination $pagination)
+    {
+        $pagination->setEntity(User::class)
+                   ->setLimit(30)
+                   ->setPage($page);
+
+        return $this->render('admin/users_active.html.twig', [
+            'pagination' => $pagination
+        ]);
     }
 
     /**
