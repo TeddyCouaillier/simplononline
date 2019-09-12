@@ -23,6 +23,9 @@ $(document).on('click','.edit-task',function(){
                     </script>
                 `);
             }
+        },
+        error: function(){
+            console.log('AJAX task error');
         }
     });
 })
@@ -44,6 +47,9 @@ $(document).on('click','.promo-edit',function(){
                     </script>
                 `);
             }
+        },
+        error: function(){
+            console.log('AJAX promotion error');
         }
     });
 })
@@ -70,6 +76,9 @@ function seeMore(el){
                     $(el).parent().remove();
                 }
             }
+        },
+        error: function(){
+            console.log('AJAX seemore error');
         }
     });
 }
@@ -94,6 +103,9 @@ $(document).on('click','.promocurrent', function() {
             $(check).removeClass('text-grey');
             $(check).addClass('bg-red');
             $(check).addClass('text-white');
+        },
+        error: function(){
+            console.log('AJAX promo current error');
         }
     });
 })
@@ -111,6 +123,9 @@ $(document).on('click','.edit-data',function(){
                 $('.modal[id*="edit-data-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
+        },
+        error: function(){
+            console.log('AJAX data error');
         }
     });
 })
@@ -128,6 +143,9 @@ $(document).on('click','.edit-skill',function(){
                 $('.modal[id*="edit-skill-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
+        },
+        error: function(){
+            console.log('AJAX skill error');
         }
     });
 })
@@ -145,6 +163,9 @@ $(document).on('click','.add-project-correction',function(){
                 $('.modal[id*="add-project-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
+        },
+        error: function(){
+            console.log('AJAX correction error');
         }
     });
 })
@@ -173,6 +194,9 @@ $(document).on('click','.add-project-task',function(){
                 </script>
                 `);
             }
+        },
+        error: function(){
+            console.log('AJAX project task error');
         }
     });
 })
@@ -195,6 +219,9 @@ $(document).on('click','.edit-project',function(){
                     </script>
                 `);
             }
+        },
+        error: function(){
+            console.log('AJAX project error');
         }
     });
 })
@@ -212,6 +239,9 @@ $(document).on('click','.edit-correction',function(){
                 $('.modal[id*="edit-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
+        },
+        error: function(){
+            console.log('AJAX edit correction error');
         }
     });
 })
@@ -225,6 +255,9 @@ $(document).on('click','.remove-language',function(){
 
         success: function(){
             $(pill).parent().fadeOut(500);
+        },
+        error: function(){
+            console.log('AJAX language error');
         }
     });
 })
@@ -249,6 +282,9 @@ $(document).on('click','.remove-file', function() {
                     $(nofiles).fadeIn();
                 },300);
             }
+        },
+        error: function(){
+            console.log('AJAX file error');
         }
     });
 })
@@ -264,6 +300,9 @@ $(document).on('click','.remove-important', function() {
 
         success: function(){
             $(filestate).removeClass('bg-red');
+        },
+        error: function(){
+            console.log('AJAX remove important error');
         }
     });
 })
@@ -281,6 +320,9 @@ $(document).on('click','.game-edit',function(){
                 $('.modal[id*="modal-edit-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             }
+        },
+        error: function(){
+            console.log('AJAX game error');
         }
     });
 })
@@ -333,7 +375,7 @@ $(document).on('click','.vote',function(){
             }
         },
         error: function(){
-            console.log('Ah non !');
+            console.log('AJAX vote error');
         }
     });
 })
@@ -356,6 +398,9 @@ $(document).on('click','.active-deadline',function(){
                     $(container).parent().html('<p class="text-center text-grey">Aucune deadline</p>');
                 }, 750);
             }
+        },
+        error: function(){
+            console.log('AJAX deadline active error');
         }
     });
 })
@@ -381,6 +426,9 @@ $(document).on('click','.deadline-state',function(){
             } else {
                 $(icon).addClass('text-red');
             }
+        },
+        error: function(){
+            console.log('AJAX deadline state error');
         }
     });
 })
@@ -403,6 +451,9 @@ $(document).on('click','.deadline-delete',function(){
                     $(container).parent().html('<div class="flex just-center align-center text-center text-medium text-greyl" style="height: 100px"><p><i class="fal fa-times-hexagon text-large"></i><br>Aucune deadline</p></div>');
                 }, 500);
             }
+        },
+        error: function(){
+            console.log('AJAX deadline delete error');
         }
     });
 })
@@ -421,6 +472,9 @@ $(document).on('click','.active-user', function() {
             } else {
                 $(check).prop("checked",false);
             }
+        },
+        error: function(){
+            console.log('AJAX active user error');
         }
     });
 })
