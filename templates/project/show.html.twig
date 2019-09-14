@@ -5,9 +5,8 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
-<link rel="stylesheet" href="/css/project/project.css">
-<link rel="stylesheet" href="/css/project/queries.css">
+<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
 {% endblock %}
 
 {% form_theme form _self 'jquery.collection.html.twig' %}

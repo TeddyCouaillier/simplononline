@@ -3,11 +3,10 @@
 {% block title %}{{ user }}{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
-<link rel="stylesheet" href="/css/user/user.css">
-<link rel="stylesheet" href="/css/user/queries.css">
-<link rel="stylesheet" href="/css/training.css">
-<link rel="stylesheet" href="/css/project/project.css">
+<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/user/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/training.css') }}">
+<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
 {% endblock %}
 
 {% block body %}

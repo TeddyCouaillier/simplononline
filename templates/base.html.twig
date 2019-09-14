@@ -10,12 +10,8 @@
         <title>SimplonOnline - {% block title %}{% endblock %}</title>
         <link rel="icon" type="image/png" href="/img/favicon.png" />
         <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
-        <link rel="stylesheet" href="/css/libraries/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/main/base.css">
-        <link rel="stylesheet" href="/css/main/navs.css">
-        <link rel="stylesheet" href="/css/main/main.css">
+        <link rel="stylesheet" href="{{ asset('build/main/base.css') }}">
         {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="/css/media_queries/mq_base.css">
         <script src="/js/libraries/jquery.min.js"></script>
         <script>
             $(document).ready(function() {

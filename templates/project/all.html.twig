@@ -11,10 +11,9 @@
 
 {% block stylesheets %}
 {% if is_granted('ROLE_ADMIN') %}
-<link rel="stylesheet" href="/css/libraries/bootstrap-select.min.css">
+<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
 {% endif %}
-<link rel="stylesheet" href="/css/project/project.css">
-<link rel="stylesheet" href="/css/project/queries.css">
+<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
 {% endblock %}
 
 {% block body %}
