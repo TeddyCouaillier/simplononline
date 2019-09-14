@@ -43,9 +43,9 @@
 
                 <div class="mt-4 mb-1 p-4">
                     {% if access %}
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" aria-label="Voir la promotion">
                     {% else %}
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}">
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" aria-label="Voir la promotion">
                     {% endif %}
                         <h2 class="rhover">{{ promo.label }}</h2>
                         <ul>
@@ -93,19 +93,19 @@
                         </div>
                         <div class="row mx-auto text-center mb-2">
                             <div class="col-3">
-                                <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" data-toggle="tooltip"
+                                <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" aria-label="Ajouter des utilisateurs" data-toggle="tooltip"
                                 data-placement="top" title="Ajouter des apprenants">
                                     <i class="fal fa-user-plus text-grey text-medium bhover"></i>
                                 </a>
                             </div>
                             <div class="col-3">
-                                <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" data-toggle="modal" 
+                                <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" aria-label="Modifier la promotion" data-toggle="modal" 
                                 data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
                                     <i class="fas fa-pencil text-grey text-medium bhover"></i>
                                 </a>
                             </div>
                             <div class="col-3">
-                                <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" data-toggle="tooltip"
+                                <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" aria-label="Voir la promotion" data-toggle="tooltip"
                                     data-placement="top" title="Afficher les apprenants">
                                     <i class="far fa-eye text-grey text-medium bhover"></i>
                                 </a>
@@ -124,7 +124,7 @@
     </div>
 
     <div class="text-center">
-        <a href="{{ path('promo_other') }}" class="text-grey bhover">
+        <a href="{{ path('promo_other') }}" class="text-grey bhover" aria-label="Autres">
             Utilisateurs sans promotion <i class="fal fa-directions"></i>
         </a>
     </div>

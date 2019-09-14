@@ -56,7 +56,7 @@
     </div>
     {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
     <div class="container-white shadow-small my-1 text-center">
-        <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold">Modifier le projet</a>
+        <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="bold" aria-label="Modifier le projet">Modifier le projet</a>
     </div>
     {{ template.deleteConfirm('delete-project',path('project_delete',{'slug': project.slug}))}}
     <div class="container-white shadow-small my-1 text-center">

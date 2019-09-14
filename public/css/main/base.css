@@ -14,7 +14,7 @@
 *:focus{ outline: 1px solid var(--greydark); }
 
 body{
-    font-family: 'Abel', Verdana, sans-serif;
+    font-family: 'Abel';
     color: #2a2d31 !important;
     background: #f4f6f7;
     font-weight: 400;
@@ -100,7 +100,7 @@ input[type="number"] {
 .text-white  { color: var(--white) !important; }
 .text-red    { color: var(--red) !important; }
 .text-black  { color: var(--black) !important; }
-.bold        { font-weight: 600; }
+.bold        { font-weight: 900; }
 .text-small  { font-size: .85em; }
 .text-medium { font-size: 1.2em; }
 .text-large  { font-size: 1.6em; }

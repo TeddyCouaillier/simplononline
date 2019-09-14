@@ -58,3 +58,14 @@
     height: 20px;
     line-height: 12px;
 }
+
+.project-container{
+    width: 32%;
+    height: 125px;
+}
+.project-container p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

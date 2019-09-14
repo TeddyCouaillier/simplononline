@@ -17,8 +17,11 @@ class FilesAdminType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',     FileType::class,['data_class' => null])
             ->add('title',    TextType::class,$this->getConfiguration('Titre de votre document','Max. 50 caractères'))
+            ->add('name',     FileType::class,[
+                'data_class'    => null,
+                'label'         => 'Taille maximum: 5mo'
+            ])
             ->add('receiver', EntityType::class, [
                 'class'         => User::class,
                 'label'         => 'Destinataire',

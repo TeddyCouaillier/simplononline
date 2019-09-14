@@ -5,39 +5,39 @@
      #### ADMIN NAV
      #####################################}
     <div class="container-white shadow-small user-header flex wrap just-around align-center text-center p-3">
-        <a href="{{ path('schedule_calendar') }}" class="rhover mx-1">
+        <a href="{{ path('schedule_calendar') }}" class="rhover mx-1" aria-label="Agenda">
             <i class="fal fa-calendar-alt text-large"></i><br>
             Agenda
         </a>
-        <a href="{{ path('project_all') }}" class="rhover mx-1">
+        <a href="{{ path('project_all') }}" class="rhover mx-1" aria-label="Projets">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
         </a>
-        <a href="{{ path('admin_all_users',{'slug':'tout'}) }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('admin_all_users',{'slug':'tout'}) }}" class="rhover mx-1 user-edit" aria-label="Utilisateurs">
             <i class="fas fa-user-friends text-large"></i><br>
             Utilisateurs
         </a>
-        <a href="{{ path('admin_all_promo') }}" class="rhover mx-1">
+        <a href="{{ path('admin_all_promo') }}" class="rhover mx-1" aria-label="Promotions">
             <i class="fas fa-users-class text-large mt-1"></i><br>
             Promotions
         </a>
-        <a href="{{ path('admin_all_skills') }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('admin_all_skills') }}" class="rhover mx-1 user-edit" aria-label="Compétences">
             <i class="fas fa-tasks text-large"></i><br>
             Compétences
         </a>
-        <a href="{{ path('admin_all_trainings') }}" class="rhover mx-1">
+        <a href="{{ path('admin_all_trainings') }}" class="rhover mx-1" aria-label="Stages">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
         </a>
-        <a href="{{ path('admin_all_deadlines') }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('admin_all_deadlines') }}" class="rhover mx-1 user-edit" aria-label="Aides">
             <i class="fas fa-stopwatch text-large"></i><br>
             Deadline
         </a>
-        <a href="{{ path('help_show') }}" class="rhover mx-1">
+        <a href="{{ path('help_show') }}" class="rhover mx-1" aria-label="Aides">
             <i class="fas fa-question-circle text-large"></i><br>
             Aides
         </a>
-        <a href="{{ path('admin_all_datas') }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('admin_all_datas') }}" class="rhover mx-1 user-edit" aria-label="Données">
             <i class="fas fa-cog text-large"></i><br>
             Autres
         </a>
@@ -92,7 +92,7 @@
      #### ADMIN INFO
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-between p-3">
-        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg my-3", "Avatar de {{user}}") }}
+        {{ template.img("/img/avatar/"~user.avatar, "avatar-lg my-3", "Avatar de "~user) }}
         <div class="text-center">
             <span class="text-red bold">{{ user }}</span><br>
             <span class="badge badge-pill badge-danger mt-1">
@@ -124,6 +124,9 @@
                     }}) }}
                     <hr>
                     {{ form_widget(form.name) }}
+                    <div class="text-small text-grey text-right">
+                        {{ form_label(form.name) }}
+                    </div>
                     {{ template.confirm()}}
                 {{ form_end(form) }}
             </div>
@@ -137,17 +140,17 @@
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
                 {% set filecount = user.notSeenFiles|length %}
-                <a class="bold" href="{{ path('file_user_show') }}">
+                <a class="bold" href="{{ path('file_user_show') }}" aria-label="Fichiers">
                     <p>
                         {% if filecount == 0 %}
                         {{ filecount }} fichier important.<br>
                         <i class="fal fa-folder-times icon-sm mt-2"></i>
                         {% elseif filecount == 1 %}
                         <span class="text-red">{{ filecount }}</span> nouveau fichier.<br>
-                        <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
+                        <i class="fas fa-folder icon-sm text-red mt-2"></i>
                         {% else %}
                         <span class="text-red">{{ filecount }}</span> nouveaux fichiers.<br>
-                        <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
+                        <i class="fas fa-folders icon-sm text-red mt-2"></i>
                         {% endif %}
                     </p>
                 </a>
@@ -209,10 +212,10 @@
         {% for project in projects|reverse|slice(0,15) %}
             <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                 <div>
-                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project.title }}</a></p>
                     <div class="flex just-center align-center">
                         {% for user in project.users|slice(0,4) %}
-                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                         {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                             {{ user }} <br>
                         '>
@@ -235,7 +238,7 @@
         {% endfor %}
         </div>
         <div class="text-center my-4">
-            <a href="{{ path('project_all') }}" class="user-see-more p-1">Voir tous</a>
+            <a href="{{ path('project_all') }}" class="user-see-more p-1" aria-label="Tous les projets">Voir tous</a>
         </div>
     </div>
 </div>

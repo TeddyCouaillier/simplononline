@@ -20,7 +20,7 @@
         <div class="flex just-between project-title">
             <h1>{{ project.title }}</h1>
             {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
-            <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="button-edit"><i class="fal fa-pen bold"></i></a>
+            <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="button-edit" aria-label="Modifier le projet"><i class="fal fa-pen bold"></i></a>
             {% endif %}
         </div>
 
@@ -28,7 +28,7 @@
 
         <div class="flex align-center mt-1 mb-2 project-members">
             {% for user in project.users|slice(0,4) %}
-                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                 {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                 {{ user }} <br>'>
             {% endfor %}
@@ -48,10 +48,10 @@
         <div class="flex just-between">
             <div>
                 {% if project.github != null %}
-                    <a href="{{ project.github  }}" target="_blank" class="text-grey text-small"><i class="far fa-code-branch"></i> GitHub</a> &nbsp;
+                    <a href="{{ project.github  }}" target="_blank" class="text-grey text-small" aria-label="Githut du projet" rel="noreferrer"><i class="far fa-code-branch"></i> GitHub</a> &nbsp;
                 {% endif %}
                 {% if project.website != null %}
-                    <a href="{{ project.website }}" target="_blank" class="text-grey text-small"><i class="far fa-eye"></i> Voir le site</a>
+                    <a href="{{ project.website }}" target="_blank" class="text-grey text-small" aria-label="Site du projet" rel="noreferrer"><i class="far fa-eye"></i> Voir le site</a>
                 {% endif %}
             </div>
             <div class="text-grey text-small">
@@ -90,9 +90,9 @@
 {% block javascripts %}
     <script type="text/javascript">
         $('.task').collection({
-            'up': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-up"></i></a>',
-            'down': '<a href="#" class="mx-1"><i class="fal fa-chevron-circle-down"></i></a>',
-            'remove': '<a href="#" class="mx-1 text-red"><i class="fal fa-times-circle"></i></a>',
+            'up': '<a href="#" class="mx-1" aria-label="Remonter"><i class="fal fa-chevron-circle-up"></i></a>',
+            'down': '<a href="#" class="mx-1" aria-label="Redescendre"><i class="fal fa-chevron-circle-down"></i></a>',
+            'remove': '<a href="#" class="mx-1 text-red" aria-label="Enlever"><i class="fal fa-times-circle"></i></a>',
             'add': '<button class="button-edit my-2 mx-auto d-block"><i class="fal fa-plus"></i></button>',
             'add_at_the_end': true
         });

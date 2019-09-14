@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/css/user/user.css">
 <link rel="stylesheet" href="/css/user/queries.css">
 <link rel="stylesheet" href="/css/training.css">
-<link rel="stylesheet" href="/css/project.css">
+<link rel="stylesheet" href="/css/project/project.css">
 {% endblock %}
 
 {% block body %}
@@ -18,13 +18,13 @@
                 {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md", "Avatar de {{user}}") }}
                 <p>
                     {% if user.website != null %}
-                    <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>
+                    <a href="{{ user.website }}" class="text-red rhover" target="_blank" aria-label="Site de {{user}}" rel="noreferrer"><i class="fal fa-globe text-center"></i></a>
                     {% else %}
                     <em><i class="fal fa-globe text-center"></i></em>
                     {% endif %}
                     &nbsp;
                     {% if user.github != null %}
-                    <a href="{{ user.github }}" class="text-red rhover" target="_blank"><i class="fal fa-code-branch text-center"></i></a>
+                    <a href="{{ user.github }}" class="text-red rhover" target="_blank" aria-label="Github de {{user}}" rel="noreferrer"><i class="fal fa-code-branch text-center"></i></a>
                     {% else %}
                     <em><i class="fal fa-code-branch text-center"></i></em>
                     {% endif %}
@@ -76,7 +76,7 @@
                 {% endfor %}
                 {% if user.projects|length > 6 %}
                 <div class="text-center mt-4">
-                    <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
+                    <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1" aria-label="Voir tous">Voir tous</a>
                 </div>
                 {% endif %}
             {% else %}
@@ -112,7 +112,7 @@
             {% for project in user.projects %}
                 <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                     <div>
-                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project.title }}</a></p>
                         <p class="text-small text-grey">
                             {% for language in project.languages %}
                                 {{ language.label }}
@@ -121,7 +121,7 @@
                     </div>
                     {% if project.website is not null %}
                     <div class="position-absolute" style="transform: translateY(40px);">
-                        <a href="{{project.website}}" class="text-grey bhover" target="_blank">
+                        <a href="{{project.website}}" class="text-grey bhover" aria-label="Voir le site du projet" target="_blank" rel="noreferrer">
                             <i class="fal fa-globe" data-toggle="tooltip" data-placement="bottom" data-original-title='Visiter le site'></i>
                         </a>
                     </div>
@@ -131,3 +131,5 @@
         </div>
     </div>
 {% endblock %}
+
+{% block modal %}{% endblock %}

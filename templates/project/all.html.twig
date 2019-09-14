@@ -31,20 +31,20 @@
         {% if user is not defined %}
         <div class="btn-group shadow-small">
             <div class="btn-group dropleft" role="group">
-                <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" aria-label="Langages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
                     {% if access %}
-                    <a href="{{ path('project_all')}}" class="dropdown-item">
+                    <a href="{{ path('project_all')}}" class="dropdown-item" aria-label="Tous les projets">
                     {% else %}
-                    <a href="{{ path('project_all') }}" class="dropdown-item">
+                    <a href="{{ path('project_all') }}" class="dropdown-item" aria-label="Tous les projets">
                     {% endif %}
                         Tout
                     </a>
                     {% for language in languages %}
                         {% if access %}
-                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item" aria-label="{{language.slug}}">
                         {% else %}
-                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item">
+                        <a href="{{ path('project_all_by_language',{'slug': language.slug}) }}" class="dropdown-item" aria-label="{{language.slug}}">
                         {% endif %}
                             {{ language.label }}
                         </a>
@@ -62,7 +62,7 @@
         {% endif %}
     </div>
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('admin_all_corrections') }}" class="text-medium text-grey px-1">Voir les corrections</a>
+    <a href="{{ path('admin_all_corrections') }}" class="text-medium text-grey px-1" aria-label="Voir les corrections">Voir les corrections</a>
     {% endif %}
     <hr>
 
@@ -72,7 +72,7 @@
 
     <div class="flex wrap just-center">
         <div class="container-white flex just-center align-center py-3 m-1 shadow-small project-container {% if access %}h-auto{% endif %}">
-            <a href="{{ path('project_create') }}"><div class="new-project text-greyl rhover">+</div></a>
+            <a href="{{ path('project_create') }}" aria-label="Ajouter un projet"><div class="new-project text-greyl rhover">+</div></a>
         </div>
         {% for project in projects %}
             {% if access %}
@@ -84,10 +84,10 @@
             {% endif %}
             <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container {% if access %}h-auto py-2{% endif %}">
                 <div>
-                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project.title }}</a></p>
                     <div class="flex just-center align-center">
                         {% for user in project.users|slice(0,4) %}
-                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
+                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                         {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                             {{ user }} <br>
                         '>
@@ -152,15 +152,15 @@
             <div class="flex just-center my-3">
                 <div class="pagination p1">
                     <ul class="text-center">
-                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page - 1}) }}" aria-label="Page précédente" class="rhover {% if page == 1 %}d-none{% endif %}">
                         <li><i class="fal fa-arrow-circle-left"></i></li>
                     </a>
                     {% for i in 1..pages %}
-                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': i}) }}" aria-label="Page {{i}}" class="avatar-xs {% if page == i %}is-active{% endif %}">
                         <li>{{ i }}</li>
                     </a>
                     {% endfor %}
-                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                    <a href="{{ path('project_all_by_language',{'slug': language.slug, 'page': page + 1}) }}" aria-label="Page suivante" class="rhover {% if page == pages %}d-none{% endif %}">
                         <li><i class="fal fa-arrow-circle-right"></i></li>
                     </a>
                     </ul>
@@ -172,15 +172,15 @@
         <div class="flex just-center my-3">
             <div class="pagination p1">
                 <ul class="text-center">
-                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page - 1}) }}" class="rhover {% if page == 1 %}d-none{% endif %}">
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page - 1}) }}" aria-label="Page précédente" class="rhover {% if page == 1 %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-left"></i></li>
                 </a>
                 {% for i in 1..pages %}
-                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': i}) }}" class="avatar-xs {% if page == i %}is-active{% endif %}">
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': i}) }}" aria-label="Page {{i}}" class="avatar-xs {% if page == i %}is-active{% endif %}">
                     <li>{{ i }}</li>
                 </a>
                 {% endfor %}
-                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page + 1}) }}" class="rhover {% if page == pages %}d-none{% endif %}">
+                <a href="{{ path('user_show_projects',{'slug': user.slug, 'page': page + 1}) }}" aria-label="Page suivante" class="rhover {% if page == pages %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-right"></i></li>
                 </a>
                 </ul>
