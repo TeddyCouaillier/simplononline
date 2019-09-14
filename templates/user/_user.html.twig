@@ -5,7 +5,7 @@
      #### USER INFO
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-around p-3">
-        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mb-2") }}
+        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mb-2", "Avatar de {{user}}") }}
         <span class="text-red bold">{{ user }}</span>
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>

@@ -45,7 +45,7 @@
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
-                    {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md") }} #}
+                    {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md", "Avatar de {{user}}") }} #}
                     <p class="users-promo-link">
                         {% if user.website != null %}
                         <a href="{{ user.website }}" class="text-red rhover" target="_blank"><i class="fal fa-globe text-center"></i></a>

@@ -65,6 +65,6 @@
     <i class="fas fa-bell pointer notif text-greyl {% if app.user.hasNotif %} active {% endif %}"></i>
     <img src="/img/dot.svg" class="pointer dots">
     <a href="{{path('account_show') }}">
-        {{ template.img("/img/avatar/{{app.user.avatar}}", "avatar-xs") }}
+        {{ template.img("/img/avatar/{{app.user.avatar}}", "avatar-xs", "Avatar de {{user}}") }}
     </a>
 </div>

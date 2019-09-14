@@ -88,7 +88,7 @@
                     <div class="flex just-center align-center">
                         {% for user in project.users|slice(0,4) %}
                         <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                        {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                        {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                             {{ user }} <br>
                         '>
                         {% endfor %}

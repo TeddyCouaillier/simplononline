@@ -80,7 +80,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-5 col-11 flex align-center justify-content-end mt-1 mb-2 project-members" id="task-users">
                     {% for user in task.users|slice(0,4) %}
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                    {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                    {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
                         {{ user }} <br>
                     '>
                     {% endfor %}
@@ -166,18 +166,18 @@
 
 {% macro weather(type) %}
     {% if type == 0 %}
-        <img src="/img/weather/sun.svg" class="img-xs">
+        <img src="/img/weather/sun.svg" class="img-xs" alt="sun">
     {% elseif type == 1 %}
-        <img src="/img/weather/rain.svg" class="img-xs">
+        <img src="/img/weather/rain.svg" class="img-xs" alt="rain">
     {% elseif type == 2 %}
-        <img src="/img/weather/clouds.svg" class="img-xs">
+        <img src="/img/weather/clouds.svg" class="img-xs" alt="clouds">
     {% elseif type == 3 %}
-        <img src="/img/weather/thunder.svg" class="img-xs">
+        <img src="/img/weather/thunder.svg" class="img-xs" alt="thunder">
     {% else %}
-        <img src="/img/weather/suncloud.svg" class="img-xs">
+        <img src="/img/weather/suncloud.svg" class="img-xs" alt="suncloud">
     {% endif %}
 {% endmacro %}
 
-{% macro img(src, class = '', default = '/img/avatar/avatar.png') %}
-    <img src="{{ src }}" class="{{ class }}" onerror="this.onerror=null;this.src='{{ default }}';">
+{% macro img(src, class = '', alt = 'Image') %}
+    <img src="{{ src }}" class="{{ class }}" onerror="this.onerror=null;this.src='/img/avatar/avatar.png';" alt="{{ alt }}">
 {% endmacro %}
