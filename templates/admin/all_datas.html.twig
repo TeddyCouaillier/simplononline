@@ -13,31 +13,31 @@
   <div class="text-center">
     <p class="h5 my-3 bold">Autres liens</p>
     <div class="flex wrap align-center other-link">
-      <a href="{{ path('user_game') }}" class="rhover">
+      <a href="{{ path('user_game') }}" class="rhover" aria-label="Jeux">
         <div class="container-white shadow-small m-1">
             <i class="fal fa-gamepad text-large"></i><br>
             <span>Jeux des apprenants</span>
         </div>
       </a>
-      <a href="{{ path('admin_all_users_active') }}" class="rhover">
+      <a href="{{ path('admin_all_users_active') }}" class="rhover" aria-label="Utilisateurs actifs">
         <div class="container-white shadow-small m-1">
           <i class="fal fa-user-friends text-large"></i><br>
           <span>Utilisateurs actifs</span>
         </div>
       </a>
-      <a class="rhover" data-toggle="modal" data-target="#modal-users">
+      <a class="rhover" data-toggle="modal" data-target="#modal-users" aria-label="Mot de passe utilisateurs">
         <div class="container-white shadow-small m-1">
           <i class="fal fa-users-cog text-large"></i><br>
           <span>Modifier mot de passe</span>
         </div>
       </a>
-      <a href="{{ path('account_password') }}" class="rhover">
+      <a href="{{ path('account_password') }}" class="rhover" aria-label="Mot de passe">
         <div class="container-white shadow-small m-1">
           <i class="fal fa-lock text-large"></i><br>
           <span>Mon mot de passe</span>
         </div>
       </a>
-      <a href="{{ path('account_edit') }}" class="rhover">
+      <a href="{{ path('account_edit') }}" class="rhover" aria-label="Modifier mon compte">
         <div class="container-white shadow-small m-1">
           <i class="fal fa-user-edit text-large"></i><br>
           <span>Mon compte</span>
@@ -58,7 +58,7 @@
               data-url="{{path('admin_data_edit',{'id': data.id}) }}" data-toggle="modal" data-target="#edit-data-{{data.id}}">
                   Modifier
               </button>
-              <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-data-{{data.id}}"><i class="fal fa-times-circle"></i></button>
+              <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-data-{{data.id}}" aria-label="Supprimer"><i class="fal fa-times-circle"></i></button>
           </div>
         </div>
       {% endfor %}
@@ -106,7 +106,7 @@
                   <div class="row no-gutters">
                     {% for user in users %}
                       <div class="col-md-4 col-sm-6 col-xs-12 my-1">
-                        <a href="{{ path('admin_user_password', {'slug': user.slug}) }}" class="text-grey bhover">
+                        <a href="{{ path('admin_user_password', {'slug': user.slug}) }}" class="text-grey bhover" aria-label="Mot de passe">
                           {{ user }}
                         </a>
                       </div>

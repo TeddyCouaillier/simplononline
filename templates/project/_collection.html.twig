@@ -2,7 +2,7 @@
 {{ form_widget(form) }}
 <div class="text-center">
     <input type="hidden" id="widgets-counter" value="0">
-    <button type="button" id="add-subtask" class="button-edit my-2 mx-auto"> <i class="fal fa-plus"></i> </button>
+    <button type="button" id="add-subtask" class="button-edit my-2 mx-auto" aria-label="Ajouter"> <i class="fal fa-plus"></i> </button>
 </div>
 {% endblock %}
 
@@ -14,6 +14,6 @@
 <div class="flex just-around rounded task-add-subtask" id="block_{{id}}">
         <div class="w-75">{{ form_widget(form.title) }}</div>
         <div>{{ form_widget(form.done) }}</div>
-        <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn"><i class="fal fa-times-circle"></i></button></div>
+        <div><button type="button" data-action="delete" data-target="#block_{{id}}" class="btn" aria-label="Enlever"><i class="fal fa-times-circle"></i></button></div>
 </div>
 {% endblock %}

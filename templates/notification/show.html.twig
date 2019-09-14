@@ -25,11 +25,17 @@
                 <div class="col-md-2 col-sm-9 col-12"><span class="text-small">{{ notif.interval }}</span></div>
                 <div class="col-md-1 col-sm-2 col-6">
                 {% if notif.type == 1 or notif.type == 2 %}
-                <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn btn-light text-red" aria-label="Voir le projet">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% elseif notif.type == 3 %}
-                <a href="{{ path('account_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('account_show') }}?seen={{unotif.id}}" class="btn btn-light text-red" aria-label="Voir">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% else %}
-                <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn btn-light text-red"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn btn-light text-red" aria-label="Voir les fichiers">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% endif %}
                 </div>
                 <div class="col-md-1 col-sm-1 col-6 text-right"><i data-toggle="modal" data-target="#modal-{{unotif.id}}" class="fal fa-times-circle pointer rhover"></i></div>
@@ -45,11 +51,17 @@
                 <div class="col-md-2 col-sm-9 col-12"><span class="text-small text-grey">{{ notif.interval }}</span></div>
                 <div class="col-md-1 col-sm-2 col-6">
                 {% if notif.type == 1 or notif.type == 2 %}
-                <a href="{{ path('project_show',{'slug': notif.target}) }}?" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('project_show',{'slug': notif.target}) }}?" class="btn button-red text-white" aria-label="Voir le projet">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% elseif notif.type == 3 %}
-                <a href="{{ path('account_show') }}#skills" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('account_show') }}#skills" class="btn button-red text-white" aria-label="Voir">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% else %}
-                <a href="{{ path('file_user_show') }}" class="btn button-red text-white"><i class="far fa-arrow-circle-right"></i></a>
+                <a href="{{ path('file_user_show') }}" class="btn button-red text-white" aria-label="Voir les fichiers">
+                    <i class="far fa-arrow-circle-right"></i>
+                </a>
                 {% endif %}
                 </div>
                 <div class="col-md-1 col-sm-1 col-6 text-right"><i data-toggle="modal" data-target="#modal-{{unotif.id}}" class="fal fa-times-circle pointer"></i></div>

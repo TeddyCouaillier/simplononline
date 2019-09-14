@@ -18,13 +18,13 @@
                 <div class="btn-group dropleft" role="group">
                     <button type="button" class="btn bg-white dropdown-toggle dropdown-toggle-split px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                     <div class="dropdown-menu shadow-small border-0" style="max-height: 300px; overflow: auto;">
-                        <a href="{{ path('admin_all_users',{'slug': 'tout'}) }}" class="dropdown-item">Tout</a>
+                        <a href="{{ path('admin_all_users',{'slug': 'tout'}) }}" class="dropdown-item" aria-label="Tout">Tout</a>
                         {% for promotion in promotions %}
-                        <a href="{{ path('admin_all_users',{'slug': promotion.slug}) }}" class="dropdown-item">
+                        <a href="{{ path('admin_all_users',{'slug': promotion.slug}) }}" class="dropdown-item" aria-label="{{ promotion.slug }}">
                             {{ promotion.label }}
                         </a>
                         {% endfor %}
-                        <a href="{{ path('admin_all_users',{'slug': 'autres'}) }}" class="dropdown-item">Autres</a>
+                        <a href="{{ path('admin_all_users',{'slug': 'autres'}) }}" class="dropdown-item" aria-label="Autres">Autres</a>
                     </div>
                 </div>
                 <span class="btn bg-white">
@@ -44,17 +44,17 @@
             {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
-                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md" alt="Avatar de {{user}}">
                     {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md", "Avatar de {{user}}") }} #}
                     <p class="users-promo-link">
                         {% if user.website != null %}
-                        <a href="{{ user.website }}" class="text-red rhover" target="_blank" rel="noreferrer"><i class="fal fa-globe text-center"></i></a>
+                        <a href="{{ user.website }}" class="text-red rhover" target="_blank" aria-label="Site web" rel="noreferrer"><i class="fal fa-globe text-center"></i></a>
                         {% else %}
                         <em><i class="fal fa-globe text-center"></i></em>
                         {% endif %}
                         &nbsp;
                         {% if user.github != null %}
-                        <a href="{{ user.github }}" class="text-red rhover" target="_blank" rel="noreferrer"><i class="fal fa-code-branch text-center"></i></a>
+                        <a href="{{ user.github }}" class="text-red rhover" target="_blank" aria-label="Github" rel="noreferrer"><i class="fal fa-code-branch text-center"></i></a>
                         {% else %}
                         <em><i class="fal fa-code-branch text-center"></i></em>
                         {% endif %}
@@ -94,31 +94,31 @@
                 </div>
                 <div class="col-12 row text-center mx-auto my-1">
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_edit_skills',{'slug': user.slug }) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_edit_skills',{'slug': user.slug }) }}" aria-label="Compétences" data-toggle="tooltip"
                         data-placement="top" title="Modifier les compétences">
                             <i class="fal fa-tasks text-grey text-medium bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" aria-label="Données" data-toggle="tooltip"
                         data-placement="top" title="Modifier les données">
                             <i class="fal fa-key text-grey text-medium bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_show_training',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('user_show_training',{'slug': user.slug}) }}" aria-label="Stages" data-toggle="tooltip"
                         data-placement="top" title="Afficher les stages">
                             <i class="fal fa-handshake text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_user_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_edit',{'slug': user.slug}) }}" aria-label="Modifier" data-toggle="tooltip"
                         data-placement="top" title="Modifier le compte">
                             <i class="fas fa-cog text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('account_user_show',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('account_user_show',{'slug': user.slug}) }}" aria-label="Voir" data-toggle="tooltip"
                         data-placement="top" title="Afficher l'utilisateur">
                             <i class="far fa-eye text-medium text-grey bhover"></i>
                         </a>
@@ -139,15 +139,15 @@
     <div class="flex just-center my-3">
         <div class="pagination p1">
             <ul class="text-center">
-                <a href="{{ path(pagination.route,{'page': pagination.page - 1}) }}" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
+                <a href="{{ path(pagination.route,{'page': pagination.page - 1}) }}" aria-label="Page précédente" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-left"></i></li>
                 </a>
                 {% for i in 1..pagination.pages %}
-                <a href="{{ path(pagination.route,{'page': i}) }}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
+                <a href="{{ path(pagination.route,{'page': i}) }}" aria-label="Page {{i}}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
                     <li>{{ i }}</li>
                 </a>
                 {% endfor %}
-                <a href="{{ path(pagination.route,{'page': pagination.page + 1}) }}" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
+                <a href="{{ path(pagination.route,{'page': pagination.page + 1}) }}" aria-label="Page suivante" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-right"></i></li>
                 </a>
             </ul>

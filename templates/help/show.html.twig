@@ -8,7 +8,7 @@
     {{ template.checkMessage(form) }}
     <div class="flex just-between">
         <h1>Liens d'aide</h1>
-        <div class="button-edit bhover add-task ml-2" data-toggle="modal" data-target="#modal-add-help"><i class="fal fa-plus"></i></div>
+        <div class="button-edit bhover add-task ml-2" data-toggle="modal" data-target="#modal-add-help" aria-label="Modifier"><i class="fal fa-plus"></i></div>
     </div>
     <hr>
     <div class="flex wrap just-center mx-2 my-1 help-all_cats">
@@ -26,7 +26,9 @@
 
             <div class="flex just-between">
                 <div>
-                <a href="{{ help.link }}" target="_blank" class="rhover bold" rel="noreferrer">{{ help.title }}</a>
+                <a href="{{ help.link }}" target="_blank" class="rhover bold" rel="noreferrer" aria-label="{{ help.title }}">
+                    {{ help.title }}
+                </a>
                 {% if help.language != null %}
                 <span class="badge-link-active">{{ help.language.label }}</span>
                 {% endif %}

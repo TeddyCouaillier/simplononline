@@ -13,7 +13,7 @@
 <div class="flex wrap just-between">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
-    <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="bg-grey button-circle text-grey"><i class="fal fa-pen bold"></i></a>
+    <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="bg-grey button-circle text-grey" aria-label="Modifier"><i class="fal fa-pen bold"></i></a>
     {% endif %}
 </div>
 <hr>

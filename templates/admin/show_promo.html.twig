@@ -30,17 +30,17 @@
         {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
-                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md">
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-md" alt="Avatar de {{user}}">
                     {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md", "Avatar de {{user}}") }} #}
                     <p class="users-promo-link">
                         {% if user.website != null %}
-                        <a href="{{ user.website }}" class="text-red rhover" target="_blank" rel="noreferrer"><i class="fal fa-globe text-center"></i></a>
+                        <a href="{{ user.website }}" class="text-red rhover" target="_blank" aria-label="Site" rel="noreferrer"><i class="fal fa-globe text-center"></i></a>
                         {% else %}
                         <em><i class="fal fa-globe text-center"></i></em>
                         {% endif %}
                         &nbsp;
                         {% if user.github != null %}
-                        <a href="{{ user.github }}" class="text-red rhover" target="_blank" rel="noreferrer"><i class="fal fa-code-branch text-center"></i></a>
+                        <a href="{{ user.github }}" class="text-red rhover" target="_blank" aria-label="Github" rel="noreferrer"><i class="fal fa-code-branch text-center"></i></a>
                         {% else %}
                         <em><i class="fal fa-code-branch text-center"></i></em>
                         {% endif %}
@@ -80,33 +80,33 @@
                 </div>
                 <div class="col-12 row text-center mx-auto my-1">
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_user_edit_skills',{'slug': user.slug }) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_edit_skills',{'slug': user.slug }) }}" aria-label="Compétences" data-toggle="tooltip"
                         data-placement="top" title="Modifier les compétences">
                             <i class="fal fa-tasks text-grey text-medium bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" aria-label="Données" data-toggle="tooltip"
                         data-placement="top" title="Modifier les données">
                             <i class="fal fa-key text-grey text-medium bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_show_training',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('user_show_training',{'slug': user.slug}) }}" aria-label="Stages" data-toggle="tooltip"
                         data-placement="top" title="Afficher les stages">
                             <i class="fal fa-handshake text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('admin_user_edit',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('admin_user_edit',{'slug': user.slug}) }}" aria-label="Modifier" data-toggle="tooltip"
                         data-placement="top" title="Modifier le compte">
                             <i class="fas fa-cog text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('account_user_show',{'slug': user.slug}) }}" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('account_user_show',{'slug': user.slug}) }}" aria-label="Voir" data-toggle="tooltip"
                         data-placement="top" title="Afficher l'utilisateur">
-                           {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}         <i class="far fa-eye text-medium text-grey bhover"></i>
+                           <i class="far fa-eye text-medium text-grey bhover"></i>
                         </a>
                     </div>
                     <div class="col-2">

@@ -5,7 +5,7 @@
      #### USER INFO
      #####################################}
     <div class="container-white shadow-small user-info flexc align-center just-around p-3">
-        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mb-2", "Avatar de {{user}}") }}
+        {{ template.img("/img/avatar/"~user.avatar, "avatar-lg mb-2", "Avatar de "~user) }}
         <span class="text-red bold">{{ user }}</span>
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
@@ -32,7 +32,7 @@
             <li class="mb-1">
                 <i class="fal fa-globe text-center"></i>
                 {% if user.website != null %}
-                <a href="{{ user.website }}" class="text-greyd rhover" target="_blank" rel="noreferrer">Site internet</a>
+                <a href="{{ user.website }}" class="text-greyd rhover" target="_blank" rel="noreferrer" aria-label="Site">Site internet</a>
                 {% else %}
                 <em>Pas de site internet</em>
                 {% endif %}
@@ -40,7 +40,7 @@
             <li class="mb-1">
                 <i class="fal fa-code-branch text-center"></i>
                 {% if user.github != null %}
-                <a href="{{ user.github }}" class="text-greyd rhover" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="{{ user.github }}" class="text-greyd rhover" target="_blank" rel="noreferrer" aria-label="Github">GitHub</a>
                 {% else %}
                 <em>Pas de lien github</em>
                 {% endif %}
@@ -53,27 +53,27 @@
      #### USER NAV
      #####################################}
     <div class="container-white shadow-small user-header flex just-around align-center text-center p-3">
-        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1">
+        <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="rhover mx-1" aria-label="Projets">
             <i class="far fa-list-ul text-large"></i><br>
             Projets
         </a>
-        <a href="{{ path('file_user_show') }}" class="rhover mx-1">
+        <a href="{{ path('file_user_show') }}" class="rhover mx-1" aria-label="Fichiers">
             <i class="fas fa-envelope text-large"></i><br>
             Fichiers
         </a>
-        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1">
+        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1" aria-label="Stages">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
         </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1">
+        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1" aria-label="Données">
             <i class="fas fa-key text-large"></i><br>
             Données
         </a>
-        <a href="{{ path('account_edit') }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('account_edit') }}" class="rhover mx-1 user-edit" aria-label="Modifier">
             <i class="fas fa-cog text-large"></i><br>
             Modifier
         </a>
-        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit">
+        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit" aria-label="Mot de passe">
             <i class="fas fa-lock text-large"></i><br>
             Password
         </a>
@@ -86,18 +86,20 @@
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
                 {% set filecount = user.notSeenFiles|length %}
-                <p class="bold">
-                    {% if filecount == 0 %}
-                    {{ filecount }} fichier important.<br>
-                    <i class="fal fa-folder-times icon-sm mt-2"></i>
-                    {% elseif filecount == 1 %}
-                    <span class="text-red">{{ filecount }}</span> fichier important.<br>
-                    <a href="#"><i class="fas fa-folder icon-sm text-red mt-2"></i></a>
-                    {% else %}
-                    <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
-                    <a href="#"><i class="fas fa-folders icon-sm text-red mt-2"></i></a>
-                    {% endif %}
-                </p>
+                <a class="bold" href="{{ path('file_user_show') }}" aria-label="Fichiers">
+                    <p>
+                        {% if filecount == 0 %}
+                        {{ filecount }} fichier important.<br>
+                        <i class="fal fa-folder-times icon-sm mt-2"></i>
+                        {% elseif filecount == 1 %}
+                        <span class="text-red">{{ filecount }}</span> fichier important.<br>
+                        <i class="fas fa-folder icon-sm text-red mt-2"></i>
+                        {% else %}
+                        <span class="text-red">{{ filecount }}</span> fichiers importants.<br>
+                        <i class="fas fa-folders icon-sm text-red mt-2"></i>
+                        {% endif %}
+                    </p>
+                </a>
             </div>
         </div>
     </div>
@@ -122,12 +124,12 @@
             {% for project in user.projects|slice(0,4) %}
                 <div class="flex just-between align-baseline">
                     <span>{{ project.title }}</span>
-                    <a href="{{ path('project_show',{'slug': project.slug}) }}" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
+                    <a href="{{ path('project_show',{'slug': project.slug}) }}" class="rhover" aria-label="Voir le projet"><i class="fal fa-arrow-circle-right"></i></a>
                 </div>
                 <hr>
             {% endfor %}
             <div class="text-center mt-4">
-                <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1">Voir tous</a>
+                <a href="{{ path('user_show_projects',{'slug':user.slug}) }}" class="user-see-more p-1" aria-label="Voir tous">Voir tous</a>
             </div>
         {% else %}
             <div class="flex just-center align-center text-center bold h-100">
@@ -186,7 +188,7 @@
                     <hr class="d-none">
                 {% endfor %}
                 <div class="text-center my-2 mb-2">
-                    <a href="#" class="user-see-more p-1">Voir tous</a>
+                    <a href="#" class="user-see-more p-1" aria-label="Voir tous">Voir tous</a>
                 </div>
             </div>
         {% else %}
@@ -240,7 +242,7 @@
             {% for project in user.projects %}
                 <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                     <div>
-                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold">{{ project.title }}</a></p>
+                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le site">{{ project.title }}</a></p>
                         <p class="text-small text-grey">
                             {% for language in project.languages %}
                                 {{ language.label }}
@@ -249,7 +251,7 @@
                     </div>
                     {% if project.website is not null %}
                     <div class="position-absolute" style="transform: translateY(40px);">
-                        <a href="{{project.website}}" class="text-grey bhover" target="_blank" rel="noreferrer">
+                        <a href="{{project.website}}" class="text-grey bhover" target="_blank" rel="noreferrer" aria-label="Voir le site">
                             <i class="fal fa-globe" data-toggle="tooltip" data-placement="bottom" data-original-title='Visiter le site'></i>
                         </a>
                     </div>

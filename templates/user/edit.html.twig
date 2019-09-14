@@ -12,7 +12,7 @@
     <div class="flex wrap just-between align-center">
         <h1>Modifier mon compte</h1>
         {% if user == app.user %}
-        <a href="{{ path('account_password') }}" class="button-edit"><i class="fal fa-user-lock"></i></a>
+        <a href="{{ path('account_password') }}" class="button-edit" aria-label="Mot de passe"><i class="fal fa-user-lock"></i></a>
         {% endif %}
     </div>
     <hr>

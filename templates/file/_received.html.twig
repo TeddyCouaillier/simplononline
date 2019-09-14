@@ -22,7 +22,7 @@
                 <div class="subnav position-relative text-center rhover px-1 text-greyl">
                     <i class="fas fa-ellipsis-v"></i>
                     <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1 tooltip-file{% if ufiles.seen == false %}-important{% endif %}">
-                        <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link rhover">Télécharger</a><br>
+                        <a href="{{ path('file_download',{'id': file.id}) }}" class="subnav-link rhover" aria-label="Télécharger">Télécharger</a><br>
                         {% if ufiles.seen == false %}
                         <a data-url="{{ path('file_edit_status',{'id': ufiles.id}) }}" data-target="ufile-{{ufiles.id}}" class="subnav-link rhover remove-important">Marquer comme vu</a><br>
                         {% endif %}
