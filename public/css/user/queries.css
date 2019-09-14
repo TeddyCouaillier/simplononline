@@ -1,0 +1,91 @@
+@media screen and (max-width: 993px){
+    .user                { padding: 0; grid-template-columns: 210px 175px auto; }
+    .user .user-header   { grid-area: 1 / 1 / 1 / 4; }
+    .user .user-info     { grid-area: 2 / 1 / 3 / 2; }
+    .user .user-projects { grid-area: 2 / 2 / 3 / 4; }
+    .user .user-files    { grid-area: 3 / 3 / 4 / 3; }
+    .user .user-trainings{ grid-area: 3 / 1 / 5 / 3; }
+    .user .user-weather  { grid-area: 4 / 3 / 5 / 3; }
+    .user .user-deadline { grid-area: 5 / 4 / 6 / 1; }
+    .user .user-skills   { grid-area: 6 / 1 / 7 / 4; }
+    .user .user-datas    { grid-area: 7 / 4 / 8 / 1; }
+    .user .user-portfolio{ grid-area: 8 / 4 / 9 / 1; }
+    .user .users-promo   { width: 90%; }
+
+    .user-admin                     { padding: 0; grid-template-columns: 50%; }
+    .user-admin .user-header        { grid-area: 1 / 1 / 2 / 3; }
+    .user-admin .user-promo-info    { grid-area: 2 / 2 / 3 / 2; }
+    .user-admin .user-info          { grid-area: 2 / 1 / 3 / 2; }
+    .user-admin .user-files         { grid-area: 3 / 1 / 3 / 2; height: 100%; }
+    .user-admin .user-send-files    { grid-area: 3 / 2 / 5 / 3; }
+    .user-admin .user-weather       { grid-area: 4 / 1 / 5 / 2; height: 100%; }
+    .user-admin .user-schedule      { grid-area: 5 / 1 / 6 / 3; }
+    .user-admin .user-last-projects { grid-area: 6 / 1 / 6 / 3; }
+
+    .user-secondary-info{ text-align: center; }
+    .project-container  { width: 100% !important; }
+    .user-container     { width: 100% !important; }
+    .user-badge         { width: 75% !important; }
+}
+
+@media screen and (max-width: 850px){
+    .user-container{ width: 100% !important; }
+}
+
+@media screen and (max-width: 769px){
+    .user                 { grid-template-columns: 50%; }
+    .user .user-header    { grid-area: 1 / 1 / 1 / 3; }
+    .user .user-info      { grid-area: 2 / 1 / 2 / 3; }
+    .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
+    .user .user-weather   { grid-area: 3 / 2 / 3 / 3; }
+    .user .user-deadline  { grid-area: 4 / 1 / 4 / 3; }
+    .user .user-projects  { grid-area: 5 / 1 / 5 / 3; }
+    .user .user-skills    { grid-area: 6 / 1 / 6 / 3; }
+    .user .user-trainings { grid-area: 7 / 1 / 7 / 3; }
+    .user .user-datas     { grid-area: 8 / 1 / 8 / 3; }
+    .user .user-portfolio { grid-area: 9 / 1 / 9 / 3; }
+
+    .user-admin .user-header        { grid-area: 1 / 1 / 2 / 3; }
+    .user-admin .user-promo-info    { grid-area: 2 / 2 / 3 / 2; }
+    .user-admin .user-info          { grid-area: 2 / 1 / 3 / 2; }
+    .user-admin .user-files         { grid-area: 3 / 1 / 3 / 2; height: 150px; }
+    .user-admin .user-weather       { grid-area: 3 / 2 / 4 / 2; height: 150px; }
+    .user-admin .user-schedule      { grid-area: 4 / 1 / 5 / 3; }
+    .user-admin .user-send-files    { grid-area: 5 / 1 / 5 / 3; }
+    .user-admin .user-last-projects { grid-area: 6 / 1 / 6 / 3; }
+
+    .user-active-container { width: 48% !important; }
+    .user-secondary-info   { text-align: left; }
+    .user-account-info     { width: 100% !important; }
+    .project-container     { margin-bottom: .75rem; margin-right: 0px; }
+
+}
+
+@media screen and (max-width: 577px){
+    .user                 { grid-template-columns: 100%; }
+    .user .user-header    { grid-area: 1 / 1 / 1 / 2; }
+    .user .user-info      { grid-area: 2 / 1 / 2 / 2; }
+    .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
+    .user .user-weather   { grid-area: 4 / 1 / 4 / 2; }
+    .user .user-deadline  { grid-area: 5 / 1 / 5 / 2; }
+    .user .user-projects  { grid-area: 6 / 1 / 6 / 2; }
+    .user .user-skills    { grid-area: 7 / 1 / 7 / 2; }
+    .user .user-trainings { grid-area: 8 / 1 / 8 / 2; }
+    .user .user-datas     { grid-area: 9 / 1 / 9 / 2; }
+    .user .user-portfolio { grid-area: 10 / 1 / 10 / 2; }
+    .user .user-header    { flex-wrap: wrap; }
+
+    .user-admin                     { grid-template-columns: 100%; }
+    .user-admin .user-header        { grid-area: 1 / 1 / 1 / 2; }
+    .user-admin .user-info          { grid-area: 2 / 1 / 2 / 2; }
+    .user-admin .user-promo-info    { grid-area: 3 / 1 / 3 / 2; }
+    .user-admin .user-files         { grid-area: 4 / 1 / 4 / 2; height: 150px; }
+    .user-admin .user-weather       { grid-area: 5 / 1 / 5 / 2; height: 150px; }
+    .user-admin .user-schedule      { grid-area: 6 / 1 / 6 / 2; }
+    .user-admin .user-send-files    { grid-area: 7 / 1 / 7 / 2; }
+    .user-admin .user-last-projects { grid-area: 8 / 1 / 8 / 2; }
+
+    .user .user-header .user-edit{ display: none !important; }
+    .user-active-container       { width: 100%!important; }
+    .user-badge                  { width: 98% !important; }
+}

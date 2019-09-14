@@ -1,0 +1,55 @@
+@media screen and (max-width: 993px){
+    .project-container{ width: 100% !important; }
+
+    .task_subtasks-collection-actions,
+    .edit_task_subtasks-collection-actions{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 769px){
+    .carac                { text-align: right; width: 100% !important; }
+    .project              { padding: 0 !important;}
+    .task-container       { padding: .5rem !important; }
+    .project-new-title    { flex-wrap: wrap; }
+    .task-icon, #task-sub { display: none; }
+
+    .task-info,
+    .task-subtask
+    .project-detail,
+    .project-container,
+    .project-detail-user{
+        margin-bottom: .75rem;
+        margin-right: 0px;
+    }
+
+    .task-info,
+    .task-subtask,
+    .project-detail,
+    .project-detail-user,
+    .project-detail-user > .container-white{
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 577px){
+    .project-title h1{
+        font-size: 1.3em !important;
+        font-weight: bold;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .project-description{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    #task-users {
+        -ms-flex-pack: start!important;
+        justify-content: start!important;
+    }
+}
