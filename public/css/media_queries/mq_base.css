@@ -19,7 +19,8 @@
     .user-admin .user-files         { grid-area: 3 / 1 / 3 / 2; height: 100%; }
     .user-admin .user-send-files    { grid-area: 3 / 2 / 5 / 3; }
     .user-admin .user-weather       { grid-area: 4 / 1 / 5 / 2; height: 100%; }
-    .user-admin .user-last-projects { grid-area: 5 / 1 / 5 / 3; }
+    .user-admin .user-schedule      { grid-area: 5 / 1 / 6 / 3; }
+    .user-admin .user-last-projects { grid-area: 6 / 1 / 6 / 3; }
 
     .project-container, .user-container{ width: 100% !important; }
     .user-badge    { width: 75% !important; }
@@ -53,8 +54,9 @@
     .user-admin .user-info          { grid-area: 2 / 1 / 3 / 2; }
     .user-admin .user-files         { grid-area: 3 / 1 / 3 / 2; height: 150px; }
     .user-admin .user-weather       { grid-area: 3 / 2 / 4 / 2; height: 150px; }
-    .user-admin .user-send-files    { grid-area: 4 / 1 / 5 / 3; }
-    .user-admin .user-last-projects { grid-area: 5 / 1 / 5 / 3; }
+    .user-admin .user-schedule      { grid-area: 4 / 1 / 5 / 3; }
+    .user-admin .user-send-files    { grid-area: 5 / 1 / 5 / 3; }
+    .user-admin .user-last-projects { grid-area: 6 / 1 / 6 / 3; }
 
     .user-notif     { width: 300px; }
     .received-files { height: 300px; }
@@ -98,8 +100,9 @@
     .user-admin .user-promo-info    { grid-area: 3 / 1 / 3 / 2; }
     .user-admin .user-files         { grid-area: 4 / 1 / 4 / 2; height: 150px; }
     .user-admin .user-weather       { grid-area: 5 / 1 / 5 / 2; height: 150px; }
-    .user-admin .user-send-files    { grid-area: 6 / 1 / 6 / 2; }
-    .user-admin .user-last-projects { grid-area: 7 / 1 / 7 / 2; }
+    .user-admin .user-schedule      { grid-area: 6 / 1 / 6 / 2; }
+    .user-admin .user-send-files    { grid-area: 7 / 1 / 7 / 2; }
+    .user-admin .user-last-projects { grid-area: 8 / 1 / 8 / 2; }
 
     .user-notif     { right: 10px; bottom: 80px; }
     .user-nav       { right: 10px; bottom: 10px; }

@@ -23,7 +23,7 @@
             {% endif %}
         </div>
 
-        <div class="text-grey project-description">{{ project.description|default('<em>Pas de description</em>')|raw }}</div>
+        <div class="text-grey project-description">{{ project.description|default('<em>Pas de description</em>') }}</div>
 
         <div class="flex align-center mt-1 mb-2 project-members">
             {% for user in project.users|slice(0,4) %}
