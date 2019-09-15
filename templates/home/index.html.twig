@@ -57,7 +57,7 @@
             </div>
         </header>
 
-        <main class="bg-white mx-auto p-5 main" >
+        <main class="bg-white mx-auto p-5 home-main" >
             <div class="row mx-0 h-75 mb-4 main-content">
                 <section class="col-md-4 col-sm-4 flexc just-center align-center">
                     <div class="text-center w-75 main-section">
@@ -103,9 +103,8 @@
             </p>
         </footer>
 
-        <script src="/js/libraries/jquery.min.js" onload="window.$ = window.jQuery;"></script>
-        <script src="/js/libraries/popper.min.js"></script>
-        <script src="/js/libraries/bootstrap.min.js"></script>
-        <script src="/js/base.js"></script>
+        {{ encore_entry_script_tags('js/app') }}
+        {{ encore_entry_script_tags('js/base') }}
+        {{ encore_entry_script_tags('js/ajax') }}
     </body>
 </html>

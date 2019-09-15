@@ -38,11 +38,6 @@ class Task
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -71,8 +66,8 @@ class Task
     public function __construct()
     {
         $this->users     = new ArrayCollection();
-        $this->createdAt = new \DateTime();
         $this->subtasks  = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -176,18 +171,6 @@ class Task
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

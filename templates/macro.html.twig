@@ -71,7 +71,7 @@
         <input type="hidden" id="task-counter" value="{{tasks|length}}">
         {% for task in tasks if task is not null %}
             {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
-            {{ _self.modal("modal-edit-"~task.id,'mw-66') }}
+            {{ _self.modal("modal-edit-"~task.id) }}
             <div class="container-white row mx-0 flex align-center mt-2 p-3 task-container">
                 <div class="col-lg-6 col-md-5 col-sm-6 col-12">
                     <p class="bold" id="task-title">{{ task.title }}</p>
@@ -98,9 +98,9 @@
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-1">
                     {% if project.completed == false %}
-                    <div class="subnav position-relative text-center rhover px-1 text-greyl">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1">
+                    <div class="subnav position-relative text-center px-1 text-greyl">
+                        <i class="fas fa-ellipsis-v rhover"></i>
+                        <div class="subnav-tooltip position-absolute text-center text-small text-grey shadow-small bg-white bold p-1">
                             <a class="subnav-link rhover edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
                             <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
                         </div>

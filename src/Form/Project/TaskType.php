@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TaskType extends ApplicationType
@@ -23,7 +22,6 @@ class TaskType extends ApplicationType
     {
         $builder
             ->add('title',       TextType::class,     $this->getConfiguration(null,"Intitulé de la tache"))
-            ->add('description', TextareaType::class, $this->getConfiguration(null,"Description de la tache",['required'=>false]))
             ->add('type',        ChoiceType::class,[
                 'label'       => 'Etat de la tâche',
                 'choices'     => Task::TYPE,

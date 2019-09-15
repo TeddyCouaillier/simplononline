@@ -153,14 +153,16 @@ $('.training-project-toggle').on('click',function(){
 
 })
 
-function projectPanel(el){
-    $('.project-nav').removeClass('active');
-    $(el).addClass('active');
-    const pan = $(el).data('project');
+$(document).on('click','.project-nav', function(){
+    $('.project-nav').each(function(){
+        $(this).removeClass('active');
+    });
+
+    $(this).addClass('active');
+    const pan = $(this).data('project');
     $('.project-content').hide(750);
     $(`.project-content#${pan}`).show(750);
-}
-
+})
 
 $(document).on('click','.notif',function() {
     if($(this).parent().parent().find('.user-notif').css('display') == 'none'){

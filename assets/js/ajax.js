@@ -448,7 +448,7 @@ $(document).on('click','.deadline-delete',function(){
             $('.deadline-counter').html(counter);
             if(counter == 0){
                 setTimeout(function(){
-                    $(container).parent().html('<div class="flex just-center align-center text-center text-medium text-greyl" style="height: 100px"><p><i class="fal fa-times-hexagon text-large"></i><br>Aucune deadline</p></div>');
+                    $(container).parent().html('<div class="flex just-center align-center text-center text-medium text-grey" style="height: 100px"><p><i class="fal fa-times-hexagon text-large"></i><br>Aucune deadline</p></div>');
                 }, 500);
             }
         },

@@ -10,7 +10,7 @@
         {% if user.promotion != null %}
         <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
         {% endif %}
-        <div class="user-secondary-info mt-2 text-greyd">
+        <div class="user-secondary-info mt-2 text-grey">
         <ul>
             <li class="mb-1"><i class="fal fa-envelope text-center"></i> {{user.email }}</li>
             <li class="mb-1">
@@ -32,7 +32,7 @@
             <li class="mb-1">
                 <i class="fal fa-globe text-center"></i>
                 {% if user.website != null %}
-                <a href="{{ user.website }}" class="text-greyd rhover" target="_blank" rel="noreferrer" aria-label="Site">Site internet</a>
+                <a href="{{ user.website }}" class="text-grey rhover" target="_blank" rel="noreferrer" aria-label="Site">Site internet</a>
                 {% else %}
                 <em>Pas de site internet</em>
                 {% endif %}
@@ -40,7 +40,7 @@
             <li class="mb-1">
                 <i class="fal fa-code-branch text-center"></i>
                 {% if user.github != null %}
-                <a href="{{ user.github }}" class="text-greyd rhover" target="_blank" rel="noreferrer" aria-label="Github">GitHub</a>
+                <a href="{{ user.github }}" class="text-grey rhover" target="_blank" rel="noreferrer" aria-label="Github">GitHub</a>
                 {% else %}
                 <em>Pas de lien github</em>
                 {% endif %}
@@ -153,7 +153,7 @@
                 <div class="text-center position-relative user-deadline-container my-3">
                     <p>Avant le <b>{{ udeadline.deadline.endAt|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</b></p>
                     <p class="text-grey deadline-task">{{ udeadline.deadline }}</p>
-                    <button class="position-absolute bg-white shadow-small text-greyl bhover button-circle active-deadline"
+                    <button class="position-absolute bg-white shadow-small text-grey bhover button-circle active-deadline"
                     data-url="{{ path('user_deadline_active', {'id': udeadline.id}) }}">
                         &#10004;
                     </button>

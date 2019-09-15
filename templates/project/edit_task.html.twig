@@ -10,12 +10,11 @@
         </div>
         <hr>
         <div class="flex wrap">
-            <div class="w-33 task-info">
-                <div class="container-grey">
+            <div class="w-100 task-info mx-auto my-1">
+                <div class="rounded p-2 shadow-small" style="background: #EEE">
                     <span class="bold">Info</span>
                     <div class="my-3">{{ form_widget(form.type) }}</div>
                     <div class="my-3">{{ form_widget(form.title, {'attr': {'maxlength': '50'}}) }}</div>
-                    <div class="my-3">{{ form_widget(form.description, {'attr': {'rows': '8'}}) }}</div>
                     <div class="my-3">
                         <select id="edit_task_users" name="edit_task[users][]" class="shadow-small task-user-selected selectpicker form-control" 
                         title="Ajouter des apprenants" data-live-search="true" multiple data-selected-text-format="count > 2" data-style="bg-white" data-size="6">
@@ -28,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-2 w-66 task-subtask">
+            <div class="p-2 w-100 task-subtask my-1">
                 <span class="bold">Liste des sous-tâches</span>
                 <div class="mt-3">{{ form_widget(form.subtasks) }}</div>
             </div>
