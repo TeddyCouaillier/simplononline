@@ -254,3 +254,11 @@ $(document).on('click','.navleft-toggle', function() {
         $(this).html('<i class="fal fa-bars text-large"></i>');
     }
 })
+
+$('.task').collection({
+    'up': '<a href="#" class="mx-1" aria-label="Remonter"><i class="fal fa-chevron-circle-up"></i></a>',
+    'down': '<a href="#" class="mx-1" aria-label="Redescendre"><i class="fal fa-chevron-circle-down"></i></a>',
+    'remove': '<a href="#" class="mx-1 text-red" aria-label="Enlever"><i class="fal fa-times-circle"></i></a>',
+    'add': '<button class="button-edit my-2 mx-auto d-block" aria-label="Ajouter"><i class="fal fa-plus"></i></button>',
+    'add_at_the_end': true
+});

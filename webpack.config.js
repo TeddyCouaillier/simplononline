@@ -23,17 +23,21 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    // .addEntry('app', './assets/js/app.js')
-    .addStyleEntry('main/base','./assets/css/template.scss')
-    .addStyleEntry('user/main','./assets/css/user/main.scss')
-    .addStyleEntry('project/main','./assets/css/project/main.scss')
-    .addStyleEntry('home','./assets/css/home.scss')
-    .addStyleEntry('file','./assets/css/file.scss')
-    .addStyleEntry('other','./assets/css/other.scss')
-    .addStyleEntry('mq_home','./assets/css/mq_home.css')
-    .addStyleEntry('training','./assets/css/training.scss')
-    .addStyleEntry('calendar','./assets/css/calendar.css')
-    .addStyleEntry('libraries/bootstrap-select','./assets/css/libraries/bootstrap-select.min.css')
+    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/base', './assets/js/base.js')
+    .addEntry('js/ajax', './assets/js/ajax.js')
+    .addEntry('js/libraries/bootstrap-select', './assets/js/libraries/bootstrap-select.min.js')
+
+    .addStyleEntry('css/main/base','./assets/css/template.scss')
+    .addStyleEntry('css/user/main','./assets/css/user/main.scss')
+    .addStyleEntry('css/project/main','./assets/css/project/main.scss')
+    .addStyleEntry('css/home','./assets/css/home.scss')
+    .addStyleEntry('css/file','./assets/css/file.scss')
+    .addStyleEntry('css/other','./assets/css/other.scss')
+    .addStyleEntry('css/mq_home','./assets/css/mq_home.css')
+    .addStyleEntry('css/training','./assets/css/training.scss')
+    .addStyleEntry('css/calendar','./assets/css/calendar.css')
+    .addStyleEntry('css/libraries/bootstrap-select','./assets/css/libraries/bootstrap-select.min.css')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -74,11 +78,16 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+    .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

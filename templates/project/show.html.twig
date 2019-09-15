@@ -5,8 +5,8 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
-<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/project/main.css') }}">
 {% endblock %}
 
 {% form_theme form _self 'jquery.collection.html.twig' %}
@@ -86,19 +86,7 @@
 </div>
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript">
-        $('.task').collection({
-            'up': '<a href="#" class="mx-1" aria-label="Remonter"><i class="fal fa-chevron-circle-up"></i></a>',
-            'down': '<a href="#" class="mx-1" aria-label="Redescendre"><i class="fal fa-chevron-circle-down"></i></a>',
-            'remove': '<a href="#" class="mx-1 text-red" aria-label="Enlever"><i class="fal fa-times-circle"></i></a>',
-            'add': '<button class="button-edit my-2 mx-auto d-block" aria-label="Ajouter"><i class="fal fa-plus"></i></button>',
-            'add_at_the_end': true
-        });
-    </script>
-{% endblock %}
-
 {% block libraries %}
-<script src="/js/libraries/bootstrap-select.min.js"></script>
+{{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endblock %}
 

@@ -5,8 +5,8 @@
 {% block title %}Gestion des fichiers{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
-<link rel="stylesheet" href="{{ asset('build/file.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/file.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -24,5 +24,5 @@
 {% endblock %}
 
 {% block libraries %}
-<script src="/js/libraries/bootstrap-select.min.js"></script>
+{{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endblock %}

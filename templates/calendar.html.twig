@@ -5,7 +5,7 @@
 {% block title %}Planning{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/css/calendar.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -24,10 +24,10 @@
 {% block modalBody %}{% endblock %}
 
 {% block javascripts %}
-    <script src="/js/libraries/fc-core.min.js"></script>
-    <script src="/js/libraries/fc-interaction.min.js"></script>
-    <script src="/js/libraries/fc-daygrid.min.js"></script>
-    <script src="/js/libraries/fc-timegrid.min.js"></script>
+    <script src="/assets/js/libraries/fc-core.min.js"></script>
+    <script src="/assets/js/libraries/fc-interaction.min.js"></script>
+    <script src="/assets/js/libraries/fc-daygrid.min.js"></script>
+    <script src="/assets/js/libraries/fc-timegrid.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         var calendarEl = document.getElementById('calendar-holder');

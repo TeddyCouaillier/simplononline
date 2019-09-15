@@ -3,10 +3,10 @@
 {% block title %}{{ user }}{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
-<link rel="stylesheet" href="{{ asset('build/user/main.css') }}">
-<link rel="stylesheet" href="{{ asset('build/training.css') }}">
-<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/user/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/training.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/project/main.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -20,5 +20,5 @@
 {% endblock %}
 
 {% block libraries %}
-<script src="/js/libraries/bootstrap-select.min.js"></script>
+{{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endblock %}

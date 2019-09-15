@@ -11,9 +11,9 @@
 
 {% block stylesheets %}
 {% if is_granted('ROLE_ADMIN') %}
-<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
 {% endif %}
-<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/project/main.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -191,6 +191,6 @@
 
 {% block libraries %}
 {% if is_granted('ROLE_ADMIN') %}
-<script src="/js/libraries/bootstrap-select.min.js"></script>
+{{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endif %}
 {% endblock %}

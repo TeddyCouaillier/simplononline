@@ -5,8 +5,8 @@
 {% block title %}Modifier un projet{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('build/libraries/bootstrap-select.css') }}">
-<link rel="stylesheet" href="{{ asset('build/project/main.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
+<link rel="stylesheet" href="{{ asset('build/css/project/main.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -65,7 +65,7 @@
 {% endblock %}
 
 {% block libraries %}
-<script src="/js/libraries/bootstrap-select.min.js"></script>
+{{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endblock %}
 
 {% block javascripts %}
