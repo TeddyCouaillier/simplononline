@@ -85,7 +85,7 @@ class Promotion
 
     public function __toString()
     {
-        return $this->label;
+        return $this->getLabel();
     }
 
     public function getId(): ?int
