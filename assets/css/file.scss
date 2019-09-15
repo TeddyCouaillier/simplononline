@@ -1,11 +1,13 @@
+@import './variables';
+
 .received-files{
     width: calc(100% - 300px);
     max-height: 410px;
     overflow-y: scroll;
+    &::-webkit-scrollbar-thumb{ @extend .bg-white; @include border(#EEE, 1px); box-shadow: none; }
+    &::-webkit-scrollbar-track{ background: transparent; box-shadow: none; }
+    &::-webkit-scrollbar      { background: transparent; }
 }
-.received-files::-webkit-scrollbar-thumb{ background: #FFF; border: 1px solid #EEE; box-shadow: none; }
-.received-files::-webkit-scrollbar-track{ background: transparent; box-shadow: none; }
-.received-files::-webkit-scrollbar      { background: transparent; }
 
 .form-files{ width: 300px; }
 .file-info{ width: 90%; }

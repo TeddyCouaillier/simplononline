@@ -26,13 +26,13 @@
     border-bottom-left-radius: 7px;
 }
 .user-see-more{
-    border-bottom: 2px solid var(--red);
+    border-bottom: 2px solid $red;
     transition: background .2s linear;
 }
-.user-see-more:hover{ background: var(--red);}
+.user-see-more:hover{ @extend .bg-red;}
 .user-datas .circle{
     line-height: 75px;
-    border: 2px solid var(--red);
+    @include border($red,2px);
 }
 
 .user-admin {
@@ -64,8 +64,5 @@
     height: 125px;
 }
 .project-container p{
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    @include line-clamp(1);
 }

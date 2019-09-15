@@ -24,14 +24,14 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     // .addEntry('app', './assets/js/app.js')
-    .addStyleEntry('main/base','./assets/css/main.css')
-    .addStyleEntry('user/main','./assets/css/user/main.css')
-    .addStyleEntry('project/main','./assets/css/project/main.css')
-    .addStyleEntry('home','./assets/css/home.css')
-    .addStyleEntry('file','./assets/css/file.css')
-    .addStyleEntry('other','./assets/css/other.css')
+    .addStyleEntry('main/base','./assets/css/template.scss')
+    .addStyleEntry('user/main','./assets/css/user/main.scss')
+    .addStyleEntry('project/main','./assets/css/project/main.scss')
+    .addStyleEntry('home','./assets/css/home.scss')
+    .addStyleEntry('file','./assets/css/file.scss')
+    .addStyleEntry('other','./assets/css/other.scss')
     .addStyleEntry('mq_home','./assets/css/mq_home.css')
-    .addStyleEntry('training','./assets/css/training.css')
+    .addStyleEntry('training','./assets/css/training.scss')
     .addStyleEntry('calendar','./assets/css/calendar.css')
     .addStyleEntry('libraries/bootstrap-select','./assets/css/libraries/bootstrap-select.min.css')
     //.addEntry('page1', './assets/js/page1.js')
@@ -64,7 +64,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

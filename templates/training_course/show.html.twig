@@ -10,10 +10,10 @@
 
 {% block body %}
 {{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'slug': user.slug}), 'Toutes vos propositions de stage seront supprimées') }}
-<div class="flex wrap just-between">
+<div class="flex wrap just-between align-center">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
-    <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="bg-grey button-circle text-grey" aria-label="Modifier"><i class="fal fa-pen bold"></i></a>
+    <a href="{{ path('user_edit_training',{'slug': user.slug}) }}" class="button-edit" aria-label="Modifier"><i class="fal fa-pen bold"></i></a>
     {% endif %}
 </div>
 <hr>

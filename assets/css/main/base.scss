@@ -1,17 +1,31 @@
-:root{
-    --red:      #dc3d24;
-    --grey:     #e8ecf1;
-    --white:    #FFFFFF;
-    --black:    #000000;
-    --greylight:rgba(0,0,0,.50);
-    --greydark: rgba(0,0,0,.25);
-    --shadow: 0 2px 4px rgba(0,0,0,.20);
+*{
+    &::before,::after {
+      box-sizing: border-box;
+    }
+
+    &:focus{ outline: 1px solid var(--greydark); }
+
+    &::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        @extend .shadow;
+        @extend .bg-white;
+        @include border($greydark);
+    }
 }
 
-*,*::before,*::after {
-  box-sizing: border-box;
-}
-*:focus{ outline: 1px solid var(--greydark); }
 
 body{
     font-family: 'Abel';
@@ -23,16 +37,19 @@ body{
 
 p  { margin: 0!important; }
 
-a  { color: var(--black); text-decoration: none;}
+a{
+    color: $black;
+    text-decoration: none;
 
-a:hover{
-    text-decoration: none !important;
-    color: var(--black);
+    &:hover{
+        text-decoration: none !important;
+        color: $black;
+    }
 }
 
 i  { margin-top: 5px; }
 
-em { color: var(--greylight); }
+em { color: $greylight; }
 
 img{ object-fit: cover; }
 
@@ -67,17 +84,15 @@ legend{ display: none; }
 button:focus{ outline: none; }
 
 input{
-    background: var(--white) ;
-    border-radius: 7px ;
+    @extend .rounded;
+    background: $white ;
     padding: 2px 7px ;
 }
 
 input:focus,select:focus, textarea:focus{
     border: none;
-    outline: 1px solid var(--greydark) !important;
-    -webkit-box-shadow: var(--shadow);
-       -moz-box-shadow: var(--shadow);
-            box-shadow: var(--shadow);
+    outline: 1px solid $greydark !important;
+    @extend .shadow;
 }
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
@@ -89,27 +104,9 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-
-/* Font & colors */
-.bg-grey     { background: var(--grey) !important; }
-.bg-white    { background: var(--white) !important; }
-.bg-red      { background: var(--red) !important; }
-.text-grey   { color: var(--greylight) !important; }
-.text-greyd  { color: rgba(0,0,0,.75) !important; }
-.text-greyl  { color: var(--greydark) !important; }
-.text-white  { color: var(--white) !important; }
-.text-red    { color: var(--red) !important; }
-.text-black  { color: var(--black) !important; }
-.bold        { font-weight: 900; }
-.text-small  { font-size: .85em; }
-.text-medium { font-size: 1.2em; }
-.text-large  { font-size: 1.6em; }
-.text-xlarge { font-size: 2em; }
-.rhover:hover{ color: var(--red) !important; cursor: pointer; }
-.bhover:hover{ color: var(--black) !important; cursor: pointer !important; }
-[class*="-danger"]{
-    background: var(--red);
-}
+.rhover:hover{ color: $red !important; cursor: pointer; }
+.bhover:hover{ color: $black !important; cursor: pointer !important; }
+[class*="-danger"]{ background: $red; }
 /* Display & container */
 .flex{
     display: -ms-flexbox!important;
@@ -146,19 +143,19 @@ input[type="number"] {
     flex-wrap: wrap!important;
 }
 .container-grey{
-    border-radius: 7px !important;
-    background: var(--grey) !important;
+    @extend .bg-grey;
+    @extend .rounded;
     padding: .5rem;
 }
 .container-white{
-    border-radius: 7px !important;
-    background: var(--white);
+    @extend .bg-white;
+    @extend .rounded;
     padding: .5rem;
 }
 
 /* Bootstrap like */
-.rounded{ border-radius: 7px !important;}
-.shadow-small{ box-shadow: var(--shadow); }
+.rounded{ @extend .rounded; }
+.shadow-small{ @extend .shadow; }
 .pointer{ cursor: pointer; }
 .messages-success{ border-left: 4px solid #4BB543; }
 .messages-warning{ border-left: 4px solid #ffc800; }
@@ -178,7 +175,7 @@ input[type="number"] {
 .icon-lg{ font-size: 4.5em; }
 .icon-xl{ font-size: 5em;   }
 
-[class*="avatar-"]{ border-radius: 50%; }
+[class*="avatar-"]{ @extend .circle; }
 .avatar-xs, .img-xs{
     width: 30px;
     height: 30px;
@@ -203,10 +200,10 @@ input[type="number"] {
 /* Buttons */
 .btn:focus{ box-shadow: 0 0 0 0.2rem rgba(0,0,0,.1)!important; }
 .button-edit{
-    background: var(--white);
-    color: var(--greydark) !important;
-    box-shadow: var(--shadow);
-    border-radius: 50%;
+    @extend .bg-white;
+    @extend .text-greyl;
+    @extend .shadow;
+    @extend .circle;
     width: 50px;
     height: 50px;
     line-height: 50px;
@@ -214,53 +211,32 @@ input[type="number"] {
     font-size: 1.5em;
     border: none;
     cursor: pointer;
-}
-.button-edit:hover{
-    color: rgba(0,0,0,.9) !important;
+
+    &:hover{
+        color: rgba(0,0,0,.9) !important;
+    }
 }
 .button-circle{
-    border-radius: 50%;
+    @extend .circle;
     width: 50px;
     height: 50px;
     line-height: 50px;
     text-align: center;
     font-size: 1.5em;
     border: none;
-}
-.button-circle:hover{
-    cursor: pointer;
-    color: rgba(0,0,0,.9);
-    -webkit-box-shadow: var(--shadow);
-       -moz-box-shadow: var(--shadow);
-            box-shadow: var(--shadow);
+
+    &:hover{
+        cursor: pointer;
+        color: rgba(0,0,0,.9);
+        @extend .shadow;
+    }
 }
 .button-red{
     cursor: pointer;
-    background: var(--red);
-    color: var(--white);
-}
-.button-red:hover{
-    background: #be2811;
-    color: var(--white);
-}
+    @extend .primary;
 
-/* Scrollbar */
-*::-webkit-scrollbar-track
-{
-	border-radius: 10px;
-	background-color: #F5F5F5;
-}
-
-*::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
-}
-
-*::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-    background-color: white;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--greydark);
+    &:hover{
+        background: #be2811;
+        @extend .text-white;
+    }
 }

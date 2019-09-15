@@ -1,0 +1,48 @@
+$red      : #DC3D24;
+$grey     : #e8ecf1;
+$white    : #FFFFFF;
+$black    : #000000;
+$greylight: rgba(0,0,0,.50);
+$greydark : rgba(0,0,0,.25);
+$shadow   : 0 2px 4px rgba(0,0,0,.20);
+
+.circle { border-radius: 50% !important; }
+.rounded{ border-radius: 7px !important; }
+.shadow {
+    -webkit-box-shadow: $shadow;
+       -moz-box-shadow: $shadow;
+            box-shadow: $shadow;
+}
+.primary{
+    background: $red;
+    color: $white;
+}
+.secondary{
+    background: $white;
+    color: $red;
+}
+
+.bg-white    { background: $white !important; }
+.bg-red      { background: $red !important; }
+.bg-grey     { background: $grey !important; }
+.text-grey   { color: $greylight !important; }
+.text-greyd  { color: rgba(0,0,0,.75) !important; }
+.text-greyl  { color: $greydark !important; }
+.text-white  { color: $white !important; }
+.text-red    { color: $red !important; }
+.text-black  { color: $black !important; }
+.bold        { font-weight: 900; }
+.text-small  { font-size: .85em; }
+.text-medium { font-size: 1.2em; }
+.text-large  { font-size: 1.6em; }
+.text-xlarge { font-size: 2em; }
+
+@mixin line-clamp($line:2){
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+@mixin border($color,$px:1px){
+    border: $px solid $color;
+}

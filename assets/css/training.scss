@@ -1,7 +1,9 @@
+@import './variables';
+
 [class^="status-"]{
     height: 8px;
     width: 8px;
-    border-radius: 50%;
+    @extend .circle;
 }
 .status-yellow{     background: yellow; }
 .status-red{        background: red; }
@@ -23,7 +25,7 @@
     -moz-transition: all .5s linear;
     -webkit-transition: all .5s linear;
     transition: all .5s linear;
-    font-size: .8em;
+    @extend .text-small;
     margin-left: 5px;
 }
 .chevron.down{
