@@ -20,7 +20,7 @@
                         <a href="{{ path('admin_all_users',{'slug': 'tout'}) }}" class="dropdown-item" aria-label="Tout">Tout</a>
                         {% for promotion in promotions %}
                         <a href="{{ path('admin_all_users',{'slug': promotion.slug}) }}" class="dropdown-item" aria-label="{{ promotion.slug }}">
-                            {{ promotion.label }}
+                            {{ promotion }}
                         </a>
                         {% endfor %}
                         <a href="{{ path('admin_all_users',{'slug': 'autres'}) }}" class="dropdown-item" aria-label="Autres">Autres</a>
@@ -73,7 +73,7 @@
                         </li>
                         <li class="mb-1">
                             {% if user.promotion != null %}
-                            <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
+                            <span class="badge badge-pill badge-danger mt-1">{{ user.promotion }}</span>
                             {% else %}
                             <em>Aucune promo</em>
                             {% endif %}

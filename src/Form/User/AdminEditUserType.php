@@ -15,7 +15,6 @@ class AdminEditUserType extends EditUserType
         $builder
             ->add('promotion', EntityType::class, [
                 'class'        => Promotion::class,
-                'choice_label' => 'label',
                 'required'     => false,
                 'placeholder'  => 'Aucune'
             ])

@@ -19,7 +19,6 @@ class HelpType extends ApplicationType
             ->add('title',       TextType::class,     $this->getConfiguration('Titre du lien'))
             ->add('language',   EntityType::class, [
                 'class'        => Language::class,
-                'choice_label' => 'label',
                 'label'        => 'Langage',
                 'required'     => false,
                 'placeholder'  => 'Aucun'

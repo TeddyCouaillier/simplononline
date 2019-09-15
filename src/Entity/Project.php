@@ -104,6 +104,11 @@ class Project
         $this->completed   = false;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     /**
      * Get the difference between the project creating time and now
      * @return String

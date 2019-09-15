@@ -18,7 +18,6 @@ class CreateUserType extends UserType
             ->add('password',  PasswordType::class, $this->getConfiguration(null, "Mot de passe"))
             ->add('promotion', EntityType::class, [
                 'class'        => Promotion::class,
-                'choice_label' => 'label',
                 'required'     => false,
                 'placeholder'  => 'Aucune'
             ])

@@ -32,7 +32,7 @@
                 {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mx-auto","Avatar de {{user}}") }} #}
                 <span class="bold mt-2 h4">{{ user.firstname }} {{ user.lastname}}</span>
                 <div class="flexc my-2 py-4">
-                    <span><b>Promotion :</b> {{ user.promotion.label }}</span>
+                    <span><b>Promotion :</b> {{ user.promotion }}</span>
                     <span><b>Email :</b> {{ user.email }}</span>
                     <span><b>Tél :</b> {{ user.tel }}</span>
                     <span><b>Lieu :</b> {{ user.city }}</span>
@@ -53,7 +53,7 @@
                     <div class=" p-2 my-3 text-center project-content">
                         <div class="flexc just-center">
                             <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">
-                                {{ project.title }}
+                                {{ project }}
                             </a>
                         </div>
                         <p class="text-small text-grey mt-auto">

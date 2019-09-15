@@ -83,7 +83,7 @@
             {% endif %}
             <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container {% if access %}h-auto py-2{% endif %}">
                 <div>
-                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project.title }}</a></p>
+                    <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project }}</a></p>
                     <div class="flex just-center align-center">
                         {% for user in project.users|slice(0,4) %}
                         <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='

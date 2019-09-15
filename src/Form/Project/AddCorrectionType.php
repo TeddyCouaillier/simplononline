@@ -19,7 +19,6 @@ class AddCorrectionType extends ApplicationType
             ->add('content', TextareaType::class, $this->getConfiguration("Contenu du corrigé"))
             ->add('project', EntityType::class, [
                 'class'        => Project::class,
-                'choice_label' => 'title',
                 'placeholder'  => 'Choisir le projet à corriger (promo actuelle)',
                 'query_builder' => function(ProjectRepository $rep) {
                     return $rep->getAllProjectByCurrentPromo();

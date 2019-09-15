@@ -15,7 +15,7 @@
       {{ template.deleteConfirm(correction.id,path('admin_correction_delete',{'id':correction.id})) }}
       {{ template.modal('edit-correction-'~correction.id)}}
       <div class="container-white flexc my-1 shadow-small">
-          <p><span class="bold">Projet</span> - {{ correction.project.title }}</p>
+          <p><span class="bold">Projet</span> - {{ correction.project }}</p>
           <p class="my-2">{{ correction.content }}</p>
           <div class="text-center mt-auto">
               <button class="btn text-grey bhover shadow-small w-33 edit-correction" data-url="{{path('admin_correction_edit',{'id': correction.id}) }}"

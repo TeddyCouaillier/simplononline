@@ -22,7 +22,7 @@
         {% endif %}
         <div class="container-white shadow-small flexc m-1 h-auto games-container" style="width: 32%">
             <a href="{{ game.link }}" class="bold game-title" target="_blank" rel="noreferrer" aria-label="Lien">
-                {{ game.title }}
+                {{ game }}
             </a>
             <p class="text-grey text-small">
                 Publié par {{ game.publisher }} le {{ game.publishedAt | date('d/m/Y') }}

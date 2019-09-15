@@ -8,7 +8,7 @@
         {{ template.img("/img/avatar/"~user.avatar, "avatar-lg mb-2", "Avatar de "~user) }}
         <span class="text-red bold">{{ user }}</span>
         {% if user.promotion != null %}
-        <span class="badge badge-pill badge-danger mt-1">{{ user.promotion.label }}</span>
+        <span class="badge badge-pill badge-danger mt-1">{{ user.promotion }}</span>
         {% endif %}
         <div class="user-secondary-info mt-2 text-grey">
         <ul>
@@ -123,7 +123,7 @@
         {% if user.projects is not empty %}
             {% for project in user.projects|slice(0,4) %}
                 <div class="flex just-between align-baseline">
-                    <span>{{ project.title }}</span>
+                    <span>{{ project }}</span>
                     <a href="{{ path('project_show',{'slug': project.slug}) }}" class="rhover" aria-label="Voir le projet"><i class="fal fa-arrow-circle-right"></i></a>
                 </div>
                 <hr>
@@ -242,7 +242,7 @@
             {% for project in user.projects %}
                 <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                     <div>
-                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le site">{{ project.title }}</a></p>
+                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le site">{{ project }}</a></p>
                         <p class="text-small text-grey">
                             {% for language in project.languages %}
                                 {{ language.label }}

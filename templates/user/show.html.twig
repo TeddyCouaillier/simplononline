@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class=" flex just-center align-center">
-        <span class="rounded bg-red text-white px-2 py-1 bold mt-1 user-badge text-center">{{ user.promotion.label|default('Aucune promo') }}</span>
+        <span class="rounded bg-red text-white px-2 py-1 bold mt-1 user-badge text-center">{{ user.promotion|default('Aucune promo') }}</span>
     </div>
     <div class="flex wrap just-around my-3">
         <div class="container-white shadow-small py-1 px-3 my-2 w-flex user-account-info">
@@ -68,7 +68,7 @@
             {% if user.projects is not empty %}
                 {% for project in user.projects|slice(0,6) %}
                     <div class="flex just-between align-baseline">
-                        <span>{{ project.title }}</span>
+                        <span>{{ project }}</span>
                         <a href="#" class="rhover"><i class="fal fa-arrow-circle-right"></i></a>
                     </div>
                     <hr>
@@ -111,7 +111,7 @@
             {% for project in user.projects %}
                 <div class="container-white flex just-center align-center py-1 m-1 shadow-small text-center project-container">
                     <div>
-                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project.title }}</a></p>
+                        <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project }}</a></p>
                         <p class="text-small text-grey">
                             {% for language in project.languages %}
                                 {{ language.label }}
