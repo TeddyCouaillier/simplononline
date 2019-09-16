@@ -14,12 +14,12 @@ $shadow   : 0 2px 4px rgba(0,0,0,.20);
             box-shadow: $shadow;
 }
 .primary{
-    background: $red;
-    color: $white;
+    background: $red !important;
+    color: $white !important;
 }
 .secondary{
-    background: $white;
-    color: $red;
+    background: $white !important;
+    color: $red !important;
 }
 
 .bg-white    { background: $white !important;       }

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Test{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
+{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un code</h1>
+    <hr>
+    <div id="editSection"></div>
+{% endblock %}
+
+{% block libraries %}
+<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+var editor = new tui.Editor({
+    el: document.querySelector('#editSection'),
+    initialEditType: 'markdown',
+    previewStyle: 'vertical',
+    height: '500px'
+});
+</script>
+{% endblock %}

@@ -170,6 +170,16 @@ class BaseController extends AbstractController
         return $this->render('weather/modal.html.twig', $render);
     }
 
+    /**
+     * @Route("/test", name="test")
+     *
+     * @return void
+     */
+    public function test()
+    {
+        return $this->render('test.html.twig');
+    }
+
     protected $questions = array(
         "Que penses-tu du code aujourd'hui ?" => array(
             'Je préfère la piscine' => User::RAIN,
