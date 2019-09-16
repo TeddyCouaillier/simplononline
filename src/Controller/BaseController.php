@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\Help;
 use App\Entity\User;
 use App\Entity\Language;
+use App\Entity\Codeblock;
 use App\Entity\Promotion;
+use App\Form\CodeblockType;
 use App\Form\Help\HelpType;
 use App\Repository\HelpRepository;
 use App\Repository\UserRepository;
+use App\Repository\CodeblockRepository;
+use App\Repository\LanguageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -171,13 +176,119 @@ class BaseController extends AbstractController
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/aides/code/ajouter", name="code_add")
      *
      * @return void
      */
-    public function test()
+    public function newCode(Request $request, ObjectManager $manager)
     {
-        return $this->render('test.html.twig');
+        $code = new Codeblock($this->getUser());
+        $form = $this->createForm(CodeblockType::class, $code);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if($request->request->get('content') != ''){
+                $code->setContent($request->request->get('content'));
+            } else {
+                $code->setContent('Pas de code');
+            }
+            $manager->persist($code);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le code a bien été ajouté'
+            );
+
+            return $this->redirectToRoute('code_all');
+        }
+
+        return $this->render('help/add-edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("aides/code/{id}/modifier", name="code_edit")
+     *
+     * @param Codeblock $code
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function editCode(Codeblock $code, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(CodeblockType::class, $code);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if($request->request->get('content') != ''){
+                $code->setContent($request->request->get('content'));
+            } else {
+                $code->setContent('Pas de code');
+            }
+            $manager->persist($code);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le code a bien été ajouté'
+            );
+
+            return $this->redirectToRoute('code_all');
+        }
+
+        return $this->render('help/add-edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/aides/code/{id}", name="code_show")
+     *
+     * @param Code $code
+     * @return void
+     */
+    public function showCode(Codeblock $code)
+    {
+        return $this->render('help/code.html.twig', [
+            'code' => $code
+        ]);
+    }
+
+    /**
+     * @Route("/aides/code", name="code_all")
+     *
+     * @param CodeblockRepository $rep
+     * @param LanguageRepository $lrep
+     * @return void
+     */
+    public function allCode(CodeblockRepository $rep, LanguageRepository $lrep)
+    {
+        return $this->render('help/all.html.twig', [
+            'codes' => $rep->findAll(),
+            'languages' => $lrep->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/aides/code/{id}/delete", name="code_delete")
+     *
+     * @param Codeblock $code
+     * @param ObjectManager $manager
+     * @return void
+     */
+    public function deleteCode(Codeblock $code, ObjectManager $manager)
+    {
+        $manager->remove($code);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Le code a bien été supprimé'
+        );
+
+        return $this->redirectToRoute('code_all');
     }
 
     protected $questions = array(

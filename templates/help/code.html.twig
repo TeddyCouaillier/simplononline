@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}{{ code }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/libraries/markdown.css') }}"></link>
+{% endblock %}
+
+{% block body %}
+    <h1 class="h3">{{ code }}</h1>
+    {% if code.language is not null %}
+    <span class="badge badge-pill badge-danger my-1">{{ code.language }}</span>
+    {% endif %}
+    <hr>
+    <div class="markdown-body container-white shadow-small p-4">
+    {{ code.content|markdown }}
+    </div>
+{% endblock %}

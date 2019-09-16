@@ -38,6 +38,7 @@ Encore
     .addStyleEntry('css/training','./assets/css/training.scss')
     .addStyleEntry('css/calendar','./assets/css/calendar.css')
     .addStyleEntry('css/libraries/bootstrap-select','./assets/css/libraries/bootstrap-select.min.css')
+    .addStyleEntry('css/libraries/markdown','./assets/css/libraries/markdown.css')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

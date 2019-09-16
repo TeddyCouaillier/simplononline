@@ -400,3 +400,9 @@ input[type="checkbox"].switch_base:checked:after {
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
+
+.markdown-body pre{
+    background: rgba(220, 60, 35, 0.25) !important;
+    border-left: 5px solid rgba(220,60,35,0.8);
+    margin: .5rem 0;
+}

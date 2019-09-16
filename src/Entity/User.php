@@ -217,6 +217,11 @@ class User implements AdvancedUserInterface
      */
     private $userDeadline;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Codeblock", mappedBy="publisher", orphanRemoval=true)
+     */
+    private $codeblocks;
+
 
     public function __construct()
     {
@@ -239,6 +244,7 @@ class User implements AdvancedUserInterface
         $this->games = new ArrayCollection();
         $this->vote = new ArrayCollection();
         $this->userDeadline = new ArrayCollection();
+        $this->codeblocks = new ArrayCollection();
     }
 
     public function __toString()
@@ -1183,6 +1189,37 @@ class User implements AdvancedUserInterface
             // set the owning side to null (unless already changed)
             if ($userDeadline->getUser() === $this) {
                 $userDeadline->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Codeblock[]
+     */
+    public function getCodeblocks(): Collection
+    {
+        return $this->codeblocks;
+    }
+
+    public function addCodeblock(Codeblock $codeblock): self
+    {
+        if (!$this->codeblocks->contains($codeblock)) {
+            $this->codeblocks[] = $codeblock;
+            $codeblock->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCodeblock(Codeblock $codeblock): self
+    {
+        if ($this->codeblocks->contains($codeblock)) {
+            $this->codeblocks->removeElement($codeblock);
+            // set the owning side to null (unless already changed)
+            if ($codeblock->getPublisher() === $this) {
+                $codeblock->setPublisher(null);
             }
         }
 

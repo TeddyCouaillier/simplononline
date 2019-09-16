@@ -2,7 +2,13 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Test{% endblock %}
+{% block title %}
+    {% if app.request.get('_route') == "code_edit" %}
+    Modifier le code
+    {% else %}
+    Ajouter un code
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
@@ -12,9 +18,25 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Ajouter un code</h1>
+    <h1>
+        {% if app.request.get('_route') == "code_edit" %}
+        Modifier le code
+        {% else %}
+        Ajouter un code
+        {% endif %}
+    </h1>
     <hr>
-    <div id="editSection"></div>
+    {{ form_start(form) }}
+        <div class="my-2">
+            {{ form_widget(form.title, {'attr': {'maxlength': 75}}) }}
+        </div>
+        <div class="my-2">
+            {{ form_widget(form.language) }}
+        </div>
+        <textarea hidden id="content" name="content"></textarea>
+        <div id="editSection"></div>
+        {{ template.confirm() }}
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block libraries %}
@@ -26,8 +48,12 @@
 var editor = new tui.Editor({
     el: document.querySelector('#editSection'),
     initialEditType: 'markdown',
+    initialValue: '``` Votre code ```',
     previewStyle: 'vertical',
     height: '500px'
+});
+$('form').submit(function(){
+    $('#content').val(editor.getValue());
 });
 </script>
 {% endblock %}

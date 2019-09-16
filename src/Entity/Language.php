@@ -47,11 +47,17 @@ class Language
      */
     private $games;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Codeblock", mappedBy="language")
+     */
+    private $codeblocks;
+
     public function __construct()
     {
         $this->helps    = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->codeblocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +178,37 @@ class Language
             // set the owning side to null (unless already changed)
             if ($game->getLanguage() === $this) {
                 $game->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Codeblock[]
+     */
+    public function getCodeblocks(): Collection
+    {
+        return $this->codeblocks;
+    }
+
+    public function addCodeblock(Codeblock $codeblock): self
+    {
+        if (!$this->codeblocks->contains($codeblock)) {
+            $this->codeblocks[] = $codeblock;
+            $codeblock->setLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCodeblock(Codeblock $codeblock): self
+    {
+        if ($this->codeblocks->contains($codeblock)) {
+            $this->codeblocks->removeElement($codeblock);
+            // set the owning side to null (unless already changed)
+            if ($codeblock->getLanguage() === $this) {
+                $codeblock->setLanguage(null);
             }
         }
 
