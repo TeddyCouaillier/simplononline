@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Schedule;
-use App\Form\ScheduleType;
+use App\Form\Other\ScheduleType;
 use App\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;

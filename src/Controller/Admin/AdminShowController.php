@@ -10,7 +10,7 @@ use App\Entity\Language;
 use App\Entity\UserData;
 use App\Entity\Correction;
 use App\Entity\UserSkills;
-use App\Form\DeadlineType;
+use App\Form\Other\DeadlineType;
 use App\Form\Data\DataType;
 use App\Service\Pagination;
 use App\Entity\UserDeadline;

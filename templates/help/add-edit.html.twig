@@ -52,6 +52,11 @@ var editor = new tui.Editor({
     previewStyle: 'vertical',
     height: '500px'
 });
+
+{% if app.request.get('_route') == "code_edit" %}
+    editor.setValue("{{ code.content}}");
+{% endif %}
+
 $('form').submit(function(){
     $('#content').val(editor.getValue());
 });

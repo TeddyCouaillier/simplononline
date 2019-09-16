@@ -402,7 +402,10 @@ input[type="checkbox"].switch_base:checked:after {
 }
 
 .markdown-body pre{
-    background: rgba(220, 60, 35, 0.25) !important;
-    border-left: 5px solid rgba(220,60,35,0.8);
+    background: rgba(180,80,80,.2) !important;
+    border-left: 5px solid rgba(180,80,80,.8);
     margin: .5rem 0;
+}
+.markdown-body a{
+    color: $red !important;
 }

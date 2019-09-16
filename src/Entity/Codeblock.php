@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\User;
 use App\Entity\Language;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,10 +40,21 @@ class Codeblock
      */
     private $language;
 
-    public function __construct(User $publisher, Language $language = null)
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $publishedAt;
+
+    public function __construct(User $publisher)
     {
-        $this->publisher = $publisher;
-        $this->language  = $language;
+        $this->publisher   = $publisher;
+        $this->publishedAt = new \DateTime();
     }
 
     public function __toString()
@@ -99,6 +111,30 @@ class Codeblock
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }

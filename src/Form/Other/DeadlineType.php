@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Other;
 
-use DateTime;
 use App\Entity\Deadline;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

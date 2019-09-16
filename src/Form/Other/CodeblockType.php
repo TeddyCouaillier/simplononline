@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Other;
 
 use App\Entity\Language;
 use App\Entity\Codeblock;

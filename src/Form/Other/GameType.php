@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Other;
 
 use App\Entity\Game;
 use App\Entity\Language;

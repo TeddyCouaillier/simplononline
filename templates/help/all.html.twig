@@ -2,11 +2,7 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}Test{% endblock %}
-
-{% block stylesheets %}
-
-{% endblock %}
+{% block title %}Codes d'aide{% endblock %}
 
 {% block body %}
 <div class="flex wrap just-between align-center">
@@ -23,13 +19,13 @@
 <div class="flex wrap just-around help-all">
     {% for code in codes %}
     {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') or app.user == code.publisher %}
-    {{ template.deleteConfirm(code.id,path('code_delete',{'id': code.id})) }}
+    {{ template.deleteConfirm(code.id,path('code_delete',{'slug': code.slug})) }}
     {% endif %}
     <div class="container-white shadow-small my-1 pl-3 help-link w-flex" data-badge="{% if code.language != null %}{{ code.language }}{% endif %}">
 
         <div class="flex just-between">
             <div>
-            <a href="{{ path('code_show',{'id': code.id}) }}" class="rhover bold" aria-label="{{ code }}">
+            <a href="{{ path('code_show',{'slug': code.slug}) }}" class="rhover bold" aria-label="{{ code }}">
                 {{ code }}
             </a>
             {% if code.language != null %}
@@ -41,16 +37,14 @@
                 <div class="subnav position-relative text-center px-1 text-greyl">
                     <i class="fas fa-ellipsis-v rhover"></i>
                     <div class="subnav-tooltip position-absolute text-center text-small shadow-small bg-white bold p-1">
-                        <a class="subnav-link rhover edit-task" href="{{ path('code_edit',{'id':code.id}) }}">Modifier</a><br>
+                        <a class="subnav-link rhover edit-task" href="{{ path('code_edit',{'slug':code.slug}) }}">Modifier</a><br>
                         <a class="subnav-link text-red" data-toggle="modal" data-target="#modal-{{code.id}}">Supprimer</a>
                     </div>
                 </div>
             </div>
             {% endif %}
         </div>
-
-        <span class="text-small text-grey">Posté par {{ code.publisher }} le 17/09/2019 à 5:32 }}</span>
-
+        <span class="text-small text-grey">Posté par {{ code.publisher }} le {{ code.publishedAt|date('d/m/Y à H:i') }}</span>
     </div>
     {% endfor %}
 </div>

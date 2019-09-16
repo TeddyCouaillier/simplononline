@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Entity\Vote;
-use App\Form\GameType;
+use App\Form\Other\GameType;
 use App\Service\Pagination;
 use App\Entity\UserDeadline;
 use App\Entity\TrainingCourse;

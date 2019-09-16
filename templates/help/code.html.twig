@@ -13,6 +13,7 @@
     {% if code.language is not null %}
     <span class="badge badge-pill badge-danger my-1">{{ code.language }}</span>
     {% endif %}
+    <p class="text-small text-grey">Posté le {{ code.publishedAt|date('d/m/Y à H:i') }} par {{ code.publisher }}</p>
     <hr>
     <div class="markdown-body container-white shadow-small p-4">
     {{ code.content|markdown }}
