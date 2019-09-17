@@ -27,6 +27,9 @@ Encore
     .addEntry('js/base', './assets/js/base.js')
     .addEntry('js/ajax', './assets/js/ajax.js')
     .addEntry('js/libraries/bootstrap-select', './assets/js/libraries/bootstrap-select.min.js')
+    // .addEntry('editor/js/tui-editor-Editor-full','./assets/Editor/js/tui-editor-Editor-full.min.js')
+    // .addEntry('editor/js/tui-editor-extColorSyntax.js','./assets/Editor/js/tui-editor-extColorSyntax.min.js')
+    // .addEntry('editor/js/tui-editor-extScrollSync.js','./assets/Editor/js/tui-editor-extScrollSync.min.js')
 
     .addStyleEntry('css/main/base','./assets/css/template.scss')
     .addStyleEntry('css/user/main','./assets/css/user/main.scss')
@@ -39,8 +42,10 @@ Encore
     .addStyleEntry('css/calendar','./assets/css/calendar.css')
     .addStyleEntry('css/libraries/bootstrap-select','./assets/css/libraries/bootstrap-select.min.css')
     .addStyleEntry('css/libraries/markdown','./assets/css/libraries/markdown.css')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addStyleEntry('editor/css/codemirror','./assets/Editor/css/codemirror.css')
+    .addStyleEntry('editor/css/github','./assets/Editor/css/github-markdown.min.css')
+    .addStyleEntry('editor/css/tui-editor','./assets/Editor/css/tui-editor.css')
+    .addStyleEntry('editor/css/tui-editor-contents','./assets/Editor/css/tui-editor-contents.css')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

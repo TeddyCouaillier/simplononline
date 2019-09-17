@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.css"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
+<link rel="stylesheet" href="{{ asset('build/editor/css/tui-editor.css') }}"></link>
+<link rel="stylesheet" href="{{ asset('build/editor/css/tui-editor-contents.css') }}"></link>
+<link rel="stylesheet" href="{{ asset('build/editor/css/codemirror.css') }}"></link>
+<link rel="stylesheet" href="{{ asset('build/editor/css/github.css') }}"></link>
 {% endblock %}
 
 {% block body %}
@@ -40,7 +40,8 @@
 {% endblock %}
 
 {% block libraries %}
-<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+<script src="/tui-editor-Editor-full.js"></script>
+<script src="/tui-editor-extScrollSync.min.js"></script>
 {% endblock %}
 
 {% block javascripts %}
@@ -50,11 +51,15 @@ var editor = new tui.Editor({
     initialEditType: 'markdown',
     initialValue: '``` Votre code ```',
     previewStyle: 'vertical',
-    height: '500px'
+    height: '500px',
+    exts: ['scrollSync'],
+    language: 'fr_FR'
 });
 
 {% if app.request.get('_route') == "code_edit" %}
-    editor.setValue("{{ code.content}}");
+    const content = `{{ code.content }}`;
+    console.log(content);
+    editor.setValue(`${content}`);
 {% endif %}
 
 $('form').submit(function(){
