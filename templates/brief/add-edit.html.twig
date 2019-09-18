@@ -56,8 +56,27 @@ var editor = new tui.Editor({
     language: 'fr_FR'
 });
 
+function unescape(s) {
+    var re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
+    var unescaped = {
+        '&amp;': '&',
+        '&#38;': '&',
+        '&lt;': '<',
+        '&#60;': '<',
+        '&gt;': '>',
+        '&#62;': '>',
+        '&apos;': "'",
+        '&#39;': "'",
+        '&quot;': '"',
+        '&#34;': '"'
+    };
+    return s.replace(re, function (m) {
+        return unescaped[m];
+    });
+}
+
 {% if app.request.get('_route') == "brief_edit" %}
-    const content = `{{ brief.content }}`;
+    const content = unescape(`{{ content }}`);
     editor.setValue(`${content}`);
 {% endif %}
 

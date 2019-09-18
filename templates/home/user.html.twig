@@ -1,87 +1,47 @@
 {% import 'macro.html.twig' as template %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Simplon Charleville-Mézière - Simplon.co</title>
-        <link rel="icon" type="image/png" href="/img/favicon.png" />
-        <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
-        <link rel="stylesheet" href="{{ asset('build/css/main/base.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/css/home.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/css/mq_home.css') }}">
-    </head>
-    <body>
 
-        <header class="header w-100 px-4">
-            <div class="mx-auto header-container">
-                <nav class="flex wrap just-between align-baseline my-0 py-0 px-4 w-100" id="header-title">
-                    <a class="text-xlarge bold text-uppercase p-2 text-white header-title" href="{{ path('home') }}" aria-label="Accueil">Simplon.co <span class="h5 charleville">Charleville-Mézières</span></a>
-                    <div class="text-right">
-                        <a href="{{ path('account_login') }}" class="btn btn-light px-3 text-red" aria-label="Se connecter">
-                            <i class="fas fa-user-friends"></i> Se connecter
-                        </a>
-                    </div>
-                </nav>
-            </div>
-        </header>
+{% extends 'home/index.html.twig' %}
 
-        <div class="bg-white mx-auto mb-5 px-5 user-card">
-            <div class="container-white flexc mx-auto text-center shadow-small pt-0 pb-4 user-title">
-                <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-lg mx-auto">
-                {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mx-auto","Avatar de {{user}}") }} #}
-                <span class="bold mt-2 h4">{{ user.firstname }} {{ user.lastname}}</span>
-                <div class="flexc my-2 py-4">
-                    <span><b>Promotion :</b> {{ user.promotion }}</span>
-                    <span><b>Email :</b> {{ user.email }}</span>
-                    <span><b>Tél :</b> {{ user.tel }}</span>
-                    <span><b>Lieu :</b> {{ user.city }}</span>
-                </div>
-                <div class="flex just-center mt-4">
-                    <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-linkedin"></i></div>
-                    <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-github"></i></div>
-                    <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-facebook-f"></i></div>
-                    <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-twitter"></i></div>
-                    <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fas fa-globe"></i></div>
-                </div>
-            </div>
-            <div class="text-center portfolio-title">
-                <h4 class="home-title"><span class="bg-white px-3">Portfolio</span></h4>
-            </div>
-            <div class="flex wrap just-around portfolio-projects">
-                {% for project in user.projects %}
-                    <div class=" p-2 my-3 text-center project-content">
-                        <div class="flexc just-center">
-                            <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">
-                                {{ project }}
-                            </a>
-                        </div>
-                        <p class="text-small text-grey mt-auto">
-                            {% for language in project.languages %}
-                                {{ language.label }}
-                            {% endfor %}
-                        </p>
-                    </div>
-                {% else %}
-                    <div class="text-center">Aucun projet terminé</div>
-                {% endfor %}
-            </div>
+{% block header %}{% endblock %}
+
+{% block body %}
+    <div class="container-white flexc mx-auto text-center shadow-small pt-0 pb-4 mt-n5 user-title">
+        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-lg mx-auto">
+        {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mx-auto","Avatar de {{user}}") }} #}
+        <span class="bold mt-2 h4">{{ user.firstname }} {{ user.lastname}}</span>
+        <div class="flexc my-2 py-4">
+            <span><b>Promotion :</b> {{ user.promotion }}</span>
+            <span><b>Email :</b> {{ user.email }}</span>
+            <span><b>Tél :</b> {{ user.tel }}</span>
+            <span><b>Lieu :</b> {{ user.city }}</span>
         </div>
-
-        <footer class="text-center py-5 text-white">
-            <p class="h1 text-uppercase bold text-white my-1">Simplon.co</p>
-            <p class="h5 my-1 font-italic subfooter">
-                Charleville-Mézières
-            </p>
-            <p class="my-1 font-italic subfooter">
-                &copy; 2019 - , Simplon-Charleville.fr
-            </p>
-        </footer>
-
-        <script src="/js/libraries/jquery.min.js" onload="window.$ = window.jQuery;"></script>
-        <script src="/js/libraries/popper.min.js"></script>
-        <script src="/js/libraries/bootstrap.min.js"></script>
-        <script src="/js/base.js"></script>
-    </body>
-</html>
+        <div class="flex just-center mt-4">
+            <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-linkedin"></i></div>
+            <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-github"></i></div>
+            <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-facebook-f"></i></div>
+            <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fab fa-twitter"></i></div>
+            <div class="rounded-circle mx-1 text-white portfolio-icon"><i class="fas fa-globe"></i></div>
+        </div>
+    </div>
+    <div class="text-center portfolio-title">
+        <h4 class="home-title"><span class="bg-white px-3">Portfolio</span></h4>
+    </div>
+    <div class="flex wrap just-around portfolio-projects">
+        {% for project in user.projects %}
+            <div class=" p-2 my-3 text-center project-content">
+                <div class="flexc just-center">
+                    <a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">
+                        {{ project }}
+                    </a>
+                </div>
+                <p class="text-small text-grey mt-auto">
+                    {% for language in project.languages %}
+                        {{ language.label }}
+                    {% endfor %}
+                </p>
+            </div>
+        {% else %}
+            <div class="text-center">Aucun projet terminé</div>
+        {% endfor %}
+    </div>
+{% endblock %}

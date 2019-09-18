@@ -89,7 +89,8 @@ class BriefController extends AbstractController
 
         return $this->render('brief/add-edit.html.twig', [
             'form'  => $form->createView(),
-            'brief' => $brief
+            'brief' => $brief,
+            'content' => htmlspecialchars_decode(str_replace('`','\`', $brief->getContent()))
         ]);
     }
 

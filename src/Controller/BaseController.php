@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/accueil", name="home")
      */
     public function home()
     {
@@ -34,7 +34,7 @@ class BaseController extends AbstractController
 
     /**
      * Show a specific user in the home page
-     * @Route("/apprenant/{slug}", name="home_user")
+     * @Route("/accueil/apprenant/{slug}", name="home_user")
      * @param User $user
      * @return Response
      */
@@ -47,7 +47,7 @@ class BaseController extends AbstractController
 
     /**
      * Show a specific brief in the home page
-     * @Route("/briefing/{slug}", name="home_brief")
+     * @Route("/accueil/brief/{slug}", name="home_brief")
      * @param Brief $brief
      * @return Response
      */
