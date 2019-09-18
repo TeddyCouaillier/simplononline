@@ -12,7 +12,7 @@
 <hr>
 <div class="flex wrap just-around">
     {% for brief in briefs %}
-        <a href="{{path('brief_show',{'slug':brief.slug})}}" class="container-white shadow-small flexc rhover just-center align-center my-2 w-flex">
+        <a href="{{path('brief_show',{'slug':brief.slug})}}" class="container-white shadow-small flexc rhover just-center align-center my-2 w-flex briefs">
             <p class="bold text-center my-1">{{ brief }}</p>
             <span class="text-small">Publié par {{ brief.publisher }} le {{ brief.publishedAt|date('d/m/Y à H:i') }}</span>
         </a>

@@ -8,6 +8,7 @@
 }
 
 @media screen and (max-width: 769px){
+    .briefs           { width: 100% !important;     }
     .user hr          { display: block !important;  }
     .form-files       { width: 100% !important;     }
     .show-files       { flex-wrap: wrap;            }
