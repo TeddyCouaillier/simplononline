@@ -97,12 +97,12 @@
                     <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-1">
-                    {% if project.completed == false %}
+                    {% if project.completed == false and project.checkUserProject(app.user) %}
                     <div class="subnav position-relative text-center px-1 text-greyl">
                         <i class="fas fa-ellipsis-v rhover"></i>
                         <div class="subnav-tooltip position-absolute text-center text-small text-grey shadow-small bg-white bold p-1">
                             <a class="subnav-link rhover edit-task" data-toggle="modal" data-target="#modal-edit-{{task.id}}" data-url="{{ path('project_edit_task',{'slug':project.slug,'id_task':task.id}) }}">Modifier</a><br>
-                            <a class="subnav-link text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
+                            <a class="subnav-link pointer text-red"  data-toggle="modal" data-target="#modal-{{task.id}}">Supprimer</a>
                         </div>
                     </div>
                     {% endif %}
@@ -112,7 +112,7 @@
     </div>
     {% if tasks|length >= 5 %}
     <div class="text-center my-2">
-        <button class="btn rounded text-white bg-red py-1 px-3" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" onclick="seeMore(this)">Voir plus</button>
+        <button class="btn rounded text-white bg-red py-1 px-3 see-more-task" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" >Voir plsus</button>
     </div>
     {% endif %}
 {% endmacro %}

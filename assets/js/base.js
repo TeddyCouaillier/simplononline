@@ -264,3 +264,7 @@ $('.task').collection({
     'add': '<button class="button-edit my-2 mx-auto d-block" aria-label="Ajouter"><i class="fal fa-plus"></i></button>',
     'add_at_the_end': true
 });
+
+$(document).on('click','.edit-weather', function() {
+    $('.weather-choice').slideToggle();
+})

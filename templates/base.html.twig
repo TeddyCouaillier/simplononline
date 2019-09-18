@@ -27,6 +27,10 @@
             </div>
         </div>
 
+        {{ render(controller(
+            'App\\Controller\\BaseController::updateWeather'
+        )) }}
+
         {% include 'partials/header.html.twig' %}
         {% include 'partials/subnav.html.twig' %}
 

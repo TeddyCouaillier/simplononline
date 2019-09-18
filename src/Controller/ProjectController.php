@@ -367,9 +367,7 @@ class ProjectController extends AbstractController
         }
 
         $users = $rep->findAllByTask($task);
-        /**
-         * @var $contributors all task contributors (within/without the project)
-         */
+        /** @var $contributors all task contributors (within/without the project) */
         $contributors = new ArrayCollection($users);
         foreach($project->getUsers() as $user){
             if (!$contributors->contains($user)) {

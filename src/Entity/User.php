@@ -33,11 +33,11 @@ class User implements AdvancedUserInterface
         'Médiateur'      => self::MEDIATEUR
     ];
 
-    const SUN       = 0;
-    const RAIN      = 1;
-    const CLOUD     = 2;
-    const THUNDER   = 3;
-    const SUNCLOUD  = 4;
+    const SUN       = 1;
+    const RAIN      = 2;
+    const CLOUD     = 3;
+    const THUNDER   = 4;
+    const SUNCLOUD  = 5;
 
     /**
      * @ORM\Id()
@@ -242,15 +242,14 @@ class User implements AdvancedUserInterface
         $this->projectmod     = new ArrayCollection();
         $this->notifSent      = new ArrayCollection();
         $this->notifReceived  = new ArrayCollection();
+        $this->promotionmod   = new ArrayCollection();
+        $this->games          = new ArrayCollection();
+        $this->userDeadline   = new ArrayCollection();
+        $this->vote           = new ArrayCollection();
+        $this->codeblocks     = new ArrayCollection();
+        $this->briefs         = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
-        $this->weather        = self::SUN;
         $this->isActive       = true;
-        $this->promotionmod = new ArrayCollection();
-        $this->games = new ArrayCollection();
-        $this->vote = new ArrayCollection();
-        $this->userDeadline = new ArrayCollection();
-        $this->codeblocks = new ArrayCollection();
-        $this->briefs = new ArrayCollection();
     }
 
     public function __toString()
@@ -785,7 +784,7 @@ class User implements AdvancedUserInterface
                 return '<img src="/img/weather/suncloud.svg" class="img-md" alt="suncloud">';
                 break;
             default:
-                return '<p class="icon-lg">?</p>';
+                return '<p class="icon-lg"> - </p>';
         }
     }
 
@@ -808,7 +807,7 @@ class User implements AdvancedUserInterface
                 return '<img src="/img/weather/suncloud.svg" class="img-xs">';
                 break;
             default:
-                return '<p class="icon-lg">?</p>';
+                return '<p class="icon-xs"> - </p>';
         }
     }
 

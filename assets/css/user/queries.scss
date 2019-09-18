@@ -30,6 +30,16 @@
 
 @media screen and (max-width: 850px){
     .user-container{ width: 100% !important; }
+    .user .user-header   { grid-area: 1 / 1 / 1 / 4; }
+    .user .user-info     { grid-area: 2 / 1 / 3 / 2; }
+    .user .user-projects { grid-area: 2 / 2 / 3 / 4; }
+    .user .user-trainings{ grid-area: 3 / 1 / 4 / 4; }
+    .user .user-files    { grid-area: 4 / 1 / 5 / 4; }
+    .user .user-weather  { grid-area: 5 / 1 / 6 / 4; }
+    .user .user-deadline { grid-area: 6 / 4 / 7 / 1; }
+    .user .user-skills   { grid-area: 7 / 1 / 8 / 4; }
+    .user .user-datas    { grid-area: 8 / 4 / 9 / 1; }
+    .user .user-portfolio{ grid-area: 9 / 4 / 10 / 1; }
 }
 
 @media screen and (max-width: 769px){

@@ -1,6 +1,7 @@
 $(document).on('click','.edit-task',function(){
     const url = $(this).data('url');
     modal = $(this).data('target');
+    console.log(url)
 
     $.ajax({
         url: url,
@@ -22,6 +23,9 @@ $(document).on('click','.edit-task',function(){
                         $('.task-user-selected').selectpicker();
                     </script>
                 `);
+            } else {
+                $('.modal[id*="modal-edit-"] .modal-body').html("");
+                $(modal).find('.modal-body').append('Access denied');
             }
         },
         error: function(){
@@ -29,6 +33,48 @@ $(document).on('click','.edit-task',function(){
         }
     });
 })
+
+$(document).on('click','.weather-type', function(){
+    const type = parseInt($(this).data('type'));
+    if(type >= 1 && type <= 5){
+        $.ajax({
+            url: '/meteo/edit',
+            data: {
+                type: type
+            },
+            type: "POST",
+
+            success: function(response){
+                if(response.update){
+                    switch(type) {
+                        case 1:
+                            $('.current-weather').html('<img src="/img/weather/sun.svg" class="img-md" alt="sun">')
+                            break;
+                        case 2:
+                            $('.current-weather').html('<img src="/img/weather/rain.svg" class="img-md" alt="rain">')
+                            break;
+                        case 3:
+                            $('.current-weather').html('<img src="/img/weather/clouds.svg" class="img-md" alt="clouds">')
+                            break;
+                        case 4:
+                            $('.current-weather').html('<img src="/img/weather/thunder.svg" class="img-md" alt="thunder">')
+                            break;
+                        case 5:
+                            $('.current-weather').html('<img src="/img/weather/suncloud.svg" class="img-md" alt="suncloud">')
+                            break;
+                        default:
+                            $('.current-weather').html('<p class="icon-lg"> - </p>')
+                    }
+                    $('.weather-choice').slideUp();
+                }
+            },
+            error: function(){
+                console.log('AJAX weather error');
+            }
+        });
+    }
+
+});
 
 $(document).on('click','.promo-edit',function(){
     const url = $(this).data('url');
@@ -55,10 +101,11 @@ $(document).on('click','.promo-edit',function(){
 })
 
 
-function seeMore(el){
-    counter = parseInt($(el).parent().parent().find('#task-counter').val());
-    const url  = $(el).data('url');
-    const type = $(el).data('type');
+$(document).on('click','.see-more-task', function(){
+    counter = parseInt($(this).parent().parent().find('#task-counter').val());
+    const url  = $(this).data('url');
+    const type = $(this).data('type');
+    const qqch = $(this);
 
     $.ajax({
         url: url,
@@ -70,10 +117,10 @@ function seeMore(el){
         success: function(response){
             if (url !== undefined)
             {
-                $(el).parent().parent().find('.tasks').append(response.render);
-                $(el).parent().parent().find('#task-counter').val(counter+response.size);
+                $(qqch).parent().parent().find('.tasks').append(response.render);
+                $(qqch).parent().parent().find('#task-counter').val(counter+response.size);
                 if(response.size < 5){
-                    $(el).parent().remove();
+                    $(qqch).parent().remove();
                 }
             }
         },
@@ -81,7 +128,7 @@ function seeMore(el){
             console.log('AJAX seemore error');
         }
     });
-}
+})
 
 $(document).on('click','.promocurrent', function() {
     const check = $(this);

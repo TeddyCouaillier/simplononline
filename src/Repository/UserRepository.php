@@ -65,6 +65,24 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find all users in the current promo
+     * @return User[]
+     */
+    public function findAllWeather()
+    {
+        $test = new \DateTime();
+        $test->setTime(0,0,0);
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.promotion', 'p')
+            ->andWhere('p.current = true')
+            ->andWhere('u.lastConnect < :now')
+            ->setParameter('now',$test)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * Find all moderators for the current promotion
      * @return User[]
      */

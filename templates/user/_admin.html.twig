@@ -58,7 +58,7 @@
         <div class="flex just-between my-1">
             <span>Moyenne météo du jour</span>
             <b>
-                {% if weather == -1 %}
+                {% if weather == 0 %}
                 -
                 {% else %}
                 {{ template.weather(weather) }}
@@ -162,11 +162,20 @@
      #### ADMIN WEATHER
      #####################################}
     <div class="container-white p-0 shadow-small user-weather flexc just-between">
-        <div class="flex just-center align-center h-100">
+        <div class="flex just-center align-center h-100 current-weather">
             {{ user.weatherIcon|raw }}
         </div>
-        <div class="now bg-grey text-center bold py-2">
-            {{ date | localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}
+        <div class="now position-relative bg-white text-center bold py-2">
+            <span class="edit-weather text-grey bhover text-small">Modifier la météo</span>
+            <div class="weather-choice w-100 position-absolute text-center rounded text-small text-grey shadow-small bg-white bold p-1">
+                <div class="flex wrap align-center just-around p-2 h-100">
+                    <img src="/img/weather/sun.svg" class="img-xs m-2 weather-type pointer" data-type="1">
+                    <img src="/img/weather/clouds.svg" class="img-xs m-2 weather-type pointer" data-type="3">
+                    <img src="/img/weather/suncloud.svg" class="img-xs m-2 weather-type pointer" data-type="5">
+                    <img src="/img/weather/rain.svg" class="img-xs m-2 weather-type pointer" data-type="2">
+                    <img src="/img/weather/thunder.svg" class="img-xs m-2 weather-type pointer" data-type="4">
+                </div>
+            </div>
         </div>
     </div>
 
