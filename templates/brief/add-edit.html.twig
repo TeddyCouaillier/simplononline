@@ -3,10 +3,10 @@
 {% import 'macro.html.twig' as template %}
 
 {% block title %}
-    {% if app.request.get('_route') == "code_edit" %}
-    Modifier le code
+    {% if app.request.get('_route') == "brief_edit" %}
+    Modifier le brief
     {% else %}
-    Ajouter un code
+    Ajouter un brief
     {% endif %}
 {% endblock %}
 
@@ -19,10 +19,10 @@
 
 {% block body %}
     <h1>
-        {% if app.request.get('_route') == "code_edit" %}
-        Modifier le code
+        {% if app.request.get('_route') == "brief_edit" %}
+        Modifier le brief
         {% else %}
-        Ajouter un code
+        Ajouter un brief
         {% endif %}
     </h1>
     <hr>
@@ -31,7 +31,7 @@
             {{ form_widget(form.title, {'attr': {'maxlength': 75}}) }}
         </div>
         <div class="my-2">
-            {{ form_widget(form.language) }}
+            {{ form_widget(form.link) }}
         </div>
         <textarea hidden id="content" name="content"></textarea>
         <div id="editSection"></div>
@@ -49,15 +49,15 @@
 var editor = new tui.Editor({
     el: document.querySelector('#editSection'),
     initialEditType: 'markdown',
-    initialValue: '``` Votre code ```',
+    initialValue: '# Votre brief',
     previewStyle: 'vertical',
     height: '500px',
     exts: ['scrollSync'],
     language: 'fr_FR'
 });
 
-{% if app.request.get('_route') == "code_edit" %}
-    const content = `{{ code.content }}`;
+{% if app.request.get('_route') == "brief_edit" %}
+    const content = `{{ brief.content }}`;
     editor.setValue(`${content}`);
 {% endif %}
 

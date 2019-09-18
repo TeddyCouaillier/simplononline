@@ -222,6 +222,11 @@ class User implements AdvancedUserInterface
      */
     private $codeblocks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Brief", mappedBy="publisher", orphanRemoval=true)
+     */
+    private $briefs;
+
 
     public function __construct()
     {
@@ -245,6 +250,7 @@ class User implements AdvancedUserInterface
         $this->vote = new ArrayCollection();
         $this->userDeadline = new ArrayCollection();
         $this->codeblocks = new ArrayCollection();
+        $this->briefs = new ArrayCollection();
     }
 
     public function __toString()
@@ -1220,6 +1226,37 @@ class User implements AdvancedUserInterface
             // set the owning side to null (unless already changed)
             if ($codeblock->getPublisher() === $this) {
                 $codeblock->setPublisher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Brief[]
+     */
+    public function getBriefs(): Collection
+    {
+        return $this->briefs;
+    }
+
+    public function addBrief(Brief $brief): self
+    {
+        if (!$this->briefs->contains($brief)) {
+            $this->briefs[] = $brief;
+            $brief->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrief(Brief $brief): self
+    {
+        if ($this->briefs->contains($brief)) {
+            $this->briefs->removeElement($brief);
+            // set the owning side to null (unless already changed)
+            if ($brief->getPublisher() === $this) {
+                $brief->setPublisher(null);
             }
         }
 

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des brief{% endblock %}
+
+{% block body %}
+<div class="flex wrap just-between align-center">
+    <h1>Liste des brief</h1>
+    <a class="button-edit bhover add-task ml-2" href="{{path('brief_new')}}" aria-label="Ajouter"><i class="fal fa-plus"></i></a>
+</div>
+<hr>
+<div class="flex wrap just-around">
+    {% for brief in briefs %}
+        <a href="{{path('brief_show',{'slug':brief.slug})}}" class="container-white shadow-small flexc rhover just-center align-center my-2 w-flex">
+            <p class="bold text-center my-1">{{ brief }}</p>
+            <span class="text-small">Publié par {{ brief.publisher }} le {{ brief.publishedAt|date('d/m/Y à H:i') }}</span>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

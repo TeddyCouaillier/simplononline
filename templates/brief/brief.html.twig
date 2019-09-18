@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}{{ brief }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/libraries/markdown.css') }}"></link>
+{% endblock %}
+
+{% block body %}
+    {{ template.deleteConfirm(brief.id,path('brief_delete',{'slug':brief.slug})) }}
+    <div class="markdown-body container-white shadow-small p-4">
+    <h1 class="brief-title">{{ brief }}</h1>
+    <p class="text-small text-grey">
+        Posté le {{ brief.publishedAt|date('d/m/Y à H:i') }} par {{ brief.publisher }}
+        {% if brief.link != null %}
+            - <a href="{{brief.link}}" class="text-grey bhover" rel="norefferer" target="_blank" aria-label="Lien additionnel"><u>Lien additionnel</u></a>
+        {% endif %}
+        {% if app.user == brief.publisher %}
+        <br><a class="text-grey text-small rhover" href="{{ path('brief_edit', {'slug':brief.slug}) }}">Modifier</a>
+        - <span class="text-grey text-small rhover" data-toggle="modal" data-target="#modal-{{brief.id}}" aria-label="Supprimer">Supprimer</span>
+        {% endif %}
+    </p>
+    <hr>
+    {{ brief.content|markdown }}
+    </div>
+{% endblock %}

@@ -8,21 +8,21 @@
 }
 
 @media screen and (max-width: 769px){
-    .user hr          { display: block !important; }
-    .form-files       { width: 100% !important; }
-    .show-files       { flex-wrap: wrap; }
-    .user-notif       { width: 300px; }
-    .users-promo      { text-align: left; }
-    .other-link a     { width: 100% !important; }
-    .calendar-resp    { display: block !important; }
-    .calendar-view    { display: none; }
-    .navleft-toggle   { left: 10px; top: 10px; }
-    .received-files   { height: 300px; }
-    .received-files   { width: 100% !important; }
-    .users-trainings  { text-align: left; }
-    .admin-all-skills { width: 100% !important; }
-    .navleft-container{ top: 5px; }
-    [class^="messages-"] { width: 75%!important; }
+    .user hr          { display: block !important;  }
+    .form-files       { width: 100% !important;     }
+    .show-files       { flex-wrap: wrap;            }
+    .user-notif       { width: 300px;               }
+    .users-promo      { text-align: left;           }
+    .other-link a     { width: 100% !important;     }
+    .calendar-resp    { display: block !important;  }
+    .calendar-view    { display: none;              }
+    .navleft-toggle   { left: 10px; top: 10px;      }
+    .received-files   { height: 300px;              }
+    .received-files   { width: 100% !important;     }
+    .users-trainings  { text-align: left;           }
+    .admin-all-skills { width: 100% !important;     }
+    .navleft-container{ top: 5px;                   }
+    [class^="messages-"] { width: 75%!important;    }
 
     .all-promo,
     .promo-users {
@@ -38,23 +38,30 @@
 }
 
 @media screen and (max-width: 577px){
-    .main             { width: 80%; margin-top: 3.5rem; }
+    .main             { width: 80%; margin-top: 3.5rem;    }
     .nav-left         { width: 300px; margin-left: -300px; }
-    .user-nav         { right: 10px; bottom: 10px; }
-    .all-promo        { width: 100% !important; }
-    .help-link        { width: 100%!important; }
-    .user-notif       { right: 10px; bottom: 80px; }
-    .promo-users      { width: 100% !important; }
-    .users-promo      { width: 100% !important; }
-    .modal-dialog     { max-width: 100% !important; }
-    .games-title h1   { font-size: 1.5em; }
-    .users-trainings  { width: 100%!important; }
-    .games-container  { width: 100%!important; }
-    .users-promo-link { display: none; }
-    [class^="messages-"] { width: 100%!important; }
-    
+    .user-nav         { right: 10px; bottom: 10px;         }
+    .all-promo        { width: 100% !important;            }
+    .help-link        { width: 100%!important;             }
+    .user-notif       { right: 10px; bottom: 80px;         }
+    .promo-users      { width: 100% !important;            }
+    .users-promo      { width: 100% !important;            }
+    .modal-dialog     { max-width: 100% !important;        }
+    .games-title h1   { font-size: 1.5em;                  }
+    .users-trainings  { width: 100%!important;             }
+    .games-container  { width: 100%!important;             }
+    .users-promo-link { display: none;                     }
+    [class^="messages-"] { width: 100%!important;          }
+
     .nav-left-button.active        { margin-left: 300px; }
     .custom-control, .custom-switch{ padding-left: 10px; }
+
+    .markdown-body h1 { font-size: 1.25em !important; }
+    .markdown-body h2 { font-size: 1.2em !important;  }
+    .markdown-body h3 { font-size: 1.15em !important; }
+    .markdown-body h4 { font-size: 1.1em !important;  }
+    .markdown-body h5 { font-size: 1.05em !important; }
+    .markdown-body h6 { font-size: 1em !important;    }
 
     .button-edit{
         width: 30px;

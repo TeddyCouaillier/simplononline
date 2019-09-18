@@ -1,0 +1,21 @@
+{% import 'macro.html.twig' as template %}
+
+{% extends 'home/index.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/libraries/markdown.css') }}"></link>
+{% endblock %}
+
+{% block body %}
+    <div class="markdown-body container-white shadow-small p-4">
+        <h1 class="brief-title">{{ brief }}</h1>
+        <p class="text-small text-grey">
+            Posté le {{ brief.publishedAt|date('d/m/Y à H:i') }} par {{ brief.publisher }}
+            {% if brief.link != null %}
+                - <a href="{{brief.link}}" class="text-grey bhover" rel="norefferer" target="_blank" aria-label="Lien additionnel"><u>Lien additionnel</u></a>
+            {% endif %}
+        </p>
+        <hr>
+        {{ brief.content|markdown }}
+    </div>
+{% endblock %}

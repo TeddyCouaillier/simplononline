@@ -76,6 +76,18 @@
 <hr>
 
 <div class="text-center my-5">
+    <h4 class="home-title"><span class="bg-white px-3">Liste des briefs de la formation</span></h4>
+</div>
+<div class="flex wrap just-around">
+{% for brief in briefs %}
+    <a href="{{path('home_brief',{'slug':brief.slug})}}" class="container-white shadow-small flexc rhover just-center align-center my-2 w-flex">
+        <p class="bold text-center my-1">{{ brief }}</p>
+        <span class="text-small">Publié par {{ brief.publisher }} le {{ brief.publishedAt|date('d/m/Y à H:i') }}</span>
+    </a>
+{% endfor %}
+</div>
+
+<div class="text-center my-5">
     <h4 class="home-title"><span class="bg-white px-3">Nos partenaires</span></h4>
 </div>
 

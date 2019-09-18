@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Help;
 use App\Entity\User;
+use App\Entity\Brief;
 use App\Entity\Language;
 use App\Entity\Promotion;
 use App\Form\Help\HelpType;
@@ -24,21 +25,36 @@ class BaseController extends AbstractController
     public function home()
     {
         $prep = $this->getDoctrine()->getRepository(Promotion::class);
+        $brep = $this->getDoctrine()->getRepository(Brief::class);
         return $this->render('home/index.html.twig', [
-            'promos' => $prep->findAll()
+            'promos' => $prep->findAll(),
+            'briefs' => $brep->findAll()
         ]);
     }
 
     /**
+     * Show a specific user in the home page
      * @Route("/apprenant/{slug}", name="home_user")
-     *
      * @param User $user
-     * @return void
+     * @return Response
      */
     public function homeUsers(User $user)
     {
         return $this->render('home/user.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * Show a specific brief in the home page
+     * @Route("/briefing/{slug}", name="home_brief")
+     * @param Brief $brief
+     * @return Response
+     */
+    public function homeBrief(Brief $brief)
+    {
+        return $this->render('home/brief.html.twig', [
+            'brief' => $brief
         ]);
     }
 

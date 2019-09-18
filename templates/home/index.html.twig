@@ -12,6 +12,7 @@
         <link rel='stylesheet' href='/FontAwesome/css/all.min.css'/>
         <link rel="stylesheet" href="{{ asset('build/css/main/base.css') }}">
         <link rel="stylesheet" href="{{ asset('build/css/home.css') }}">
+        {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="{{ asset('build/css/mq_home.css') }}">
     </head>
     <body>
@@ -64,6 +65,7 @@
         </header>
 
         <main class="bg-white mx-auto p-5 home-main" >
+            {% block body %}
             <div class="row mx-0 h-75 mb-4 main-content">
                 <section class="col-md-4 col-sm-4 flexc just-center align-center">
                     <div class="text-center w-75 main-section">
@@ -97,6 +99,7 @@
             <section class="heart-container mt-4">
                 {% include 'home/_heart.html.twig' %}
             </section>
+            {% endblock %}
         </main>
 
         <footer class="text-center py-5 text-white">
