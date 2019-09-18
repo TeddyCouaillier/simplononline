@@ -12,11 +12,23 @@
   <hr>
   <div class="text-center">
     <p class="h5 my-3 bold">Autres liens</p>
-    <div class="flex wrap align-center other-link">
+    <div class="flex wrap align-center just-around other-link">
+      <a href="{{ path('brief_all') }}" class="rhover" aria-label="Brief">
+        <div class="container-white shadow-small m-1">
+            <i class="fal fa-file-alt text-large"></i><br>
+            <span>Liste des briefs</span>
+        </div>
+      </a>
+      <a href="{{ path('code_all') }}" class="rhover" aria-label="Code">
+        <div class="container-white shadow-small m-1">
+            <i class="fal fa-file-code text-large"></i><br>
+            <span>Liste des codes</span>
+        </div>
+      </a>
       <a href="{{ path('user_game') }}" class="rhover" aria-label="Jeux">
         <div class="container-white shadow-small m-1">
             <i class="fal fa-gamepad text-large"></i><br>
-            <span>Jeux des apprenants</span>
+            <span>Jeux de Simplon</span>
         </div>
       </a>
       <a href="{{ path('admin_all_users_active') }}" class="rhover" aria-label="Utilisateurs actifs">

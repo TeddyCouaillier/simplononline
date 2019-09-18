@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * @Route("/brief", name="brief_")
+ * @Route("/admin/brief", name="brief_")
  */
 class BriefController extends AbstractController
 {
