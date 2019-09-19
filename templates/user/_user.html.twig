@@ -61,7 +61,7 @@
             <i class="fas fa-envelope text-large"></i><br>
             Fichiers
         </a>
-        <a href="{{ path('user_show_training',{'slug':user.slug}) }}" class="rhover mx-1" aria-label="Stages">
+        <a href="{{ path('user_show_training') }}" class="rhover mx-1" aria-label="Stages">
             <i class="fas fa-handshake text-large"></i><br>
             Stages
         </a>
@@ -69,13 +69,13 @@
             <i class="fas fa-key text-large"></i><br>
             Données
         </a>
+        <a href="{{ path('code_all') }}" class="rhover mx-1 user-edit" aria-label="Mot de passe">
+            <i class="fas fa-laptop-code text-large"></i><br>
+            Codes
+        </a>
         <a href="{{ path('account_edit') }}" class="rhover mx-1 user-edit" aria-label="Modifier">
             <i class="fas fa-cog text-large"></i><br>
             Modifier
-        </a>
-        <a href="{{ path('account_password') }}" class="rhover mx-1 user-edit" aria-label="Mot de passe">
-            <i class="fas fa-lock text-large"></i><br>
-            Password
         </a>
     </div>
 
@@ -191,13 +191,13 @@
                         </div>
                         <div class="col-md-6 col-sm-11">{{ training.society }}</div>
                         <div class="col-md-5 col-sm-12 flex align-center">
-                            <div class="status-{{ training.colorStatus }} mr-2"></div> <span>{{ training.status }}</span>
+                            <span>{{ training.status }}</span>
                         </div>
                     </div>
                     <hr class="d-none">
                 {% endfor %}
                 <div class="text-center my-2 mb-2">
-                    <a href="#" class="user-see-more p-1" aria-label="Voir tous">Voir tous</a>
+                    <a href="{{ path('user_show_training') }}" class="user-see-more p-1" aria-label="Voir tous">Voir tous</a>
                 </div>
             </div>
         {% else %}

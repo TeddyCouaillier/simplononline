@@ -37,7 +37,7 @@
                     {{ training.place }}
                 </div>
                 <div class="col-md-3 col-sm-12 flex align-center">
-                    <div class="status-{{ training.colorStatus }} mr-2"></div><span>{{ training.status }}</span>
+                    <span>{{ training.status }}</span>
                 </div>
             </div>
             <hr>
@@ -53,3 +53,5 @@
     {% endfor %}
 </div>
 {% endblock %}
+
+{% block modal %}{% endblock %}

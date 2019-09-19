@@ -61,17 +61,15 @@ class UserController extends AbstractController
      * Show the specific user's training courses by the same user
      * Show all users training courses by the admin
      * Show the training courses proposed by the admin for all users
-     * @Route("/{slug}/stages", name="show_training")
+     * @Route("/stages", name="show_training")
      * @param User                      $user
      * @param TrainingCourseRepository  $rep
      * @return Response
      */
-    public function showTraining(User $user, TrainingCourseRepository $rep)
+    public function showTraining()
     {
         return $this->render('training_course/show.html.twig', [
-            'user'          => $user,
-            'trainingAdmin' => $rep->findAllTrainingAdmin(),
-            'trainings'     => $rep->findAllTraining()
+            'user' => $this->getUser()
         ]);
     }
 
@@ -98,7 +96,7 @@ class UserController extends AbstractController
                 'success',
                 'Les modifications ont bien été enregistrées.'
             );
-            return $this->redirectToRoute('user_show_training', ['slug'=> $user->getSlug()]);
+            return $this->redirectToRoute('user_show_training');
         }
 
         return $this->render('training_course/edit.html.twig', [
@@ -130,7 +128,7 @@ class UserController extends AbstractController
             'Les stages ont bien été supprimés.'
         );
 
-        return $this->redirectToRoute('user_show_training',['slug'=> $this->getUser()->getSlug()]);
+        return $this->redirectToRoute('user_show_training');
     }
 
     /**
@@ -156,7 +154,7 @@ class UserController extends AbstractController
             'Le stage a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('user_show_training',['slug'=> $this->getUser()->getSlug()]);
+        return $this->redirectToRoute('user_show_training');
     }
 
     // -----------------------------------------------------

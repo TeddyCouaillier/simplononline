@@ -114,39 +114,6 @@ $('.help-all_cats span').click(function() {
 
 });
 
-function changeStatus(el){
-    var cl =  $(el).attr("class").split(" ");
-    var newcl =[];
-    for(var i=0;i<cl.length;i++){
-        r = cl[i].search(/edit-status-+/);
-        if(r)newcl[newcl.length] = cl[i];
-    }
-    switch ($(el).val()) {
-        case "Intéressé(e)" :
-            $(el).removeClass().addClass(newcl.join(" "));
-            $(el).addClass("edit-status-yellow");
-            break;
-        case "En attente de réponse" :
-            $(el).removeClass().addClass(newcl.join(" "));
-            $(el).addClass("edit-status-blue");
-            break;
-        case "Entretien" :
-            $(el).removeClass().addClass(newcl.join(" "));
-            $(el).addClass("edit-status-purple");
-            break;
-        case "Réponse positive" :
-            $(el).removeClass().addClass(newcl.join(" "));
-            $(el).addClass("edit-status-green");
-            break;
-        case "Réponse négative" :
-            $(el).removeClass().addClass(newcl.join(" "));
-            $(el).addClass("edit-status-red");
-            break;
-        default:
-            $(el).removeClass().addClass(newcl.join(" "));
-    }
-}
-
 $('.training-project-toggle').on('click',function(){
     $(this).parent().parent().find('.training-project').fadeToggle(500);
     $(this).parent().find('.chevron').toggleClass('down');

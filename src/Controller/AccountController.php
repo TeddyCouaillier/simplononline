@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\UserNotif;
 use App\Entity\PasswordUpdate;
+use App\Form\User\EditAvatarType;
 use App\Form\User\EditUserType;
 use App\Form\User\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
@@ -49,51 +50,82 @@ class AccountController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function editAccount(Request $request, ObjectManager $manager){
+    public function editAccount(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
         if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() == null){
             throw new AccessDeniedHttpException();
         }
+
+        $passwordUpdate = new PasswordUpdate();
         $user = $this->getUser();
-        $imageName = "";
 
-        $currentAvatar = $user->getAvatar();
-        if(!empty($currentAvatar)){
-            $imageName = $user->getAvatar();
-        }
-        $form = $this->createForm(EditUserType::class, $user);
+        $formUsr = $this->createForm(EditUserType::class, $user);
+        $formImg = $this->createForm(EditAvatarType::class, $user);
+        $formPwd = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
 
-        $form->handleRequest($request);
-        if($form->isSubmitted()){
-            if(!$form->isValid()){
+        $formUsr->handleRequest($request);
+        $formPwd->handleRequest($request);
+        $formImg->handleRequest($request);
+
+        if($formImg->isSubmitted() && $formImg->isValid()){
+            $image = $formImg->get('avatar')->getData();
+            if($image != NULL)
+            {
+                $imageName = $user->getAvatarName().'.'.$image->guessExtension();
+                $image->move(
+                    $this->getParameter('image_directory'),
+                    $imageName
+                );
                 $user->setAvatar($imageName);
+            }
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été mis à jour.'
+            );
+
+            return $this->redirectToRoute('account_show', ['slug'=> $user->getSlug()]);
+        }
+
+        if($formPwd->isSubmitted() && $formPwd->isValid())
+        {
+            if(!$encoder->isPasswordValid($user,$passwordUpdate->getOldPassword())){
+                $formPwd->get('oldPassword')->addError(new FormError('Le mot de passe actuel n\'est pas le bon'));
             } else {
-                $image = $form->get('avatar')->getData();
-                if($image != NULL)
-                {
-                    $imageName = $user->getAvatarName().'.'.$image->guessExtension();
-                    $image->move(
-                        $this->getParameter('image_directory'),
-                        $imageName
-                    );
-                    $user->setAvatar($imageName);
-                } else {
-                    $user->setAvatar($imageName);
-                }
+                $newPassword = $passwordUpdate->getNewPassword();
+                $user->setPassword($encoder->encodePassword($user,$newPassword));
 
                 $manager->persist($user);
                 $manager->flush();
 
                 $this->addFlash(
                     'success',
-                    'L\'utilisateur a bien été mis à jour.'
+                    'Votre mot de passe a bien été modifié'
                 );
-                return $this->redirectToRoute('account_show', ['slug'=> $user->getSlug()]);
+
+                return $this->redirectToRoute('account_show',['id' => $user->getId()]);
             }
         }
 
+        if($formUsr->isSubmitted() && $formUsr->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été mis à jour'
+            );
+
+            return $this->redirectToRoute('account_show',['id' => $user->getId()]);
+        }
+
         return $this->render('user/edit.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user
+            'formUsr' => $formUsr->createView(),
+            'formPwd' => $formPwd->createView(),
+            'formImg' => $formImg->createView(),
+            'user'    => $user
         ]);
     }
 

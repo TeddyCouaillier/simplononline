@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
+
 {% import 'macro.html.twig' as template %}
+
 {% block title %}Modifier mon compte{% endblock %}
 
 {% block stylesheets %}
@@ -7,55 +9,71 @@
 {% endblock %}
 
 {% block body %}
-    {{ template.checkMessage(form) }}
-    <div class="flex wrap just-between align-center">
-        <h1>Modifier mon compte</h1>
-        {% if user == app.user %}
-        <a href="{{ path('account_password') }}" class="button-edit" aria-label="Mot de passe"><i class="fal fa-user-lock"></i></a>
-        {% endif %}
-    </div>
+    {{ template.checkMessage(formUsr) }}
+    {{ template.checkMessage(formPwd) }}
+    {{ template.checkMessage(formImg) }}
+    <h1>Modifier mon compte</h1>
     <hr>
-    {{ form_start(form) }}
-
     <div class="row">
-        <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-            {{ form_label(form.firstname) }}<br>
-            {{ form_widget(form.firstname) }}
+        <div class="col-md-6 col-sm-12">
+            {{ form_start(formUsr) }}
+            <div class="row container-white shadow-small">
+                <div class="col-md-6 col-sm-12 my-2 ">
+                    {{ form_label(formUsr.firstname) }}<br>
+                    {{ form_widget(formUsr.firstname, {'attr' : {'maxlength' : '25'}}) }}
+                </div>
+                <div class="col-md-6 col-sm-12 my-2 ">
+                    {{ form_label(formUsr.lastname) }}<br>
+                    {{ form_widget(formUsr.lastname, {'attr' : {'maxlength' : '25'}}) }}
+                </div>
+                <div class="col-12 my-2 ">
+                    {{ form_label(formUsr.email) }}<br>
+                    {{ form_widget(formUsr.email) }}
+                </div>
+                <div class="col-12 my-2 ">
+                    {{ form_label(formUsr.tel) }}<br>
+                    {{ form_widget(formUsr.tel, {'attr' : {'maxlength' : '10'}}) }}
+                </div>
+                <div class="col-md-6 col-sm-12 my-2 ">
+                    {{ form_label(formUsr.zipcode) }}<br>
+                    {{ form_widget(formUsr.zipcode, {'attr' : {'maxlength' : '5'}}) }}
+                </div>
+                <div class="col-md-6 col-sm-12 my-2 ">
+                    {{ form_label(formUsr.city) }}<br>
+                    {{ form_widget(formUsr.city) }}
+                </div>
+                <div class="col-12 my-2 ">
+                    {{ form_label(formUsr.website) }}<br>
+                    {{ form_widget(formUsr.website) }}
+                </div>
+                <div class="col-12 my-2 ">
+                    {{ form_label(formUsr.github) }}<br>
+                    {{ form_widget(formUsr.github) }}
+                </div>
+                <div class="col-12">
+                    {{ template.confirm() }}
+                </div>
+            </div>
+            {{ form_end(formUsr) }}
         </div>
-        <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-            {{ form_label(form.lastname) }}<br>
-            {{ form_widget(form.lastname) }}
-        </div>
-        <div class="col-12 my-2 container-white shadow-small">
-            {{ form_label(form.email) }}<br>
-            {{ form_widget(form.email) }}
-        </div>
-        <div class="col-12 my-2 container-white shadow-small">
-            {{ form_label(form.tel) }}<br>
-            {{ form_widget(form.tel) }}
-        </div>
-        <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-            {{ form_label(form.zipcode) }}<br>
-            {{ form_widget(form.zipcode) }}
-        </div>
-        <div class="col-md-6 col-sm-12 my-2 container-white shadow-small">
-            {{ form_label(form.city) }}<br>
-            {{ form_widget(form.city) }}
-        </div>
-        <div class="col-12 my-2 container-white shadow-small">
-            {{ form_label(form.avatar) }}<br>
-            {{ form_widget(form.avatar) }}
-        </div>
-        <div class="col-12 my-2 container-white shadow-small">
-            {{ form_label(form.website) }}<br>
-            {{ form_widget(form.website) }}
-        </div>
-        <div class="col-12 my-2 container-white shadow-small">
-            {{ form_label(form.github) }}<br>
-            {{ form_widget(form.github) }}
+        <div class="col-md-6 col-sm-12">
+            <div class="container-white shadow-small text-center">
+                {{ template.img('/img/avatar/'~user.avatar,'avatar-md','Avatar de '~user) }}
+                <div class="flex just-center">
+                {{ form_start(formImg) }}
+                {{ form_widget(formImg) }}
+                {{ template.confirm() }}
+                {{ form_end(formImg) }}
+                </div>
+            </div>
+            <div class="container-white shadow-small my-1">
+                {{ form_start(formPwd) }}
+                {{ form_widget(formPwd) }}
+                {{ template.confirm() }}
+                {{ form_end(formPwd) }}
+            </div>
         </div>
     </div>
-    {{ template.confirm() }}
-
-    {{ form_end(form) }}
 {% endblock %}
+
+{% block modal %}{% endblock %}

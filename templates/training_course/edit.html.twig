@@ -42,22 +42,7 @@
             {{ form_widget(form.place) }}
         </div>
 
-        {% set status = form.status.vars.value %}
-        {% if status == "Intéressé(e)" %}
-        {% set status = "edit-status-yellow" %}
-        {% elseif status == "Entretien" %}
-        {% set status = "edit-status-purple" %}
-        {% elseif status == "Réponse positive" %}
-        {% set status = "edit-status-green" %}
-        {% elseif status == "Réponse négative" %}
-        {% set status = "edit-status-red" %}
-        {% elseif status == "En attente de réponse" %}
-        {% set status = "edit-status-blue" %}
-        {% else %}
-        {% set status = "" %}
-        {% endif %}
-
-        <div class="col-md-4 col-sm-12 my-1">{{ form_widget(form.status, {'attr': {'class': status,'onchange': 'changeStatus(this)'}}) }}</div>
+        <div class="col-md-4 col-sm-12 my-1">{{ form_widget(form.status) }}</div>
     </div>
     <div>
         <div class="text-center">
@@ -69,6 +54,8 @@
     </div>
 </div>
 {% endblock %}
+
+{% block modal %}{% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">

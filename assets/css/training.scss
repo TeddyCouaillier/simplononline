@@ -1,22 +1,5 @@
 @import './variables';
 
-[class^="status-"]{
-    height: 8px;
-    width: 8px;
-    @extend .circle;
-}
-.status-yellow{     background: yellow; }
-.status-red{        background: red; }
-.status-purple{     background: purple; }
-.status-green{      background: green; }
-.status-blue{       background: dodgerblue; }
-
-.edit-status-yellow{ border-left: 3px solid yellow !important; }
-.edit-status-red{    border-left: 3px solid red !important; }
-.edit-status-purple{ border-left: 3px solid purple !important; }
-.edit-status-green{  border-left: 3px solid green !important; }
-.edit-status-blue{   border-left: 3px solid dodgerblue !important; }
-
 .training_course_user_trainingCourse-collection-actions{ text-align: right; }
 
 .input-group-text{ align-items: unset !important; }

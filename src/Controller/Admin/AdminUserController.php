@@ -10,19 +10,20 @@ use App\Entity\Skills;
 use App\Entity\Promotion;
 use App\Service\Pagination;
 use App\Entity\Notification;
+use App\Form\User\EditUserType;
 use App\Form\User\CreateUserType;
 use App\Form\Data\EditUserDataType;
-use App\Form\User\AdminEditUserType;
 use App\Form\Skill\EditUserSkillsType;
+use App\Form\User\EditAvatarType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -38,60 +39,70 @@ class AdminUserController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function editUserAccount(User $user, Request $request, ObjectManager $manager){
+    public function editUserAccount(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
         if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR')){
             throw new AccessDeniedHttpException();
         }
-        $imageName = "";
 
-        $currentAvatar = $user->getAvatar();
-        if(!empty($currentAvatar)){
-            $imageName = $user->getAvatar();
-        }
-        $form = $this->createForm(AdminEditUserType::class, $user);
+        $formUsr = $this->createForm(EditUserType::class, $user);
+        $formImg = $this->createForm(EditAvatarType::class, $user);
+        $formPwd = $this->createFormBuilder($user)
+                        ->add('password',PasswordType::class)
+                        ->getForm();
 
-        $form->handleRequest($request);
-        if($form->isSubmitted()){
-            if(!$form->isValid()){
-                $user->setAvatar($imageName);
-            } else {
-                $image = $form->get('avatar')->getData();
-                if($image != NULL)
-                {
-                    $imageName = $user->getAvatarName().'.'.$image->guessExtension();
-                    $image->move(
-                        $this->getParameter('image_directory'),
-                        $imageName
-                    );
-                    $user->setAvatar($imageName);
-                } else {
-                    $user->setAvatar($imageName);
-                }
+        $formUsr->handleRequest($request);
+        $formPwd->handleRequest($request);
+        $formImg->handleRequest($request);
 
-                $role_id = $request->request->get('admin_edit_user')['userRoles'];
-                if($role_id !== null){
-                    $reprole = $this->getDoctrine()->getRepository(Role::Class);
-                    $role = $reprole->find($role_id);
-                    if($role !== null){
-                        $role->addUser($user);
-                        $user->setPromotion(null);
-                    }
-                }
-
-                $manager->persist($user);
-                $manager->flush();
-
-                $this->addFlash(
-                    'success',
-                    'L\'utilisateur a bien été mis à jour.'
+        if($formImg->isSubmitted() && $formImg->isValid()){
+            $image = $formImg->get('avatar')->getData();
+            if($image != NULL)
+            {
+                $imageName = $user->getAvatarName().'.'.$image->guessExtension();
+                $image->move(
+                    $this->getParameter('image_directory'),
+                    $imageName
                 );
-                return $this->redirectToRoute('admin_all_users', ['slug'=>'tout']);
+                $user->setAvatar($imageName);
             }
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été mis à jour.'
+            );
         }
 
-        return $this->render('admin/edit_user.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user
+        if($formPwd->isSubmitted() && $formPwd->isValid())
+        {
+            $user->setPassword($encoder->encodePassword($user,$user->getPassword()));
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre mot de passe a bien été modifié'
+            );
+        }
+
+        if($formUsr->isSubmitted() && $formUsr->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été mis à jour'
+            );
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'formUsr' => $formUsr->createView(),
+            'formPwd' => $formPwd->createView(),
+            'formImg' => $formImg->createView(),
+            'user'    => $user
         ]);
     }
 

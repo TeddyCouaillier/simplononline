@@ -181,6 +181,8 @@
     {% endif %}
 {% endblock %}
 
+{% block modal %}{% endblock %}
+
 {% block libraries %}
 {% if is_granted('ROLE_ADMIN') %}
 {{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
