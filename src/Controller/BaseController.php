@@ -167,11 +167,14 @@ class BaseController extends AbstractController
 
         if(count($users) > 0){
             foreach($users as $user){
-                $user->setWeather(0)
-                     ->setLastConnect(new \DateTime());
-                $manager->persist($user);
+                if($user->getWeather() != 0){
+                    $user->setWeather(0)
+                         ->setLastConnect(new \DateTime());
+                    $manager->persist($user);
+                }
             }
             $manager->flush();
+            return $this->redirectToRoute('user_account');
         }
         return new Response();
     }

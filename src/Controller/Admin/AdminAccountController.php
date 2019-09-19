@@ -81,7 +81,7 @@ class AdminAccountController extends AbstractController
             'date' => new \DateTime(),
             'form' => $form->createView(),
             'projects'    => $promo == null ? null : $prep->findAllProjectByPromo($promo),
-            'weather'     => $promo == null ? -1 : round($urep->findWeatherAvgByPromo($promo)),
+            'weather'     => $promo == null ? -1 : ceil($urep->findWeatherAvgByPromo($promo)),
             'completed'   => $promo == null ? 0 : count($prep->findBy(['completed' => true])),
             'helps'       => $promo == null ? 0 : count($hrep->findAllHelpByPromo($promo)),
             'users'       => $promo == null ? 0 : count($urep->findBy(['promotion' => $promo])),

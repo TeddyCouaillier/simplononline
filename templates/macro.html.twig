@@ -165,13 +165,13 @@
 {% endmacro %}
 
 {% macro weather(type) %}
-    {% if type == 0 %}
+    {% if type == 1 %}
         <img src="/img/weather/sun.svg" class="img-xs" alt="sun">
-    {% elseif type == 1 %}
-        <img src="/img/weather/rain.svg" class="img-xs" alt="rain">
     {% elseif type == 2 %}
-        <img src="/img/weather/clouds.svg" class="img-xs" alt="clouds">
+        <img src="/img/weather/rain.svg" class="img-xs" alt="rain">
     {% elseif type == 3 %}
+        <img src="/img/weather/clouds.svg" class="img-xs" alt="clouds">
+    {% elseif type == 4 %}
         <img src="/img/weather/thunder.svg" class="img-xs" alt="thunder">
     {% else %}
         <img src="/img/weather/suncloud.svg" class="img-xs" alt="suncloud">

@@ -770,19 +770,14 @@ class User implements AdvancedUserInterface
         switch ($this->weather) {
             case self::SUN:
                 return '<img src="/img/weather/sun.svg" class="img-md" alt="sun">';
-                break;
             case self::RAIN:
                 return '<img src="/img/weather/rain.svg" class="img-md" alt="rain">';
-                break;
             case self::CLOUD:
                 return '<img src="/img/weather/clouds.svg" class="img-md" alt="clouds">';
-                break;
             case self::THUNDER:
                 return '<img src="/img/weather/thunder.svg" class="img-md" alt="thunder">';
-                break;
             case self::SUNCLOUD:
                 return '<img src="/img/weather/suncloud.svg" class="img-md" alt="suncloud">';
-                break;
             default:
                 return '<p class="icon-lg"> - </p>';
         }

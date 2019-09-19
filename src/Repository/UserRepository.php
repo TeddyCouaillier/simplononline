@@ -175,6 +175,7 @@ class UserRepository extends ServiceEntityRepository
                 SELECT AVG(u.weather)
                 FROM App\Entity\User u
                 WHERE u.promotion = :promo
+                AND u.weather != 0
             ')
             ->setParameter('promo',$promo)
         ;

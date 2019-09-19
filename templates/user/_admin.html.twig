@@ -58,7 +58,7 @@
         <div class="flex just-between my-1">
             <span>Moyenne météo du jour</span>
             <b>
-                {% if weather == 0 %}
+                {% if weather <= 0 or weather > 5 %}
                 -
                 {% else %}
                 {{ template.weather(weather) }}
