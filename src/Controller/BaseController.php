@@ -173,7 +173,6 @@ class BaseController extends AbstractController
                 }
             }
             $manager->flush();
-            return $this->redirectToRoute('user_account');
         }
         return new Response();
     }

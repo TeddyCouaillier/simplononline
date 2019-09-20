@@ -4,7 +4,9 @@
 }
 
 @media screen and (max-width: 850px){
-    .games-container{ width: 48% !important; }
+    .games-container  { width: 48% !important;  }
+    .received-files   { height: 300px;          }
+    .received-files   { width: 100% !important; }
 }
 
 @media screen and (max-width: 769px){
@@ -18,8 +20,6 @@
     .calendar-resp    { display: block !important;  }
     .calendar-view    { display: none;              }
     .navleft-toggle   { left: 10px; top: 10px;      }
-    .received-files   { height: 300px;              }
-    .received-files   { width: 100% !important;     }
     .users-trainings  { text-align: left;           }
     .admin-all-skills { width: 100% !important;     }
     .navleft-container{ top: 5px;                   }

@@ -8,8 +8,8 @@ use App\Entity\UserNotif;
 use App\Entity\Notification;
 use App\Form\File\FilesType;
 use App\Form\File\FilesAdminType;
-use App\Repository\UserFilesRepository;
 use App\Repository\UserRepository;
+use App\Repository\UserFilesRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,8 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/fichiers", name="file_")
@@ -50,11 +50,11 @@ class FileController extends AbstractController
 
         $user = $this->getUser();
 
-        $access = $user->hasRole();
+        $access = ($this->isGranted('ROLE_FORMER') || $this->isGranted('ROLE_MEDIATOR'));
         $file = new Files();
-
         $form = $access ? $this->createForm(FilesAdminType::class, $file) : $this->createForm(FilesType::class, $file);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             $filename = $this->moveFile($form->get('name')->getData(),$form->get('title')->getData(), $rep);
             $file->setName($filename);
@@ -94,14 +94,14 @@ class FileController extends AbstractController
 
         return $this->render('file/show_files.html.twig', [
             'user'    => $user,
-            'sending' => $sending,
             'form'    => $form->createView(),
-            'access'  => $access
+            'access'  => $access,
+            'sending' => $sending
         ]);
     }
 
     /**
-     * Change status to a specific file (not "seen")
+     * Change seen false to a specific file )
      * @Route("/{id}/changer_status", name="edit_status")
      * @param FileUser      $file
      * @param ObjectManager $manager
@@ -109,7 +109,7 @@ class FileController extends AbstractController
      */
     public function editStatusFileUser(UserFiles $ufile, ObjectManager $manager)
     {
-        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $ufile->getSender()){
+        if($this->getUser() != $ufile->getSender() && $this->getUser() != $ufile->getReceiver()){
             throw new AccessDeniedException();
         }
 
@@ -121,21 +121,28 @@ class FileController extends AbstractController
     }
 
     /**
+     * Remove a specific file received by the current user
      * @Route("/{id}/enlever", name="received_remove")
-     *
-     * @param Files $file
-     * @param ObjectManager $manager
+     * @param Files               $file
+     * @param ObjectManager       $manager
      * @param UserFilesRepository $rep
-     * @return void
+     * @return Response
      */
     public function removeReceivedFile(Files $file, ObjectManager $manager, UserFilesRepository $rep)
     {
-        $user = $this->getUser();
         $ufile = $rep->findOneBy([
-            'receiver' => $user,
+            'receiver' => $this->getUser(),
             'files'    => $file
         ]);
+
         $manager->remove($ufile);
+        $manager->flush();
+
+        $checkFile = $rep->findBy(['files' => $file]);
+        if($checkFile == null && $file != null){
+            $this->removeFile($file->getName());
+            $manager->remove($file);
+        }
         $manager->flush();
 
         return new JsonResponse();

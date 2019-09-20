@@ -43,21 +43,21 @@
 
 <div class="position-fixed pointer user-subnav">
     <div class="flexc justify-content-end align-center">
-        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Projets">
-            <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}" aria-label="Projets"><i class="far fa-list-ul text-white"></i></a>
-        </div>
-        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Administratif">
-            <a href="{{ path('file_user_show') }}" aria-label="Fichiers"><i class="fal fa-envelope text-white"></i></a>
-        </div>
-        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Compétences">
-            <a href="{{ path('account_show') }}#skills" aria-label="Compétences"><i class="fal fa-star text-white"></i></a>
-        </div>
-        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Stages">
-            <a href="{{ path('user_show_training') }}" aria-label="Stages"><i class="fal fa-handshake text-white"></i></a>
-        </div>
-        <div class="subnav-circle rounded-circle bg-red text-center bold my-1" data-toggle="tooltip" data-placement="left" title="Déconnexion">
-            <a href="{{ path('account_logout') }}" aria-label="Se deconnecter"><i class="fal fa-power-off text-white"></i></a>
-        </div>
+        <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Projets">
+            <i class="far fa-list-ul text-white"></i>
+        </a>
+        <a href="{{ path('file_user_show') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Fichiers">
+            <i class="fal fa-envelope text-white"></i>
+        </a>
+        <a href="{{ path('account_show') }}#skills" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Compétences">
+            <i class="fal fa-star text-white"></i>
+        </a>
+        <a href="{{ path('user_show_training') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Stages">
+            <i class="fal fa-handshake text-white"></i>
+        </a>
+        <a href="{{ path('account_logout') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Se deconnecter">
+            <i class="fal fa-power-off text-white"></i>
+        </a>
     </div>
 </div>
 

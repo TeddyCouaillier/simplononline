@@ -82,7 +82,9 @@ function copyToClipboard(element) {
 }
 
 /* ----------------- CAT DISPLAY ----------------- */
+// Quand on clique sur le bouton du filtre
 $('.help-all_cats span').click(function() {
+    // On recupere la categorie
     var category = $(this).data('badge');
 
     $('.help-all_cats span').addClass('badge-link-inactive').removeClass('badge-link-active');
