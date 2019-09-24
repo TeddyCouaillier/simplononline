@@ -104,6 +104,28 @@ class AdminPromotionController extends AbstractController
     }
 
     /**
+     * Remove a specific user from his promotion
+     * @Route("/{slug}/retirer-promotion", name="promo_remove_user")
+     * @param User          $user
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function removeUsersPromo(User $user, ObjectManager $manager)
+    {
+        $promo = $user->getPromotion();
+        $user->setPromotion(null);
+        $manager->persist($user);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'L\'utilisateur a bien été retiré de la promotion'
+        );
+
+        return $this->redirectToRoute('promo_show',['slug' => $promo->getSlug()]);
+    }
+
+    /**
      * Active a specific promotion and inactive all others promo
      * @Route("/promotions/{id}/activer", name="promo_active")
      * @param Promotion           $promo

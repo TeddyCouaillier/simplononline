@@ -157,7 +157,7 @@ class AdminUserController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function deleteUser(User $user, ObjectManager $manager)
+    public function removeUser(User $user, ObjectManager $manager)
     {
         if($user == $this->getUser()){
             $this->addFlash(
@@ -198,7 +198,7 @@ class AdminUserController extends AbstractController
             'L\'utilisateur a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('account_logout');
+        return $this->redirectToRoute('admin_all_users');
     }
 
     /**
