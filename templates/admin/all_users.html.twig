@@ -30,7 +30,7 @@
                     {% if promo is not empty and promo is not null %}
                     {{ promo.label }}
                     {% else %}
-                    Tout
+                    {{ slug|capitalize }}
                     {% endif %}
                 </span>
             </div>
@@ -40,6 +40,7 @@
     <hr>
     <div class="flex wrap just-around">
         {% for user in pagination.data %}
+            {% if user.hasRole() == false %}
             {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
@@ -105,7 +106,7 @@
                         </a>
                     </div>
                     <div class="col-2">
-                        <a class="text-grey bhover" href="{{ path('user_show_training') }}" aria-label="Stages" data-toggle="tooltip"
+                        <a class="text-grey bhover" href="{{ path('user_training_admin', {'slug': user.slug}) }}" aria-label="Stages" data-toggle="tooltip"
                         data-placement="top" title="Afficher les stages">
                             <i class="fal fa-handshake text-medium text-grey bhover"></i>
                         </a>
@@ -130,6 +131,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% else %}
         <span>Il n'y a personne pour le moment ...</span>
         {% endfor %}
@@ -138,15 +140,15 @@
     <div class="flex just-center my-3">
         <div class="pagination p1">
             <ul class="text-center">
-                <a href="{{ path(pagination.route,{'page': pagination.page - 1}) }}" aria-label="Page précédente" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
+                <a href="{{ path(pagination.route,{'page': pagination.page - 1, 'slug': slug}) }}" aria-label="Page précédente" class="rhover {% if pagination.page == 1 %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-left"></i></li>
                 </a>
                 {% for i in 1..pagination.pages %}
-                <a href="{{ path(pagination.route,{'page': i}) }}" aria-label="Page {{i}}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
+                <a href="{{ path(pagination.route,{'page': i, 'slug': slug}) }}" aria-label="Page {{i}}" class="avatar-xs {% if pagination.page == i %}is-active{% endif %}">
                     <li>{{ i }}</li>
                 </a>
                 {% endfor %}
-                <a href="{{ path(pagination.route,{'page': pagination.page + 1}) }}" aria-label="Page suivante" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
+                <a href="{{ path(pagination.route,{'page': pagination.page + 1, 'slug': slug}) }}" aria-label="Page suivante" class="rhover {% if pagination.page == pagination.pages %}d-none{% endif %}">
                     <li><i class="fal fa-arrow-circle-right"></i></li>
                 </a>
             </ul>

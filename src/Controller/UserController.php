@@ -62,14 +62,18 @@ class UserController extends AbstractController
      * Show all users training courses by the admin
      * Show the training courses proposed by the admin for all users
      * @Route("/stages", name="show_training")
+     * @Route("/admin/stages/{slug}", name="training_admin")
      * @param User                      $user
      * @param TrainingCourseRepository  $rep
      * @return Response
      */
-    public function showTraining()
+    public function showTraining(User $user = null)
     {
+        if($user == null){
+            $user = $this->getUser();
+        }
         return $this->render('training_course/show.html.twig', [
-            'user' => $this->getUser()
+            'user' => $user
         ]);
     }
 

@@ -174,6 +174,19 @@ class BaseController extends AbstractController
             }
             $manager->flush();
         }
+
+        $modo = $rep->findAllWeatherAdmin();
+        if(count($modo) > 0){
+            foreach($modo as $user){
+                if($user->getWeather() != 0){
+                    $user->setWeather(0)
+                         ->setLastConnect(new \DateTime());
+                    $manager->persist($user);
+                }
+            }
+            $manager->flush();
+        }
+
         return new Response();
     }
 }

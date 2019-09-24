@@ -72,7 +72,7 @@
         {% for task in tasks if task is not null %}
             {{ _self.deleteConfirm(task.id,path('project_delete_task',{'id_task':task.id,'slug':project.slug})) }}
             {{ _self.modal("modal-edit-"~task.id) }}
-            <div class="container-white row mx-0 flex align-center mt-2 p-3 task-container">
+            <div class="container-white shadow-small row mx-0 flex align-center mt-2 p-3 task-container">
                 <div class="col-lg-6 col-md-5 col-sm-6 col-12">
                     <p class="bold" id="task-title">{{ task.title }}</p>
                     <p class="text-grey">{{ task.interval }}</p>
@@ -112,7 +112,7 @@
     </div>
     {% if tasks|length >= 5 %}
     <div class="text-center my-2">
-        <button class="btn rounded text-white bg-red py-1 px-3 see-more-task" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" >Voir plsus</button>
+        <button class="btn rounded text-white bg-red py-1 px-3 see-more-task" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" >Voir plus</button>
     </div>
     {% endif %}
 {% endmacro %}

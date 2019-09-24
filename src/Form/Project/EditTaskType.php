@@ -28,7 +28,7 @@ class EditTaskType extends ApplicationType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'edit-task',
+                    'class' => 'subtask',
                 ],
             ])
         ;

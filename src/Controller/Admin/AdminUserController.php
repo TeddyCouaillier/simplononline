@@ -121,8 +121,6 @@ class AdminUserController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        $user = $this->getUser();
-
         $form = $this->createFormBuilder($user)
                 ->add('password',PasswordType::class)
                 ->getForm();
@@ -144,8 +142,9 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin_all_datas');
         }
 
-        return $this->render('user/_form_password.html.twig',[
-            'form' => $form->createView()
+        return $this->render('admin/editPassword.html.twig',[
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
@@ -312,7 +311,6 @@ class AdminUserController extends AbstractController
         $role->removeUser($user);
         $manager->persist($role);
         $manager->flush();
-
         $this->addFlash(
             'success',
             'Le role lié a '.$user->getFirstname().' bien été supprimé.'
