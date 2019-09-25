@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Data;
 use App\Entity\User;
 use App\Entity\Promotion;
+use App\Entity\Skills;
 use App\Form\Promotion\PromotionType;
 use App\Repository\PromotionRepository;
 use App\Form\Promotion\EditPromotionType;
@@ -83,7 +85,15 @@ class AdminPromotionController extends AbstractController
         $form = $this->createForm(AddUsersPromotionType::class,$promo);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $rep  = $this->getDoctrine()->getRepository(Skills::class);
+            $drep = $this->getDoctrine()->getRepository(Data::class);
             foreach($promo->getUsers() as $user){
+                if(sizeof($user->getUserSkills()) == 0){
+                    $user->initializeSkills($rep->findAll());
+                }
+                if(sizeof($user->getUserData()) == 0){
+                    $user->initializeDatas($drep->findAll());
+                }
                 $user->setPromotion($promo)
                      ->setPassword($encoder->encodePassword($user, 'test'));
 

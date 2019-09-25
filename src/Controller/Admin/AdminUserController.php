@@ -340,7 +340,7 @@ class AdminUserController extends AbstractController
         }
 
         $pagination->setEntity(User::class)
-                   ->setLimit(15)
+                   ->setLimit(14)
                    ->setPage($page);
 
         if($slug == 'autres'){
