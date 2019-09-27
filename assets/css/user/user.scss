@@ -13,9 +13,9 @@
 .user .user-projects  { grid-area: 2 / 3 / 4 / 4; }
 .user .user-weather   { grid-area: 3 / 2 / 4 / 3; height: 150px; }
 .user .user-deadline  { grid-area: 4 / 1 / 5 / 4; }
-.user .user-trainings { grid-area: 5 / 1 / 6 / 3; }
-.user .user-skills    { grid-area: 5 / 3 / 7 / 4; }
-.user .user-datas     { grid-area: 6 / 1 / 7 / 3; }
+.user .user-datas     { grid-area: 5 / 1 / 6 / 4; width: 50%; margin: 0 auto; }
+.user .user-trainings { grid-area: 6 / 1 / 7 / 3; }
+.user .user-skills    { grid-area: 6 / 3 / 7 / 4; }
 .user .user-portfolio { grid-area: 7 / 1 / 8 / 4; }
 
 .user-secondary-info i{ width: 20px; }
@@ -31,8 +31,13 @@
 }
 .user-see-more:hover{ @extend .bg-red;}
 .user-datas .circle{
-    line-height: 75px;
-    @include border($red,2px);
+    line-height: 50px;
+    @extend .text-grey;
+    @include border($greylight,1px);
+
+    &:hover{
+        @extend .text-black;
+    }
 }
 
 .user-admin {
