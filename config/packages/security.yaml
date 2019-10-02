@@ -34,10 +34,10 @@ security:
 
 
     access_control:
-        - { path: ^/admin, roles: [ROLE_FORMER, ROLE_MEDIATEUR]}
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/accueil, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/*, roles: ROLE_USER }
+        # - { path: ^/admin, roles: [ROLE_FORMER, ROLE_MEDIATEUR]}
+        # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/accueil, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/*, roles: ROLE_USER }
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_FORMER, ROLE_MEDIATEUR]
