@@ -14,14 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/accueil", name="home")
+     * @Route("/", name="home")
      */
     public function home()
     {
@@ -31,6 +32,23 @@ class BaseController extends AbstractController
             'promos' => $prep->findAll(),
             'briefs' => $brep->findAll()
         ]);
+    }
+
+    /**
+     * @Route("/non/{id}", name="oui")
+     *
+     * @param User $user
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return void
+     */
+    public function oui(User $user, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
+        $user->setPassword($encoder->encodePassword($user,'test'));
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('account_login');
     }
 
     /**
