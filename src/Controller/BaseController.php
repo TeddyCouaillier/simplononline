@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/accueil", name="home")
+     * @Route("/", name="home")
      */
     public function home()
     {
