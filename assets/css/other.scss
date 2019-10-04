@@ -3,3 +3,9 @@
 .game-title{
     @include line-clamp(2);
 }
+.deadline-all{
+    > div{
+        padding: .3rem !important;
+        &:not(:last-of-type){ border-bottom: 1px solid #dadada; }
+    }
+}

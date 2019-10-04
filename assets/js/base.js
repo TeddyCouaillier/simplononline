@@ -33,10 +33,6 @@ $(function() {
     });
 })
 
-// $(function() {
-//      Notify("Message de test")
-// })
-
 function removeNotify(interval, elem) {
     clearInterval(interval);
     $(elem).slideUp(250);

@@ -214,19 +214,19 @@
      #### USER DATA
      #####################################}
     <div class="container-white shadow-small user-datas flex wrap just-around align-center text-center bold py-3">
-        <a href="{{ path('user_game') }}">
+        <a href="{{ path('user_game') }}" aria-label="Jeux">
             <div class="avatar-sm mb-1 text-medium circle pointer"><i class="fas fa-gamepad"></i></div>
             <span class="text-small text-grey">Jeux</span>
         </a>
-        <a>
+        <a href="{{ path('user_deadline') }}" aria-label="Deadlines">
             <div class="avatar-sm mb-1 text-medium circle pointer"><i class="fas fa-stopwatch"></i></div>
             <span class="text-small text-grey">Deadline</span>
         </a>
-        <a href="{{ path('help_show') }}">
+        <a href="{{ path('help_show') }}" aria-label="Aides">
             <div class="avatar-sm mb-1 text-medium circle pointer"><i class="fas fa-link"></i></div>
             <span class="text-small text-grey">Liens</span>
         </a>
-        <a href="{{ path('code_all') }}">
+        <a href="{{ path('code_all') }}" aria-label="Codes">
             <div class="avatar-sm mb-1 text-medium circle pointer"><i class="fas fa-laptop-code"></i></div>
             <span class="text-small text-grey">Codes</span>
         </a>

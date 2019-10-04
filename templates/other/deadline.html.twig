@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% import 'macro.html.twig' as template %}
+
+{% block title %}Liste des deadlines{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/other.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des deadlines</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Deadlines</span>
+    </p>
+    <hr>
+    <div class="container-white shadow-small deadline-all">
+    {% for udeadline in app.user.userDeadline|reverse %}
+        {% set deadline = udeadline.deadline %}
+        <div class="row no-gutters">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12">
+                {{ deadline }}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-6 text-right beforeDate">
+                <span class="text-small">Avant le {{ deadline.endAt|date('d/m/Y') }}</span>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-6">
+                <div class="flex align-center just-center h-100">
+                {% if udeadline.validate == false %}
+                    <i class="fas fa-check-circle text-red deadlineValidate"></i>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block modal %}{% endblock %}

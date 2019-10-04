@@ -1,7 +1,63 @@
+$(function() {
+    const messages = $("body").find('.message-flash');
+
+    messages.each(function(index, el){
+        var type = "success";
+        if($(this).hasClass('message-flash-success')){
+            type = "success";
+        } else if($(this).hasClass('message-flash-warning')){
+            type = "warning"
+        } else {
+            type = "danger"
+        }
+        Notify($(this).html(), type);
+    });
+})
+
+function removeNotify(interval, elem) {
+    clearInterval(interval);
+    $(elem).slideUp(250);
+    setTimeout(() => {
+        $(elem).remove();
+    }, 250);
+}
+
+function Notify(message,type) {
+    var classM = "";
+    if(type == "success"){
+        classM = '<i class="fas fa-check text-success"></i>';
+    } else if(type == "warning"){
+        classM = '<i class="fas fa-times text-warning"></i>'
+    } else {
+        classM = '<i class="fas fa-times text-red"></i>'
+    }
+    const content = `
+        <div class="toast-message animated slideInLeft" >
+            <div class="progress-message progress-${type}"></div>
+            <p class="content">
+                ${message}
+            </p>
+            ${classM}
+        </div>
+    `;
+
+    const elem = $(content).appendTo('.toast-content');
+
+    const interval = setInterval(() => {
+        var prog  = $(elem).find(`.progress-message`);
+        var width = $(prog).css("width");
+        width = parseInt(width.slice(0, width.length - 2)) - 1;
+        $(prog).css("width", width);
+
+        if (width <= 0) {
+            removeNotify(interval, elem)
+        }
+    }, 15);
+}
+
 $(document).on('click','.edit-task',function(){
     const url = $(this).data('url');
     modal = $(this).data('target');
-    console.log(url)
 
     $.ajax({
         url: url,
@@ -30,6 +86,7 @@ $(document).on('click','.edit-task',function(){
         },
         error: function(){
             console.log('AJAX task error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -66,10 +123,14 @@ $(document).on('click','.weather-type', function(){
                             $('.current-weather').html('<p class="icon-lg"> - </p>')
                     }
                     $('.weather-choice').slideUp();
+                    Notify("La météo a bien été mise à jour","success");
+                } else {
+                    Notify("Problème technique, veuillez réessayer","warning");
                 }
             },
             error: function(){
                 console.log('AJAX weather error');
+                Notify("Problème technique, veuillez réessayer","danger");
             }
         });
     }
@@ -92,10 +153,13 @@ $(document).on('click','.promo-edit',function(){
                         $('.promo-mod-selected').selectpicker();
                     </script>
                 `);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX promotion error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -119,15 +183,17 @@ $(document).on('click','.see-more-task', function(){
             {
                 $(qqch).parent().parent().find('.tasks').append(response.render);
                 $(qqch).parent().parent().find('.task-hidden').fadeIn(400);
-                // console.log($(qqch).parent().parent().find('.tasks'));
                 $(qqch).parent().parent().find('#task-counter').val(counter+response.size);
                 if(response.size < 5){
                     $(qqch).parent().remove();
                 }
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX seemore error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -155,6 +221,7 @@ $(document).on('click','.promocurrent', function() {
         },
         error: function(){
             console.log('AJAX promo current error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -171,10 +238,13 @@ $(document).on('click','.edit-data',function(){
             {
                 $('.modal[id*="edit-data-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX data error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -191,10 +261,13 @@ $(document).on('click','.edit-skill',function(){
             {
                 $('.modal[id*="edit-skill-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX skill error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -211,10 +284,13 @@ $(document).on('click','.add-project-correction',function(){
             {
                 $('.modal[id*="add-project-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX correction error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -242,10 +318,13 @@ $(document).on('click','.add-project-task',function(){
                     $('.task-user-selected').selectpicker();
                 </script>
                 `);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX project task error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -267,10 +346,13 @@ $(document).on('click','.edit-project',function(){
                     $('.language-selected').selectpicker();
                     </script>
                 `);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX project error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -287,10 +369,13 @@ $(document).on('click','.edit-correction',function(){
             {
                 $('.modal[id*="edit-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX edit correction error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -307,6 +392,7 @@ $(document).on('click','.remove-language',function(){
         },
         error: function(){
             console.log('AJAX language error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -334,6 +420,7 @@ $(document).on('click','.remove-file', function() {
         },
         error: function(){
             console.log('AJAX file error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -352,6 +439,7 @@ $(document).on('click','.remove-important', function() {
         },
         error: function(){
             console.log('AJAX remove important error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -368,10 +456,13 @@ $(document).on('click','.game-edit',function(){
             {
                 $('.modal[id*="modal-edit-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
+            } else {
+                Notify("Lien mort","warning");
             }
         },
         error: function(){
             console.log('AJAX game error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -425,6 +516,7 @@ $(document).on('click','.vote',function(){
         },
         error: function(){
             console.log('AJAX vote error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -450,6 +542,7 @@ $(document).on('click','.active-deadline',function(){
         },
         error: function(){
             console.log('AJAX deadline active error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -478,6 +571,7 @@ $(document).on('click','.deadline-state',function(){
         },
         error: function(){
             console.log('AJAX deadline state error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -503,6 +597,7 @@ $(document).on('click','.deadline-delete',function(){
         },
         error: function(){
             console.log('AJAX deadline delete error');
+            Notify("Problème technique.","danger");
         }
     });
 })
@@ -524,6 +619,7 @@ $(document).on('click','.active-user', function() {
         },
         error: function(){
             console.log('AJAX active user error');
+            Notify("Problème technique.","danger");
         }
     });
 })

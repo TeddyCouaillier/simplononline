@@ -316,7 +316,7 @@ class UserController extends AbstractController
     // -----------------------------------------------------
     /**
      * Valide a specific deadline
-     * @Route("deadline/{id}/active", name="deadline_active")
+     * @Route("/deadline/{id}/active", name="deadline_active")
      * @param UserDeadline  $udeadline
      * @param ObjectManager $manager
      * @return JsonResponse
@@ -328,5 +328,14 @@ class UserController extends AbstractController
         $manager->flush();
 
         return new JsonResponse();
+    }
+
+    /**
+     * @Route("/deadline/tout", name="deadline")
+     * @return Response
+     */
+    public function allDeadline()
+    {
+        return $this->render('other/deadline.html.twig');
     }
 }
