@@ -12,6 +12,10 @@
 {% block body %}
     {{ template.checkMessage(form)}}
     <h1>Gestion des fichiers</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Mes fichiers</span>
+    </p>
     <hr>
     <div class="container-grey mt-2 flex show-files">
         {{ include('file/_received.html.twig', {'user':user}) }}

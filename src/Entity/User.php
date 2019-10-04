@@ -76,6 +76,7 @@ class User implements AdvancedUserInterface
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Regex(pattern="/^[0-9]+$/", message="Chiffre seulement")
+     * @Assert\NotNull
      * @Assert\Length(max=10, maxMessage="Format invalide ({{ limit }} chiffres maximum)")
      */
     private $tel;

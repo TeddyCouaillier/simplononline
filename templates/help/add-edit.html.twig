@@ -25,6 +25,11 @@
         Ajouter un code
         {% endif %}
     </h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('code_all') }}">Codes d'aide</a> &nbsp; / &nbsp;
+        <span>Ajouter-Modifier</span>
+    </p>
     <hr>
     {{ form_start(form) }}
         <div class="my-2">

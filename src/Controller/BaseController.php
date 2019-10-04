@@ -170,41 +170,4 @@ class BaseController extends AbstractController
 
         return new JsonResponse($response);
     }
-
-    /**
-     * Update the current promo's users weather
-     * @Route("/meteo/update", name="weather")
-     * @param ObjectManager  $manager
-     * @param UserRepository $rep
-     * @return Response
-     */
-    public function updateWeather(ObjectManager $manager, UserRepository $rep)
-    {
-        $users = $rep->findAllWeather();
-
-        if(count($users) > 0){
-            foreach($users as $user){
-                if($user->getWeather() != 0){
-                    $user->setWeather(0)
-                         ->setLastConnect(new \DateTime());
-                    $manager->persist($user);
-                }
-            }
-            $manager->flush();
-        }
-
-        $modo = $rep->findAllWeatherAdmin();
-        if(count($modo) > 0){
-            foreach($modo as $user){
-                if($user->getWeather() != 0){
-                    $user->setWeather(0)
-                         ->setLastConnect(new \DateTime());
-                    $manager->persist($user);
-                }
-            }
-            $manager->flush();
-        }
-
-        return new Response();
-    }
 }

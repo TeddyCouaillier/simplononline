@@ -118,6 +118,8 @@ $(document).on('click','.see-more-task', function(){
             if (url !== undefined)
             {
                 $(qqch).parent().parent().find('.tasks').append(response.render);
+                $(qqch).parent().parent().find('.task-hidden').fadeIn(400);
+                // console.log($(qqch).parent().parent().find('.tasks'));
                 $(qqch).parent().parent().find('#task-counter').val(counter+response.size);
                 if(response.size < 5){
                     $(qqch).parent().remove();

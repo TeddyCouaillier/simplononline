@@ -17,6 +17,67 @@ $(document).on('click','.subnav',function() {
     $(this).find('.subnav-tooltip').fadeToggle();
 })
 
+$(function() {
+    const messages = $("body").find('.message-flash');
+
+    messages.each(function(index, el){
+        var type = "success";
+        if($(this).hasClass('message-flash-success')){
+            type = "success";
+        } else if($(this).hasClass('message-flash-warning')){
+            type = "warning"
+        } else {
+            type = "danger"
+        }
+        Notify($(this).html(), type);
+    });
+})
+
+// $(function() {
+//      Notify("Message de test")
+// })
+
+function removeNotify(interval, elem) {
+    clearInterval(interval);
+    $(elem).slideUp(250);
+    setTimeout(() => {
+        $(elem).remove();
+    }, 250);
+}
+
+function Notify(message,type) {
+    var classM = "";
+    if(type == "success"){
+        classM = '<i class="fas fa-check text-success"></i>';
+    } else if(type == "warning"){
+        classM = '<i class="fas fa-times text-warning"></i>'
+    } else {
+        classM = '<i class="fas fa-times text-red"></i>'
+    }
+    const content = `
+        <div class="toast-message animated slideInLeft" >
+            <div class="progress-message progress-${type}"></div>
+            <p class="content">
+                ${message}
+            </p>
+            ${classM}
+        </div>
+    `;
+
+    const elem = $(content).appendTo('.toast-content');
+
+    const interval = setInterval(() => {
+        var prog  = $(elem).find(`.progress-message`);
+        var width = $(prog).css("width");
+        width = parseInt(width.slice(0, width.length - 2)) - 1;
+        $(prog).css("width", width);
+
+        if (width <= 0) {
+            removeNotify(interval, elem)
+        }
+    }, 15);
+}
+
 /* ----------------- NAV --------------------- */
 $(function () {
     const modal = $('#modal-weather');

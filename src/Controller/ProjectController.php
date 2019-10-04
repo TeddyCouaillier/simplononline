@@ -34,7 +34,7 @@ class ProjectController extends AbstractController
 {
     /**
      * Show all projects
-     * @Route("s/tout/{page<\d+>?1}", name="all")
+     * @Route("s/{page<\d+>?1}", name="all")
      * @param integer    $page       current page
      * @param Pagination $pagination pagination service
      * @return Response

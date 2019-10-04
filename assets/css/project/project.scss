@@ -24,6 +24,7 @@
 .status-orange { background: orange;     }
 .status-green  { background: green;      }
 .status-blue   { background: dodgerblue; }
+.status-white  { background: white;      }
 
 .project-other-users{
     @extend .bg-grey;
@@ -111,3 +112,5 @@
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
+
+.task-hidden{ display: none; }

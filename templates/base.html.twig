@@ -27,44 +27,18 @@
             </div>
         </div>
 
-        {{ render(controller(
-            'App\\Controller\\BaseController::updateWeather'
-        )) }}
+        <div class="toast-content"></div>
+
+        {% for class, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="d-none message-flash message-flash-{{class}}">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
 
         {% include 'partials/header.html.twig' %}
         {% include 'partials/subnav.html.twig' %}
 
         <div class="main py-4 mx-auto">
-
-            {% for class, messages in app.flashes %}
-                {% for message in messages %}
-                    <div>
-                        <div class="messages-{{class}} flex just-around align-center bg-white shadow w-50 mx-auto py-3 px-4 mb-4">
-                            <div class="message-icon-{{class}}">
-                                {% if class == "success" %}
-                                <i class="fas fa-check-circle icon-sm pr-4"></i>
-                                {% elseif class == "warning" %}
-                                <i class="fas fa-exclamation-circle icon-sm pr-4"></i>
-                                {% endif %}
-                            </div>
-                            <p class="w-100">
-                                <span class="bold">
-                                {% if class == "success" %}
-                                    Succès
-                                {% elseif class == "warning" %}
-                                    Erreur
-                                {% endif %}
-                                </span><br>
-                                <span class="text-grey">{{ message }}</span>
-                            </p>
-                            <button type="button" class="close close-message text-grey">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-
             {% block body %}{% endblock %}
         </div>
 
@@ -97,5 +71,6 @@
         {{ encore_entry_script_tags('js/base') }}
         {{ encore_entry_script_tags('js/ajax') }}
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>

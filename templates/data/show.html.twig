@@ -4,6 +4,10 @@
 
 {% block body %}
     <h1>Mes données</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Mes données</span>
+    </p>
     <hr>
     {% for udata in user.userData %}
         <div class="container-white row flex align-center mx-0 my-1 py-3 shadow-small">

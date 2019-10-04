@@ -13,11 +13,15 @@
     {{ template.checkMessage(formPwd) }}
     {{ template.checkMessage(formImg) }}
     <h1>Modifier mon compte</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Modifier mon compte</span>
+    </p>
     <hr>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             {{ form_start(formUsr) }}
-            <div class="row container-white shadow-small">
+            <div class="row container-white shadow-small" style="z-index: -1 !important;">
                 <div class="col-md-6 col-sm-12 my-2 ">
                     {{ form_label(formUsr.firstname) }}<br>
                     {{ form_widget(formUsr.firstname, {'attr' : {'maxlength' : '25'}}) }}

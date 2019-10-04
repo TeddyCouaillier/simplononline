@@ -270,6 +270,11 @@ class Project
         return $this;
     }
 
+    public function hasUser(User $user)
+    {
+        return $this->users->contains($user);
+    }
+
     /**
      * @return Collection|User[]
      */
