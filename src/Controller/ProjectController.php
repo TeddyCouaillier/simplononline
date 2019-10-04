@@ -519,7 +519,7 @@ class ProjectController extends AbstractController
         $process_done   = $reptask->getTotalSubtaskDoneByType($project, Task::PROCESSING);
         $todolist_done  = $reptask->getTotalSubtaskDoneByType($project, Task::TODOLIST);
 
-        $process_progress  = $process_total != 0 ? ($process_done / $process_total * 100) : 0;
+        $process_progress  = $process_total  != 0 ? ($process_done  / $process_total  * 100) : 0;
         $todolist_progress = $todolist_total != 0 ? ($todolist_done / $todolist_total * 100) : 0;
 
         // Get all task by type
@@ -534,12 +534,12 @@ class ProjectController extends AbstractController
 
         return $this->render('project/show.html.twig', [
             'project'     => $project,
-            'form'        => $form->createView(),
-            'formCorrect' => $formCorrect->createView(),
             'process'     => $process,
             'todolist'    => $todolist,
-            'completed'   => $completed,
             'progress'    => $progress,
+            'completed'   => $completed,
+            'form'        => $form->createView(),
+            'formCorrect' => $formCorrect->createView(),
             'process_progress'  => $process_progress,
             'todolist_progress' => $todolist_progress
         ]);

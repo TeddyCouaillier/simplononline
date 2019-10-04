@@ -73,16 +73,21 @@ $(".close-message").click(function() {
 });
 
 /* ----------------- COPY LINKS ----------------- */
-function copyToClipboard(element) {
+$(document).on('click','.copyToClipboard', function(){ 
+    const id = $(this).data('link-id');
+    const el = $(`.data-link-${id}`);
+
     var $temp = $("<input>");
     $("body").append($temp);
-    $temp.val($(element).text()).select();
+    $temp.val($(el).text()).select();
     document.execCommand("copy");
     $temp.remove();
-}
+});
 
 /* ----------------- CAT DISPLAY ----------------- */
+// Quand on clique sur le bouton du filtre
 $('.help-all_cats span').click(function() {
+    // On recupere la categorie
     var category = $(this).data('badge');
 
     $('.help-all_cats span').addClass('badge-link-inactive').removeClass('badge-link-active');

@@ -52,10 +52,11 @@ class PromotionController extends AbstractController
      * @param Promotion $promo promotion to show
      * @return Response
      */
-    public function showPromo(Promotion $promo)
+    public function showPromo(Promotion $promo, UserRepository $rep)
     {
         return $this->render('promotion/show.html.twig', [
             'promo' => $promo,
+            'modo'  => $rep->findAllModeratorByPromo($promo)
         ]);
     }
 }

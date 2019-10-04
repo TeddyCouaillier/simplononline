@@ -121,8 +121,6 @@ class AdminUserController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        $user = $this->getUser();
-
         $form = $this->createFormBuilder($user)
                 ->add('password',PasswordType::class)
                 ->getForm();
@@ -144,8 +142,9 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin_all_datas');
         }
 
-        return $this->render('user/_form_password.html.twig',[
-            'form' => $form->createView()
+        return $this->render('admin/editPassword.html.twig',[
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
@@ -158,7 +157,7 @@ class AdminUserController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function deleteUser(User $user, ObjectManager $manager)
+    public function removeUser(User $user, ObjectManager $manager)
     {
         if($user == $this->getUser()){
             $this->addFlash(
@@ -199,7 +198,7 @@ class AdminUserController extends AbstractController
             'L\'utilisateur a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('account_logout');
+        return $this->redirectToRoute('admin_all_users');
     }
 
     /**
@@ -312,7 +311,6 @@ class AdminUserController extends AbstractController
         $role->removeUser($user);
         $manager->persist($role);
         $manager->flush();
-
         $this->addFlash(
             'success',
             'Le role lié a '.$user->getFirstname().' bien été supprimé.'
@@ -342,7 +340,7 @@ class AdminUserController extends AbstractController
         }
 
         $pagination->setEntity(User::class)
-                   ->setLimit(15)
+                   ->setLimit(14)
                    ->setPage($page);
 
         if($slug == 'autres'){

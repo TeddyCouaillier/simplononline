@@ -88,7 +88,8 @@ class CodeController extends AbstractController
 
         return $this->render('help/add-edit.html.twig', [
             'form' => $form->createView(),
-            'code' => $code
+            'code' => $code,
+            'content' => htmlspecialchars_decode(str_replace('`','\`', $code->getContent()))
         ]);
     }
 

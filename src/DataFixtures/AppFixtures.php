@@ -127,6 +127,7 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('CouaillierTeddy17.jpeg')
+                 ->setWeather(1)
                  ->setPromotion($promos[1]);
         $admin->initializeDatas($tabDatas);
         $admin->initializeSkills($tabSkills);
@@ -161,6 +162,7 @@ class AppFixtures extends Fixture
                  ->setWebsite($faker->url)
                  ->setGithub($faker->url)
                  ->setAvatar('avatar.png')
+                 ->setWeather(mt_rand(1,5))
                  ->setPromotion($promos[mt_rand(0,sizeof($promos)-1)]);
             $user->initializeDatas($tabDatas);
             $user->initializeSkills($tabSkills);

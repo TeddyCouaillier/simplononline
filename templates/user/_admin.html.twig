@@ -96,7 +96,7 @@
         <div class="text-center">
             <span class="text-red bold">{{ user }}</span><br>
             <span class="badge badge-pill badge-danger mt-1">
-                {% for role in user.userRoles%} {{ role }}{% endfor %}
+                {% for role in user.userRoles %} {{ role }} {% endfor %}
             </span>
         </div>
     </div>
@@ -140,16 +140,16 @@
         <div class="flex just-center align-center h-100">
             <div class="flex align-center text-center">
                 {% set filecount = user.notSeenFiles|length %}
-                <a class="bold" href="{{ path('file_user_show') }}" aria-label="Fichiers">
+                <a class="bold text-grey bhover" href="{{ path('file_user_show') }}" aria-label="Fichiers">
                     <p>
                         {% if filecount == 0 %}
-                        {{ filecount }} fichier important.<br>
+                        {{ filecount }} nouveau fichier.<br>
                         <i class="fal fa-folder-times icon-sm mt-2"></i>
                         {% elseif filecount == 1 %}
-                        <span class="text-red">{{ filecount }}</span> nouveau fichier.<br>
+                        <span class="text-red ahover">{{ filecount }} nouveau fichier.</span><br>
                         <i class="fas fa-folder icon-sm text-red mt-2"></i>
                         {% else %}
-                        <span class="text-red">{{ filecount }}</span> nouveaux fichiers.<br>
+                        <span class="text-red ahover">{{ filecount }} nouveaux fichiers.</span><br>
                         <i class="fas fa-folders icon-sm text-red mt-2"></i>
                         {% endif %}
                     </p>

@@ -21,7 +21,6 @@
 {% endblock %}
 
 {% block modalTitle %}Modifier le planning{% endblock %}
-{% block modalBody %}{% endblock %}
 
 {% block javascripts %}
     <script src="/fc-core.min.js"></script>
@@ -78,8 +77,8 @@
                             type: "POST",
 
                             success: function(response){
-                                $('#modal').modal();
-                                $('#modal').find('.modal-main').html(response.render);
+                                $('.modal-main').modal();
+                                $('.modal-main').find('.modal-body').html(response.render);
                             }
                         });
                     }
@@ -136,7 +135,7 @@
                 var id    = parseInt(event.event.id);
 
                 $.ajax({
-                    url: '/schedule/move',
+                    url: '/admin/schedule/move',
                     data: {
                         id : id,
                         start : start,
@@ -158,8 +157,8 @@
                     type: "POST",
 
                     success: function(response){
-                        $('#modal').modal();
-                        $('#modal').find('.modal-main').html(response.render);
+                        $('.modal-main').modal();
+                        $('.modal-main').find('.modal-body').html(response.render);
                     }
                 });
             }

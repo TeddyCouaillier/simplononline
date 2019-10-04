@@ -250,6 +250,7 @@ class User implements AdvancedUserInterface
         $this->briefs         = new ArrayCollection();
         $this->lastConnect    = new \DateTime;
         $this->isActive       = true;
+        $this->weather        = 0;
     }
 
     public function __toString()

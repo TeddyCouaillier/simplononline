@@ -13,7 +13,31 @@
     <span class="h5">{{ promo.nickname|capitalize }}</span>
     <hr>
     <div class="flex wrap just-around">
+        {% for user in modo %}
+            <div class="rounded p-2 row shadow-small my-2 w-flex user-container admin-promo">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
+                    <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-md">
+                    {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md","Avatar de {{user}}") }} #}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 user-secondary-info">
+                    <span class="bold h4" aria-label="Voir">{{ user }}</span><br>
+                    <p>
+                        <i class="fal fa-envelope text-center"></i> {{ user.email }}</li>
+                        {% for role in user.userRoles %}
+                            <br><span class="bold">{{ role }}</span>
+                        {% else %}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="flex wrap just-around">
         {% for user in promo.users %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') %}
+            {{ template.deleteConfirm(user.id,path('admin_promo_remove_user',{'slug':user.slug})) }}
+            {% endif %}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-md">
@@ -29,6 +53,9 @@
                         <a href="{{ user.github }}" class="text-red rhover" target="_blank" rel="noreferrer" aria-label="Github"><i class="fal fa-code-branch text-center"></i></a>
                         {% else %}
                         <em><i class="fal fa-code-branch text-center"></i></em>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') %}
+                        <a class="text-red rhover ml-1" target="_blank" rel="noreferrer" aria-label="Remove" data-toggle="modal" data-target="#modal-{{user.id}}"><i class="fal fa-times-circle text-center"></i></a>
                         {% endif %}
                     </p>
                 </div>

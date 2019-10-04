@@ -6,9 +6,9 @@
     .user .user-files    { grid-area: 3 / 3 / 4 / 3; }
     .user .user-trainings{ grid-area: 3 / 1 / 5 / 3; }
     .user .user-weather  { grid-area: 4 / 3 / 5 / 3; }
-    .user .user-deadline { grid-area: 5 / 4 / 6 / 1; }
-    .user .user-skills   { grid-area: 6 / 1 / 7 / 4; }
-    .user .user-datas    { grid-area: 7 / 4 / 8 / 1; }
+    .user .user-datas    { grid-area: 5 / 4 / 6 / 1; width: 100%; }
+    .user .user-deadline { grid-area: 6 / 4 / 7 / 1; }
+    .user .user-skills   { grid-area: 7 / 1 / 8 / 4; }
     .user .user-portfolio{ grid-area: 8 / 4 / 9 / 1; }
     .user .users-promo   { width: 90%; }
 
@@ -48,11 +48,11 @@
     .user .user-info      { grid-area: 2 / 1 / 2 / 3; }
     .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
     .user .user-weather   { grid-area: 3 / 2 / 3 / 3; }
-    .user .user-deadline  { grid-area: 4 / 1 / 4 / 3; }
-    .user .user-projects  { grid-area: 5 / 1 / 5 / 3; }
-    .user .user-skills    { grid-area: 6 / 1 / 6 / 3; }
-    .user .user-trainings { grid-area: 7 / 1 / 7 / 3; }
-    .user .user-datas     { grid-area: 8 / 1 / 8 / 3; }
+    .user .user-datas     { grid-area: 4 / 1 / 4 / 3; }
+    .user .user-deadline  { grid-area: 5 / 1 / 5 / 3; }
+    .user .user-projects  { grid-area: 6 / 1 / 6 / 3; }
+    .user .user-skills    { grid-area: 7 / 1 / 7 / 3; }
+    .user .user-trainings { grid-area: 8 / 1 / 8 / 3; }
     .user .user-portfolio { grid-area: 9 / 1 / 9 / 3; }
 
     .user-admin .user-header        { grid-area: 1 / 1 / 2 / 3; }
@@ -77,11 +77,11 @@
     .user .user-info      { grid-area: 2 / 1 / 2 / 2; }
     .user .user-files     { grid-area: 3 / 1 / 3 / 2; }
     .user .user-weather   { grid-area: 4 / 1 / 4 / 2; }
-    .user .user-deadline  { grid-area: 5 / 1 / 5 / 2; }
-    .user .user-projects  { grid-area: 6 / 1 / 6 / 2; }
-    .user .user-skills    { grid-area: 7 / 1 / 7 / 2; }
-    .user .user-trainings { grid-area: 8 / 1 / 8 / 2; }
-    .user .user-datas     { grid-area: 9 / 1 / 9 / 2; }
+    .user .user-datas     { grid-area: 5 / 1 / 5 / 2; }
+    .user .user-deadline  { grid-area: 6 / 1 / 6 / 2; }
+    .user .user-projects  { grid-area: 7 / 1 / 7 / 2; }
+    .user .user-skills    { grid-area: 8 / 1 / 8 / 2; }
+    .user .user-trainings { grid-area: 9 / 1 / 9 / 2; }
     .user .user-portfolio { grid-area: 10 / 1 / 10 / 2; }
     .user .user-header    { flex-wrap: wrap; }
 

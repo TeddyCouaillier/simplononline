@@ -6,20 +6,12 @@
             <span>{{ former.firstname }} {{ former.lastname|first}}.</span>
             {{ former.weatherIconXs|raw }}
         </div>
-                <div class="flex just-between align-center users-weather w-100">
-            <span>{{ former.firstname }} {{ former.lastname|first}}.</span>
-            {{ former.weatherIconXs|raw }}
-        </div>
     {% else %}
     {% endfor %}
-    {% for user in users %}
+    {% for usert in users %}
         <div class="flex just-between align-center users-weather w-100">
-            <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
-            {{ user.weatherIconXs|raw }}
-        </div>
-                <div class="flex just-between align-center users-weather w-100">
-            <span>{{ user.firstname }} {{ user.lastname|first}}.</span>
-            {{ user.weatherIconXs|raw }}
+            <span>{{ usert.firstname }} {{ usert.lastname|first}}.</span>
+            {{ usert.weatherIconXs|raw }}
         </div>
     {% else %}
         <div class="text-center text-grey">Aucun apprenant</div>

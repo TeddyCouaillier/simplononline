@@ -23,7 +23,7 @@ class UserFiles
     private $receiver;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Files", inversedBy="userFiles", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Files", inversedBy="userFiles", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $files;

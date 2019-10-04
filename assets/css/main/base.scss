@@ -104,8 +104,10 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-.rhover:hover{ color: $red !important; cursor: pointer; }
-.bhover:hover{ color: $black !important; cursor: pointer !important; }
+.rhover:hover  { color: $red   !important; cursor: pointer; }
+.bhover:hover  { color: $black !important; cursor: pointer; }
+.ahover:hover  { text-decoration: underline; }
+
 [class*="-danger"]{ background: $red; }
 /* Display & container */
 .flex{

@@ -26,6 +26,7 @@ Encore
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/base', './assets/js/base.js')
     .addEntry('js/ajax', './assets/js/ajax.js')
+    .addEntry('js/skills', './assets/js/skills.js')
     .addEntry('js/libraries/bootstrap-select', './assets/js/libraries/bootstrap-select.min.js')
     // .addEntry('editor/js/tui-editor-Editor-full','./assets/Editor/js/tui-editor-Editor-full.min.js')
     // .addEntry('editor/js/tui-editor-extColorSyntax.js','./assets/Editor/js/tui-editor-extColorSyntax.min.js')

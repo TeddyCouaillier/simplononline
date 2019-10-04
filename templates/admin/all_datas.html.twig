@@ -7,7 +7,7 @@
 {% block body %}
   <div class="flex just-between">
     <h1>Autres</h1>
-    {{ template.add() }}
+    <a class="button-edit" data-toggle="modal" data-target=".modal-form" aria-label="Modifier"><i class="fal fa-plus"></i></a>
   </div>
   <hr>
   <div class="text-center">
@@ -125,24 +125,31 @@
         </div>
     </div>
   </div>
+  <div class="modal modal-form fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="my-2">
+                    <h3>Ajouter une donnée</h3>
+                    {{ form_start(formData, {'attr': {'name' : 'language'}}) }}
+                      {{ form_label(formData.label) }}
+                      {{ form_widget(formData.label) }}
+                      {{ template.confirm() }}
+                    {{ form_end(formData) }}
+                  </div>
+                  <hr>
+                  <div class="my-2">
+                    <h3>Ajouter un langage</h3>
+                    {{ form_start(formLanguage) }}
+                      {{ form_label(formLanguage.label) }}
+                      {{ form_widget(formLanguage.label) }}
+                      {{ template.confirm() }}
+                    {{ form_end(formLanguage) }}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 {% endblock %}
 
-{% block modalBody %}
-<div class="my-2">
-  <h3>Ajouter une donnée</h3>
-  {{ form_start(formData, {'attr': {'name' : 'language'}}) }}
-    {{ form_label(formData.label) }}
-    {{ form_widget(formData.label) }}
-    {{ template.confirm() }}
-  {{ form_end(formData) }}
-</div>
-<hr>
-<div class="my-2">
-  <h3>Ajouter un langage</h3>
-  {{ form_start(formLanguage) }}
-    {{ form_label(formLanguage.label) }}
-    {{ form_widget(formLanguage.label) }}
-    {{ template.confirm() }}
-  {{ form_end(formLanguage) }}
-</div>
-{% endblock %}
+{% block modalBody %}{% endblock %}

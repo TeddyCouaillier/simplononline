@@ -78,7 +78,7 @@ class AdminProjectController extends AbstractController
                 'success',
                 'Le projet a bien été modifié.'
             );
-            return $this->redirectToRoute('admin_all_projects');
+            return $this->redirectToRoute('project_all');
         }
 
         $render = $this->render('admin/edit.html.twig', [
@@ -156,7 +156,7 @@ class AdminProjectController extends AbstractController
                 'La tâche a bien été ajoutée.'
             );
 
-            return $this->redirectToRoute('admin_all_projects');
+            return $this->redirectToRoute('project_all');
         }
 
         $render = $this->render('admin/edit.html.twig', [

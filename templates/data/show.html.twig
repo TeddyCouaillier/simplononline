@@ -18,8 +18,8 @@
                 {% endif %}
             </div>
             <div class="col-md-1">
-                <i class="fal fa-file-signature bhover text-grey" onclick="copyToClipboard('.data-link-{{udata.id}}')"
-                data-toggle="tooltip" data-placement="top" title="Copier la donnée"></i>
+                <i class="fal fa-file-signature bhover text-grey copyToClipboard"
+                data-toggle="tooltip" data-placement="top" data-link-id="{{udata.id}}" title="Copier la donnée"></i>
             </div>
         </div>
     {% endfor %}
