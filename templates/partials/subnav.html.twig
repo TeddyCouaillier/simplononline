@@ -1,34 +1,43 @@
 {% import 'macro.html.twig' as template %}
 
-<div class="position-fixed user-notif">
+<div class="position-fixed user-notif d-block">
     <div class="container-white shadow-small flexc">
-        <p>
-            Vous avez <span class="bold">{{ app.user.notifReceived|length }}</span> notifications
-        </p>
-        <hr class="w-100 my-1">
-        {% for unotif in app.user.notifReceived|slice(0,4)|reverse %}
-            {% set notif = unotif.notification %}
-            <div class="flex align-center just-between my-n1">
-                <div class="flex align-center">
-                    {% if unotif.seen %}
-                    <div class="status-white mr-1"></div>
-                    {% else %}
-                    <div class="status-red mr-1"></div>
-                    {% endif %}
-                    {{ notif.title }}
+        {% if app.user.notifReceived is not empty %}
+            <p class="ml-2 pl-1">
+                <a href="{{ path('account_show_notif') }}" class="rhover">
+                    Vous avez <span class="bold">{{ app.user.notifReceived|length }}</span> notifications
+                </a>
+            </p>
+            <hr class="w-100 my-1">
+            {% for unotif in app.user.notifReceived|slice(0,4)|reverse %}
+                {% set notif = unotif.notification %}
+                <div class="flex align-center just-between wrap my-n1">
+                    <div class="flex align-center w-66 notif-content">
+                        {% if unotif.seen %}
+                        <div class="status-white mr-1"></div>
+                        {% else %}
+                        <div class="status-red mr-1"></div>
+                        {% endif %}
+                        {{ notif.title }}
+                    </div>
+                    <div class="notif-info">
+                        <span class="text-small text-grey">{{ notif.interval }}</span>
+                        {% if notif.type == 1 or notif.type == 2 %}
+                        <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Voir le projet"><i class="far fa-arrow-circle-right"></i></a>
+                        {% elseif notif.type == 3 %}
+                        <a href="{{ path('account_show') }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Compétences"><i class="far fa-arrow-circle-right"></i></a>
+                        {% else %}
+                        <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Fichiers"><i class="far fa-arrow-circle-right"></i></a>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="">
-                    <span class="text-small text-grey">{{ notif.interval }}</span>
-                    {% if notif.type == 1 or notif.type == 2 %}
-                    <a href="{{ path('project_show',{'slug': notif.target}) }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Voir le projet"><i class="far fa-arrow-circle-right"></i></a>
-                    {% elseif notif.type == 3 %}
-                    <a href="{{ path('account_show') }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Compétences"><i class="far fa-arrow-circle-right"></i></a>
-                    {% else %}
-                    <a href="{{ path('file_user_show') }}?seen={{unotif.id}}" class="btn text-grey bhover" aria-label="Fichiers"><i class="far fa-arrow-circle-right"></i></a>
-                    {% endif %}
-                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-2">
+                <i class="fal fa-times-hexagon icon-sm"></i><br>
+                <span class="bold">Aucune notification</span>
             </div>
-        {% endfor %}
+        {% endif %}
     </div>
 </div>
 
