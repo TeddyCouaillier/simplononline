@@ -297,3 +297,10 @@ $('.task').collection({
 $(document).on('click','.edit-weather', function() {
     $('.weather-choice').slideToggle();
 })
+
+$(document).on('click','.backtotop', function(e) {
+    e.preventDefault();
+    $('html,body').animate({
+        scrollTop: 0
+    }, 700);
+})
