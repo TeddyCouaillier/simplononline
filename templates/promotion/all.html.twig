@@ -10,11 +10,14 @@
 
 {% block body %}
     {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
-
     <div class="flex just-between align-center">
         <h1 class="w-75">Liste des promotions</h1>
         {% if access %}{{ template.add() }}{% endif %}
     </div>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Promotions</span>
+    </p>
     <hr>
     <div class="flex wrap just-around">
         {% for promo in promos | reverse %}
@@ -22,100 +25,92 @@
                 {{ template.deleteConfirm(promo.id,path('admin_promo_delete',{'id':promo.id})) }}
                 {{ template.modalPromotion('modal-promo-edit-'~promo.id) }}
             {% endif %}
+            <div class="header bg-white shadow-small">
+                <div class="shadow-sm flex bg-body just-center align-center avatar-md"><i class="fas fa-users text-large"></i></div>
+                <p class="text-medium mt-1 bold">
+                    {{ promo }}
+                </p>
+                <p class="text-center text-small text-grey">
+                    {{ promo.nickname|default('Aucun surnom') }}
+                </p>
+                <hr class="w-100 my-2">
+                <p class="text-center" style="font-size: .95em">
+                    <span class="text-small bold">Formateurs</span><br>
+                    <em>
+                        {% for former in promo.formers %}
+                            {{ former }} &nbsp;<br>
+                        {% else %}
+                            Aucun<br>
+                        {% endfor %}
+                    </em>
+                    <span class="text-small bold">Médiateurs</span><br>
+                    <em>
+                        {% for mediator in promo.mediators %}
+                            {{ mediator }} &nbsp;
+                        {% else %}
+                            Aucun<br>
+                        {% endfor %}
+                    </em>
+                </p>
 
-            <div class="bg-white shadow-small flexc text-center mb-3 p-1 all-promo {% if access %}w-flex{% else %}w-33{% endif %}">
+                {% if access %}
+                    <p class="text-center text-grey">Apprenants : {{ promo.users|length}}</p>
+
+                    {% set startAt = promo.startAt|date('d/m/Y') %}
+                    {% set endAt   = promo.endAt|date('d/m/Y') %}
+                    {% if promo.startAt is null %}
+                    {% set startAt = '--/--/----' %}
+                    {% endif %}
+                    {% if promo.endAt is null %}
+                    {% set endAt = '--/--/----' %}
+                    {% endif %}
+
+                    <p class="text-grey">{{startAt}} &nbsp; {{endAt}}</p>
+                {% endif %}
+
                 {% if promo.current %}
-                    <div class="position-absolute">
-                        <div class="bg-red text-white shadow-small text-uppercase bold py-2 px-3
-                        {% if access %}pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}{% endif %}">
-                            En cours
-                        </div>
-                    </div>
+                    {% if access %}
+                    <div class="header-label pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">En cours</div>
+                    {% else %}
+                    <div class="header-label">En cours</div>
+                    {% endif %}
                 {% else %}
                     {% if access %}
-                        <div class="position-absolute">
-                            <div class="shadow-small text-grey text-uppercase bold py-2 px-3 pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">
-                                Activer
-                            </div>
-                        </div>
+                    <div class="header-label pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">Activer</div>
                     {% endif %}
                 {% endif %}
 
-                <div class="mt-4 mb-1 p-4">
-                    {% if access %}
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" aria-label="Voir la promotion">
-                    {% else %}
-                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" aria-label="Voir la promotion">
-                    {% endif %}
-                        <h2 class="rhover">{{ promo.label }}</h2>
-                        <ul>
-                            <li>Formateur :
-                                <em>
-                                {% for former in promo.formers %}
-                                    {{ former }} &nbsp;
-                                {% else %}
-                                    Aucun
-                                {% endfor %}
-                                </em>
-                            </li>
-                            <li>Médiateur :
-                                <em>
-                                {% for mediator in promo.mediators %}
-                                    {{ mediator }} &nbsp;
-                                {% else %}
-                                    Aucun
-                                {% endfor %}
-                                </em>
-                            </li>
-                        </ul>
-                        {% if admin is not defined %}
-                        <hr>
-                        <span class="text-grey">{{ promo.nickname | capitalize }}</span>
-                        {% endif %}
-                    </a>
-                </div>
+                <hr class="w-100 my-2">
 
+                <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="text-grey bhover" aria-label="Voir la promotion">
+                    Voir la promotion
+                </a>
                 {% if access %}
-                    <div class="mt-auto">
-                        {% set startAt = promo.startAt|date('d/m/Y') %}
-                        {% set endAt   = promo.endAt|date('d/m/Y') %}
-                        {% if promo.startAt is null %}
-                        {% set startAt = '--/--/----' %}
-                        {% endif %}
-                        {% if promo.endAt is null %}
-                        {% set endAt = '--/--/----' %}
-                        {% endif %}
-
-                        <p class="text-grey">{{startAt}} &nbsp; {{endAt}}</p>
-                        <p class="text-center text-grey">Apprenants : {{ promo.users|length}}</p>
-                        <div class="text-center my-3">
-                            <p class="main-title"><span class="bg-white px-3">Modifier</span></p>
+                    <hr class="w-100 my-2">
+                    <div class="row mx-auto text-center mb-2">
+                        <div class="col-3">
+                            <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" aria-label="Ajouter des utilisateurs" data-toggle="tooltip"
+                            data-placement="top" title="Ajouter des apprenants">
+                                <i class="fal fa-user-plus text-grey text-medium bhover"></i>
+                            </a>
                         </div>
-                        <div class="row mx-auto text-center mb-2">
-                            <div class="col-3">
-                                <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" aria-label="Ajouter des utilisateurs" data-toggle="tooltip"
-                                data-placement="top" title="Ajouter des apprenants">
-                                    <i class="fal fa-user-plus text-grey text-medium bhover"></i>
-                                </a>
-                            </div>
-                            <div class="col-3">
-                                <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" aria-label="Modifier la promotion" data-toggle="modal" 
-                                data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
-                                    <i class="fas fa-pencil text-grey text-medium bhover"></i>
-                                </a>
-                            </div>
-                            <div class="col-3">
-                                <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" aria-label="Voir la promotion" data-toggle="tooltip"
-                                    data-placement="top" title="Afficher les apprenants">
-                                    <i class="far fa-eye text-grey text-medium bhover"></i>
-                                </a>
-                            </div>
-                            <div class="col-3">
-                                <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{promo.id}}" data-toggle="tooltip"
-                                    data-placement="top" title="Supprimer">
-                                    <i class="fal fa-times-circle text-grey text-medium bhover"></i>
-                                </a>
-                            </div>
+                        <div class="col-3">
+                            <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" aria-label="Modifier la promotion" data-toggle="modal" 
+                            data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
+                                <i class="fas fa-pencil text-grey text-medium bhover"></i>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" aria-label="Voir la promotion" data-toggle="tooltip"
+                                data-placement="top" title="Afficher les apprenants">
+                                <i class="far fa-eye text-grey text-medium bhover"></i>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{promo.id}}" data-toggle="tooltip"
+                                data-placement="top" title="Supprimer">
+                                <i class="fal fa-times-circle text-grey text-medium bhover"></i>
+                            </a>
                         </div>
                     </div>
                 {% endif %}
@@ -123,7 +118,7 @@
         {% endfor %}
     </div>
 
-    <div class="text-center">
+    <div class="text-center my-2">
         <a href="{{ path('promo_other') }}" class="text-grey bhover" aria-label="Autres">
             Utilisateurs sans promotion <i class="fal fa-directions"></i>
         </a>

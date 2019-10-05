@@ -147,6 +147,7 @@ $(document).on('click','.promo-edit',function(){
         success: function(response){
             if (url !== undefined)
             {
+                console.log(response);
                 $('.modal[id*="modal-promo-edit-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render + `
                     <script>
@@ -201,10 +202,8 @@ $(document).on('click','.see-more-task', function(){
 $(document).on('click','.promocurrent', function() {
     const check = $(this);
     $('.promocurrent').each(function(){
-        $(this).html('activer');
-        $(this).removeClass('bg-red');
-        $(this).removeClass('text-white');
-        $(this).addClass('text-grey');
+        $(this).html('Activer');
+        $(this).addClass('inactive');
     });
 
     const url = $(this).data('promourl');
@@ -214,10 +213,8 @@ $(document).on('click','.promocurrent', function() {
         type: "POST",
 
         success: function(){
-            $(check).html('en cours');
-            $(check).removeClass('text-grey');
-            $(check).addClass('bg-red');
-            $(check).addClass('text-white');
+            $(check).html('En cours');
+            $(check).removeClass('inactive');
         },
         error: function(){
             console.log('AJAX promo current error');

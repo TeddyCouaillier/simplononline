@@ -65,7 +65,7 @@
             <i class="fas fa-handshake text-large"></i><br>
             Stages
         </a>
-        <a href="{{ path('user_data',{'slug':user.slug}) }}" class="rhover mx-1" aria-label="Données">
+        <a href="{{ path('user_data') }}" class="rhover mx-1" aria-label="Données">
             <i class="fas fa-key text-large"></i><br>
             Données
         </a>
@@ -107,7 +107,7 @@
     {######################################
      #### USER WEATHER
      #####################################}
-     <div class="container-white p-0 shadow-small user-weather flexc just-between">
+     <div class="container-white p-0 shadow-small user-weather flexc just-between" id="meteo">
         <div class="flex just-center align-center h-100 current-weather">
             {{ user.weatherIcon|raw }}
         </div>

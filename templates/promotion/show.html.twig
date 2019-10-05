@@ -2,15 +2,20 @@
 
 {% import 'macro.html.twig' as template %}
 
-{% block title %}{{ promo.label }}{% endblock %}
+{% block title %}{{ promo }}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/user/main.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>{{ promo.label }}</h1>
+    <h1>{{ promo }}</h1>
     <span class="h5">{{ promo.nickname|capitalize }}</span>
+    <p class="text-small main-breadcrumb mt-2">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('promo_all') }}">Promotions</a> &nbsp; / &nbsp;
+        <span>{{ promo|truncate(50) }}</span>
+    </p>
     <hr>
     <div class="flex wrap just-around">
         {% for user in modo %}
@@ -32,7 +37,9 @@
             </div>
         {% endfor %}
     </div>
+    {% if modo is not empty %}
     <hr>
+    {% endif %}
     <div class="flex wrap just-around">
         {% for user in promo.users %}
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') %}

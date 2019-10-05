@@ -29,7 +29,6 @@ $(function() {
         } else {
             type = "danger"
         }
-        Notify($(this).html(), type);
     });
 })
 

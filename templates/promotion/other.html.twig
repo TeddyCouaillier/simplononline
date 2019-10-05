@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>Utilisateurs sans promotion</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('promo_all') }}">Promotions</a> &nbsp; / &nbsp;
+        <span>Autres</span>
+    </p>
     <hr>
     <div class="flex wrap just-around">
         {% for user in users %}

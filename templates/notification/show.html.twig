@@ -14,6 +14,10 @@
         <h1>Vos notifications</h1>
         <i data-toggle="modal" data-target="#modal-delete-all" class="fal fa-times-circle icon-md pointer rhover"></i>
     </div>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Notifications</span>
+    </p>
     <hr>
     <div class="container-white shadow-small">
         {% for unotif in app.user.notifReceived|reverse %}

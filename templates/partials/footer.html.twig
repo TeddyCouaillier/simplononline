@@ -1,0 +1,53 @@
+
+<footer class="text-center text-small text-grey mt-5 mx-auto">
+    <div class="backtotop bhover d-inline-block mt-4">
+        <i class="fal fa-chevron-circle-up text-large mb-1"></i><br>
+        Retour en haut de page
+    </div><br>
+    <div class="flex just-center my-4">
+        <div class="flex just-around w-100">
+            <div class="d-table-cell px-2">
+                <p class="text-left text-black bold list-title">Projets</p>
+                <ul class="list">
+                    <li class="list-nav"><a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}" class="list-link">Mes projets</a></li>
+                    <li class="list-nav"><a href="{{ path('project_all') }}" class="list-link">Tous les projets</a></li>
+                    <li class="list-nav"><a href="{{ path('project_create') }}" class="list-link">Créer un projet</a></li>
+                    <li class="list-nav"><a href="{{ path('project_all_by_language',{'slug': 'HTML-CSS'}) }}" class="list-link">HTML/CSS</a></li>
+                    <li class="list-nav"><a href="{{ path('project_all_by_language',{'slug': 'php'}) }}" class="list-link">PHP</a></li>
+                </ul>
+            </div>
+            <div class="d-table-cell px-2">
+                <p class="text-left text-black bold list-title">Mon compte</p>
+                <ul class="list">
+                    <li class="list-nav"><a href="{{ path('user_deadline') }}" class="list-link">Deadlines</a></li>
+                    <li class="list-nav"><a href="{{ path('file_user_show') }}" class="list-link">Fichiers</a></li>
+                    <li class="list-nav"><a href="{{ path('user_show_training') }}" class="list-link">Stages</a></li>
+                    <li class="list-nav"><a href="{{ path('user_data') }}" class="list-link">Données</a></li>
+                    <li class="list-nav"><a href="{{ path('account_edit') }}" class="list-link">Modifier</a></li>
+                </ul>
+            </div>
+            <div class="d-table-cell px-2">
+                <p class="text-left text-black bold list-title">Promotions</p>
+                <ul class="list">
+                    <li class="list-nav"><a href="{{ path('promo_show',{'slug': app.user.promotion.slug}) }}" class="list-link">Ma promotion</a></li>
+                    <li class="list-nav"><a href="{{ path('promo_all') }}" class="list-link">Liste</a></li>
+                    <li class="list-nav"><a href="{{ path('help_show') }}" class="list-link">Liens d'aide</a></li>
+                    <li class="list-nav"><a href="{{ path('code_all') }}" class="list-link">Codes d'aide</a></li>
+                    <li class="list-nav"><a href="{{ path('user_game') }}" class="list-link">Jeux</a></li>
+                </ul>
+            </div>
+            <div class="d-table-cell px-2">
+                <p class="text-left text-black bold list-title">Autres</p>
+                <ul class="list">
+                    <li class="list-nav"><a href="{{ path('account_show_notif') }}" class="list-link">Notifications</a></li>
+                    <li class="list-nav"><a href="{{ path('account_show') }}#skills" class="list-link">Compétences</a></li>
+                    <li class="list-nav"><a href="{{ path('account_show') }}#meteo" class="list-link">Météo</a></li>
+                    <li class="list-nav"><a href="{{ path('home') }}" class="list-link">Accueil</a></li>
+                    <li class="list-nav"><a href="{{ path('account_logout') }}" class="list-link">Se déconnecter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <span class="text-red">Simplon</span> - Copyright &copy; 2019. All rights reserved.
+</footer>

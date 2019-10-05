@@ -1,7 +1,5 @@
-.main{
-    min-height: calc(100vh - 1.5rem - 95px);
-    width: 70%;
-}
+.main{ min-height: calc(100vh - 1.5rem - 290px); }
+.main,footer{ width: 70%; }
 
 .pagination{
     a{
@@ -436,3 +434,19 @@ input[type="checkbox"].switch_base:checked:after {
 }
 
 .tui-image.tui-toolbar-icons{ display: none !important; }
+
+.list{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: left;
+    .list-nav{
+        font-size: .8em !important;
+        margin-left: 4.5px;    
+    }
+
+    .list-link{ opacity: .5; transition: all .2s linear; font-size: 1.09em !important;}
+    .list-link:hover{ opacity: 1; }
+}
+.list-title{ padding-left: .35em; font-size: .9em; }

@@ -166,17 +166,14 @@ class UserController extends AbstractController
     // -----------------------------------------------------
     /**
      * Show the user's data
-     * @Route("/donnees/{slug}", name="data")
+     * @Route("/donnees", name="data")
      * @param User $user
      * @return Response
      */
-    public function showData(User $user)
+    public function showData()
     {
-        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
-            throw new AccessDeniedHttpException();
-        }
         return $this->render('data/show.html.twig', [
-            'user' => $user
+            'user' => $this->getUser()
         ]);
     }
 
