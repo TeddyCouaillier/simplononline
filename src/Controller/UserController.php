@@ -192,7 +192,7 @@ class UserController extends AbstractController
     public function showGames(int $page, Pagination $pagination, Request $request, ObjectManager $manager)
     {
         $pagination->setEntity(Game::class)
-                   ->setLimit(60)
+                   ->setLimit(20)
                    ->setPage($page);
 
         $game = new Game($this->getUser());

@@ -43,7 +43,7 @@ class Pagination{
         $offset = $this->page * $this->limit - $this->limit;
         $rep    = $this->manager->getRepository($this->entity);
 
-        return $rep->findBy($this->criteria, [], $this->limit, $offset);
+        return $rep->findBy($this->criteria, ["id" => 'DESC'], $this->limit, $offset);
     }
 
     /**

@@ -52,7 +52,7 @@ function Notify(message,type) {
         if (width <= 0) {
             removeNotify(interval, elem)
         }
-    }, 15);
+    }, 10);
 }
 
 $(document).on('click','.edit-task',function(){

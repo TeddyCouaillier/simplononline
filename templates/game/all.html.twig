@@ -19,7 +19,7 @@
     </p>
     <hr>
     <div class="flex wrap just-center align-content-stretch games">
-    {% for game in pagination.data|reverse %}
+    {% for game in pagination.data %}
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') or game.publisher == app.user %}
         {{ template.deleteConfirm(game.id,path('user_game_delete',{'id': game.id})) }}
         {{ template.modal("modal-edit-"~game.id) }}
