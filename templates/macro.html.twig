@@ -48,7 +48,7 @@
 {% endmacro %}
 
 {# Task container #}
-{% macro task(tasks, project, type) %}
+{% macro task(tasks, project, type, size) %}
     <div class="tasks">
         <input type="hidden" id="task-counter" value="{{tasks|length}}">
         {% for task in tasks if task is not null %}
@@ -92,7 +92,7 @@
             </div>
         {% endfor %}
     </div>
-    {% if tasks|length >= 5 %}
+    {% if size > 5 %}
     <div class="text-center my-2">
         <button class="btn rounded text-white bg-red py-1 px-3 see-more-task" data-url="{{path('project_seemore',{'slug':project.slug})}}" data-type="{{type}}" >Voir plus</button>
     </div>

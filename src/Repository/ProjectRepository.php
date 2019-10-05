@@ -23,13 +23,13 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get all tasks by the type given
+     * Get all tasks by the type given with a limit
      * @param Project $project
      * @param integer $type
      * @param integer $offset
      * @return array
      */
-    public function findAllTasksByType(Project $project, int $type, int $offset = 0)
+    public function findAllTasksByTypeLimit(Project $project, int $type, int $offset = 0)
     {
         $query = $this->getEntityManager()->createQuery('
                 SELECT DISTINCT t
@@ -42,8 +42,34 @@ class ProjectRepository extends ServiceEntityRepository
             ->setFirstResult($offset)
             ->setMaxResults(5)
             ->setParameters([
-                'project' =>$project,
-                'type'    =>$type
+                'project' => $project,
+                'type'    => $type
+            ])
+        ;
+
+        return $query->getResult();
+    }
+
+    /**
+     * Get all tasks by the type given
+     * @param Project $project
+     * @param integer $type
+     * @param integer $offset
+     * @return array
+     */
+    public function findAllTasksByType(Project $project, int $type)
+    {
+        $query = $this->getEntityManager()->createQuery('
+                SELECT DISTINCT t
+                FROM App\Entity\Project p
+                JOIN App\Entity\Task t
+                WHERE t.project = :project
+                AND t.type = :type
+                ORDER BY t.createdAt DESC
+            ')
+            ->setParameters([
+                'project' => $project,
+                'type'    => $type
             ])
         ;
 

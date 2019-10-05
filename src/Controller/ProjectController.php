@@ -405,7 +405,7 @@ class ProjectController extends AbstractController
 
         $offset = $request->request->get('offset');
         $type   = $request->request->get('type');
-        $tasks  = $rep->findAllTasksByType($project, $type, $offset);
+        $tasks  = $rep->findAllTasksByTypeLimit($project, $type, $offset);
 
         $render = $this->render('project/_task_content.html.twig',[
             'project' => $project,
@@ -523,9 +523,14 @@ class ProjectController extends AbstractController
         $todolist_progress = $todolist_total != 0 ? ($todolist_done / $todolist_total * 100) : 0;
 
         // Get all task by type
-        $process   = $repproject->findAllTasksByType($project, Task::PROCESSING);
-        $todolist  = $repproject->findAllTasksByType($project, Task::TODOLIST);
-        $completed = $repproject->findAllTasksByType($project, Task::COMPLETED);
+        $process   = $repproject->findAllTasksByTypeLimit($project, Task::PROCESSING);
+        $todolist  = $repproject->findAllTasksByTypeLimit($project, Task::TODOLIST);
+        $completed = $repproject->findAllTasksByTypeLimit($project, Task::COMPLETED);
+
+        // Get all task by type total
+        $processTotal   = count($repproject->findAllTasksByType($project, Task::PROCESSING));
+        $todolistTotal  = count($repproject->findAllTasksByType($project, Task::TODOLIST));
+        $completedTotal = count($repproject->findAllTasksByType($project, Task::COMPLETED));
 
         // Project datas
         $total = $reptask->getTotalSubtask($project);
@@ -533,13 +538,16 @@ class ProjectController extends AbstractController
         $progress = $total != 0 ? ($done / $total * 100) : 0;
 
         return $this->render('project/show.html.twig', [
-            'project'     => $project,
-            'process'     => $process,
-            'todolist'    => $todolist,
-            'progress'    => $progress,
-            'completed'   => $completed,
-            'form'        => $form->createView(),
-            'formCorrect' => $formCorrect->createView(),
+            'project'           => $project,
+            'process'           => $process,
+            'processTotal'      => $processTotal,
+            'todolist'          => $todolist,
+            'todolistTotal'     => $todolistTotal,
+            'completed'         => $completed,
+            'completedTotal'    => $completedTotal,
+            'progress'          => $progress,
+            'form'              => $form->createView(),
+            'formCorrect'       => $formCorrect->createView(),
             'process_progress'  => $process_progress,
             'todolist_progress' => $todolist_progress
         ]);

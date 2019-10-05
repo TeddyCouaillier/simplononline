@@ -15,7 +15,7 @@
         <div class="progress bg-white my-2">
             <div class="progress-bar status-{{ project.progressColor(process_progress) }}" role="progressbar" style="width: {{process_progress}}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        {{ template.task(process, project, 0) }}
+        {{ template.task(process, project, 0, processTotal) }}
         {% else %}
         <div class="text-center bold py-2">Pas de contenu. <br><i class="fal fa-times-hexagon icon-md"></i></div>
         {% endif %}
@@ -27,7 +27,7 @@
         <div class="progress bg-white my-2">
             <div class="progress-bar status-{{ project.progressColor(todolist_progress) }}" role="progressbar" style="width: {{todolist_progress}}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        {{ template.task(todolist, project, 1) }}
+        {{ template.task(todolist, project, 1, todolistTotal) }}
         {% else %}
         <div class="text-center bold py-2">Pas de contenu. <br><i class="fal fa-times-hexagon icon-md"></i></div>
         {% endif %}
@@ -36,7 +36,7 @@
     <div class="container-grey mb-3">
         <span class="bold">Completed</span>
         {% if completed is not empty %}
-        {{ template.task(completed, project, 2) }}
+        {{ template.task(completed, project, 2, completedTotal) }}
         {% else %}
         <div class="text-center bold py-2">Pas de contenu. <br><i class="fal fa-times-hexagon icon-md"></i></div>
         {% endif %}
