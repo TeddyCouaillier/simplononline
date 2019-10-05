@@ -17,7 +17,7 @@ class TrainingCourseType extends ApplicationType
         $builder
             ->add('society', TextType::class,     $this->getConfiguration(null,'Nom de la société'))
             ->add('place',   TextType::class,     $this->getConfiguration(null,'Lieu du stage'))
-            ->add('project', TextareaType::class, $this->getConfiguration('Détail du stage','Projet pendant le stage, entretien à telle date, autres ...', ['required' => false]))
+            ->add('project', TextareaType::class, $this->getConfiguration('', '500 caractères maximum', ['required' => false]))
             ->add('status',  ChoiceType::class, [
                 'label'       => 'Etat du stage',
                 'choices'     => TrainingCourse::STATUS,

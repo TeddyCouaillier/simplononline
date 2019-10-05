@@ -175,7 +175,7 @@ $('.help-all_cats span').click(function() {
 
 });
 
-$('.training-project-toggle').on('click',function(){
+$(document).on('click','.training-project-toggle', function(){
     $(this).parent().parent().find('.training-project').fadeToggle(500);
     $(this).parent().find('.chevron').toggleClass('down');
 
@@ -261,7 +261,6 @@ $(document).on('click', '.promo-show', function() {
     const promo = $(this).data('promo');
     const container = $('body').find(promo);
     const promoid = $(container).attr('id');
-    console.log(promoid);
     $(this).addClass('active');
     $(container).fadeIn(function (){
         $([document.documentElement, document.body]).animate({

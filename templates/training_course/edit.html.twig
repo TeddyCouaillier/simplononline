@@ -33,7 +33,6 @@
 {% block _training_course_user_trainingCourse_entry_widget %}
 <div class="container-white mb-2 trainings" id="block_{{id}}">
     <div class="row my-1 user-add-training">
-
         <div class="input-group col-md-4 col-sm-12 my-1">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
@@ -46,7 +45,6 @@
             </div>
             {{ form_widget(form.place) }}
         </div>
-
         <div class="col-md-4 col-sm-12 my-1">{{ form_widget(form.status) }}</div>
     </div>
     <div>
@@ -54,7 +52,7 @@
             <span class="text-grey training-project-toggle pointer">Gérer la description <i class="far fa-chevron-down chevron"></i></span>
         </div>
         <div class="p-2 training-project">
-            {{ form_widget(form.project) }}
+            {{ form_widget(form.project, { 'attr': { 'maxlength' : 500 } }) }}
         </div>
     </div>
 </div>

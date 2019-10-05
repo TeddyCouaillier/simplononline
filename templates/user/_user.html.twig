@@ -181,7 +181,7 @@
     <div class="container-white shadow-small user-trainings">
         {% if user.trainingCourse is not empty %}
             <div class="p-2">
-                {% for training in user.trainingCourse|slice(0,5) %}
+                {% for training in user.trainingCourse|slice(0,10) %}
                     <div class="row flex align-baseline py-1 px-2">
                         <div class="col-md-1 col-sm-1">
                             <i tabindex="0" class="fal fa-info-circle detail-icon rhover" data-toggle="popover" data-trigger="focus" data-html="true" data-container="body" data-placement="top"
