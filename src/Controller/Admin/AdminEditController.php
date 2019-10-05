@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Codeblock;
 use App\Entity\Data;
 use App\Entity\Help;
 use App\Entity\Skills;
@@ -9,6 +10,7 @@ use App\Entity\Project;
 use App\Entity\Language;
 use App\Entity\UserData;
 use App\Entity\Correction;
+use App\Entity\Game;
 use App\Entity\UserDeadline;
 use App\Form\Data\DataType;
 use App\Form\Help\HelpType;
@@ -190,11 +192,24 @@ class AdminEditController extends AbstractController
      * @param HelpRepository $rep
      * @return Response
      */
-    public function deleteLanguage(Language $language, ObjectManager $manager, HelpRepository $rep)
+    public function deleteLanguage(Language $language, ObjectManager $manager)
     {
-        $helps = $rep->findBy(['language' => $language]);
+        $repc = $this->getDoctrine()->getRepository(Codeblock::class);
+        $reph = $this->getDoctrine()->getRepository(Help::class);
+        $repg = $this->getDoctrine()->getRepository(Game::class);
+
+        $helps = $reph->findBy(['language' => $language]);
+        $codes = $repc->findBy(['language' => $language]);
+        $games = $repg->findBy(['language' => $language]);
+
         foreach($helps as $help){
             $help->setLanguage(null);
+        }
+        foreach($codes as $code){
+            $code->setLanguage(null);
+        }
+        foreach($games as $game){
+            $game->setLanguage(null);
         }
         $manager->remove($language);
         $manager->flush();

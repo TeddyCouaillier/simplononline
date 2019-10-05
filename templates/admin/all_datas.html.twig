@@ -60,9 +60,9 @@
         <div class="container-white shadow-small w-flex flexc text-center my-1">
           <span class="bold">{{ data.label }}</span>
           <div class="text-center mt-auto">
-              <button class="btn text-grey bhover shadow-small w-33 edit-data"
+              <button class="btn text-grey bhover shadow-small w-33 edit-data" id="edit-skill-base"
               data-url="{{path('admin_data_edit',{'id': data.id}) }}" data-toggle="modal" data-target="#edit-data-{{data.id}}">
-                  Modifier
+                  <span class="edit-skill-base">Modifier</span><i class="fas fa-pen edit-skill-mq d-none"></i>
               </button>
               <button type="button" class="btn text-grey rhover shadow-small" data-toggle="modal" data-target="#modal-data-{{data.id}}" aria-label="Supprimer"><i class="fal fa-times-circle"></i></button>
           </div>
@@ -90,7 +90,7 @@
       {% for role in roles %}
         {% for urole in role.userroles %}
           {{ template.deleteConfirm('role-'~role.id,path('admin_role_remove',{'id':role.id, 'id_role': urole.id})) }}
-          <div class="container-white shadow-small bold rhover" data-toggle="modal" data-target="#modal-role-{{role.id}}">
+          <div class="container-white shadow-small bold rhover my-1" data-toggle="modal" data-target="#modal-role-{{role.id}}">
             <span>{{ role }}</span> - <span class="text-red">{{ urole }}</span>
             <i class="fal fa-times-circle ml-2"></i>
           </div>

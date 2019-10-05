@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -19,6 +20,7 @@ class BriefController extends AbstractController
     /**
      * Create a new brief
      * @Route("/nouveau", name="new")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Request       $request
      * @param ObjectManager $manager
      * @return Response
@@ -28,7 +30,7 @@ class BriefController extends AbstractController
         $brief = new Brief($this->getUser());
         $form = $this->createFormBuilder($brief)
                      ->add('title',null,['attr' => ['placeholder' => 'Libellé du brief']])
-                     ->add('link',UrlType::class,['attr' => ['placeholder' => 'Lien additionnel']])
+                     ->add('link',UrlType::class,['attr' => ['placeholder' => 'Lien additionnel'], 'required' => false])
                      ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -57,6 +59,7 @@ class BriefController extends AbstractController
     /**
      * Edit a specific brief
      * @Route("/{slug}/modifier", name="edit")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Brief         $brief
      * @param Request       $request
      * @param ObjectManager $manager
@@ -97,6 +100,7 @@ class BriefController extends AbstractController
     /**
      * Delete a specific brief
      * @Route("/{slug}/supprimer", name="delete")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Brief         $brief
      * @param ObjectManager $manager
      * @return Response
@@ -119,6 +123,7 @@ class BriefController extends AbstractController
     /**
      * Show all brief
      * @Route("/tout", name="all")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param BriefRepository $rep
      * @return Response
      */
@@ -132,6 +137,7 @@ class BriefController extends AbstractController
     /**
      * Show a specific brief
      * @Route("/{slug}", name="show")
+     * @Security("is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')")
      * @param Brief $brief
      * @return Response
      */

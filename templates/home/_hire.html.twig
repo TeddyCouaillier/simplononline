@@ -16,56 +16,55 @@
 
 <div class="flex wrap just-around my-5">
     {% for promo in promos | reverse %}
-        <div class="bg-white shadow-small text-center mb-3 p-1 w-33 all-promo">
-            {% if promo.current %}
-            <div class="position-absolute">
-                <div class="bg-red text-white text-uppercase bold py-2 px-3">
-                    En cours
-                </div>
-            </div>
-            {% endif %}
-            <div class="mt-3 mb-1 p-4">
-                <h2>{{ promo.label }}</h2>
-                <ul>
-                    <li>Formateur :
-                        <em>
+        <div class="header-main bg-white shadow">
+                <div class="shadow-sm flex bg-body just-center align-center avatar-md"><i class="fas fa-users text-large"></i></div>
+                <p class="text-medium mt-1 bold">
+                    {{ promo }}
+                </p>
+                <p class="text-center text-small text-grey">
+                    {{ promo.nickname|default('Aucun surnom') }}
+                </p>
+                <hr class="w-100 my-2">
+                <p class="text-center" style="font-size: .95em">
+                    <span class="text-small bold">Formateurs</span><br>
+                    <em>
                         {% for former in promo.formers %}
-                            {{ former }} &nbsp;
+                            {{ former }} &nbsp;<br>
                         {% else %}
-                            Aucun
+                            Aucun<br>
                         {% endfor %}
-                        </em>
-                    </li>
-                    <li>Médiateur :
-                        <em>
+                    </em>
+                    <span class="text-small bold">Médiateurs</span><br>
+                    <em>
                         {% for mediator in promo.mediators %}
                             {{ mediator }} &nbsp;
                         {% else %}
-                            Aucun
+                            Aucun<br>
                         {% endfor %}
-                        </em>
-                    </li>
-                </ul>
-                <hr>
-                {% if promo.startAt is null %}{% set start = 'Pas commencée' %}
-                {% else %}{% set start = promo.startAt|date('d/m/Y') %}
-                {% endif %}
-
-                {% if promo.endAt is null %}{% set end = 'Pas terminée' %}
-                {% else %}{% set end = promo.endAt|date('d/m/Y') %}
-                {% endif %}
-
-                <p class="text-grey">
-                    {% if promo.startAt is null and promo.endAt is null %}
-                        Dates non-définies
-                    {% else %}
-                        {{ start }} - {{ end }}
-                    {% endif %}
+                    </em>
                 </p>
 
-                <div class="rhover bold mt-1 promo-show" data-promo="#promo-{{promo.id}}"><i class="fal fa-arrow-circle-right icon-sm"></i></div>
+
+                    {% set startAt = promo.startAt|date('d/m/Y') %}
+                    {% set endAt   = promo.endAt|date('d/m/Y') %}
+                    {% if promo.startAt is null %}
+                    {% set startAt = '--/--/----' %}
+                    {% endif %}
+                    {% if promo.endAt is null %}
+                    {% set endAt = '--/--/----' %}
+                    {% endif %}
+<p class="text-grey text-small my-1">{{startAt}} &nbsp; {{endAt}}</p>
+
+                {% if promo.current %}
+                <div class="header-label">En cours</div>
+                {% endif %}
+
+                <hr class="w-100 my-2">
+
+                <p class="text-grey bhover promo-show" data-promo="#promo-{{promo.id}}" aria-label="Voir la promotion">
+                    Voir la promotion
+                </p>
             </div>
-        </div>
     {% endfor %}
 </div>
 

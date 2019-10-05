@@ -44,6 +44,9 @@
 
     .notif-content{ width: 100% !important; }
     .notif-info{ width: 100%; text-align: center; margin: -10px 0 5px 0 !important;}
+
+    .edit-skill-base{ display: none !important; }
+    .edit-skill-mq{ display: block !important; }
 }
 
 @media screen and (max-width: 577px){

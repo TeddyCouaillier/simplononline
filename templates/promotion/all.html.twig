@@ -25,7 +25,7 @@
                 {{ template.deleteConfirm(promo.id,path('admin_promo_delete',{'id':promo.id})) }}
                 {{ template.modalPromotion('modal-promo-edit-'~promo.id) }}
             {% endif %}
-            <div class="header bg-white shadow-small">
+            <div class="header-main bg-white shadow-small">
                 <div class="shadow-sm flex bg-body just-center align-center avatar-md"><i class="fas fa-users text-large"></i></div>
                 <p class="text-medium mt-1 bold">
                     {{ promo }}
@@ -76,7 +76,7 @@
                     {% endif %}
                 {% else %}
                     {% if access %}
-                    <div class="header-label pointer promocurrent" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">Activer</div>
+                    <div class="header-label pointer promocurrent inactive" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">Activer</div>
                     {% endif %}
                 {% endif %}
 

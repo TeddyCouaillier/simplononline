@@ -211,18 +211,19 @@ class UserController extends AbstractController
 
         return $this->render('game/all.html.twig', [
             'pagination' => $pagination,
+            'page'       => $page,
             'form'       => $form->createView()
         ]);
     }
 
     /**
      * Delete a specific game
-     * @Route("/games/{id}/delete", name="game_delete")
+     * @Route("/games/{id}/delete/{page}", name="game_delete")
      * @param Game          $game
      * @param ObjectManager $manager
      * @return Response
      */
-    public function deleteGame(Game $game, ObjectManager $manager)
+    public function deleteGame(Game $game, int $page = 1, ObjectManager $manager)
     {
         $manager->remove($game);
         $manager->flush();
@@ -232,7 +233,7 @@ class UserController extends AbstractController
             'Le jeu a bien été supprimé.'
         );
 
-        return $this->redirectToRoute('user_game');
+        return $this->redirectToRoute('user_game',['page'=>$page]);
     }
 
     /**

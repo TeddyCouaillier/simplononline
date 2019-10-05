@@ -211,7 +211,7 @@ class AdminUserController extends AbstractController
     public function allUsersActive(int $page, Pagination $pagination)
     {
         $pagination->setEntity(User::class)
-                   ->setLimit(30)
+                   ->setLimit(60)
                    ->setPage($page);
 
         return $this->render('admin/users_active.html.twig', [

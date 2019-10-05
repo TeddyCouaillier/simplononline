@@ -20,8 +20,8 @@
     <hr>
     <div class="flex wrap just-center align-content-stretch games">
     {% for game in pagination.data %}
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') or game.publisher == app.user %}
-        {{ template.deleteConfirm(game.id,path('user_game_delete',{'id': game.id})) }}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') or game.publisher == app.user %}
+        {{ template.deleteConfirm(game.id,path('user_game_delete',{'id': game.id,'page': page})) }}
         {{ template.modal("modal-edit-"~game.id) }}
         {% endif %}
         <div class="container-white shadow-small flexc m-1 h-auto games-container" style="width: 32%">
@@ -32,7 +32,9 @@
                 Publié par {{ game.publisher }} le {{ game.publishedAt | date('d/m/Y') }}
             </p>
             <p class="flex align-center">
-                <span class="badge badge-pill badge-danger my-1">{{ game.language.label }}</span>
+                {% if game.language is not null %}
+                <span class="badge badge-pill badge-danger my-1">{{ game.language }}</span>
+                {% endif %}
                 {% if game.github is not null %}
                 <a href="{{ game.github }}" class="text-small text-grey ml-2 mr-1" target="_blank" rel="noreferrer" aria-label="Github">
                     <i class="fal fa-code-branch"></i>
@@ -43,7 +45,7 @@
                 </a>
             </p>
             <div class="mt-auto flex just-between align-center text-grey text-small" style="bottom: 0; right: 0">
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATOR') or game.publisher == app.user %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') or game.publisher == app.user %}
                     <p class="mt-1">
                         <span class="mx-1">
                             <i class="fal fa-times-circle rhover" data-toggle="modal" data-target="#modal-{{game.id}}"></i>
