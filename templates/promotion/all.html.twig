@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+    {{ template.checkMessage(form) }}
     {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
     <div class="flex just-between align-center">
         <h1 class="w-75">Liste des promotions</h1>
@@ -79,41 +80,42 @@
                     <div class="header-label pointer promocurrent inactive" data-promourl="{{path('admin_promo_active',{'id':promo.id}) }}">Activer</div>
                     {% endif %}
                 {% endif %}
-
-                <hr class="w-100 my-2">
-
-                <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="text-grey bhover" aria-label="Voir la promotion">
-                    Voir la promotion
-                </a>
-                {% if access %}
+                <div class="mt-auto text-center">
                     <hr class="w-100 my-2">
-                    <div class="row mx-auto text-center mb-2">
-                        <div class="col-3">
-                            <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" aria-label="Ajouter des utilisateurs" data-toggle="tooltip"
-                            data-placement="top" title="Ajouter des apprenants">
-                                <i class="fal fa-user-plus text-grey text-medium bhover"></i>
-                            </a>
+
+                    <a href="{{ path('promo_show',{'slug': promo.slug}) }}" class="text-grey bhover" aria-label="Voir la promotion">
+                        Voir la promotion
+                    </a>
+                    {% if access %}
+                        <hr class="w-100 my-2">
+                        <div class="row mx-auto text-center mb-2">
+                            <div class="col-3">
+                                <a class="text-grey bhover" href="{{ path('admin_promo_users',{'slug': promo.slug}) }}" aria-label="Ajouter des utilisateurs" data-toggle="tooltip"
+                                data-placement="top" title="Ajouter des apprenants">
+                                    <i class="fal fa-user-plus text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" aria-label="Modifier la promotion" data-toggle="modal" 
+                                data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
+                                    <i class="fas fa-pencil text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" aria-label="Voir la promotion" data-toggle="tooltip"
+                                    data-placement="top" title="Afficher les apprenants">
+                                    <i class="far fa-eye text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{promo.id}}" data-toggle="tooltip"
+                                    data-placement="top" title="Supprimer">
+                                    <i class="fal fa-times-circle text-grey text-medium bhover"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <a class="text-grey bhover promo-edit" data-url="{{ path('admin_promo_edit',{'id':promo.id}) }}" aria-label="Modifier la promotion" data-toggle="modal" 
-                            data-target="#modal-promo-edit-{{promo.id}}" data-toggle="tooltip" data-placement="top" title="Modifier la promotion">
-                                <i class="fas fa-pencil text-grey text-medium bhover"></i>
-                            </a>
-                        </div>
-                        <div class="col-3">
-                            <a class="text-grey bhover promo-edit" href="{{ path('promo_show',{'slug': promo.slug }) }}" aria-label="Voir la promotion" data-toggle="tooltip"
-                                data-placement="top" title="Afficher les apprenants">
-                                <i class="far fa-eye text-grey text-medium bhover"></i>
-                            </a>
-                        </div>
-                        <div class="col-3">
-                            <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{promo.id}}" data-toggle="tooltip"
-                                data-placement="top" title="Supprimer">
-                                <i class="fal fa-times-circle text-grey text-medium bhover"></i>
-                            </a>
-                        </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>

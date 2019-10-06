@@ -62,7 +62,16 @@ $(document).on('click','.edit-task',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="modal-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
@@ -80,12 +89,20 @@ $(document).on('click','.edit-task',function(){
                     </script>
                 `);
             } else {
-                $('.modal[id*="modal-edit-"] .modal-body').html("");
-                $(modal).find('.modal-body').append('Access denied');
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX task error');
+            $('.modal[id*="modal-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -143,7 +160,16 @@ $(document).on('click','.promo-edit',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="modal-promo-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
@@ -155,11 +181,20 @@ $(document).on('click','.promo-edit',function(){
                     </script>
                 `);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX promotion error');
+            $('.modal[id*="modal-promo-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -189,7 +224,7 @@ $(document).on('click','.see-more-task', function(){
                     $(qqch).parent().remove();
                 }
             } else {
-                Notify("Lien mort","warning");
+                Notify("Acces refusé","warning");
             }
         },
         error: function(){
@@ -211,7 +246,13 @@ $(document).on('click','.promocurrent', function() {
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $(check).html(`
+            <div class="spinner-border spinner-border-sm text-white" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            `)
+        },
         success: function(){
             $(check).html('En cours');
             $(check).removeClass('inactive');
@@ -229,18 +270,36 @@ $(document).on('click','.edit-data',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="edit-data-"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
                 $('.modal[id*="edit-data-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX data error');
+            $('.modal[id*="edit-data-"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -252,18 +311,36 @@ $(document).on('click','.edit-skill',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="edit-skill-"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
                 $('.modal[id*="edit-skill-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX skill error');
+            $('.modal[id*="edit-skills"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -275,18 +352,36 @@ $(document).on('click','.add-project-correction',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="add-project-task"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
                 $('.modal[id*="add-project-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX correction error');
+            $('.modal[id*="add-project-task"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -298,7 +393,16 @@ $(document).on('click','.add-project-task',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="add-project-task"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
@@ -316,11 +420,20 @@ $(document).on('click','.add-project-task',function(){
                 </script>
                 `);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX project task error');
+            $('.modal[id*="add-project-task"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -332,7 +445,16 @@ $(document).on('click','.edit-project',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="edit-project"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
@@ -344,11 +466,20 @@ $(document).on('click','.edit-project',function(){
                     </script>
                 `);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX project error');
+            $('.modal[id*="edit-project"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -360,18 +491,36 @@ $(document).on('click','.edit-correction',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="edit-correction"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
                 $('.modal[id*="edit-correction"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Acces refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX edit correction error');
+            $('.modal[id*="edit-correction"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });
@@ -404,7 +553,6 @@ $(document).on('click','.remove-file', function() {
     $.ajax({
         url: url,
         type: "POST",
-
         success: function(){
             let counterFinal = counter - 1;
             $(counterContainer).data('counter',counterFinal);
@@ -447,18 +595,36 @@ $(document).on('click','.game-edit',function(){
     $.ajax({
         url: url,
         type: "POST",
-
+        beforeSend: function(){
+            $('.modal[id*="modal-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').append(`
+                <div class="h-100 w-100 flex just-center align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            `);
+        },
         success: function(response){
             if (url !== undefined)
             {
                 $('.modal[id*="modal-edit-"] .modal-body').html("");
                 $(modal).find('.modal-body').append(response.render);
             } else {
-                Notify("Lien mort","warning");
+                Notify("Accès refusé","warning");
             }
         },
         error: function(){
             console.log('AJAX game error');
+            $('.modal[id*="modal-edit-"] .modal-body').html("");
+            $(modal).find('.modal-body').html(`
+            <div class="h-100 w-100 flex just-center align-center">
+                <p class="text-large text-center my-5">
+                    <i class="fal fa-times-hexagon text-large"></i><br>
+                    Une erreur est survenue.
+                </p>
+            </div>
+            `);
             Notify("Problème technique.","danger");
         }
     });

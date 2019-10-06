@@ -6,6 +6,7 @@
 {% form_theme form _self %}
 
 {% block body %}
+    {{ template.checkMessage(form) }}
     <h1>Modification des données</h1>
     <span class="text-grey">{{ user }}</span>
     <hr>

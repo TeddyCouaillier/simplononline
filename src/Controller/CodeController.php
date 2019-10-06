@@ -80,7 +80,7 @@ class CodeController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Le code a bien été ajouté'
+                'Le code a bien été modifié'
             );
 
             return $this->redirectToRoute('code_all');

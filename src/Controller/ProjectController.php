@@ -238,14 +238,6 @@ class ProjectController extends AbstractController
                 }
             }
 
-            if($project->getCompleted() && $project->getEndAt() == null){
-                $project->setEndAt(new \DateTime());
-            }
-
-            if(!$project->getCompleted() && $project->getEndAt() != null){
-                $project->setEndAt(null);
-            }
-
             $manager->persist($project);
             $manager->flush();
 
