@@ -236,7 +236,7 @@ class AccountController extends AbstractController
         if($user == null){
             $user = $this->getUser();
         }
-        if($user == $this->getUser() && ($this->isGranted(User::ADMIN) || $this->isGranted(User::MEDIATEUR))){
+        if($user == $this->getUser() && ($this->isGranted(User::FORMER) || $this->isGranted(User::MEDIATEUR))){
             return $this->redirectToRoute('admin_account');
         }
         if($request->query->get('seen') != null){

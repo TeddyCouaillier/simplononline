@@ -158,7 +158,19 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->join('p.users','u')
             ->andWhere('u.promotion = :promo')
-            ->andWhere('p.completed = false')
+            ->setParameter('promo', $promo)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    public function findAllProjectCompletedByPromo(Promotion $promo)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.users','u')
+            ->andWhere('u.promotion = :promo')
+            ->andWhere('p.completed = true')
             ->setParameter('promo', $promo)
             ->getQuery()
             ->getResult()

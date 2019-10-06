@@ -42,7 +42,7 @@
     {% endif %}
     <div class="flex wrap just-around">
         {% for user in promo.users %}
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}
+            {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}
             {{ template.deleteConfirm(user.id,path('admin_promo_remove_user',{'slug':user.slug})) }}
             {% endif %}
             <div class="container-white row shadow-small my-2 w-flex user-container">
@@ -61,7 +61,7 @@
                         {% else %}
                         <em><i class="fal fa-code-branch text-center"></i></em>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}
+                        {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}
                         <a class="text-red rhover ml-1" target="_blank" rel="noreferrer" aria-label="Remove" data-toggle="modal" data-target="#modal-{{user.id}}"><i class="fal fa-times-circle text-center"></i></a>
                         {% endif %}
                     </p>

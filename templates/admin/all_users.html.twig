@@ -97,12 +97,16 @@
                     <p class="main-title"><span class="bg-white px-3">Modifier</span></p>
                 </div>
                 <div class="col-12 row text-center mx-auto my-1">
+                    {% if is_granted('ROLE_MEDIATEUR') == false or is_granted('ROLE_FORMER') %}
                     <div class="col-2">
                         <a class="text-grey bhover" href="{{ path('admin_edit_skills',{'slug': user.slug }) }}" aria-label="Compétences" data-toggle="tooltip"
                         data-placement="top" title="Modifier les compétences">
                             <i class="fal fa-tasks text-grey text-medium bhover"></i>
                         </a>
                     </div>
+                    {% else %}
+                    <div class="col-1"></div>
+                    {% endif %}
                     <div class="col-2">
                         <a class="text-grey bhover" href="{{ path('admin_user_data_edit',{'slug': user.slug}) }}" aria-label="Données" data-toggle="tooltip"
                         data-placement="top" title="Modifier les données">
@@ -133,6 +137,9 @@
                             <i class="fal fa-times-circle text-medium text-grey bhover"></i>
                         </a>
                     </div>
+                    {% if is_granted('ROLE_MEDIATEUR') or is_granted('ROLE_FORMER') == false %}
+                    <div class="col-1"></div>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}

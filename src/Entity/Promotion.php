@@ -273,7 +273,7 @@ class Promotion
         $formers = [];
         foreach($this->moderators as $moderator){
             foreach($moderator->getRoles() as $role){
-                if($role === User::ADMIN){
+                if($role === User::FORMER){
                     $formers[] = $moderator;
                 }
             }

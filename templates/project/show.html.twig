@@ -18,7 +18,7 @@
     <div class="px-5 project">
         <div class="flex just-between project-title">
             <h1>{{ project }}</h1>
-            {% if is_granted('ROLE_ADMIN') or project.moderator == app.user %}
+            {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
             <a href="{{ path('project_edit',{'slug': project.slug}) }}" class="button-edit" aria-label="Modifier le projet"><i class="fal fa-pen bold"></i></a>
             {% endif %}
         </div>

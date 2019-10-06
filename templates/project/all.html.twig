@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block stylesheets %}
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_FORMER') %}
 <link rel="stylesheet" href="{{ asset('build/css/libraries/bootstrap-select.css') }}">
 {% endif %}
 <link rel="stylesheet" href="{{ asset('build/css/project/main.css') }}">
 {% endblock %}
 
 {% block body %}
-    {% set access = is_granted('ROLE_ADMIN') %}
+    {% set access = is_granted('ROLE_FORMER') %}
 
     <div class="flex wrap just-between align-center">
         <h1>
@@ -52,7 +52,7 @@
         </div>
         {% endif %}
     </div>
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_FORMER') %}
     <a href="{{ path('admin_all_corrections') }}" class="text-medium text-grey bhover" aria-label="Voir les corrections">Voir les corrections</a>
     {% endif %}
 
@@ -201,7 +201,7 @@
 {% block modal %}{% endblock %}
 
 {% block libraries %}
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_FORMER') %}
 {{ encore_entry_script_tags('js/libraries/bootstrap-select') }}
 {% endif %}
 {% endblock %}

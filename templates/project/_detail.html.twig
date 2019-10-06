@@ -45,7 +45,7 @@
                         <i class="fal fa-star text-small text-red bold ml-1"></i>
                     {% endif %}
                 </div>
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMER') or project.moderator == app.user %}
+                {% if is_granted('ROLE_FORMER') or project.moderator == app.user %}
                 <div style="width: 12%">
                     <button type="button" class="btn" data-toggle="modal" data-target="#modal-remove-user-{{user.id}}" aria-label="Supprimer"><i class="fal fa-times-circle"></i></button>
                 </div>

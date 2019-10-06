@@ -139,7 +139,7 @@ class AppFixtures extends Fixture
 
         // User role section
         $adminRole = new Role();
-        $adminRole->setTitle(User::ADMIN);
+        $adminRole->setTitle(User::FORMER);
         $adminRole->addUser($admin);
         $manager->persist($adminRole);
         $adminMediateur = new Role();

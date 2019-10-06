@@ -24,11 +24,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 class User implements AdvancedUserInterface
 {
     const USER      = 'ROLE_USER';
-    const ADMIN     = 'ROLE_ADMIN';
     const FORMER    = 'ROLE_FORMER';
     const MEDIATEUR = 'ROLE_MEDIATEUR';
     const ROLES     = [
-        'Administrateur' => self::ADMIN,
         'Formateur'      => self::FORMER,
         'Médiateur'      => self::MEDIATEUR
     ];

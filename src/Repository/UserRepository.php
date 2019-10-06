@@ -161,6 +161,23 @@ class UserRepository extends ServiceEntityRepository
 
     /**
      * Find all users with a role
+     * @return User[]
+     */
+    public function findAllPromoEdit(Promotion $promo)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRoles', 'ur')
+            ->leftJoin('u.promotionmod', 'p')
+            ->andWhere('ur is not null')
+            ->orWhere('p = :promo')
+            ->setParameter('promo', $promo)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find all users with a role
      */
     public function getAllUserByRole()
     {

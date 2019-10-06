@@ -9,7 +9,9 @@
 {% endblock %}
 
 {% block body %}
+{% if user.trainingCourse is not empty and (user == app.user or is_granted('ROLE_MEDIATEUR')) %}
 {{ template.deleteConfirm('delete-trainings', path('user_delete_all_trainings',{'slug': user.slug}), 'Toutes vos propositions de stage seront supprimées') }}
+{% endif %}
 <div class="flex wrap just-between align-center">
     <h1>Liste des stages</h1>
     {% if app.user == user %}
@@ -18,10 +20,11 @@
 </div>
 <p class="text-small main-breadcrumb">
     <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
-    <span>Status des stages {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}de {{ user }}{% endif %}</span>
+    <span>Status des stages {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}de {{ user }}{% endif %}</span>
 </p>
 <hr>
 <div class="">
+    {% if user.trainingCourse is not empty and (user == app.user or is_granted('ROLE_MEDIATEUR')) %}
     <div class="w-100 text-right">
         <div class="mr-2 mb-2 text-small rhover">
             <a data-toggle="modal" data-target="#modal-delete-trainings">
@@ -29,7 +32,12 @@
             </a>
         </div>
     </div>
+    {% endif %}
     {% for training in user.trainingCourse %}
+        {% if user == app.user or is_granted('ROLE_MEDIATEUR') %}
+            {{ template.deleteConfirm(training.id, path('user_delete_training',{'id_user': user.id,'id': training.id})) }}
+        {% endif %}
+
         <div class="container-white shadow-small mb-2">
             <div class="row user-training">
                 <div class="col-md-5 col-sm-12">
@@ -48,6 +56,14 @@
             <div class="my-2 text-justify">
                 <em>{{ training.project|default('Pas de projet défini') }}</em>
             </div>
+            {% if user == app.user or is_granted('ROLE_MEDIATEUR') %}
+            <hr>
+            <div class="text-right text-grey">
+                <span class="mx-1">
+                    <i class="fal fa-times-circle rhover" data-toggle="modal" data-target="#modal-{{training.id}}"></i>
+                </span>
+            </div>
+            {% endif %}
         </div>
     {% else %}
         <div class="py-3 text-center">

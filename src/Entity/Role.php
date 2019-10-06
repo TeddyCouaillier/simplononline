@@ -87,8 +87,6 @@ class Role
         $name = substr($this->title,$pos+1);
         $title = ucfirst(strtolower($name));
         switch($title){
-            case "Admin":
-                return 'Administrateur';
             case "Mediateur":
                 return 'Médiateur';
             case "Former":

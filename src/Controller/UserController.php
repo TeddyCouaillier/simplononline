@@ -78,6 +78,33 @@ class UserController extends AbstractController
     }
 
     /**
+     * Delete a specific training
+     * @Route("/stages/{id_user}/delete/{id}", name="delete_training")
+     * @Entity("user", expr="repository.find(id_user)")
+     * @param User           $user
+     * @param TrainingCourse $training
+     * @param ObjectManager  $manager
+     * @return Response
+     */
+    public function deleteTraining(User $user, TrainingCourse $training, ObjectManager $manager)
+    {
+        if($user == $this->getUser() || $this->isGranted('ROLE_MEDIATEUR')){
+            $manager->remove($training);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le stage a bien été supprimé'
+            );
+
+            if($this->isGranted('ROLE_MEDIATEUR')){
+                return $this->redirectToRoute('user_training_admin', ['slug' => $user->getSlug()]);
+            }
+        }
+        return $this->redirectToRoute('user_show_training');
+    }
+
+    /**
      * Edit the specific user's training courses (add, remove & edit training course)
      * @Route("/{slug}/stages/modifier", name="edit_training")
      * @param User          $user
@@ -130,32 +157,6 @@ class UserController extends AbstractController
         $this->addFlash(
             'success',
             'Les stages ont bien été supprimés.'
-        );
-
-        return $this->redirectToRoute('user_show_training');
-    }
-
-    /**
-     * Delete a specific training course posted by a specific user
-     * @Route("/{slug}/stages/{training_id}/supprimer", name="delete_training")
-     * @Entity("training", expr="repository.find(training_id)")
-     * @param User           $user
-     * @param TrainingCourse $training
-     * @param ObjectManager  $manager
-     * @return Response
-     */
-    public function deleteTrainingCourse(User $user, TrainingCourse $training, ObjectManager $manager)
-    {
-        if(!$this->isGranted('ROLE_FORMER') && !$this->isGranted('ROLE_MEDIATEUR') && $this->getUser() != $user){
-            throw new AccessDeniedHttpException();
-        }
-
-        $manager->remove($training);
-        $manager->flush();
-
-        $this->addFlash(
-            'success',
-            'Le stage a bien été supprimé.'
         );
 
         return $this->redirectToRoute('user_show_training');

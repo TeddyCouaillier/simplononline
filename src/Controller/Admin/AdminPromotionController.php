@@ -62,7 +62,7 @@ class AdminPromotionController extends AbstractController
         $render = $this->render('admin/edit.html.twig', [
             'form'       => $form->createView(),
             'promo'      => $promo,
-            'moderators' => $rep->findAllUserByRole()
+            'moderators' => $rep->findAllPromoEdit($promo)
         ]);
 
         $response = [ "render" => $render->getContent() ];

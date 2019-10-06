@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block body %}
-    {{ template.checkMessage(form) }}
-    {% set access = admin is defined and is_granted('ROLE_ADMIN') %}
+    {% set access = admin is defined and (is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR')) %}
+    {% if access %}{{ template.checkMessage(form) }}{% endif %}
     <div class="flex just-between align-center">
         <h1 class="w-75">Liste des promotions</h1>
         {% if access %}{{ template.add() }}{% endif %}
@@ -36,26 +36,16 @@
                 </p>
                 <hr class="w-100 my-2">
                 <p class="text-center" style="font-size: .95em">
-                    <span class="text-small bold">Formateurs</span><br>
-                    <em>
-                        {% for former in promo.formers %}
-                            {{ former }} &nbsp;<br>
-                        {% else %}
-                            Aucun<br>
-                        {% endfor %}
-                    </em>
-                    <span class="text-small bold">Médiateurs</span><br>
-                    <em>
-                        {% for mediator in promo.mediators %}
-                            {{ mediator }} &nbsp;
-                        {% else %}
-                            Aucun<br>
-                        {% endfor %}
-                    </em>
+                    <span class="text-small bold">Formateurs et médiateurs</span><br>
+                    {% for moderator in promo.moderators %}
+                        {{ moderator }} &nbsp;<br>
+                    {% else %}
+                        <span class="text-grey">Aucun</span><br>
+                    {% endfor %}
                 </p>
 
                 {% if access %}
-                    <p class="text-center text-grey">Apprenants : {{ promo.users|length}}</p>
+                    <p class="text-center text-grey text-small mt-2">Apprenants : {{ promo.users|length}}</p>
 
                     {% set startAt = promo.startAt|date('d/m/Y') %}
                     {% set endAt   = promo.endAt|date('d/m/Y') %}
@@ -66,7 +56,7 @@
                     {% set endAt = '--/--/----' %}
                     {% endif %}
 
-                    <p class="text-grey">{{startAt}} &nbsp; {{endAt}}</p>
+                    <p class="text-grey text-small">{{startAt}} &nbsp; {{endAt}}</p>
                 {% endif %}
 
                 {% if promo.current %}
@@ -131,7 +121,7 @@
 
 {% block modalTitle %}Ajouter une promotion{% endblock %}
 {% block modalBody %}
-    {% if admin is defined and is_granted('ROLE_ADMIN') %}
+    {% if admin is defined and (is_granted('ROLE_MEDIATEUR') or is_granted('ROLE_FORMER')) %}
     <div class="container-white">
         {{ form_start(form) }}
             <div class="mb-3">

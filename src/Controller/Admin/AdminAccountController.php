@@ -77,18 +77,18 @@ class AdminAccountController extends AbstractController
         $promo = $pjrp->findOneBy(['current' => true]);
 
         return $this->render('user/account.html.twig', [
-            'user' => $user,
-            'date' => new \DateTime(),
-            'form' => $form->createView(),
+            'user'  => $user,
+            'promo' => $promo,
+            'date'  => new \DateTime(),
+            'form'  => $form->createView(),
+            'schedules'   => $srep->findAllNow(),
+            'schedulesT'  => $srep->findAllFutures(),
             'projects'    => $promo == null ? null : $prep->findAllProjectByPromo($promo),
             'weather'     => $promo == null ? -1 : ceil($urep->findWeatherAvgByPromo($promo)),
-            'completed'   => $promo == null ? 0 : count($prep->findBy(['completed' => true])),
+            'completed'   => $promo == null ? 0 : count($prep->findAllProjectCompletedByPromo($promo)),
             'helps'       => $promo == null ? 0 : count($hrep->findAllHelpByPromo($promo)),
             'users'       => $promo == null ? 0 : count($urep->findBy(['promotion' => $promo])),
-            'corrections' => $promo == null ? 0 : count($crep->findAllCorrectionByPromo($promo)),
-            'promo'       => $promo,
-            'schedules'   => $srep->findAllNow(),
-            'schedulesT'  => $srep->findAllFutures()
+            'corrections' => $promo == null ? 0 : count($crep->findAllCorrectionByPromo($promo))
         ]);
     }
 

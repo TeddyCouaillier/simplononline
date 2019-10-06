@@ -11,7 +11,7 @@
 
 {% block body %}
 
-{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}
+{% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}
 {% include 'user/_admin.html.twig' %}
 {% else %}
 {% include 'user/_user.html.twig' %}

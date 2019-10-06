@@ -79,7 +79,7 @@
                     <span class="text-small"> {{ task.subtasksdone }} / {{ task.subtasks|length}} </span>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-1">
-                    {% if (project.completed == false and project.checkUserProject(app.user)) or is_granted('ROLE_ADMIN') %}
+                    {% if (project.completed == false and project.checkUserProject(app.user)) or is_granted('ROLE_FORMER') %}
                     <div class="subnav position-relative text-center px-1 text-greyl">
                         <i class="fas fa-ellipsis-v rhover"></i>
                         <div class="subnav-tooltip position-absolute text-center text-small text-grey shadow-small bg-white bold p-1">
