@@ -304,19 +304,33 @@ class AdminUserController extends AbstractController
      * @param User          $user
      * @param Role          $role
      * @param ObjectManager $manager
-     * @return Response
+     * @return Response/JsonResponse
      */
     public function removeUserRole(User $user, Role $role, ObjectManager $manager)
     {
         $role->removeUser($user);
         $manager->persist($role);
         $manager->flush();
-        $this->addFlash(
-            'success',
-            'Le role lié a '.$user->getFirstname().' bien été supprimé.'
-        );
 
-        return $this->redirectToRoute('admin_all_datas');
+        return new JsonResponse();
+    }
+
+    /**
+     * Add a specific role to a specific user
+     * @Route("/utilisateur/{id}/{id_role}/ajouter", name="role_add")
+     * @Entity("role", expr="repository.find(id_role)")
+     * @param User          $user
+     * @param Role          $role
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function addUserRole(User $user, Role $role, ObjectManager $manager)
+    {
+        $role->addUser($user);
+        $manager->persist($role);
+        $manager->flush();
+
+        return new JsonResponse();
     }
 
     /**

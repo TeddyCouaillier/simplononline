@@ -786,3 +786,34 @@ $(document).on('click','.active-user', function() {
         }
     });
 })
+
+$(document).on('click','.active-role', function() {
+    const check  = $(this);
+    const add    = $(this).data('add');
+    const remove = $(this).data('remove');
+
+    var url = remove;
+
+    if($(check).is(':checked')){
+        url = add;
+    }
+
+    $.ajax({
+        url: url,
+        type: "POST",
+
+        success: function(){
+            if($(check).is(':checked')){
+                $(check).prop("checked",true);
+                Notify("Le role a bien été ajouté","success");
+            } else {
+                $(check).prop("checked",false);
+                Notify("Le role a bien été enlevé","success");
+            }
+        },
+        error: function(){
+            console.log('AJAX active user error');
+            Notify("Problème technique.","danger");
+        }
+    });
+})

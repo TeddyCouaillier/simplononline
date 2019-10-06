@@ -177,13 +177,26 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all users with a role
+     * Get all users with a role
      */
     public function getAllUserByRole()
     {
         return $this->createQueryBuilder('u')
             ->leftJoin('u.userRoles', 'ur')
             ->andWhere('ur is not null')
+        ;
+    }
+
+    /**
+     * Find all users with a role
+     */
+    public function findAllUserRole()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRoles', 'ur')
+            ->andWhere('ur is not null')
+            ->getQuery()
+            ->getResult()
         ;
     }
 

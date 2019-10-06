@@ -1,4 +1,4 @@
-.main{ min-height: calc(100vh - 1.5rem - 290px); }
+.main{ min-height: calc(100vh - 1.5rem - 225px); }
 .main,footer{ width: 70%; }
 
 .pagination{
@@ -450,3 +450,10 @@ input[type="checkbox"].switch_base:checked:after {
     .list-link:hover{ opacity: 1; }
 }
 .list-title{ padding-left: .35em; font-size: .9em; }
+
+.role-list{
+    &:not(:last-child){ border-bottom: 1px solid #dadada; }
+    &:hover{
+        background: #f0f1f2;
+    }
+}

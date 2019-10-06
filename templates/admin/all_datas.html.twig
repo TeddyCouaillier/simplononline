@@ -19,12 +19,6 @@
             <span>Liste des briefs</span>
         </div>
       </a>
-      <a href="{{ path('code_all') }}" class="rhover" aria-label="Code">
-        <div class="container-white shadow-small m-1">
-            <i class="fal fa-file-code text-large"></i><br>
-            <span>Liste des codes</span>
-        </div>
-      </a>
       <a href="{{ path('user_game') }}" class="rhover" aria-label="Jeux">
         <div class="container-white shadow-small m-1">
             <i class="fal fa-gamepad text-large"></i><br>
@@ -35,6 +29,12 @@
         <div class="container-white shadow-small m-1">
           <i class="fal fa-user-friends text-large"></i><br>
           <span>Utilisateurs actifs</span>
+        </div>
+      </a>
+      <a href="{{ path('admin_all_roles') }}" class="rhover" aria-label="Code">
+        <div class="container-white shadow-small m-1">
+            <i class="fal fa-user-tie text-large"></i><br>
+            <span>Gestion des roles</span>
         </div>
       </a>
       <a class="rhover" data-toggle="modal" data-target="#modal-users" aria-label="Mot de passe utilisateurs">
@@ -80,21 +80,6 @@
           {{ language.label }}
           <i class="fal fa-times-circle"></i>
         </div>
-      {% endfor %}
-    </div>
-  </div>
-  <hr>
-  <div>
-    <p class="text-center h5 my-3 bold">Roles</p>
-    <div class="flex wrap just-around">
-      {% for role in roles %}
-        {% for urole in role.userroles %}
-          {{ template.deleteConfirm('role-'~role.id,path('admin_role_remove',{'id':role.id, 'id_role': urole.id})) }}
-          <div class="container-white shadow-small bold rhover my-1" data-toggle="modal" data-target="#modal-role-{{role.id}}">
-            <span>{{ role }}</span> - <span class="text-red">{{ urole }}</span>
-            <i class="fal fa-times-circle ml-2"></i>
-          </div>
-        {% endfor %}
       {% endfor %}
     </div>
   </div>

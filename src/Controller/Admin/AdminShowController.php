@@ -18,6 +18,7 @@ use App\Form\Skill\SkillType;
 use App\Repository\UserRepository;
 use App\Repository\SkillsRepository;
 use App\Form\Project\AddCorrectionType;
+use App\Repository\RoleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -166,6 +167,21 @@ class AdminShowController extends AbstractController
         return $this->render('admin/all_corrections.html.twig', [
             'form'        => $form->createView(),
             'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * Show all users (with a role or not)
+     * @Route("/roles", name="all_roles")
+     * @param UserRepository $rep
+     * @return Response
+     */
+    public function allRoles(UserRepository $urep, RoleRepository $rrep)
+    {
+        return $this->render('admin/all_roles.html.twig', [
+            'users'     => $urep->findBy([],["lastname" => "ASC"]),
+            'former'    => $rrep->findOneBy(["title" => User::FORMER]),
+            'mediateur' => $rrep->findOneBy(["title" => User::MEDIATEUR]),
         ]);
     }
 
