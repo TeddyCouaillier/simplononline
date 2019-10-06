@@ -152,5 +152,6 @@ main.home-main{ width: 90% !important; }
   width: 45%;
   height: 400px;
   transform: translateY(-200px);
+  span{ overflow: hidden; }
 }
 .user-title img{ margin-top: -75px; }

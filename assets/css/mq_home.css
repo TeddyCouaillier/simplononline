@@ -24,4 +24,7 @@
     .home-nav, .user-card, .header { padding: 0 !important; }
     .user-title, .main, .inscription p, .user-card{ width: 100% !important; }
     .project-content, .all-promo, .promo-users, .learn-section{ width: 90% !important; }
+    .home-brief{ width: 100% !important; }
+    .home-title{ display: none !important; }
+    .home-title-mq{ display: block !important; }
 }

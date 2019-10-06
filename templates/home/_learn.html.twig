@@ -1,3 +1,4 @@
+<hr>
 <div class="flex wrap just-around mx-0">
     <div class="flexc align-center text-center p-4 mx-1 my-2 shadow-small learn-section">
         <div class="rounded-circle p-2">
@@ -64,6 +65,7 @@
 
 <div class="mt-5 text-center inscription">
     <h3 class="home-title"><span class="bg-white px-3">Vous souhaitez vous inscrire ?</span></h3>
+    <h3 class="d-none home-title-mq">Vous souhaitez vous inscrire ?</h3>
     <p class="my-5 w-50 mx-auto">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia cum ullam reprehenderit dignissimos natus inventore unde praesentium eum distinctio, placeat, corporis quibusdam deserunt ipsa fuga, error veniam omnis sequi iste.
     </p>
@@ -77,10 +79,11 @@
 
 <div class="text-center my-5">
     <h4 class="home-title"><span class="bg-white px-3">Liste des briefs de la formation</span></h4>
+    <h4 class="d-none home-title-mq">Liste des briefs de la formation</h4>
 </div>
 <div class="flex wrap just-around">
 {% for brief in briefs %}
-    <a href="{{path('home_brief',{'slug':brief.slug})}}" class="container-white shadow-small flexc rhover just-center align-center my-2 w-flex">
+    <a href="{{path('home_brief',{'slug':brief.slug})}}" class="container-white shadow-small home-brief flexc rhover just-center align-center my-2 w-flex">
         <p class="bold text-center my-1">{{ brief }}</p>
         <span class="text-small">Publié par {{ brief.publisher }} le {{ brief.publishedAt|date('d/m/Y à H:i') }}</span>
     </a>
@@ -89,6 +92,7 @@
 
 <div class="text-center my-5">
     <h4 class="home-title"><span class="bg-white px-3">Nos partenaires</span></h4>
+    <h4 class="d-none home-title-mq">Nos partenaires</h4>
 </div>
 
 <div class="slider position-relative overflow-hidden bg-white w-100 mt-2 mx-auto">

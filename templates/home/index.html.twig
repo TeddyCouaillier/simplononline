@@ -69,38 +69,37 @@
         <main class="bg-white mx-auto p-5 mt-n2 home-main shadow-small" >
             {% block body %}
             <div class="row mx-0 h-75 mb-4 main-content">
-                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                <section class="col-md-6 col-sm-6 flexc just-center align-center">
                     <div class="text-center w-75 main-section">
                         <i class="fas fa-graduation-cap icon-md"></i>
                         <p class="h3 my-4">Voulez-vous<br><b>apprendre ?</b></p>
                     </div>
                     <a class="btn btn-home rounded bold pointer w-75 my-2 learn">Cliquez ici</a>
                 </section>
-                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                <section class="col-md-6 col-sm-6 flexc just-center align-center">
                     <div class="text-center w-75 main-section">
                         <i class="fas fa-handshake icon-md"></i>
                         <p class="h3 my-4">Voulez-vous<br><b>recruter ?</b></p>
                     </div>
                     <a class="btn btn-home rounded bold pointer w-75 my-2 hire">Cliquez ici</a>
                 </section>
-                <section class="col-md-4 col-sm-4 flexc just-center align-center">
+                {# <section class="col-md-4 col-sm-4 flexc just-center align-center">
                     <div class="text-center w-75 main-section">
                         <i class="fas fa-heart icon-md"></i>
                         <p class="h3 my-4">Voulez-vous<br><b>aider ?</b></p>
                     </div>
                     <a class="btn btn-home rounded bold pointer w-75 my-2 heart">Cliquez ici</a>
-                </section>
+                </section> #}
             </div>
-            <hr>
             <section class="learn-container mt-4">
                 {% include 'home/_learn.html.twig' %}
             </section>
             <section class="hire-container mt-4">
                 {% include 'home/_hire.html.twig' %}
             </section>
-            <section class="heart-container mt-4">
+            {# <section class="heart-container mt-4">
                 {% include 'home/_heart.html.twig' %}
-            </section>
+            </section> #}
             {% endblock %}
         </main>
 

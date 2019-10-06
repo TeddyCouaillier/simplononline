@@ -1,3 +1,4 @@
+<hr>
 <div class="w-50 mx-auto mb-4 hire-detail">
     <p class="text-center">
         <i class="fas fa-users-class icon-xl"></i>
@@ -12,59 +13,61 @@
 
 <div class="text-center my-5">
     <h4 class="home-title"><span class="bg-white px-3">Nos promotions</span></h4>
+    <h4 class="d-none home-title-mq">Nos promotions</h4>
 </div>
 
 <div class="flex wrap just-around my-5">
     {% for promo in promos | reverse %}
         <div class="header-main bg-white shadow">
-                <div class="shadow-sm flex bg-body just-center align-center avatar-md"><i class="fas fa-users text-large"></i></div>
-                <p class="text-medium mt-1 bold">
-                    {{ promo }}
-                </p>
-                <p class="text-center text-small text-grey">
-                    {{ promo.nickname|default('Aucun surnom') }}
-                </p>
-                <hr class="w-100 my-2">
-                <p class="text-center" style="font-size: .95em">
-                    <span class="text-small bold">Formateurs</span><br>
-                    <em>
-                        {% for former in promo.formers %}
-                            {{ former }} &nbsp;<br>
-                        {% else %}
-                            Aucun<br>
-                        {% endfor %}
-                    </em>
-                    <span class="text-small bold">Médiateurs</span><br>
-                    <em>
-                        {% for mediator in promo.mediators %}
-                            {{ mediator }} &nbsp;
-                        {% else %}
-                            Aucun<br>
-                        {% endfor %}
-                    </em>
-                </p>
+            <div class="shadow-sm flex bg-body just-center align-center avatar-md"><i class="fas fa-users text-large"></i></div>
+            <p class="text-medium mt-1 bold">
+                {{ promo }}
+            </p>
+            <p class="text-center text-small text-grey">
+                {{ promo.nickname|default('Aucun surnom') }}
+            </p>
+            <hr class="w-100 my-2">
+            <p class="text-center" style="font-size: .95em">
+                <span class="text-small bold">Formateurs</span><br>
+                <em>
+                    {% for former in promo.formers %}
+                        {{ former }} &nbsp;<br>
+                    {% else %}
+                        Aucun<br>
+                    {% endfor %}
+                </em>
+                <span class="text-small bold">Médiateurs</span><br>
+                <em>
+                    {% for mediator in promo.mediators %}
+                        {{ mediator }} &nbsp;
+                    {% else %}
+                        Aucun<br>
+                    {% endfor %}
+                </em>
+            </p>
 
+            {% set startAt = promo.startAt|date('d/m/Y') %}
+            {% set endAt   = promo.endAt|date('d/m/Y') %}
+            {% if promo.startAt is null %}
+            {% set startAt = '--/--/----' %}
+            {% endif %}
+            {% if promo.endAt is null %}
+            {% set endAt = '--/--/----' %}
+            {% endif %}
+            <p class="text-grey text-small my-1">{{startAt}} &nbsp; {{endAt}}</p>
 
-                    {% set startAt = promo.startAt|date('d/m/Y') %}
-                    {% set endAt   = promo.endAt|date('d/m/Y') %}
-                    {% if promo.startAt is null %}
-                    {% set startAt = '--/--/----' %}
-                    {% endif %}
-                    {% if promo.endAt is null %}
-                    {% set endAt = '--/--/----' %}
-                    {% endif %}
-<p class="text-grey text-small my-1">{{startAt}} &nbsp; {{endAt}}</p>
+            {% if promo.current %}
+            <div class="header-label">En cours</div>
+            {% endif %}
 
-                {% if promo.current %}
-                <div class="header-label">En cours</div>
-                {% endif %}
-
+            <div class="mt-auto w-100 text-center">
                 <hr class="w-100 my-2">
 
                 <p class="text-grey bhover promo-show" data-promo="#promo-{{promo.id}}" aria-label="Voir la promotion">
                     Voir la promotion
                 </p>
             </div>
+        </div>
     {% endfor %}
 </div>
 
