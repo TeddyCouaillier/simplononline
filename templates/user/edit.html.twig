@@ -15,7 +15,12 @@
     <h1>Modifier mon compte</h1>
     <p class="text-small main-breadcrumb">
         <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR')) and user != app.user %}
+        <a href="{{ path('admin_all_users') }}">Tous les utilisateurs</a> &nbsp; / &nbsp;
+        <span>Modifier le compte de {{ user }}</span>
+        {% else %}
         <span>Modifier mon compte</span>
+        {% endif %}
     </p>
     <hr>
     <div class="row">

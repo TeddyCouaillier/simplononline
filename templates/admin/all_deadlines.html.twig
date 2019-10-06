@@ -13,6 +13,10 @@
         <h1 class="w-75">Liste des deadlines</h1>
         {{ template.add() }}
     </div>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Deadlines de la promotion actuelle</span>
+    </p>
     <hr>
     <div class="flex wrap just-between align-around">
         {% for user in users %}

@@ -10,6 +10,10 @@
 
 {% block body %}
     <h1>Liste des utilisateurs</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Utilisateurs actifs</span>
+    </p>
     <hr>
     <div class="flex wrap just-around align-center my-1">
         {% for user in pagination.data %}

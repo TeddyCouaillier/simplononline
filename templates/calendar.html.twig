@@ -9,7 +9,12 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-white shadow-small mt-n3 calendar-view">
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Agenda</span>
+    </p>
+    <hr class="w-100">
+    <div class="container-white shadow-small calendar-view">
         {% include '@Calendar/calendar.html' %}
     </div>
     <div class="d-none container-white shadow-small p-5 calendar-resp text-center bold">

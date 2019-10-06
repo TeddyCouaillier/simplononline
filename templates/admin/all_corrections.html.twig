@@ -9,6 +9,10 @@
     <h1 class="w-75">Liste des corrections</h1>
     {{ template.add() }}
   </div>
+  <p class="text-small main-breadcrumb">
+    <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+    <span>Toutes les corrections</span>
+  </p>
   <hr>
   <div class="w-100">
     {% for correction in pagination.data %}

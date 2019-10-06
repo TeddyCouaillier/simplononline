@@ -9,6 +9,10 @@
     <h1>Liste des brief</h1>
     <a class="button-edit bhover add-task ml-2" href="{{path('brief_new')}}" aria-label="Ajouter"><i class="fal fa-plus"></i></a>
 </div>
+<p class="text-small main-breadcrumb">
+    <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+    <span>Toutes les briefs</span>
+</p>
 <hr>
 <div class="flex wrap just-around">
     {% for brief in briefs %}

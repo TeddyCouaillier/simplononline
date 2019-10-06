@@ -22,6 +22,11 @@
         - <span class="text-grey text-small rhover" data-toggle="modal" data-target="#modal-{{brief.id}}" aria-label="Supprimer">Supprimer</span>
         {% endif %}
     </p>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}" class="text-grey bhover">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('brief_all') }}" class="text-grey bhover">Toutes les briefs</a> &nbsp; / &nbsp;
+        <span>{{brief}}</span>
+    </p>
     <hr>
     {{ brief.content|markdown }}
     </div>

@@ -37,6 +37,10 @@
             {{ template.add() }}
         </div>
     </div>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <span>Tous les utilisateurs</span>
+    </p>
     <hr>
     <div class="flex wrap just-around">
         {% for user in pagination.data %}

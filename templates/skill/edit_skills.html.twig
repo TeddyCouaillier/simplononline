@@ -12,8 +12,12 @@
 
 {% block body %}
     {{ template.checkMessage(form, "Les niveaux doivent être compris entre 0 et 3") }}
-    <h1>Modifier les compétences de {{ user.firstname | capitalize }}</h1>
-    <span class="text-grey">{{ user }}</span>
+    <h1>Modifier les compétences</h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('admin_all_users') }}">Tous les utilisateurs</a> &nbsp; / &nbsp;
+        <span>Compétences de {{ user }}</span>
+    </p>
     <hr>
     {{ form_start(form) }}
         {% for form in form.userSkills %}

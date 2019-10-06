@@ -25,6 +25,16 @@
         Ajouter un brief
         {% endif %}
     </h1>
+    <p class="text-small main-breadcrumb">
+        <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
+        <a href="{{ path('brief_all') }}">Toutes les briefs</a> &nbsp; / &nbsp;
+        {% if app.request.get('_route') == "brief_edit" %}
+        <a href="{{ path('brief_show',{'slug': brief.slug}) }}">{{ brief }}</a> &nbsp; / &nbsp;
+        <span>Modifier</span>
+        {% else %}
+        <span>Ajouter</span>
+        {% endif %}
+    </p>
     <hr>
     {{ form_start(form) }}
         <div class="my-2">

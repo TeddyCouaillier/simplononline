@@ -18,7 +18,7 @@
 </div>
 <p class="text-small main-breadcrumb">
     <a href="{{ path('account_show') }}">Accueil</a> &nbsp; / &nbsp;
-    <span>Status des stages</span>
+    <span>Status des stages {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDIATEUR') %}de {{ user }}{% endif %}</span>
 </p>
 <hr>
 <div class="">
