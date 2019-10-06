@@ -34,7 +34,7 @@ class ScheduleController extends AbstractController
      */
     public function calendar()
     {
-        return $this->render('calendar.html.twig');
+        return $this->render('other/calendar.html.twig');
     }
 
     /**

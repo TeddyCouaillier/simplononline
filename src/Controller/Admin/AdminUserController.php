@@ -246,7 +246,7 @@ class AdminUserController extends AbstractController
 
             return $this->redirectToRoute("admin_all_users", ['slug' => 'tout']);
         }
-        return $this->render('skill/edit_skills.html.twig', [
+        return $this->render('other/edit_skills.html.twig', [
             'user' => $user,
             'form' => $form->createView()
         ]);
