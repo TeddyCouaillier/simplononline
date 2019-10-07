@@ -188,8 +188,8 @@ $(document).on('click','.project-nav', function(){
 
     $(this).addClass('active');
     const pan = $(this).data('project');
-    $('.project-content').hide(750);
-    $(`.project-content#${pan}`).show(750);
+    $('.project-content').fadeOut(750);
+    $(`.project-content#${pan}`).fadeIn(750);
 })
 
 $(document).on('click','.notif',function() {

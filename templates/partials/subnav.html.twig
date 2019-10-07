@@ -43,6 +43,28 @@
 
 <div class="position-fixed pointer user-subnav">
     <div class="flexc justify-content-end align-center">
+        {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATOR') %}
+        <a href="{{ path('project_all') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Projets"
+        data-toggle="tooltip" data-placement="left" title="Tous les projets">
+            <i class="far fa-list-ul text-white"></i>
+        </a>
+        <a href="{{ path('admin_all_users') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Utilisateurs"
+        data-toggle="tooltip" data-placement="left" title="Tous les utilisateurs">
+            <i class="fal fa-users text-white"></i>
+        </a>
+        <a href="{{ path('user_deadline') }}#skills" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Deadlines"
+        data-toggle="tooltip" data-placement="left" title="Deadlines">
+            <i class="fal fa-stopwatch text-white"></i>
+        </a>
+        <a href="{{ path('admin_all_promo') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Promotions"
+        data-toggle="tooltip" data-placement="left" title="Promotions">
+            <i class="fal fa-users-class text-white"></i>
+        </a>
+        <a href="{{ path('account_logout') }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Se deconnecter"
+        data-toggle="tooltip" data-placement="left" title="Déconnexion">
+            <i class="fal fa-power-off text-white"></i>
+        </a>
+        {% else %}
         <a href="{{ path('user_show_projects',{'slug': app.user.slug}) }}" class="subnav-circle rounded-circle bg-red text-center bold my-1" aria-label="Projets"
         data-toggle="tooltip" data-placement="left" title="Mes projets">
             <i class="far fa-list-ul text-white"></i>
@@ -63,6 +85,7 @@
         data-toggle="tooltip" data-placement="left" title="Déconnexion">
             <i class="fal fa-power-off text-white"></i>
         </a>
+        {% endif %}
     </div>
 </div>
 

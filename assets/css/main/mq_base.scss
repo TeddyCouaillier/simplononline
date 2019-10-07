@@ -17,6 +17,8 @@
     .user-notif       { width: 300px;               }
     .users-promo      { text-align: left;           }
     .other-link a     { width: 100% !important;     }
+    .icon-calendar    { display: none !important;   }
+    .icon-help        { display: none !important;   }
     .calendar-resp    { display: block !important;  }
     .calendar-view    { display: none;              }
     .navleft-toggle   { left: 10px; top: 10px;      }
@@ -65,6 +67,7 @@
     .users-promo-link { display: none;                     }
     [class^="messages-"] { width: 100%!important;          }
 
+    // .d-table-cell     { width: 33% !important; }
     .nav-left-button.active        { margin-left: 300px; }
     .custom-control, .custom-switch{ padding-left: 10px; }
 

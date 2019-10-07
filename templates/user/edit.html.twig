@@ -24,7 +24,7 @@
     </p>
     <hr>
     <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 mt-2 mb-3">
             {{ form_start(formUsr) }}
             <div class="row container-white shadow-small" style="z-index: -1 !important;">
                 <div class="col-md-6 col-sm-12 my-2 ">
@@ -65,7 +65,7 @@
             </div>
             {{ form_end(formUsr) }}
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 my-2">
             <div class="container-white shadow-small text-center">
                 {{ template.img('/img/avatar/'~user.avatar,'avatar-md','Avatar de '~user) }}
                 <div class="flex just-center">
@@ -75,7 +75,7 @@
                 {{ form_end(formImg) }}
                 </div>
             </div>
-            <div class="container-white shadow-small my-1">
+            <div class="container-white shadow-small my-4">
                 {{ form_start(formPwd) }}
                 {{ form_widget(formPwd) }}
                 {{ template.confirm() }}
