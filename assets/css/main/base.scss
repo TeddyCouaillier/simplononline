@@ -84,7 +84,7 @@ legend{ display: none; }
 button:focus{ outline: none; }
 
 input{
-    @extend .rounded;
+    // @extend .rounded;
     background: $white ;
     padding: 2px 7px ;
 }

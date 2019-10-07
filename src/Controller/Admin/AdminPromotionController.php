@@ -94,8 +94,10 @@ class AdminPromotionController extends AbstractController
                 if(sizeof($user->getUserData()) == 0){
                     $user->initializeDatas($drep->findAll());
                 }
-                $user->setPromotion($promo)
-                     ->setPassword($encoder->encodePassword($user, 'test'));
+                $user->setPromotion($promo);
+                if($user->getPassword() == null){
+                    $user->setPassword($encoder->encodePassword($user, $promo->getSlug().'-'.$user->getLastname()));
+                }
 
                 $manager->persist($user);
             }
