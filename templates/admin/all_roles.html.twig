@@ -24,16 +24,24 @@
             <div class="row no-gutters p-2 role-list">
                 <div class="col-md-6 col-sm-4 col-4">{{user}}</div>
                 <div class="col-md-2 col-sm-3 col-4 flex just-center align-center">
+                    {% if former is not null %}
                     <input class="switch_base active-role mr-3"
                     data-add="{{path('admin_role_add',{'id':user.id,'id_role': former.id}) }}"
                     data-remove="{{ path('admin_role_remove',{'id':user.id,'id_role': former.id})}}"
                     type="checkbox" {% if user.checkRole('ROLE_FORMER') %} checked {% endif %}>
+                    {% else %}
+                    Erreur
+                    {% endif %}
                 </div>
                 <div class="col-md-2 col-sm-3 col-4 flex just-center align-center">
+                    {% if mediateur is not null %}
                     <input class="switch_base active-role mr-3"
                     data-add="{{path('admin_role_add',{'id':user.id,'id_role': mediateur.id}) }}"
                     data-remove="{{ path('admin_role_remove',{'id':user.id,'id_role': mediateur.id})}}"
                     type="checkbox" {% if user.checkRole('ROLE_MEDIATEUR') %} checked {% endif %}>
+                    {% else %}
+                    Erreur
+                    {% endif %}
                 </div>
                 <div class="col-md-2 col-sm-2 role-promo text-center">{{user.promotion|default('x')}}</div>
             </div>

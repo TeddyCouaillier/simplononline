@@ -35,7 +35,7 @@ class BriefController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             if($request->request->get('content') != ''){
-                $brief->setContent($request->request->get('content'));
+                $brief->setContent($this->stopInject($request->request->get('content')));
             } else {
                 $brief->setContent('Pas de brief');
             }
@@ -69,12 +69,12 @@ class BriefController extends AbstractController
     {
         $form = $this->createFormBuilder($brief)
                      ->add('title',null,['attr' => ['placeholder' => 'Libellé']])
-                     ->add('link',UrlType::class,['attr' => ['placeholder' => 'Lien GitHub']])
+                     ->add('link',UrlType::class,['attr' => ['placeholder' => 'Lien GitHub'], 'required' => false])
                      ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             if($request->request->get('content') != ''){
-                $brief->setContent($request->request->get('content'));
+                $brief->setContent($this->stopInject($request->request->get('content')));
             } else {
                 $brief->setContent('Pas de brief');
             }
@@ -146,5 +146,12 @@ class BriefController extends AbstractController
         return $this->render('brief/brief.html.twig', [
             'brief' => $brief
         ]);
+    }
+
+    public function stopInject(string $markdown)
+    {
+        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $markdown);
+        $html = strip_tags($html);
+        return $html;
     }
 }

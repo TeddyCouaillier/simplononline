@@ -172,7 +172,7 @@ class AdminShowController extends AbstractController
 
     /**
      * Show all users (with a role or not)
-     * @Route("/roles", name="all_roles")
+     * @Route("/roles/tout", name="all_roles")
      * @param UserRepository $rep
      * @return Response
      */
