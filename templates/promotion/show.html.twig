@@ -22,7 +22,7 @@
             <div class="rounded p-2 row shadow-small my-2 w-flex user-container admin-promo">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-md"> #}
-                    {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md","Avatar de {{user}}") }}
+                    {{ template.img("/img/avatar/"~user.avatar, "avatar-md","Avatar de "~user) }}
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 user-secondary-info">
                     <span class="bold h4" aria-label="Voir">{{ user }}</span><br>
@@ -48,7 +48,7 @@
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-md"> #}
-                    {{ template.img("/img/avatar/{{user.avatar}}", "avatar-md","Avatar de {{user}}") }}
+                    {{ template.img("/img/avatar/"~user.avatar, "avatar-md","Avatar de "~user) }}
                     <p class="users-promo-link">
                         {% if user.website != null %}
                         <a href="{{ user.website }}" class="text-red rhover" target="_blank" rel="noreferrer" aria-label="Site"><i class="fal fa-globe text-center"></i></a>

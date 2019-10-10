@@ -7,7 +7,7 @@
 {% block body %}
     <div class="container-white flexc mx-auto text-center shadow-small pt-0 pb-4 mt-n5 user-title">
         {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-lg mx-auto"> #}
-        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-lg mx-auto","Avatar de {{user}}") }}
+        {{ template.img("/img/avatar/"~user.avatar, "avatar-lg mx-auto","Avatar de "~user) }}
         <span class="bold mt-2 h4">{{ user.firstname }} {{ user.lastname}}</span>
         <div class="flexc my-2 py-4">
             <span><b>Promotion :</b> {{ user.promotion }}</span>
