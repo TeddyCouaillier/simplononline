@@ -334,6 +334,50 @@ class AdminUserController extends AbstractController
     }
 
     /**
+     * Edit a specific user promo
+     * @Route("/utilisateur/edit-user-promo", name="edit_user_promo")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return JsonResponse
+     */
+    public function editUserPromo(Request $request, ObjectManager $manager)
+    {
+        $response = ["same"=> false];
+        if($request->request->get('id_promo') != null && $request->request->get('id_user')){
+            $idPromo = $request->request->get('id_promo');
+            $idUser  = $request->request->get('id_user');
+
+            $urep = $this->getDoctrine()->getRepository(User::class);
+            $user  = $urep->find($idUser);
+
+            if($idPromo == 0){
+                if($user->getPromotion() == null){
+                    $response = ["same" => true];
+                } else {
+                    $user->setPromotion(null);
+                    $manager->persist($user);
+                    $manager->flush();
+                }
+                return new JsonResponse($response);
+            }
+
+            $prep = $this->getDoctrine()->getRepository(Promotion::class);
+            $promo = $prep->find($idPromo);
+
+            if($user->getPromotion() == $promo){
+                $response = ["same" => true];
+            }
+            if($promo != null && $user != null){
+                $user->setPromotion($promo);
+                $manager->persist($user);
+                $manager->flush();
+            }
+
+        }
+        return new JsonResponse($response);
+    }
+
+    /**
      * Show all users (all or by promotion) + adding user form
      * @Route("/utilisateurs/{slug}/{page<\d+>?1}", name="all_users")
      * @param string     $slug promo search (all, other, specific promo)
@@ -378,8 +422,16 @@ class AdminUserController extends AbstractController
                     $user->setPromotion(null);
                 }
             }
-
-            $user->setPassword($encoder->encodePassword($user, 'test'));
+            if($user->getPassword() != null){
+                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+            } else {
+                if($user->getPromotion() != null){
+                    $pwd = $user->getPromotion()->getSlug().'-'.$user->getLastname();
+                } else {
+                    $pwd = $user->getFirstname().'-'.$user->getLastname();
+                }
+                $user->setPassword($encoder->encodePassword($user, $pwd));
+            }
             $user->setAvatar('avatar.png');
 
             $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();

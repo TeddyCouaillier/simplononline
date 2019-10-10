@@ -134,6 +134,32 @@
     </div>
 {% endmacro %}
 
+{% macro modalUserPromo(id,promos) %}
+    <div class="modal fade" id="edit-user-promo-{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog"  role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>Choisir une promotion</h2>
+                    <hr>
+                    <form>
+                        <select id="user_promo_edit" name="user_promo_edit" class="form-control shadow-small">
+                            <option value="0">Aucune</option>
+                            {% for promo in promos %}
+                                <option value="{{ promo.id }}">
+                                    {{ promo }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="text-center my-2">
+                            <button type="submit" class="btn-main outline-dark icon-right user-promo" data-url="{{path('admin_edit_user_promo') }}" data-user="{{id}}">Valider <i class="fas fa-arrow-right icon"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro modalPromotion(id) %}
     <div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">

@@ -47,14 +47,14 @@ class User implements AdvancedUserInterface
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(message="Veuillez renseigner un prénom")
-     * @Assert\Regex(pattern="/^[a-zA-Z]+$/", message="Lettres seulement")
+     * @Assert\Regex(pattern="/^([a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30})$/", message="Lettres seulement")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(message="Veuillez renseigner un nom")
-     * @Assert\Regex(pattern="/^[a-zA-Z]+$/", message="Lettres seulement")
+     * @Assert\Regex(pattern="/^([a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30})$/", message="Lettres seulement")
      */
     private $lastname;
 

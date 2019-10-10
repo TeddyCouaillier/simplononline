@@ -39,6 +39,23 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * FInd all users in a specific promo
+     * Ordered by lastname
+     * @param Promotion $promo
+     * @return User[]
+     */
+    public function findAllByPromoDesc(Promotion $promo)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.promotion = :val')
+            ->setParameter('val', $promo)
+            ->orderBy('u.lastname')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * Find all users in the current promo
      * @return User[]
      */

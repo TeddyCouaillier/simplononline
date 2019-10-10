@@ -29,10 +29,11 @@ class PromotionController extends AbstractController
     /**
      * Show all users without a promotion
      * @Route("/autres", name="other")
-     * @param UserRepository $rep
+     * @param UserRepository      $rep
+     * @param PromotionRepository $rep
      * @return Response
      */
-    public function allOthersPromo(UserRepository $rep)
+    public function allOthersPromo(UserRepository $rep, PromotionRepository $prep)
     {
         $others = $rep->findBy(['promotion'=> null]);
         $users = [];
@@ -42,20 +43,25 @@ class PromotionController extends AbstractController
             }
         }
         return $this->render('promotion/other.html.twig', [
-            'users' => $users
+            'users' => $users,
+            'promos'=> $prep->findAll()
         ]);
     }
 
     /**
      * Show a specific promotion
      * @Route("/{slug}", name="show")
-     * @param Promotion $promo promotion to show
+     * @param Promotion           $promo promotion to show
+     * @param UserRepository      $rep
+     * @param PromotionRepository $prep
      * @return Response
      */
-    public function showPromo(Promotion $promo, UserRepository $rep)
+    public function showPromo(Promotion $promo, UserRepository $rep, PromotionRepository $prep)
     {
         return $this->render('promotion/show.html.twig', [
             'promo' => $promo,
+            'promos'=> $prep->findAll(),
+            'users' => $rep->findAllByPromoDesc($promo),
             'modo'  => $rep->findAllModeratorByPromo($promo)
         ]);
     }

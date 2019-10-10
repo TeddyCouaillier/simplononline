@@ -44,7 +44,6 @@
     <hr>
     <div class="flex wrap just-around">
         {% for user in pagination.data %}
-            {% if user.hasRole() == false %}
             {{ template.deleteConfirm(user.id,path('admin_delete_user',{'slug':user.slug})) }}
             <div class="container-white row shadow-small my-2 w-flex user-container">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
@@ -76,6 +75,7 @@
                             <em>Pas de numéro de téléphone</em>
                             {% endif %}
                         </li>
+                        {% if user.hasRole() == false %}
                         <li class="mb-1">
                             {% if user.promotion != null %}
                             <span class="badge badge-pill badge-danger mt-1">{{ user.promotion }}</span>
@@ -83,8 +83,14 @@
                             <em>Aucune promo</em>
                             {% endif %}
                         </li>
+                        {% else %}
+                        <li class="mb-1">
+                            <span class="text-red bold">Admin</span>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
+                {% if user.hasRole() == false %}
                 <div class="col-12 flex just-center my-2">
                     {% for uskill in user.userSkills %}
                         <div
@@ -93,10 +99,12 @@
                         </div>
                     {% endfor %}
                 </div>
+                {% endif %}
                 <div class="col-12 text-center my-3">
                     <p class="main-title"><span class="bg-white px-3">Modifier</span></p>
                 </div>
                 <div class="col-12 row text-center mx-auto my-1">
+                    {% if user.hasRole() == false %}
                     {% if is_granted('ROLE_MEDIATEUR') == false or is_granted('ROLE_FORMER') %}
                     <div class="col-2">
                         <a class="text-grey bhover" href="{{ path('admin_edit_skills',{'slug': user.slug }) }}" aria-label="Compétences" data-toggle="tooltip"
@@ -140,9 +148,22 @@
                     {% if is_granted('ROLE_MEDIATEUR') or is_granted('ROLE_FORMER') == false %}
                     <div class="col-1"></div>
                     {% endif %}
+                    {% else %}
+                    <div class="col">
+                        <a class="text-grey bhover" href="{{ path('admin_user_edit',{'slug': user.slug}) }}" aria-label="Modifier" data-toggle="tooltip"
+                        data-placement="top" title="Modifier le compte">
+                            <i class="fas fa-cog text-medium text-grey bhover"></i>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a class="text-grey bhover" data-toggle="modal" data-target="#modal-{{user.id}}" data-toggle="tooltip"
+                        data-placement="top" title="Supprimer">
+                            <i class="fal fa-times-circle text-medium text-grey bhover"></i>
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
         {% else %}
         <span>Il n'y a personne pour le moment ...</span>
         {% endfor %}

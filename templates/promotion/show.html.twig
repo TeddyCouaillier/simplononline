@@ -41,11 +41,11 @@
     <hr>
     {% endif %}
     <div class="flex wrap just-around">
-        {% for user in promo.users %}
+        {% for user in users %}
             {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}
-            {{ template.deleteConfirm(user.id,path('admin_promo_remove_user',{'slug':user.slug})) }}
+            {{ template.modalUserPromo(user.id, promos)}}
             {% endif %}
-            <div class="container-white row shadow-small my-2 w-flex user-container">
+            <div class="container-white row shadow-small my-2 w-flex user-container" id="edit-user-id-{{user.id}}">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 flexc just-around align-center text-center text-center">
                     {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-md"> #}
                     {{ template.img("/img/avatar/"~user.avatar, "avatar-md","Avatar de "~user) }}
@@ -62,9 +62,9 @@
                         <em><i class="fal fa-code-branch text-center"></i></em>
                         {% endif %}
                         {% if is_granted('ROLE_FORMER') or is_granted('ROLE_MEDIATEUR') %}
-                        <a class="text-red rhover ml-1" target="_blank" rel="noreferrer" aria-label="Remove"
-                        data-toggle="modal" data-target="#modal-{{user.id}}" data-toggle="tooltip" data-placement="top" title="Retirer de la promotion">
-                            <i class="fal fa-times-circle text-center"></i>
+                        <a class="text-red rhover ml-1" target="_blank" rel="noreferrer" aria-label="Edit"
+                        data-toggle="modal" data-target="#edit-user-promo-{{user.id}}" data-toggle="tooltip" data-placement="top" title="Modifier sa promotion">
+                            <i class="fal fa-users text-center"></i>
                         </a>
                         {% endif %}
                     </p>

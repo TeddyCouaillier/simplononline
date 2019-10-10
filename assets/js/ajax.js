@@ -817,3 +817,34 @@ $(document).on('click','.active-role', function() {
         }
     });
 })
+
+$(document).on('click','.user-promo', function(e){
+    e.preventDefault();
+    const id_user  = parseInt($(this).data('user'));
+    const id_promo = parseInt($(this).parent().parent().find('#user_promo_edit').val());
+    const url      = $(this).data('url');
+
+    console.log(id_user);
+    console.log(id_promo);
+    console.log(url);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            id_promo: id_promo,
+            id_user : id_user
+        },
+        success: function(response){
+            $('.modal').modal('hide');
+            if(response.same == false){
+                $(`#edit-user-id-${id_user}`).fadeOut(750);
+            }
+            Notify("La promo de l'utilisateur a été modifiée","success");
+        },
+        error: function(){
+            console.log('AJAX active user error');
+            Notify("Problème technique.","danger");
+        }
+    });
+});
