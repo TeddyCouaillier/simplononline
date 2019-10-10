@@ -91,8 +91,8 @@
                     <p><a href="{{ path('project_show',{'slug':project.slug}) }}" class="bold" aria-label="Voir le projet">{{ project }}</a></p>
                     <div class="flex just-center align-center">
                         {% for user in project.users|slice(0,4) %}
-                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-                        {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                        {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-xs my-2 border-0" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+                        <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" onerror="this.onerror=null;this.src='/img/avatar/avatar.png';" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" onerror="this.onerror=null;this.src='/img/avatar/avatar.png';" data-original-title='
                             {{ user }} <br>
                         '>
                         {% endfor %}

@@ -52,6 +52,20 @@
     .edit-skill-mq{ display: block !important; }
 }
 
+@media screen and (max-width: 700px){
+    .footer-dekstop{ display: none !important; }
+    .footer-mobile {
+        display: block !important;
+        p { text-align: center !important; font-size: 1.2em !important; }
+        .list{
+            text-align: center !important;
+            flex-wrap: wrap;
+            .list-nav{ font-size: .9em !important; }
+
+        }
+    }
+}
+
 @media screen and (max-width: 577px){
     .main             { width: 80%; margin-top: 3.5rem;    }
     .nav-left         { width: 300px; margin-left: -300px; }

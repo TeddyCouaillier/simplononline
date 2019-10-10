@@ -11,8 +11,8 @@
         </div>
         <div class="col-lg-3 col-md-4 col-sm-5 col-11 flex align-center justify-content-end mt-1 mb-2 project-members" id="task-users">
             {% for user in task.users|slice(0,4) %}
-            <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
-            {# <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+            {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title=' #}
+            <img src="/img/avatar/{{user.avatar}}" class="avatar-xs my-2 border-0" alt="Avatar de {{user}}" onerror="this.onerror=null;this.src='/img/avatar/avatar.png';" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title='
                 {{ user }} <br>
             '>
             {% endfor %}

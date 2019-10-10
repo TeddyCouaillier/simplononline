@@ -80,8 +80,8 @@
                 <div class="bg-white mb-3 py-3 w-33 promo-users shadow-small">
                     <a href="{{ path('home_user',{'slug': user.slug}) }}" aria-label="{{user}}">
                     <div class="flex flexc just-around text-center">
-                        {# {{ template.img("/img/avatar/{{user.avatar}}", "avatar-sm mx-auto", "Avatar de {{user}}") }} #}
-                        <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-sm mx-auto">
+                        {{ template.img("/img/avatar/{{user.avatar}}", "avatar-sm mx-auto", "Avatar de {{user}}") }}
+                        {# <img src="https://randomuser.me/api/portraits/men/{{random(1,99)}}.jpg" alt="Avatar de {{user}}" class="avatar-sm mx-auto"> #}
                         <span class="bold">{{ user }}</span>
                         <span>{{ user.email }}</span>
                         <span class="bold rhover my-2">Portfolio <i class="fal fa-arrow-circle-right"></i></span>
